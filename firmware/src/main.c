@@ -67,6 +67,7 @@ static void hal_low_power_io_init(void) {
     DIG_LDO_CURRENT_SETTING(1);
     hal_pwrmgr_RAM_retention(RET_SRAM0 | RET_SRAM1 | RET_SRAM2);
     hal_pwrmgr_RAM_retention_set();
+    hal_pwrmgr_LowCurrentLdo_enable();
     subWriteReg(0x4000f014, 26, 26, 1);
 }
 
@@ -87,7 +88,7 @@ static void hal_rfphy_init(void) {
     g_rfPhyPktFmt = PKT_FMT_BLE1M;
     g_rfPhyFreqOffSet = RF_PHY_FREQ_FOFF_00KHZ;
     XTAL16M_CAP_SETTING(0x09);
-    XTAL16M_CURRENT_SETTING(0x01);
+    XTAL16M_CURRENT_SETTING(0x03);
 
     hal_rc32k_clk_tracking_init();
     hal_rom_boot_init();
@@ -98,6 +99,8 @@ static void hal_rfphy_init(void) {
     NVIC_SetPriority((IRQn_Type)TIM4_IRQn, IRQ_PRIO_HIGH); // LL_EXA_ADV
 
     ble_mem_init_config();
+    extern void hal_rfPhyFreqOff_Set(void);
+    hal_rfPhyFreqOff_Set();
 }
 
 static void hal_init(void) {

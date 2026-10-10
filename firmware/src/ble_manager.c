@@ -101,6 +101,10 @@ bool ble_is_connected(void) {
 }
 
 uint8_t ble_get_state(void) {
+    uint8_t state = 0;
+    if (GAPRole_GetParameter(GAPROLE_STATE, &state) == SUCCESS) {
+        return state;
+    }
     return s_ble_state;
 }
 
@@ -149,9 +153,7 @@ void WatchBLE_Init(uint8_t task_id) {
     // 4. Register Official PhyPlus BLE OTA Service
     ota_app_AddService();
 
-    // 5. Start Peripheral Role directly and queue start event
-    GAP_RegisterForHCIMsgs(task_id);
-    GAPRole_StartDevice(&s_peripheral_callbacks);
+    // 5. Schedule peripheral device start event
     osal_set_event(task_id, WATCH_START_DEVICE_EVT);
 }
 

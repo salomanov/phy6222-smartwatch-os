@@ -30,6 +30,9 @@ void app_osal_init(void)
             __asm__ volatile ("nop");
         }
 
+        // Advance OSAL software timers by 1 ms
+        osalTimerUpdate(1);
+
         // Update Watchface & Button every ~20ms
         tick_counter++;
         if (tick_counter >= 20) {
