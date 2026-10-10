@@ -71,6 +71,8 @@ static void hal_low_power_io_init(void) {
     subWriteReg(0x4000f014, 26, 26, 1);
 }
 
+
+
 static void ble_mem_init_config(void) {
     extern void ll_osalmem_init(osalMemHdr_t *hdr, uint32 size);
     ll_osalmem_init((osalMemHdr_t *)g_llLinkHeap, LL_LINK_HEAP_SIZE);
@@ -98,7 +100,19 @@ static void hal_rfphy_init(void) {
     NVIC_SetPriority((IRQn_Type)TIM2_IRQn, IRQ_PRIO_HIGH); // OSAL_TICK
     NVIC_SetPriority((IRQn_Type)TIM4_IRQn, IRQ_PRIO_HIGH); // LL_EXA_ADV
 
+    NVIC_EnableIRQ((IRQn_Type)BB_IRQn);
+    NVIC_EnableIRQ((IRQn_Type)TIM1_IRQn);
+    NVIC_EnableIRQ((IRQn_Type)TIM2_IRQn);
+    NVIC_EnableIRQ((IRQn_Type)TIM4_IRQn);
+
     ble_mem_init_config();
+
+    extern void rf_phy_ini(void);
+    rf_phy_ini();
+
+    extern void rf_calibrate1(void);
+    rf_calibrate1();
+
     extern void hal_rfPhyFreqOff_Set(void);
     hal_rfPhyFreqOff_Set();
 }

@@ -13,5 +13,10 @@ uint16_t WatchBLE_ProcessEvent(uint8_t task_id, uint16_t events);
 
 bool ble_is_connected(void);
 uint8_t ble_get_state(void);
+uint8_t ble_get_cb_state(void);
+uint8_t ble_get_start_ret(void);
+uint16_t ble_get_start_calls(void);
+uint8_t ble_get_task_id(void);
+void ble_try_start_device(void);
 
 #endif // BLE_MANAGER_H

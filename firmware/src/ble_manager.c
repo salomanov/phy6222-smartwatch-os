@@ -56,6 +56,8 @@ static uint8_t s_scan_rsp_data[] = {
 };
 
 static volatile uint8_t s_ble_state = 0;
+static volatile uint8_t s_start_ret = 0xFF;
+static volatile uint16_t s_start_calls = 0;
 
 static void watchBLE_StateNotificationCB(gaprole_States_t newState) {
     s_ble_state = (uint8_t)newState;
@@ -108,6 +110,27 @@ uint8_t ble_get_state(void) {
     return s_ble_state;
 }
 
+uint8_t ble_get_cb_state(void) {
+    return s_ble_state;
+}
+
+uint8_t ble_get_start_ret(void) {
+    return s_start_ret;
+}
+
+uint16_t ble_get_start_calls(void) {
+    return s_start_calls;
+}
+
+uint8_t ble_get_task_id(void) {
+    return s_task_id;
+}
+
+void ble_try_start_device(void) {
+    s_start_calls++;
+    s_start_ret = GAPRole_StartDevice(&s_peripheral_callbacks);
+    LOG("GAPRole_StartDevice() ret=0x%02X calls=%d\n", s_start_ret, s_start_calls);
+}
 
 void WatchBLE_Init(uint8_t task_id) {
     s_task_id = task_id;
@@ -170,7 +193,7 @@ uint16_t WatchBLE_ProcessEvent(uint8_t task_id, uint16_t events) {
 
     if (events & WATCH_START_DEVICE_EVT) {
         LOG("WatchBLE: Starting GAPRole Device Advertising...\n");
-        GAPRole_StartDevice(&s_peripheral_callbacks);
+        ble_try_start_device();
         return (events ^ WATCH_START_DEVICE_EVT);
     }
 
