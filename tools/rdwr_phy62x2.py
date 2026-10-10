@@ -20,7 +20,7 @@ DEF_START_WR_FLASH_ADDR = 0x05000
 
 PHY_FLASH_SECTOR_SIZE = 4096
 PHY_FLASH_SECTOR_MASK = 0xfffff000
-PHY_WR_BLK_SIZE = 0x2000
+PHY_WR_BLK_SIZE = 0x400
 
 PHY_FLASH_ADDR = 0x11000000
 PHY_SRAM_ADDR = 0x1fff0000
@@ -399,9 +399,10 @@ class phyflasher:
 		self._port.setDTR(False) #TM  (hi)
 		self._port.setRTS(False) #RSTN (hi)
 		self._port.timeout = 0.04
-		ttcl = 250
+		ttcl = 1500
 		fct_mode = False
 		pkt = 'UXTDWU' # UXTL16 UDLL48 UXTDWU
+		dots = 0
 		while ttcl > 0:
 			sent = self._port.write(pkt.encode())
 			read = self._port.read(6)
@@ -411,8 +412,10 @@ class phyflasher:
 				fct_mode = True
 				break
 			ttcl = ttcl - 1
+			if ttcl % 25 == 0:
+				print('.', end='', flush=True)
 			if ttcl < 1:
-				print('Chip Reset error! Response: %s' % read)
+				print('\nChip Reset error! Response: %s' % read)
 				print('Check connection TX->RX, RX<-TX, RTS->RESET, TM, and Chip Power!')
 				self._port.close()
 				exit(4)
@@ -538,33 +541,60 @@ class phyflasher:
 		data = stream.read(size)
 		for e in data:
 			if e != 0xff:
-				self._port.timeout = 1
+				self._port.timeout = 0.05
 				print ('Write 0x%08x bytes to Flash at 0x%08x...' % (size, offset), end = ' '),
+				self._port.flushInput()
 				self._port.write(str.encode('cpbin c%d %X %X %X' % (blknum, offset | self.patch_addr_flash, size, segment + offset)))
-				read = self._port.read(12)
-				if read != b'by hex mode:':
+				
+				# 1. Wait for 'by hex mode:'
+				read = bytearray()
+				t_end = time.time() + 3.0
+				while time.time() < t_end:
+					b = self._port.read(1)
+					if b:
+						read += b
+						if b'by hex mode:' in read:
+							break
+				if b'by hex mode:' not in read:
 					print ('error!')
-					print ('Error cmd cpbin!', read)
+					print ('Error cmd cpbin!', bytes(read))
 					return False
+				
+				# 2. Transmit binary data payload
 				self._port.write(data)
-				if self.tg7100:
-					read = self._port.read(25)  #' checksum is: 0x00001d1e'
-					if read[0:16] != b' checksum is: 0x': # TG7100
-						print ('error!')
-						print ('Error send bin data! ', read)
-						return False
-					self._port.write(read[16:24])
-				else:
-					read = self._port.read(23)  #'checksum is: 0x00001d1e'
-					if read[0:15] != b'checksum is: 0x':
-						print ('error!')
-						print ('Error send bin data! ', read)
-						return False
-					self._port.write(read[15:])
-				read = self._port.read(6)
-				if read != b'#OK>>:':
+				
+				# 3. Wait for 'checksum is: 0x' and the 8 hex digits
+				read = bytearray()
+				t_end = time.time() + 6.0
+				target_str = b' checksum is: 0x' if self.tg7100 else b'checksum is: 0x'
+				offset_hex = 16 if self.tg7100 else 15
+				while time.time() < t_end:
+					b = self._port.read(1)
+					if b:
+						read += b
+						idx = read.find(target_str)
+						if idx != -1 and len(read) >= idx + offset_hex + 8:
+							break
+				idx = read.find(target_str)
+				if idx == -1 or len(read) < idx + offset_hex + 8:
 					print ('error!')
-					print ('Error CRC!', read)
+					print ('Error send bin data! ', bytes(read))
+					return False
+				chk = bytes(read[idx + offset_hex : idx + offset_hex + 8])
+				self._port.write(chk)
+				
+				# 4. Wait for '#OK>>:'
+				read = bytearray()
+				t_end = time.time() + 3.0
+				while time.time() < t_end:
+					b = self._port.read(1)
+					if b:
+						read += b
+						if b'#OK>>:' in read:
+							break
+				if b'#OK>>:' not in read:
+					print ('error!')
+					print ('Error CRC!', bytes(read))
 					return False
 				print ('ok')
 				return True

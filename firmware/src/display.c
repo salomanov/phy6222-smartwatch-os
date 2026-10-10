@@ -91,21 +91,21 @@ void display_set_rotation(uint8_t m) {
 
     switch(m) {
         case 0: // Portrait
-            madctl = ST77XX_MADCTL_MX | ST77XX_MADCTL_MY | ST7735_MADCTL_BGR;
+            madctl = ST77XX_MADCTL_MY | ST7735_MADCTL_BGR; // 0x88 (Un-mirrored factory orientation)
             _width  = SCREEN_WIDTH;
             _height = SCREEN_HEIGHT;
             _colstart = ST7735_COLSTART;
             _rowstart = ST7735_ROWSTART;
             break;
         case 1: // Landscape
-            madctl = ST77XX_MADCTL_MY | ST77XX_MADCTL_MV | ST7735_MADCTL_BGR;
+            madctl = ST77XX_MADCTL_MV | ST7735_MADCTL_BGR;
             _width  = SCREEN_HEIGHT;
             _height = SCREEN_WIDTH;
             _colstart = ST7735_ROWSTART;
             _rowstart = ST7735_COLSTART;
             break;
         case 2: // Inverted Portrait
-            madctl = ST7735_MADCTL_BGR;
+            madctl = ST77XX_MADCTL_MX | ST7735_MADCTL_BGR;
             _width  = SCREEN_WIDTH;
             _height = SCREEN_HEIGHT;
             _colstart = ST7735_COLSTART;
