@@ -8,6 +8,8 @@
 #include "gatt.h"
 #include "gattservapp.h"
 #include "peripheral.h"
+#include "att.h"
+#include "ll_common.h"
 #include "ota_app_service.h"
 #include "devinfoservice.h"
 #include "app_os.h"
@@ -74,13 +76,17 @@ static void watchBLE_StateNotificationCB(gaprole_States_t newState) {
         case GAPROLE_CONNECTED:
             LOG("BLE CONNECTED!\n");
             s_ble_connected = true;
-            vibrator_pulse(40); // Soft buzz upon connection
             break;
 
         case GAPROLE_WAITING:
         case GAPROLE_WAITING_AFTER_TIMEOUT:
-            LOG("BLE Disconnected\n");
+            LOG("BLE Disconnected or Adv Timeout -> Restarting Advertising\n");
             s_ble_connected = false;
+            // Instantly re-enable advertising so it never stops!
+            {
+                uint8_t advert_enable = TRUE;
+                GAPRole_SetParameter(GAPROLE_ADVERT_ENABLED, sizeof(uint8_t), &advert_enable);
+            }
             break;
 
         case GAPROLE_ERROR:
@@ -137,16 +143,21 @@ void WatchBLE_Init(uint8_t task_id) {
 
     LOG("WatchBLE_Init task=%d\n", task_id);
 
+    // GAP peripheral pause (SDK default is 6 seconds before parameter update)
+    GAP_SetParamValue(TGAP_CONN_PAUSE_PERIPHERAL, 6);
+
     // 1. Setup GAP Peripheral Role Parameters
     uint8_t initial_advertising_enable = TRUE;
     uint8_t enable_update_request = TRUE;
     uint8_t adv_chn_map = GAP_ADVCHAN_37 | GAP_ADVCHAN_38 | GAP_ADVCHAN_39;
+    uint8_t adv_type = GAP_ADTYPE_ADV_IND; // Connectable undirected advertisement
     uint16_t gap_role_advert_off_time = 0;
-    uint16_t desired_min_interval = 80;
-    uint16_t desired_max_interval = 800;
+    uint16_t desired_min_interval = 80;   // 100ms (SDK standard)
+    uint16_t desired_max_interval = 800;  // 1000ms (SDK standard)
     uint16_t desired_slave_latency = 0;
-    uint16_t desired_conn_timeout = 500;
+    uint16_t desired_conn_timeout = 1000; // 10s (SDK standard)
 
+    GAPRole_SetParameter(GAPROLE_ADV_EVENT_TYPE, sizeof(uint8_t), &adv_type);
     GAPRole_SetParameter(GAPROLE_ADV_CHANNEL_MAP, sizeof(uint8_t), &adv_chn_map);
     GAPRole_SetParameter(GAPROLE_ADVERT_ENABLED, sizeof(uint8_t), &initial_advertising_enable);
     GAPRole_SetParameter(GAPROLE_ADVERT_OFF_TIME, sizeof(uint16_t), &gap_role_advert_off_time);
@@ -158,7 +169,7 @@ void WatchBLE_Init(uint8_t task_id) {
     GAPRole_SetParameter(GAPROLE_SLAVE_LATENCY, sizeof(uint16_t), &desired_slave_latency);
     GAPRole_SetParameter(GAPROLE_TIMEOUT_MULTIPLIER, sizeof(uint16_t), &desired_conn_timeout);
 
-    // Set advertising interval (actual time = advInt * 625us: 160 = 100ms)
+    // Set advertising interval: 160 * 625us = 100ms
     uint16_t adv_int = 160;
     GAP_SetParamValue(TGAP_GEN_DISC_ADV_INT_MIN, adv_int);
     GAP_SetParamValue(TGAP_GEN_DISC_ADV_INT_MAX, adv_int);
@@ -171,13 +182,21 @@ void WatchBLE_Init(uint8_t task_id) {
     // 3. Register Standard GATT Services
     GGS_AddService(GATT_ALL_SERVICES);
     GATTServApp_AddService(GATT_ALL_SERVICES);
-    DevInfo_AddService();
+    // DevInfo_AddService(); // Omitted in SDK examples to avoid GATT attribute conflicts
 
     // 4. Register Official PhyPlus BLE OTA Service
     ota_app_AddService();
 
-    // 5. Schedule peripheral device start event
+    // 5. Setup BLE 4.2 / 5.0 High-Speed Features (MTU)
+    ATT_SetMTUSizeMax(240);
+    llInitFeatureSet2MPHY(TRUE);
+    llInitFeatureSetDLE(TRUE);
+
+    // 6. Schedule peripheral device start event
     osal_set_event(task_id, WATCH_START_DEVICE_EVT);
+
+    // 7. Start periodic UI & input update timer (every 50 ms)
+    osal_start_reload_timer(task_id, WATCH_TICK_EVT, 50);
 }
 
 uint16_t WatchBLE_ProcessEvent(uint8_t task_id, uint16_t events) {

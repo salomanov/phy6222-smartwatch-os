@@ -17,15 +17,17 @@ extern void hal_rom_boot_init(void);
 
 // BLE LL Connection Context Buffers
 #define BLE_MAX_ALLOW_CONNECTION       1
-#define BLE_MAX_ALLOW_PKT_PER_EVENT_TX 2
-#define BLE_MAX_ALLOW_PKT_PER_EVENT_RX 2
+#define BLE_MAX_ALLOW_PKT_PER_EVENT_TX 3
+#define BLE_MAX_ALLOW_PKT_PER_EVENT_RX 3
 #define BLE_PKT_VERSION                BLE_PKT_VERSION_5_1
 
 #define BLE_PKT_BUF_SIZE (((BLE_PKT_VERSION == BLE_PKT_VERSION_5_1) ? 1 : 0) * BLE_PKT51_LEN \
                         + ((BLE_PKT_VERSION == BLE_PKT_VERSION_4_0) ? 1 : 0) * BLE_PKT40_LEN \
                         + (sizeof(struct ll_pkt_desc) - 2))
 
-#define BLE_MAX_ALLOW_PER_CONNECTION (BLE_PKT_BUF_SIZE)
+#define BLE_MAX_ALLOW_PER_CONNECTION ( (BLE_MAX_ALLOW_PKT_PER_EVENT_TX * BLE_PKT_BUF_SIZE * 2) \
+                                      +(BLE_MAX_ALLOW_PKT_PER_EVENT_RX * BLE_PKT_BUF_SIZE) \
+                                      + BLE_PKT_BUF_SIZE )
 #define BLE_CONN_BUF_SIZE            (BLE_MAX_ALLOW_CONNECTION * BLE_MAX_ALLOW_PER_CONNECTION)
 
 ALIGN4_U8 g_pConnectionBuffer[BLE_CONN_BUF_SIZE];
@@ -71,11 +73,7 @@ static void hal_low_power_io_init(void) {
     subWriteReg(0x4000f014, 26, 26, 1);
 }
 
-
-
 static void ble_mem_init_config(void) {
-    extern void ll_osalmem_init(osalMemHdr_t *hdr, uint32 size);
-    ll_osalmem_init((osalMemHdr_t *)g_llLinkHeap, LL_LINK_HEAP_SIZE);
     osal_mem_set_heap((osalMemHdr_t *)g_largeHeap, LARGE_HEAP_SIZE);
     LL_InitConnectContext(pConnContext,
                           g_pConnectionBuffer,
@@ -93,28 +91,20 @@ static void hal_rfphy_init(void) {
     XTAL16M_CURRENT_SETTING(0x03);
 
     hal_rc32k_clk_tracking_init();
-    hal_rom_boot_init();
+    { /* hal_rom_boot_init() -> jump to ROM ble_main() */
+        extern void efuse_init(void);
+        efuse_init();
+        typedef void (*my_function)(void);
+        my_function pFunc = (my_function)(0xa2e1);
+        pFunc();
+    }
 
     NVIC_SetPriority((IRQn_Type)BB_IRQn,   IRQ_PRIO_REALTIME);
     NVIC_SetPriority((IRQn_Type)TIM1_IRQn, IRQ_PRIO_HIGH); // ll_EVT
     NVIC_SetPriority((IRQn_Type)TIM2_IRQn, IRQ_PRIO_HIGH); // OSAL_TICK
     NVIC_SetPriority((IRQn_Type)TIM4_IRQn, IRQ_PRIO_HIGH); // LL_EXA_ADV
 
-    NVIC_EnableIRQ((IRQn_Type)BB_IRQn);
-    NVIC_EnableIRQ((IRQn_Type)TIM1_IRQn);
-    NVIC_EnableIRQ((IRQn_Type)TIM2_IRQn);
-    NVIC_EnableIRQ((IRQn_Type)TIM4_IRQn);
-
     ble_mem_init_config();
-
-    extern void rf_phy_ini(void);
-    rf_phy_ini();
-
-    extern void rf_calibrate1(void);
-    rf_calibrate1();
-
-    extern void hal_rfPhyFreqOff_Set(void);
-    hal_rfPhyFreqOff_Set();
 }
 
 static void hal_init(void) {
@@ -138,6 +128,16 @@ int main(void) {
 
     drv_irq_init();
     init_config();
+
+    // Set valid locally-administered BLE MAC address in ROM RAM location (0x1fff0965)
+    // Format is Little Endian: MAC becomes C2:62:22:50:07:15
+    volatile uint8_t *p_ownPublicAddr = (volatile uint8_t *)0x1fff0965;
+    p_ownPublicAddr[0] = 0x15;
+    p_ownPublicAddr[1] = 0x07;
+    p_ownPublicAddr[2] = 0x50;
+    p_ownPublicAddr[3] = 0x22;
+    p_ownPublicAddr[4] = 0x62;
+    p_ownPublicAddr[5] = 0xC2;
 
     extern void ll_patch_slave(void);
     ll_patch_slave();
