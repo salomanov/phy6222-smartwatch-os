@@ -9,17 +9,33 @@
 #include "timer.h"
 #include "jump_function.h"
 #include "global_config.h"
+#include "log.h"
+#include "app_os.h"
 
-extern pwrmgr_attribute_t pwrmgr_attribute;
-extern uint32 ll_remain_time;
-
-#ifdef __GNUC__
-void app_osal_init(void) __attribute__((naked));
-#endif
 void app_osal_init(void)
 {
+    LOG("Initializing OSAL...\n");
     osal_init_system();
-    osal_pwrmgr_device(PWRMGR_BATTERY);
-    osal_start_system();
-    return;
+    osal_pwrmgr_device(PWRMGR_ALWAYS_ON);
+
+    LOG("Entering Active OSAL Loop...\n");
+    uint32_t tick_counter = 0;
+
+    while (1) {
+        // Run BLE OSAL scheduler
+        osal_run_system();
+
+        // Brief delay (~1ms at 16MHz)
+        for (volatile uint32_t i = 0; i < 1500; i++) {
+            __asm__ volatile ("nop");
+        }
+
+        // Update Watchface & Button every ~20ms
+        tick_counter++;
+        if (tick_counter >= 20) {
+            tick_counter = 0;
+            app_os_update();
+        }
+    }
 }
+

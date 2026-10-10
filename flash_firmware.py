@@ -5,13 +5,25 @@ import subprocess
 import serial.tools.list_ports
 
 def find_serial_port():
-    ports = list(serial.tools.list_ports.comports())
-    usb_ports = [p for p in ports if "BTHENUM" not in p.hwid and ("USB" in p.hwid or "VID" in p.hwid or "CH34" in p.description)]
-    if usb_ports:
-        return usb_ports[0].device
-    if ports:
-        return ports[0].device
-    return "COM5"
+    print("[*] Поиск USB-UART адаптера...")
+    last_print = 0
+    while True:
+        ports = list(serial.tools.list_ports.comports())
+        usb_ports = [p for p in ports if "BTHENUM" not in p.hwid and ("USB" in p.hwid or "VID" in p.hwid or "CH34" in p.description or "CP210" in p.description or "FTDI" in p.description or "Serial" in p.description)]
+        if usb_ports:
+            print(f"[+] Найден адаптер: {usb_ports[0].device} ({usb_ports[0].description})")
+            return usb_ports[0].device
+        # If no explicit USB description matched, check if any non-bluetooth port appeared
+        non_bt = [p for p in ports if "BTHENUM" not in p.hwid and "Bluetooth" not in p.description]
+        if non_bt:
+            print(f"[+] Найден порт: {non_bt[0].device} ({non_bt[0].description})")
+            return non_bt[0].device
+            
+        cur = time.time()
+        if cur - last_print > 3:
+            print("[...] Ожидание подключения USB-UART адаптера к ПК...")
+            last_print = cur
+        time.sleep(0.5)
 
 def main():
     port = sys.argv[1] if len(sys.argv) > 1 else find_serial_port()

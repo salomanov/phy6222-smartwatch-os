@@ -114,6 +114,11 @@ int main(void) {
     g_system_clk = SYS_CLK_XTAL_16M;
     g_clk32K_config = CLK_32K_RCOSC;
 
+    #if defined ( __GNUC__ )
+    extern void* osal_memcpy(void* dest, const void* src, unsigned int len);
+    osal_memcpy((void*)0x1fff0000, (void*)jump_table_base, 1024);
+    #endif
+
     drv_irq_init();
     init_config();
 
@@ -124,6 +129,9 @@ int main(void) {
     hal_init();
 
     LOG("PHY6222 LP715 Custom OS + BLE Starting...\n");
+
+    // Initialize display and UI immediately so screen shows watchface right away
+    app_os_init();
 
     // Start OSAL and launch app
     extern void app_osal_init(void);

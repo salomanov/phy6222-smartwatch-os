@@ -98,13 +98,20 @@ static void fmt_2digits(char *buf, uint8_t val) {
 static void render_watchface(void) {
     display_fill_screen(COLOR_BLACK);
 
-    // Top Status Bar: Battery and Date
+    // Top Status Bar: Battery, BLE State code, Date
     extern bool ble_is_connected(void);
+    extern uint8_t ble_get_state(void);
     gfx_draw_battery_icon(58, 4, s_battery, false);
     gfx_draw_ble_icon(4, 4, ble_is_connected());
 
-    // Day of week / Date
-    gfx_draw_string_utf8(20, 5, "ПН 12", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    // Display BLE status code: 0=Init, 1=Started, 2=Advertising, 3=Waiting, 4=Connected, 5=Error
+    char ble_st_buf[6];
+    uint8_t bst = ble_get_state();
+    ble_st_buf[0] = 'B';
+    ble_st_buf[1] = ':';
+    ble_st_buf[2] = '0' + (bst % 10);
+    ble_st_buf[3] = '\0';
+    gfx_draw_string(14, 5, ble_st_buf, (bst == 2) ? COLOR_GREEN : COLOR_YELLOW, COLOR_BLACK, 1);
 
     // Separator line
     gfx_draw_fast_h_line(2, 17, 76, COLOR_DARKGREY);
@@ -214,7 +221,8 @@ void app_os_init(void) {
     
     // Initial welcome buzz
     vibrator_pulse(60);
-    s_needs_redraw = true;
+    s_needs_redraw = false;
+    render_watchface();
 }
 
 void app_os_update(void) {

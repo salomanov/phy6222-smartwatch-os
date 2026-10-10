@@ -33,6 +33,14 @@ static inline void ST7735_WriteDataMultiple(uint8_t* data, uint8_t size) {
     ST7735_Data(data, size);
 }
 
+static void display_delay_ms(uint32_t ms) {
+    while (ms--) {
+        for (volatile uint32_t i = 0; i < 2000; i++) {
+            __asm__ volatile ("nop");
+        }
+    }
+}
+
 static void ST7735_ExecuteCommandList(const uint8_t *addr) {
     uint8_t numCommands = *addr++;
     while(numCommands--) {
@@ -50,7 +58,7 @@ static void ST7735_ExecuteCommandList(const uint8_t *addr) {
         
         if (ms) {
             if (ms == 255) ms = 500;
-            WaitMs(ms);
+            display_delay_ms(ms);
         }
     }
 }
@@ -189,9 +197,9 @@ void display_init(uint8_t rotation) {
     
     // 2. Hardware Reset Pulse
     hal_gpio_write(RST_PIN, 0);
-    WaitMs(20);
+    display_delay_ms(20);
     hal_gpio_write(RST_PIN, 1);
-    WaitMs(50);
+    display_delay_ms(50);
     
     // 3. SPI Peripheral Configuration (16 MHz)
     spi_Cfg_t spi_cfg = {
