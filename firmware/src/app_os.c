@@ -99,8 +99,9 @@ static void render_watchface(void) {
     display_fill_screen(COLOR_BLACK);
 
     // Top Status Bar: Battery and Date
+    extern bool ble_is_connected(void);
     gfx_draw_battery_icon(58, 4, s_battery, false);
-    gfx_draw_ble_icon(4, 4, true);
+    gfx_draw_ble_icon(4, 4, ble_is_connected());
 
     // Day of week / Date
     gfx_draw_string_utf8(20, 5, "ПН 12", COLOR_LIGHTGREY, COLOR_BLACK, 1);
@@ -217,8 +218,7 @@ void app_os_init(void) {
 }
 
 void app_os_update(void) {
-    s_ms_counter += 10;
-    WaitMs(10); // 10ms tick
+    s_ms_counter += 20; // Called every 20ms by OSAL timer (non-blocking)
 
     // 1-second system timer
     if (s_ms_counter - s_last_sec_tick >= 1000) {

@@ -34,3 +34,8 @@ int _isatty(int file) { (void)file; return 1; }
 int _kill(int pid, int sig) { (void)pid; (void)sig; errno = EINVAL; return -1; }
 int _getpid(void) { return 1; }
 void _exit(int status) { (void)status; while (1); }
+
+void ll_osalmem_init(void *hdr, unsigned int size) {
+    (void)hdr;
+    (void)size;
+}
