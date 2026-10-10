@@ -117,8 +117,8 @@ static void render_watchface(void) {
         gfx_draw_fast_h_line(2, 94, 76, COLOR_DARKGREY);
         gfx_draw_string(4, 98, "PERIPHERALS:", COLOR_YELLOW, COLOR_BLACK, 1);
         gfx_draw_fast_h_line(2, 136, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 142, "CLICK = VIB", COLOR_GREEN, COLOR_BLACK, 1);
-        gfx_draw_string(4, 152, "2CLK = RESTART", COLOR_ORANGE, COLOR_BLACK, 1);
+        gfx_draw_string(4, 142, "CLICK = MENU", COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 152, "HOLD = OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
     // Hardware status: Uptime & Battery
@@ -217,6 +217,25 @@ static void render_stopwatch(void) {
     }
 }
 
+static void render_ota_update(void) {
+    display_fill_screen(COLOR_BLACK);
+    gfx_draw_rect(0, 0, 80, 14, COLOR_NAVY);
+    gfx_draw_string(6, 3, "OTA UPDATE", COLOR_CYAN, COLOR_NAVY, 1);
+
+    gfx_draw_fast_h_line(2, 24, 76, COLOR_DARKGREY);
+    gfx_draw_string(8, 30, "WIRELESS", COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_string(8, 42, "FLASH MODE", COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_fast_h_line(2, 56, 76, COLOR_DARKGREY);
+
+    gfx_draw_string(4, 66, "Hold sensor", COLOR_WHITE, COLOR_BLACK, 1);
+    gfx_draw_string(4, 78, "to reboot into", COLOR_WHITE, COLOR_BLACK, 1);
+    gfx_draw_string(4, 90, "PPlusOTA boot", COLOR_GREEN, COLOR_BLACK, 1);
+
+    gfx_draw_fast_h_line(2, 114, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 122, "Click: Next", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 136, "HOLD: FLASH", COLOR_CYAN, COLOR_BLACK, 1);
+}
+
 static void render_flashlight(void) {
     display_fill_screen(COLOR_WHITE);
 }
@@ -224,6 +243,7 @@ static void render_flashlight(void) {
 void app_os_panic(void) {
     // Instant panic action: flip back to harmless clock face and buzz softly
     s_current_mode = MODE_WATCHFACE;
+    s_diag_first_draw = true;
     s_needs_redraw = true;
     vibrator_pulse(40);
 }
@@ -271,7 +291,30 @@ void app_os_update(void) {
     if (evt == BTN_EVENT_CLICK) {
         s_click_count++;
         s_vib_count++;
-        vibrator_pulse(35); // short click tactile feedback
+        vibrator_pulse(30);
+
+        if (s_current_mode == MODE_WATCHFACE) {
+            s_current_mode = MODE_CHEATSHEET;
+        } else if (s_current_mode == MODE_CHEATSHEET) {
+            s_current_ticket++;
+            if (s_current_ticket >= TOTAL_TICKETS) {
+                s_current_ticket = 0;
+                s_current_mode = MODE_STOPWATCH;
+            }
+        } else if (s_current_mode == MODE_STOPWATCH) {
+            if (s_sw_running) {
+                s_sw_elapsed_ms += (s_ms_counter - s_sw_start_ms);
+                s_sw_running = false;
+            } else {
+                s_sw_start_ms = s_ms_counter;
+                s_sw_running = true;
+            }
+        } else if (s_current_mode == MODE_OTA_UPDATE) {
+            s_current_mode = MODE_FLASHLIGHT;
+        } else if (s_current_mode == MODE_FLASHLIGHT) {
+            s_current_mode = MODE_WATCHFACE;
+            s_diag_first_draw = true;
+        }
         s_needs_redraw = true;
     }
 
@@ -279,8 +322,16 @@ void app_os_update(void) {
         s_click_count += 2;
         s_vib_count += 2;
         vibrator_double_pulse();
-        // Force retry GAPRole_StartDevice
-        ble_try_start_device();
+
+        if (s_current_mode == MODE_STOPWATCH) {
+            s_sw_running = false;
+            s_sw_elapsed_ms = 0;
+        } else {
+            // Panic or quick home: back to main watch screen
+            s_current_mode = MODE_WATCHFACE;
+            s_diag_first_draw = true;
+            ble_try_start_device();
+        }
         s_needs_redraw = true;
     }
 
@@ -288,9 +339,21 @@ void app_os_update(void) {
         s_click_count += 5;
         s_vib_count += 3;
         vibrator_pulse(100);
-        // Toggle restart advertising
-        uint8_t adv_enable = TRUE;
-        GAPRole_SetParameter(GAPROLE_ADVERT_ENABLED, sizeof(uint8_t), &adv_enable);
+
+        if (s_current_mode == MODE_OTA_UPDATE) {
+            // REBOOT INTO OTA BOOTLOADER
+            ble_start_ota_mode();
+            return;
+        } else if (s_current_mode == MODE_WATCHFACE) {
+            // Fast shortcut to OTA Mode
+            s_current_mode = MODE_OTA_UPDATE;
+        } else if (s_current_mode == MODE_STOPWATCH) {
+            s_current_mode = MODE_OTA_UPDATE;
+        } else {
+            // Panic from cheatsheet or flashlight
+            s_current_mode = MODE_WATCHFACE;
+            s_diag_first_draw = true;
+        }
         s_needs_redraw = true;
     }
 
@@ -306,6 +369,9 @@ void app_os_update(void) {
                 break;
             case MODE_STOPWATCH:
                 render_stopwatch();
+                break;
+            case MODE_OTA_UPDATE:
+                render_ota_update();
                 break;
             case MODE_FLASHLIGHT:
                 render_flashlight();

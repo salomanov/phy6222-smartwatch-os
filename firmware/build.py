@@ -209,11 +209,31 @@ def build():
         print("[!] OBJCOPY ERROR:\n", res.stderr)
         return False
 
+    bin_f = os.path.join(BUILD_DIR, "custom_firmware.bin")
+    print("[OBJCOPY] Generating custom_firmware.bin...")
+    res = subprocess.run([OBJCOPY, "-O", "binary", elf, bin_f], capture_output=True, text=True)
+    if res.returncode != 0:
+        print("[!] OBJCOPY BIN ERROR:\n", res.stderr)
+        return False
+
+    ota_bin = os.path.join(BUILD_DIR, "custom_firmware_ota.bin")
+    ota_script = os.path.join(REF_DIR, "phy62x2_ota.py")
+    if os.path.exists(ota_script):
+        print("[OTA] Generating custom_firmware_ota.bin...")
+        res = subprocess.run([sys.executable, ota_script, hex_f, "-o", ota_bin], capture_output=True, text=True)
+        if res.returncode == 0:
+            print(f"[+] OTA Image: {ota_bin} ({os.path.getsize(ota_bin)} bytes)")
+        else:
+            print("[!] OTA Pack warning:\n", res.stdout, res.stderr)
+
     print("--------------------------------------------------------------------")
     subprocess.run([SIZE, "-t", elf])
     dt = time.time() - t0
     print(f"[+] BUILD SUCCESS! in {dt:.2f}s")
-    print(f"[+] Output: {hex_f}")
+    print(f"[+] Output HEX: {hex_f}")
+    print(f"[+] Output BIN: {bin_f}")
+    if os.path.exists(ota_bin):
+        print(f"[+] Output OTA: {ota_bin}")
     return True
 
 if __name__ == "__main__":

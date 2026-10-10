@@ -10,6 +10,10 @@
 #include "peripheral.h"
 #include "att.h"
 #include "ll_common.h"
+#include "ll_hw_drv.h"
+#include "mcu.h"
+#include "clock.h"
+#include "hci.h"
 #include "ota_app_service.h"
 #include "devinfoservice.h"
 #include "app_os.h"
@@ -43,13 +47,13 @@ static uint8_t s_scan_rsp_data[] = {
     GAP_ADTYPE_LOCAL_NAME_COMPLETE,
     'C', 'H', 'A', 'S', 'Y', '-', 'S', 'T', 'E', 'A', 'L', 'T', 'H',
 
-    // Connection interval range (100ms - 1000ms)
+    // Connection interval range (15ms - 30ms)
     0x05,
     GAP_ADTYPE_SLAVE_CONN_INTERVAL_RANGE,
-    LO_UINT16(80),
-    HI_UINT16(80),
-    LO_UINT16(800),
-    HI_UINT16(800),
+    LO_UINT16(12),
+    HI_UINT16(12),
+    LO_UINT16(24),
+    HI_UINT16(24),
 
     // Tx power level: 0 dBm
     0x02,
@@ -138,13 +142,36 @@ void ble_try_start_device(void) {
     LOG("GAPRole_StartDevice() ret=0x%02X calls=%d\n", s_start_ret, s_start_calls);
 }
 
+void ble_start_ota_mode(void) {
+    LOG("Rebooting to OTA bootloader...\n");
+    vibrator_pulse(150);
+    write_reg(0x4000f034, 1);
+    WaitMs(50);
+    hal_system_soft_reset();
+}
+
+static void watch_ProcessGATTMsg(gattMsgEvent_t *pMsg) {
+    if (pMsg->hdr.status == bleTimeout) {
+        LOG("[GATT TO] method=0x%02X\n", pMsg->method);
+        return;
+    }
+
+    switch (pMsg->method) {
+        case ATT_EXCHANGE_MTU_REQ:
+            LOG("[GATT] MTU Req rxMTU=%d\n", pMsg->msg.exchangeMTUReq.clientRxMTU);
+            break;
+        default:
+            break;
+    }
+}
+
 void WatchBLE_Init(uint8_t task_id) {
     s_task_id = task_id;
 
     LOG("WatchBLE_Init task=%d\n", task_id);
 
-    // GAP peripheral pause (SDK default is 6 seconds before parameter update)
-    GAP_SetParamValue(TGAP_CONN_PAUSE_PERIPHERAL, 6);
+    // GAP peripheral pause (1 second instead of 6s to rapidly apply parameters)
+    GAP_SetParamValue(TGAP_CONN_PAUSE_PERIPHERAL, 1);
 
     // 1. Setup GAP Peripheral Role Parameters
     uint8_t initial_advertising_enable = TRUE;
@@ -152,10 +179,10 @@ void WatchBLE_Init(uint8_t task_id) {
     uint8_t adv_chn_map = GAP_ADVCHAN_37 | GAP_ADVCHAN_38 | GAP_ADVCHAN_39;
     uint8_t adv_type = GAP_ADTYPE_ADV_IND; // Connectable undirected advertisement
     uint16_t gap_role_advert_off_time = 0;
-    uint16_t desired_min_interval = 80;   // 100ms (SDK standard)
-    uint16_t desired_max_interval = 800;  // 1000ms (SDK standard)
+    uint16_t desired_min_interval = 12;   // 15ms (12 * 1.25ms)
+    uint16_t desired_max_interval = 24;   // 30ms (24 * 1.25ms)
     uint16_t desired_slave_latency = 0;
-    uint16_t desired_conn_timeout = 1000; // 10s (SDK standard)
+    uint16_t desired_conn_timeout = 500;  // 5000ms (500 * 10ms)
 
     GAPRole_SetParameter(GAPROLE_ADV_EVENT_TYPE, sizeof(uint8_t), &adv_type);
     GAPRole_SetParameter(GAPROLE_ADV_CHANNEL_MAP, sizeof(uint8_t), &adv_chn_map);
@@ -179,18 +206,20 @@ void WatchBLE_Init(uint8_t task_id) {
     // 2. Setup GAP Service (Device Name)
     GGS_SetParameter(GGS_DEVICE_NAME_ATT, sizeof(s_device_name) - 1, s_device_name);
 
-    // 3. Register Standard GATT Services
+    // 3. Register Standard GATT Services & Callback
     GGS_AddService(GATT_ALL_SERVICES);
     GATTServApp_AddService(GATT_ALL_SERVICES);
-    // DevInfo_AddService(); // Omitted in SDK examples to avoid GATT attribute conflicts
+    gattServApp_RegisterCB(watch_ProcessGATTMsg);
 
     // 4. Register Official PhyPlus BLE OTA Service
     ota_app_AddService();
 
-    // 5. Setup BLE 4.2 / 5.0 High-Speed Features (MTU)
+    // 5. Setup BLE 4.2 / 5.0 High-Speed Features & HW FIFO
     ATT_SetMTUSizeMax(240);
+    ll_hw_set_tfifo_space(LL_HW_FIFO_TX_1K_RX_3K);
     llInitFeatureSet2MPHY(TRUE);
     llInitFeatureSetDLE(TRUE);
+    HCI_LE_SetDefaultPhyMode(0, 0x00, 0x03, 0x03);
 
     // 6. Schedule peripheral device start event
     osal_set_event(task_id, WATCH_START_DEVICE_EVT);
