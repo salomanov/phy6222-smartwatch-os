@@ -1,2 +1,11 @@
-﻿
+# Ignore build artifacts
+firmware/build/*.o
+firmware/build/*.elf
+firmware/build/custom_firmware.bin
+firmware/build/*.asm
+build/
+*.pyc
+__pycache__/
+
+# Ignore temporary backups
 .backups/
