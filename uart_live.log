@@ -1,0 +1,65 @@
+
+--- UART LOG SESSION START: Sun Oct 11 15:14:10 2026 ---
+[727659] ATT_UpdateMtuSize: [ATT_MTU] 23 
+
+[727667] L2CAP_ReassemblePkt_Reset: [REA_FREE]
+
+[727675] L2CAP_SegmentPkt_Reset: [SEG_FREE]
+
+[727684] watchBLE_StateNotificationCB: BLE CONNECTED!
+
+[727695] ATT_UpdateMtuSize: [ATT_MTU] 240 
+
+[727702] watch_ProcessGATTMsg: [GATT] MTU Req rxMTU=527
+
+[731346] l2capPktToSegmentBuff: [SEG_PRT]1fff7742 2c
+
+[731357] l2capPktToSegmentBuff: [SEG_PRT]1fff777a 37
+
+[733462] ota_WriteAttrCB: WR:54
+
+[61] main: PHY6222 LP715 Custom OS + BLE Starting...
+
+
+=== CHASY-STEALTH UART CLI READY ===
+Type 'help' for commands.
+cmd>> [5398] app_osal_init: Initializing OSAL...
+
+[5406] l2capSarBufReset: [SAR_FREE]
+
+[5413] WatchBLE_Init: WatchBLE_Init task=9
+
+[5423] load_ota_version: OTA Boot Version: 0.0.0
+
+[5432] app_osal_init: Starting OSAL System Loop...
+
+[5441] WatchBLE_ProcessEvent: WatchBLE: Starting GAPRole Device Advertising...
+
+[5455] ble_try_start_device: GAPRole_StartDevice() ret=0x00 calls=1
+
+[5467] watchBLE_StateNotificationCB: BLE Started
+
+[5478] watchBLE_StateNotificationCB: BLE Advertising...
+
+[6145] ATT_UpdateMtuSize: [ATT_MTU] 23 
+
+[6152] L2CAP_ReassemblePkt_Reset: [REA_FREE]
+
+[6159] L2CAP_SegmentPkt_Reset: [SEG_FREE]
+
+[6167] watchBLE_StateNotificationCB: BLE CONNECTED!
+
+[6202] ATT_UpdateMtuSize: [ATT_MTU] 240 
+
+[6209] watch_ProcessGATTMsg: [GATT] MTU Req rxMTU=527
+
+[17720] ATT_UpdateMtuSize: [ATT_MTU] 23 
+
+[17728] L2CAP_ReassemblePkt_Reset: [REA_FREE]
+
+[17735] L2CAP_SegmentPkt_Reset: [SEG_FREE]
+
+[17743] watchBLE_StateNotificationCB: BLE Disconnected or Adv Timeout -> Restarting Advertising
+
+[17760] watchBLE_StateNotificationCB: BLE Advertising...
+
