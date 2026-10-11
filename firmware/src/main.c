@@ -47,9 +47,9 @@ volatile sysclk_t g_spif_clk_config;
 
 static void hal_low_power_io_init(void) {
     const ioinit_cfg_t ioInit[] = {
-        {GPIO_LED,      GPIO_PULL_DOWN},
+        {GPIO_LED,      GPIO_PULL_DOWN}, // LED active HIGH (off default)
         {BKL_PIN,       GPIO_PULL_UP},   // Backlight off default (high)
-        {GPIO_VIBRATOR, GPIO_PULL_DOWN},
+        {GPIO_VIBRATOR, GPIO_PULL_UP},   // Motor active LOW (off default high)
         {UART_TX_PIN,   GPIO_PULL_UP},   // TX
         {UART_RX_PIN,   GPIO_PULL_UP},   // RX
         {BUTTON_PIN,    GPIO_PULL_DOWN}, // Touch Key

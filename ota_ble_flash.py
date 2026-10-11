@@ -90,10 +90,10 @@ async def find_watch():
 
 async def main():
     global stop_uart
-    # Start UART monitor thread
+    # If COM5 is connected, monitor it, otherwise ignore
     u_thread = threading.Thread(target=uart_monitor, daemon=True)
     u_thread.start()
-    time.sleep(1)
+    time.sleep(0.5)
 
     bin_path = 'firmware/build/custom_firmware_ota.bin'
     print(f"[*] Loading OTA binary: {bin_path}...")
@@ -103,16 +103,35 @@ async def main():
     for p in partitions:
         print(f"  Part {p['index']}: Flash=0x{p['flash_addr']:06X} Run=0x{p['run_addr']:08X} Size={p['size']} CRC=0x{p['checksum']:04X}")
 
-    device = await find_watch()
-    if not device:
-        print("[!] Device CHASY-STEALTH not found in air!")
+    client = None
+    for conn_try in range(1, 10):
+        print(f"\n[*] Scan & Connect attempt {conn_try}/9...")
+        device = await BleakScanner.find_device_by_filter(
+            lambda d, adv: d.address.upper() == '62:62:15:07:07:15' or (d.name and 'CHASY' in d.name),
+            timeout=5.0
+        )
+        if not device:
+            print(f"  Attempt {conn_try}: watch not seen in air yet, retrying in 1s...")
+            await asyncio.sleep(1.0)
+            continue
+
+        print(f"[+] Found {device.name} ({device.address}), attempting connection...")
+        try:
+            client = BleakClient(device, timeout=20.0)
+            await client.connect()
+            if client.is_connected:
+                print(f"[+] Connected successfully! MTU = {client.mtu_size}")
+                break
+        except Exception as e:
+            print(f"  Connection attempt {conn_try} failed: {e}")
+            await asyncio.sleep(1.5)
+
+    if not client or not client.is_connected:
+        print("[!] Failed to establish BLE connection after all retries.")
         stop_uart = True
         return
 
-    print(f"[+] Found {device.name} ({device.address}), connecting directly...")
-    async with BleakClient(device) as client:
-        print(f"[+] Connected! MTU = {client.mtu_size}")
-
+    try:
         rsp_queue = []
 
         def on_notification(sender, data):
@@ -176,15 +195,29 @@ async def main():
                 offset += len(chunk)
                 total_sent += len(chunk)
 
-                # Write with response guarantees 100% delivery without ATT packet drop!
-                await client.write_gatt_char(OTA_DATA_UUID, chunk, response=True)
+                # Send chunk with retry on transient WinRT BLE stack error
+                written = False
+                for w_try in range(5):
+                    try:
+                        await client.write_gatt_char(OTA_DATA_UUID, chunk, response=True)
+                        written = True
+                        break
+                    except Exception as e:
+                        print(f"  [WARN] Write error on offset {offset}: {e}, retrying {w_try+1}/5...")
+                        await asyncio.sleep(0.1)
+
+                if not written:
+                    raise RuntimeError(f"Failed to write chunk at offset {offset}")
 
                 pct = (total_sent * 100) // total_bytes
                 if offset % 4600 < chunk_size or offset >= len(p_data):
                     print(f"  [PROGRESS] {pct}% ({total_sent}/{total_bytes} bytes sent, part {idx}: {offset}/{len(p_data)})")
 
+                # Small delay to give PHY6222 Flash controller time to write and prevent BLE buffer overrun
+                await asyncio.sleep(0.012)
+
             # Allow BLE stack to process the final packet and calculate CRC
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(0.2)
 
             # End of partition check: 0x83 for last partition, 0x85 for others
             exp_done = 0x83 if (idx + 1 == len(partitions)) else 0x85
@@ -200,11 +233,20 @@ async def main():
         # 3. Finalize & Reboot
         print("\n[+] All partitions transmitted! Sending REBOOT command...")
         reboot_cmd = bytes([0x04, 0x01])
-        await client.write_gatt_char(OTA_CMD_UUID, reboot_cmd, response=False)
-        print("[+] Reboot command sent! Watch restarting into new firmware...")
+        try:
+            await client.write_gatt_char(OTA_CMD_UUID, reboot_cmd, response=False)
+            print("[+] Reboot command sent! Watch restarting into new firmware...")
+        except Exception as e:
+            print(f"[!] Reboot notification note: {e}")
         await asyncio.sleep(2)
 
-    stop_uart = True
+    finally:
+        try:
+            await client.disconnect()
+        except Exception:
+            pass
+        stop_uart = True
+
     print("\n[SUCCESS] OTA FLASH PROCEDURE COMPLETED 100%!")
 
 if __name__ == '__main__':

@@ -19,22 +19,22 @@ typedef struct {
 } test_pin_entry_t;
 
 static const test_pin_entry_t s_test_pins[] = {
-    { GPIO_P14, "P14 (Spec)" },
-    { GPIO_P03, "P03"       },
-    { GPIO_P02, "P02 (Ana)" },
-    { GPIO_P00, "P00 (Led)" },
-    { GPIO_P07, "P07"       },
-    { GPIO_P15, "P15"       },
-    { GPIO_P18, "P18"       },
-    { GPIO_P20, "P20"       },
-    { GPIO_P23, "P23"       },
-    { GPIO_P26, "P26"       },
+    { GPIO_P03, "P03 (Vib)"  },
+    { GPIO_P00, "P00 (Led)"  },
+    { GPIO_P14, "P14"        },
+    { GPIO_P02, "P02 (Ana)"  },
+    { GPIO_P07, "P07"        },
+    { GPIO_P15, "P15"        },
+    { GPIO_P18, "P18"        },
+    { GPIO_P20, "P20"        },
+    { GPIO_P23, "P23"        },
+    { GPIO_P26, "P26"        },
 };
 
 #define TEST_PINS_COUNT (sizeof(s_test_pins) / sizeof(s_test_pins[0]))
-static uint8_t s_curr_idx = 0;
-static uint8_t s_active_level = 1; // 1 = Active HIGH, 0 = Active LOW
-static gpio_pin_e s_selected_pin = GPIO_P14;
+static uint8_t s_curr_idx = 0; // P03 by default
+static uint8_t s_active_level = VIBRATOR_ACTIVE_LEVEL; // 0 = Active LOW (0 turns on vib)
+static gpio_pin_e s_selected_pin = GPIO_VIBRATOR;      // GPIO_P03
 
 static void setup_pin(gpio_pin_e pin) {
     hal_gpioretention_register(pin);
@@ -47,17 +47,39 @@ static void setup_pin(gpio_pin_e pin) {
     hal_gpio_write(pin, s_active_level ? 0 : 1);
 }
 
+// LED Status (GPIO_P00, Active HIGH: 1 = ON, 0 = OFF)
+static uint8_t s_led_state = 0;
+
+void led_init(void) {
+    hal_gpioretention_register(GPIO_LED);
+    hal_gpio_pin_init(GPIO_LED, GPIO_OUTPUT);
+    led_set(0); // Off by default
+}
+
+void led_set(uint8_t on) {
+    s_led_state = on ? 1 : 0;
+    hal_gpio_write(GPIO_LED, s_led_state ? 1 : 0);
+}
+
+void led_toggle(void) {
+    led_set(!s_led_state);
+}
+
 void vibrator_init(void) {
     s_selected_pin = GPIO_VIBRATOR;
+    s_active_level = VIBRATOR_ACTIVE_LEVEL;
     setup_pin(s_selected_pin);
+    led_init();
 }
 
 void vibrator_pulse(uint16_t duration_ms) {
-    if (duration_ms < 100) duration_ms = 100;
+    if (duration_ms < 60) duration_ms = 60;
     setup_pin(s_selected_pin);
+    led_set(1);
     hal_gpio_write(s_selected_pin, s_active_level ? 1 : 0);
     safe_delay_ms(duration_ms);
     hal_gpio_write(s_selected_pin, s_active_level ? 0 : 1);
+    led_set(0);
 }
 
 void vibrator_double_pulse(void) {
@@ -108,8 +130,10 @@ void vibrator_select_current_pin(void) {
 void vibrator_test_fire(void) {
     gpio_pin_e pin = s_test_pins[s_curr_idx].pin;
     setup_pin(pin);
+    led_set(1);
     // Fire strong 350ms pulse
     hal_gpio_write(pin, s_active_level ? 1 : 0);
     safe_delay_ms(350);
     hal_gpio_write(pin, s_active_level ? 0 : 1);
+    led_set(0);
 }
