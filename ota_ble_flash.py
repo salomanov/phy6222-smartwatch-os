@@ -183,6 +183,9 @@ async def main():
                 if offset % 4600 < chunk_size or offset >= len(p_data):
                     print(f"  [PROGRESS] {pct}% ({total_sent}/{total_bytes} bytes sent, part {idx}: {offset}/{len(p_data)})")
 
+            # Allow BLE stack to process the final packet and calculate CRC
+            await asyncio.sleep(0.1)
+
             # End of partition check: 0x83 for last partition, 0x85 for others
             exp_done = 0x83 if (idx + 1 == len(partitions)) else 0x85
             print(f"[*] Waiting for partition {idx} completion ACK (0x{exp_done:02X})...")
@@ -192,6 +195,7 @@ async def main():
                 stop_uart = True
                 return
             print(f"[+] Part {idx} verified & written successfully!")
+            await asyncio.sleep(0.1)
 
         # 3. Finalize & Reboot
         print("\n[+] All partitions transmitted! Sending REBOOT command...")
@@ -201,7 +205,7 @@ async def main():
         await asyncio.sleep(2)
 
     stop_uart = True
-    print("\n[🎉🎉🎉] OTA FLASH PROCEDURE COMPLETED 100%!")
+    print("\n[SUCCESS] OTA FLASH PROCEDURE COMPLETED 100%!")
 
 if __name__ == '__main__':
     asyncio.run(main())

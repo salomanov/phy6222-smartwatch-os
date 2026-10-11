@@ -174,8 +174,8 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             }
         }
         
-        // Every burst interval (or end of sector) send ACK
-        if (s_burst_accum >= (240 * OTA_BURST_CNT) || (s_sector_offset >= p->size)) {
+        // Every burst interval send ACK
+        if (s_burst_accum >= (240 * OTA_BURST_CNT)) {
             s_burst_accum = 0;
             send_response(0x87, 0x00); // OTA_RSP_BLOCK_BURST
         }

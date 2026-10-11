@@ -238,6 +238,31 @@ static void render_ota_update(void) {
     gfx_draw_string(4, 136, "HOLD: FLASH", COLOR_CYAN, COLOR_BLACK, 1);
 }
 
+static void render_vibrator_test(void) {
+    display_fill_screen(COLOR_BLACK);
+    gfx_draw_rect(0, 0, 80, 14, COLOR_NAVY);
+    gfx_draw_string(4, 3, "VIB SCANNER", COLOR_YELLOW, COLOR_NAVY, 1);
+
+    gfx_draw_fast_h_line(2, 20, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 26, "TEST PIN:", COLOR_WHITE, COLOR_BLACK, 1);
+
+    char p_buf[20];
+    snprintf(p_buf, sizeof(p_buf), "%s", vibrator_get_test_pin_name());
+    gfx_draw_string(8, 40, p_buf, COLOR_CYAN, COLOR_BLACK, 2);
+
+    snprintf(p_buf, sizeof(p_buf), "POL: %s", vibrator_get_active_level() ? "HIGH (1)" : "LOW (0)");
+    gfx_draw_string(4, 62, p_buf, vibrator_get_active_level() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
+
+    gfx_draw_fast_h_line(2, 78, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 84, "Click: Next", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 98, "2Click: Polarity", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 112, "Hold: Next Mode", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+
+    gfx_draw_fast_h_line(2, 128, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 134, "STATUS: TESTING", COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_string(4, 146, "Auto-buzz 350ms", COLOR_WHITE, COLOR_BLACK, 1);
+}
+
 static void render_flashlight(void) {
     display_fill_screen(COLOR_WHITE);
 }
@@ -320,6 +345,10 @@ void app_os_update(void) {
                 s_sw_start_ms = s_ms_counter;
                 s_sw_running = true;
             }
+        } else if (s_current_mode == MODE_VIBRATOR_TEST) {
+            // Next candidate pin and immediately fire test pulse!
+            vibrator_next_test_pin();
+            vibrator_test_fire();
         } else if (s_current_mode == MODE_OTA_UPDATE) {
             s_current_mode = MODE_FLASHLIGHT;
         } else if (s_current_mode == MODE_FLASHLIGHT) {
@@ -332,13 +361,18 @@ void app_os_update(void) {
     if (evt == BTN_EVENT_DOUBLE_CLICK) {
         s_click_count += 2;
         s_vib_count += 2;
-        vibrator_double_pulse();
 
         if (s_current_mode == MODE_STOPWATCH) {
             s_sw_running = false;
             s_sw_elapsed_ms = 0;
+            vibrator_double_pulse();
+        } else if (s_current_mode == MODE_VIBRATOR_TEST) {
+            // Toggle active polarity (HIGH vs LOW) and immediately test fire!
+            vibrator_toggle_active_level();
+            vibrator_test_fire();
         } else {
-            // Panic or quick home: back to main watch screen
+            // Quick home
+            vibrator_double_pulse();
             s_current_mode = MODE_WATCHFACE;
             s_diag_first_draw = true;
             ble_try_start_device();
@@ -356,10 +390,16 @@ void app_os_update(void) {
             ble_start_ota_mode();
             return;
         } else if (s_current_mode == MODE_WATCHFACE) {
-            // Fast shortcut to OTA Mode
+            // Long press from watchface goes directly to VIBRATOR SCANNER!
+            s_current_mode = MODE_VIBRATOR_TEST;
+            vibrator_test_fire();
+        } else if (s_current_mode == MODE_VIBRATOR_TEST) {
+            // Save selected pin and go to OTA mode
+            vibrator_select_current_pin();
             s_current_mode = MODE_OTA_UPDATE;
         } else if (s_current_mode == MODE_STOPWATCH) {
-            s_current_mode = MODE_OTA_UPDATE;
+            s_current_mode = MODE_VIBRATOR_TEST;
+            vibrator_test_fire();
         } else {
             // Panic from cheatsheet or flashlight
             s_current_mode = MODE_WATCHFACE;
@@ -380,6 +420,9 @@ void app_os_update(void) {
                 break;
             case MODE_STOPWATCH:
                 render_stopwatch();
+                break;
+            case MODE_VIBRATOR_TEST:
+                render_vibrator_test();
                 break;
             case MODE_OTA_UPDATE:
                 render_ota_update();
