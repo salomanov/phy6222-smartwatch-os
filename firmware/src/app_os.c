@@ -260,7 +260,7 @@ void app_os_init(void) {
 }
 
 void app_os_update(void) {
-    s_ms_counter += 20; // Called every 20ms by OSAL timer (non-blocking)
+    s_ms_counter += 50; // Called every 50ms by OSAL timer (WATCH_TICK_EVT)
 
     // 1-second system timer
     if (s_ms_counter - s_last_sec_tick >= 1000) {

@@ -17,8 +17,8 @@ extern void hal_rom_boot_init(void);
 
 // BLE LL Connection Context Buffers
 #define BLE_MAX_ALLOW_CONNECTION       1
-#define BLE_MAX_ALLOW_PKT_PER_EVENT_TX 3
-#define BLE_MAX_ALLOW_PKT_PER_EVENT_RX 3
+#define BLE_MAX_ALLOW_PKT_PER_EVENT_TX 2
+#define BLE_MAX_ALLOW_PKT_PER_EVENT_RX 2
 #define BLE_PKT_VERSION                BLE_PKT_VERSION_5_1
 
 #define BLE_PKT_BUF_SIZE (((BLE_PKT_VERSION == BLE_PKT_VERSION_5_1) ? 1 : 0) * BLE_PKT51_LEN \
@@ -37,8 +37,8 @@ llConnState_t pConnContext[BLE_MAX_ALLOW_CONNECTION];
 #define LARGE_HEAP_SIZE (4 * 1024)
 ALIGN4_U8 g_largeHeap[LARGE_HEAP_SIZE];
 
-#define LL_LINKBUF_CFG_NUM 0
-#define LL_PKT_BUFSIZE     280
+#define LL_LINKBUF_CFG_NUM 1
+#define LL_PKT_BUFSIZE     512
 #define LL_LINK_HEAP_SIZE  ((BLE_MAX_ALLOW_CONNECTION * 3 + LL_LINKBUF_CFG_NUM) * LL_PKT_BUFSIZE)
 ALIGN4_U8 g_llLinkHeap[LL_LINK_HEAP_SIZE];
 
@@ -107,6 +107,8 @@ static void hal_rfphy_init(void) {
     NVIC_SetPriority((IRQn_Type)TIM4_IRQn, IRQ_PRIO_HIGH); // LL_EXA_ADV
 
     ble_mem_init_config();
+    hal_rfPhyFreqOff_Set();
+    hal_xtal16m_cap_Set();
 }
 
 static void hal_init(void) {
@@ -131,6 +133,12 @@ int main(void) {
     drv_irq_init();
     init_config();
 
+    extern void ll_patch_slave(void);
+    ll_patch_slave();
+
+    hal_rfphy_init();
+    hal_init();
+
     // Set valid locally-administered BLE MAC address in ROM RAM location (0x1fff0965)
     // Format is Little Endian: MAC becomes C2:62:22:50:07:15
     volatile uint8_t *p_ownPublicAddr = (volatile uint8_t *)0x1fff0965;
@@ -140,12 +148,6 @@ int main(void) {
     p_ownPublicAddr[3] = 0x22;
     p_ownPublicAddr[4] = 0x62;
     p_ownPublicAddr[5] = 0xC2;
-
-    extern void ll_patch_slave(void);
-    ll_patch_slave();
-
-    hal_rfphy_init();
-    hal_init();
 
     LOG("PHY6222 LP715 Custom OS + BLE Starting...\n");
 

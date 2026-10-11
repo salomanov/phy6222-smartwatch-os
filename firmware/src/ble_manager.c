@@ -219,6 +219,9 @@ void WatchBLE_Init(uint8_t task_id) {
     // 7. Setup MTU & FIFO
     ATT_SetMTUSizeMax(240);
     ll_hw_set_tfifo_space(LL_HW_FIFO_TX_1K_RX_3K);
+    llInitFeatureSet2MPHY(TRUE);
+    llInitFeatureSetDLE(TRUE);
+    HCI_LE_SetDefaultPhyMode(0, 0x00, 0x03, 0x03);
 
     // 8. Schedule peripheral device start event
     osal_set_event(task_id, WATCH_START_DEVICE_EVT);
