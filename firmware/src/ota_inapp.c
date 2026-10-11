@@ -34,6 +34,8 @@ static uint16_t s_running_crc = 0;
 
 static ota_inapp_part_t s_parts[MAX_OTA_SECTORS];
 
+static void ota_install_firmware_and_reboot(void);
+
 static void send_response(uint8_t cmd_rsp, uint8_t status) {
     attHandleValueNoti_t noti;
     noti.len = 2;
@@ -139,12 +141,12 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             send_response(0x84, 0x00); // OTA_RSP_PARTITION_INFO, SUCCESS
         }
         else if (cmd == 0x04) { // OTA_CMD_REBOOT
-            LOG("[OTA-INAPP] Reboot requested. Finalizing and restarting...\n");
+            LOG("[OTA-INAPP] Reboot requested. Finalizing and installing firmware...\n");
             draw_ota_progress(100);
             vibrator_pulse(200);
             send_response(0x8A, 0x00); // OTA_RSP_REBOOT, SUCCESS
             WaitMs(150);
-            hal_system_soft_reset();
+            ota_install_firmware_and_reboot();
         }
         else {
             send_response(cmd | 0x80, 0x00);
@@ -187,10 +189,6 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             
             if (s_current_sector + 1 >= s_sector_count) {
                 LOG("[OTA-INAPP] ALL SECTORS RECEIVED! Final size=%d\n", s_total_received);
-                
-                // Write boot sector / copy to target flash
-                // If single bank in-place, copy from staging to destination 0x11010100
-                // For safety in this test, acknowledge OTA complete:
                 send_response(0x83, 0x00); // OTA_RSP_OTA_COMPLETE
             } else {
                 send_response(0x85, 0x00); // OTA_RSP_PARTITION_COMPLETE
@@ -199,12 +197,89 @@ static void on_ota_service_event(ota_Evt_t *pev) {
     }
     else if (pev->ev == OTA_EVT_DISCONNECTED) {
         if (s_ota_active && s_ota_progress >= 99) {
-            LOG("[OTA-INAPP] Disconnected after finish. Soft reset!\n");
-            WaitMs(100);
-            hal_system_soft_reset();
+            LOG("[OTA-INAPP] Disconnected after finish. Installing firmware and reset!\n");
+            ota_install_firmware_and_reboot();
         }
         s_ota_active = false;
     }
+}
+
+__attribute__((section("_section_sram_code_"), noinline))
+static void ota_install_firmware_and_reboot(void) {
+    __disable_irq();
+
+    // 1. Erase target execution flash sectors (0x11010000 to 0x11035000)
+    for (uint32_t a = 0x11010000; a < 0x11035000; a += 0x1000) {
+        hal_flash_erase_sector(a);
+    }
+
+    // 2. Copy received partitions from staging area (0x11040000) to target flash
+    uint8_t buf[256];
+    uint32_t staging_offset = 0;
+
+    for (uint8_t i = 0; i < s_sector_count; i++) {
+        uint32_t target_flash = 0x11000000 | (s_parts[i].flash_addr & 0x00FFFFFF);
+        uint32_t size = s_parts[i].size;
+        uint32_t copied = 0;
+
+        while (copied < size) {
+            uint32_t chunk = size - copied;
+            if (chunk > 256) chunk = 256;
+
+            hal_flash_read(OTA_TEMP_BASE + staging_offset + copied, buf, chunk);
+            hal_flash_write(target_flash + copied, buf, chunk);
+
+            copied += chunk;
+        }
+
+        staging_offset += size;
+    }
+
+    // 3. Write Bootloader Header at 0x11002000
+    hal_flash_erase_sector(0x11002000);
+
+    memset(buf, 0xFF, 256);
+    uint32_t *hdr32 = (uint32_t *)buf;
+    hdr32[0] = s_sector_count; // Number of segments
+    hdr32[1] = 0xFFFFFFFF;
+    hdr32[2] = 0x1FFF1838;     // Start execution address
+    hdr32[3] = 0xFFFFFFFF;
+    hal_flash_write(0x11002000, buf, 256);
+
+    memset(buf, 0xFF, 256);
+    for (uint8_t i = 0; i < s_sector_count; i++) {
+        uint32_t *p32 = (uint32_t *)&buf[i * 16];
+        p32[0] = s_parts[i].flash_addr; // Flash offset
+        p32[1] = s_parts[i].size;       // Segment size
+        p32[2] = s_parts[i].run_addr;   // Run/RAM/XIP address
+        p32[3] = 0xFFFFFFFF;           // Flag / reserved
+    }
+    hal_flash_write(0x11002100, buf, s_sector_count * 16);
+
+    // 4. Also write 2nd bootinfo at 0x11003000
+    hal_flash_erase_sector(0x11003000);
+    memset(buf, 0xFF, 256);
+    hdr32 = (uint32_t *)buf;
+    hdr32[0] = s_sector_count;
+    hdr32[1] = 0; // single bank
+    hdr32[2] = 0;
+    hdr32[3] = 0xFFFFFFFF;
+    hal_flash_write(0x11003000, buf, 16);
+    for (uint8_t i = 0; i < s_sector_count; i++) {
+        uint32_t b2_part[4];
+        b2_part[0] = s_parts[i].flash_addr | 0x11000000;
+        b2_part[1] = s_parts[i].run_addr;
+        b2_part[2] = s_parts[i].size;
+        b2_part[3] = (uint32_t)s_parts[i].checksum;
+        hal_flash_write(0x11003010 + i * 16, (uint8_t *)b2_part, 16);
+    }
+
+    // 5. Short delay and restart
+    for (volatile int dly = 0; dly < 100000; dly++) {
+        __asm__ volatile ("nop");
+    }
+
+    hal_system_soft_reset();
 }
 
 void ota_inapp_init(void) {

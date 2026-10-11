@@ -19,11 +19,11 @@ typedef struct {
 } test_pin_entry_t;
 
 static const test_pin_entry_t s_test_pins[] = {
-    { GPIO_P03, "P03 (Def)" },
+    { GPIO_P14, "P14 (Spec)" },
+    { GPIO_P03, "P03"       },
     { GPIO_P02, "P02 (Ana)" },
     { GPIO_P00, "P00 (Led)" },
     { GPIO_P07, "P07"       },
-    { GPIO_P14, "P14"       },
     { GPIO_P15, "P15"       },
     { GPIO_P18, "P18"       },
     { GPIO_P20, "P20"       },
@@ -34,7 +34,7 @@ static const test_pin_entry_t s_test_pins[] = {
 #define TEST_PINS_COUNT (sizeof(s_test_pins) / sizeof(s_test_pins[0]))
 static uint8_t s_curr_idx = 0;
 static uint8_t s_active_level = 1; // 1 = Active HIGH, 0 = Active LOW
-static gpio_pin_e s_selected_pin = GPIO_P03;
+static gpio_pin_e s_selected_pin = GPIO_P14;
 
 static void setup_pin(gpio_pin_e pin) {
     hal_gpioretention_register(pin);

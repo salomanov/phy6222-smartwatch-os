@@ -14,7 +14,7 @@
 
 // Peripherals
 #define BUTTON_PIN    GPIO_P11    // Capacitive touch sensor
-#define GPIO_VIBRATOR GPIO_P03    // Vibration motor (active HIGH)
+#define GPIO_VIBRATOR GPIO_P14    // Vibration motor (hardware pin P14, active HIGH)
 #define GPIO_LED      GPIO_P00    // Status LED
 
 // UART
