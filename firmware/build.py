@@ -37,6 +37,7 @@ INCLUDES = [
     os.path.join(SDK_DIR, "components", "ble", "hci"),
     os.path.join(SDK_DIR, "components", "ble", "host"),
     os.path.join(SDK_DIR, "components", "profiles", "ota_app"),
+    os.path.join(SDK_DIR, "components", "profiles", "ota"),
     os.path.join(SDK_DIR, "components", "profiles", "DevInfo"),
     os.path.join(SDK_DIR, "components", "profiles", "SimpleProfile"),
     os.path.join(SDK_DIR, "components", "profiles", "Roles"),
@@ -147,7 +148,8 @@ def build():
         os.path.join(SDK_DIR, "components", "profiles", "GATT", "gattservapp.c"),
         os.path.join(SDK_DIR, "components", "profiles", "DevInfo", "devinfoservice.c"),
         os.path.join(SDK_DIR, "components", "profiles", "SimpleProfile", "simpleGATTprofile_ota.c"),
-        os.path.join(SDK_DIR, "components", "profiles", "ota_app", "ota_app_service.c"),
+        os.path.join(SDK_DIR, "components", "profiles", "ota", "ota_service.c"),
+        os.path.join(SDK_DIR, "components", "libraries", "crc16", "crc16.c"),
     ]
 
     # BLE Host Library Sources

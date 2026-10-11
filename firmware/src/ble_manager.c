@@ -14,7 +14,7 @@
 #include "mcu.h"
 #include "clock.h"
 #include "hci.h"
-#include "ota_app_service.h"
+#include "ota_inapp.h"
 #include "devinfoservice.h"
 #include "simpleGATTprofile_ota.h"
 #include "app_os.h"
@@ -213,8 +213,8 @@ void WatchBLE_Init(uint8_t task_id) {
     // 5. Register Simple GATT Profile (0xFFF0) for Data Exchange
     SimpleProfile_AddService(GATT_ALL_SERVICES);
 
-    // 6. Register Official PhyPlus BLE OTA Service
-    ota_app_AddService();
+    // 6. Register Official PhyPlus BLE In-App OTA Service (UUID 5833ff01 + 5833ff04)
+    ota_inapp_init();
 
     // 7. Setup MTU & FIFO
     ATT_SetMTUSizeMax(240);

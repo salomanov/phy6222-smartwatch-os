@@ -1,4 +1,5 @@
 #include "app_os.h"
+#include "ota_inapp.h"
 #include "display.h"
 #include "gfx.h"
 #include "button.h"
@@ -368,7 +369,7 @@ void app_os_update(void) {
     }
 
     // Redraw screen if requested
-    if (s_needs_redraw) {
+    if (s_needs_redraw && !ota_inapp_is_active()) {
         s_needs_redraw = false;
         switch (s_current_mode) {
             case MODE_WATCHFACE:
