@@ -73,7 +73,8 @@ void vibrator_init(void) {
 }
 
 void vibrator_pulse(uint16_t duration_ms) {
-    if (duration_ms < 60) duration_ms = 60;
+    if (duration_ms < 30) duration_ms = 30;
+    if (duration_ms > 120) duration_ms = 120; // safety ceiling
     setup_pin(s_selected_pin);
     led_set(1);
     hal_gpio_write(s_selected_pin, s_active_level ? 1 : 0);

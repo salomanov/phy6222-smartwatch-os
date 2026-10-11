@@ -9,6 +9,7 @@
 #include "ble_manager.h"
 #include "bcomdef.h"
 #include "peripheral.h"
+#include "battery.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -45,10 +46,16 @@ static void render_watchface(void) {
         gfx_draw_string(4, 152, "HOLD: OTA MODE", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
-    // Hardware status: Uptime
+    // Hardware status: Uptime & Battery
     char buf[20];
-    snprintf(buf, sizeof(buf), "UP: %-7lus", (unsigned long)s_uptime_seconds);
+    snprintf(buf, sizeof(buf), "UP: %-4lus", (unsigned long)s_uptime_seconds);
     gfx_draw_string(4, 18, buf, COLOR_WHITE, COLOR_BLACK, 1);
+
+    // Battery Line (Ponytail style: clean and concise)
+    uint8_t bat_pct = battery_get_percent();
+    uint16_t bat_mv = battery_read_mv();
+    snprintf(buf, sizeof(buf), "BAT: %d%% %dmV", bat_pct, bat_mv);
+    gfx_draw_string(4, 30, buf, (bat_pct > 20) ? COLOR_GREEN : COLOR_RED, COLOR_BLACK, 1);
 
     // BLE State Line
     uint8_t bst = ble_get_state();
@@ -64,12 +71,9 @@ static void render_watchface(void) {
     else if (bst >= 4) { st_name = "WAIT "; st_col = COLOR_ORANGE; }
 
     snprintf(buf, sizeof(buf), "BLE: %-5s", st_name);
-    gfx_draw_string(4, 30, buf, st_col, COLOR_BLACK, 1);
+    gfx_draw_string(4, 42, buf, st_col, COLOR_BLACK, 1);
 
     snprintf(buf, sizeof(buf), "B:%d C:%d R:%02X", bst, cst, bret);
-    gfx_draw_string(4, 42, buf, COLOR_LIGHTGREY, COLOR_BLACK, 1);
-
-    snprintf(buf, sizeof(buf), "Calls: %-4u", (unsigned int)bcalls);
     gfx_draw_string(4, 54, buf, COLOR_LIGHTGREY, COLOR_BLACK, 1);
 
     // Button input counter
@@ -143,10 +147,10 @@ void app_os_init(void) {
     display_init(0); // Portrait 80x160
     button_init();
     vibrator_init();
+    battery_init();
     uart_cli_init();
     
-    // Initial welcome buzz
-    vibrator_pulse(60);
+    // No buzz on startup (safe and quiet)
     s_needs_redraw = false;
     render_watchface();
 }
@@ -186,11 +190,9 @@ void app_os_update(void) {
         s_vib_count++;
 
         if (s_current_mode == MODE_WATCHFACE) {
-            // Direct click goes to VIBRATOR SCANNER!
-            s_current_mode = MODE_VIBRATOR_TEST;
-            vibrator_test_fire();
+            // Short 30ms haptic tap feedback
+            vibrator_pulse(30);
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
-            // Next candidate pin and immediately fire test pulse!
             vibrator_next_test_pin();
             vibrator_test_fire();
         } else if (s_current_mode == MODE_OTA_UPDATE) {

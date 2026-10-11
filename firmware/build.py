@@ -136,6 +136,7 @@ def build():
         os.path.join(SDK_DIR, "components", "driver", "timer", "timer.c"),
         os.path.join(SDK_DIR, "components", "driver", "uart", "uart.c"),
         os.path.join(SDK_DIR, "components", "driver", "watchdog", "watchdog.c"),
+        os.path.join(SDK_DIR, "components", "driver", "adc", "adc.c"),
         os.path.join(SDK_DIR, "components", "driver", "log", "my_printf.c"),
         os.path.join(SDK_DIR, "misc", "jump_table.c"),
         os.path.join(SDK_DIR, "misc", "CMSIS", "device", "phyplus", "phy6222_cstart.c"),
