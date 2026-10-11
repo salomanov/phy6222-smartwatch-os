@@ -14,12 +14,6 @@
 
 #define COLOR_NAVY 0x000F
 
-static void fmt_2digits(char *buf, uint8_t val) {
-    buf[0] = '0' + ((val / 10) % 10);
-    buf[1] = '0' + (val % 10);
-    buf[2] = '\0';
-}
-
 static os_mode_t s_current_mode = MODE_WATCHFACE;
 static uint32_t s_uptime_seconds = 0;
 static uint32_t s_last_sec_tick = 0;
@@ -29,82 +23,10 @@ static uint32_t s_ms_counter = 0;
 static uint8_t s_hours = 12;
 static uint8_t s_minutes = 34;
 static uint8_t s_seconds = 0;
-static uint8_t s_battery = 88;
-
-// Cheat Sheet Data
-static const char *s_cheat_tickets[] = {
-    // Ticket 1: Physics formulas
-    "Билет 1: Физика\n"
-    "E = mc^2\n"
-    "F = m*a\n"
-    "p = m*v\n"
-    "A = F*s*cos(a)\n"
-    "E_k = (m*v^2)/2\n"
-    "E_p = m*g*h\n"
-    "N = A/t\n"
-    "P = F/S\n"
-    "p = p0 + p*g*h\n"
-    "Fa = p_ж*g*V\n"
-    "T = 2*pi*sqrt(l/g)\n"
-    "T = 2*pi*sqrt(m/k)",
-
-    // Ticket 2: Math formulas
-    "Билет 2: Математика\n"
-    "D = b^2 - 4*a*c\n"
-    "x1,2 = (-b+-VD)/2a\n"
-    "sin^2+cos^2 = 1\n"
-    "sin(2a)=2sin*cos\n"
-    "cos(2a)=cos^2-sin^2\n"
-    "(a+b)^2=a^2+2ab+b^2\n"
-    "a^2-b^2=(a-b)(a+b)\n"
-    "log_a(b*c)=lga+lgc\n"
-    "(u*v)'=u'v + uv'\n"
-    "(u/v)'=(u'v-uv')/v2\n"
-    "int x^n = x^(n+1)/n",
-
-    // Ticket 3: English / History
-    "Билет 3: Даты\n"
-    "862 - призв. варяг\n"
-    "988 - Крещение Руси\n"
-    "1242 - Ледовое поб.\n"
-    "1380 - Куликовская\n"
-    "1480 - Стояние Угре\n"
-    "1612 - Ополчение\n"
-    "1703 - СПб основан\n"
-    "1709 - Полтава\n"
-    "1812 - Бородино\n"
-    "1861 - Отмена КП\n"
-    "1917 - Революция\n"
-    "1945 - Победа ВОВ",
-
-    // Ticket 4: Chemistry / Laws
-    "Билет 4: Химия/Законы\n"
-    "PV = nRT (Менд-Клап)\n"
-    "n = m / M\n"
-    "Vm = 22.4 л/моль\n"
-    "pH = -lg[H+]\n"
-    "Q = c*m*dT\n"
-    "I = U / R (Закон Ома)\n"
-    "P = I * U = I^2 * R\n"
-    "B = u0*I / (2*pi*r)\n"
-    "E = h * nu\n"
-    "c = 3*10^8 м/с\n"
-    "Na = 6.02*10^23"
-};
-
-#define TOTAL_TICKETS 4
-static uint8_t s_current_ticket = 0;
-
-// Stopwatch State
-static bool s_sw_running = false;
-static uint32_t s_sw_elapsed_ms = 0;
-static uint32_t s_sw_start_ms = 0;
 
 static bool s_needs_redraw = true;
-
 static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
-
 static bool s_diag_first_draw = true;
 
 static void render_watchface(void) {
@@ -119,11 +41,11 @@ static void render_watchface(void) {
         gfx_draw_fast_h_line(2, 94, 76, COLOR_DARKGREY);
         gfx_draw_string(4, 98, "PERIPHERALS:", COLOR_YELLOW, COLOR_BLACK, 1);
         gfx_draw_fast_h_line(2, 136, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 142, "CLICK = MENU", COLOR_GREEN, COLOR_BLACK, 1);
-        gfx_draw_string(4, 152, "HOLD = OTA", COLOR_CYAN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 142, "CLICK: VIB SCAN", COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 152, "HOLD: OTA MODE", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
-    // Hardware status: Uptime & Battery
+    // Hardware status: Uptime
     char buf[20];
     snprintf(buf, sizeof(buf), "UP: %-7lus", (unsigned long)s_uptime_seconds);
     gfx_draw_string(4, 18, buf, COLOR_WHITE, COLOR_BLACK, 1);
@@ -159,64 +81,29 @@ static void render_watchface(void) {
     gfx_draw_string(4, 122, buf, COLOR_WHITE, COLOR_BLACK, 1);
 }
 
-static void render_cheatsheet(void) {
+static void render_vibrator_test(void) {
     display_fill_screen(COLOR_BLACK);
+    gfx_draw_rect(0, 0, 80, 14, COLOR_NAVY);
+    gfx_draw_string(4, 3, "VIB SCANNER", COLOR_YELLOW, COLOR_NAVY, 1);
 
-    // Header bar with ticket index: e.g. "[1/4] ШПОРА"
-    char hdr[24];
-    hdr[0] = '[';
-    hdr[1] = '0' + (s_current_ticket + 1);
-    hdr[2] = '/';
-    hdr[3] = '0' + TOTAL_TICKETS;
-    hdr[4] = ']';
-    hdr[5] = ' ';
-    hdr[6] = '\0';
-    strcat(hdr, "ШПОРА");
-    gfx_draw_rect(0, 0, 80, 12, COLOR_DARKGREY);
-    gfx_draw_string_utf8(4, 2, hdr, COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_fast_h_line(2, 20, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 26, "TEST PIN:", COLOR_WHITE, COLOR_BLACK, 1);
 
-    // Ticket text in stealth micro-font (scale 1 = 6x8 pixels per char)
-    // 80px width fits 13 characters per line!
-    // 148px height fits 18 lines!
-    gfx_draw_string_utf8(2, 15, s_cheat_tickets[s_current_ticket], COLOR_WHITE, COLOR_BLACK, 1);
+    char p_buf[20];
+    snprintf(p_buf, sizeof(p_buf), "%s", vibrator_get_test_pin_name());
+    gfx_draw_string(8, 40, p_buf, COLOR_CYAN, COLOR_BLACK, 2);
 
-    // Footer stealth hint
-    gfx_draw_fast_h_line(0, 158, 80, COLOR_DARKGREY);
-}
+    snprintf(p_buf, sizeof(p_buf), "POL: %s", vibrator_get_active_level() ? "HIGH (1)" : "LOW (0)");
+    gfx_draw_string(4, 62, p_buf, vibrator_get_active_level() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
 
-static void render_stopwatch(void) {
-    display_fill_screen(COLOR_BLACK);
+    gfx_draw_fast_h_line(2, 78, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 84, "Click: Next Pin", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 98, "2Click: Polarity", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 112, "Hold: Return Home", COLOR_LIGHTGREY, COLOR_BLACK, 1);
 
-    gfx_draw_string_utf8(10, 8, "СЕКУНДОМЕР", COLOR_YELLOW, COLOR_BLACK, 1);
-    gfx_draw_fast_h_line(2, 22, 76, COLOR_DARKGREY);
-
-    uint32_t total_ms = s_sw_elapsed_ms;
-    if (s_sw_running) total_ms += (s_ms_counter - s_sw_start_ms);
-
-    uint32_t secs = total_ms / 1000;
-    uint32_t mins = secs / 60;
-    secs %= 60;
-    uint32_t tenths = (total_ms % 1000) / 100;
-
-    char sw_buf[16];
-    fmt_2digits(sw_buf, mins);
-    sw_buf[2] = ':';
-    fmt_2digits(sw_buf + 3, secs);
-    gfx_draw_string(10, 48, sw_buf, COLOR_GREEN, COLOR_BLACK, 2);
-
-    sw_buf[0] = '.';
-    sw_buf[1] = '0' + (tenths % 10);
-    sw_buf[2] = '\0';
-    gfx_draw_string(30, 72, sw_buf, COLOR_WHITE, COLOR_BLACK, 2);
-
-    if (s_sw_running) {
-        gfx_draw_string_utf8(20, 110, "[ ИДЁТ ]", COLOR_CYAN, COLOR_BLACK, 1);
-        gfx_draw_string_utf8(6, 130, "Клик: Пауза", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-    } else {
-        gfx_draw_string_utf8(20, 110, "[ СТОП ]", COLOR_RED, COLOR_BLACK, 1);
-        gfx_draw_string_utf8(6, 130, "Клик: Старт", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-        gfx_draw_string_utf8(6, 142, "2клик: Сброс", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-    }
+    gfx_draw_fast_h_line(2, 128, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 134, "STATUS: PULSING", COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_string(4, 146, "Impulse 350ms", COLOR_WHITE, COLOR_BLACK, 1);
 }
 
 static void render_ota_update(void) {
@@ -234,41 +121,11 @@ static void render_ota_update(void) {
     gfx_draw_string(4, 90, "PPlusOTA boot", COLOR_GREEN, COLOR_BLACK, 1);
 
     gfx_draw_fast_h_line(2, 114, 76, COLOR_DARKGREY);
-    gfx_draw_string(4, 122, "Click: Next", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 122, "Click: Return", COLOR_LIGHTGREY, COLOR_BLACK, 1);
     gfx_draw_string(4, 136, "HOLD: FLASH", COLOR_CYAN, COLOR_BLACK, 1);
 }
 
-static void render_vibrator_test(void) {
-    display_fill_screen(COLOR_BLACK);
-    gfx_draw_rect(0, 0, 80, 14, COLOR_NAVY);
-    gfx_draw_string(4, 3, "VIB SCANNER", COLOR_YELLOW, COLOR_NAVY, 1);
-
-    gfx_draw_fast_h_line(2, 20, 76, COLOR_DARKGREY);
-    gfx_draw_string(4, 26, "TEST PIN:", COLOR_WHITE, COLOR_BLACK, 1);
-
-    char p_buf[20];
-    snprintf(p_buf, sizeof(p_buf), "%s", vibrator_get_test_pin_name());
-    gfx_draw_string(8, 40, p_buf, COLOR_CYAN, COLOR_BLACK, 2);
-
-    snprintf(p_buf, sizeof(p_buf), "POL: %s", vibrator_get_active_level() ? "HIGH (1)" : "LOW (0)");
-    gfx_draw_string(4, 62, p_buf, vibrator_get_active_level() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
-
-    gfx_draw_fast_h_line(2, 78, 76, COLOR_DARKGREY);
-    gfx_draw_string(4, 84, "Click: Next", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-    gfx_draw_string(4, 98, "2Click: Polarity", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-    gfx_draw_string(4, 112, "Hold: Next Mode", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-
-    gfx_draw_fast_h_line(2, 128, 76, COLOR_DARKGREY);
-    gfx_draw_string(4, 134, "STATUS: TESTING", COLOR_YELLOW, COLOR_BLACK, 1);
-    gfx_draw_string(4, 146, "Auto-buzz 350ms", COLOR_WHITE, COLOR_BLACK, 1);
-}
-
-static void render_flashlight(void) {
-    display_fill_screen(COLOR_WHITE);
-}
-
 void app_os_panic(void) {
-    // Instant panic action: flip back to harmless clock face and buzz softly
     s_current_mode = MODE_WATCHFACE;
     s_diag_first_draw = true;
     s_needs_redraw = true;
@@ -316,7 +173,7 @@ void app_os_update(void) {
             ble_try_start_device();
         }
 
-        if (s_current_mode == MODE_WATCHFACE || s_current_mode == MODE_STOPWATCH) {
+        if (s_current_mode == MODE_WATCHFACE) {
             s_needs_redraw = true;
         }
     }
@@ -327,31 +184,16 @@ void app_os_update(void) {
     if (evt == BTN_EVENT_CLICK) {
         s_click_count++;
         s_vib_count++;
-        vibrator_pulse(30);
 
         if (s_current_mode == MODE_WATCHFACE) {
-            s_current_mode = MODE_CHEATSHEET;
-        } else if (s_current_mode == MODE_CHEATSHEET) {
-            s_current_ticket++;
-            if (s_current_ticket >= TOTAL_TICKETS) {
-                s_current_ticket = 0;
-                s_current_mode = MODE_STOPWATCH;
-            }
-        } else if (s_current_mode == MODE_STOPWATCH) {
-            if (s_sw_running) {
-                s_sw_elapsed_ms += (s_ms_counter - s_sw_start_ms);
-                s_sw_running = false;
-            } else {
-                s_sw_start_ms = s_ms_counter;
-                s_sw_running = true;
-            }
+            // Direct click goes to VIBRATOR SCANNER!
+            s_current_mode = MODE_VIBRATOR_TEST;
+            vibrator_test_fire();
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
             // Next candidate pin and immediately fire test pulse!
             vibrator_next_test_pin();
             vibrator_test_fire();
         } else if (s_current_mode == MODE_OTA_UPDATE) {
-            s_current_mode = MODE_FLASHLIGHT;
-        } else if (s_current_mode == MODE_FLASHLIGHT) {
             s_current_mode = MODE_WATCHFACE;
             s_diag_first_draw = true;
         }
@@ -362,17 +204,12 @@ void app_os_update(void) {
         s_click_count += 2;
         s_vib_count += 2;
 
-        if (s_current_mode == MODE_STOPWATCH) {
-            s_sw_running = false;
-            s_sw_elapsed_ms = 0;
-            vibrator_double_pulse();
-        } else if (s_current_mode == MODE_VIBRATOR_TEST) {
-            // Toggle active polarity (HIGH vs LOW) and immediately test fire!
+        if (s_current_mode == MODE_VIBRATOR_TEST) {
+            // Double click: toggle active polarity (HIGH vs LOW) and test fire!
             vibrator_toggle_active_level();
             vibrator_test_fire();
         } else {
-            // Quick home
-            vibrator_double_pulse();
+            // Double click from any screen: return to main watchface
             s_current_mode = MODE_WATCHFACE;
             s_diag_first_draw = true;
             ble_try_start_device();
@@ -383,27 +220,19 @@ void app_os_update(void) {
     if (evt == BTN_EVENT_LONG_PRESS) {
         s_click_count += 5;
         s_vib_count += 3;
-        vibrator_pulse(100);
 
         if (s_current_mode == MODE_OTA_UPDATE) {
             // REBOOT INTO OTA BOOTLOADER
             ble_start_ota_mode();
             return;
-        } else if (s_current_mode == MODE_WATCHFACE) {
-            // Long press from watchface goes directly to VIBRATOR SCANNER!
-            s_current_mode = MODE_VIBRATOR_TEST;
-            vibrator_test_fire();
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
-            // Save selected pin and go to OTA mode
+            // Long press in test saves and returns home
             vibrator_select_current_pin();
-            s_current_mode = MODE_OTA_UPDATE;
-        } else if (s_current_mode == MODE_STOPWATCH) {
-            s_current_mode = MODE_VIBRATOR_TEST;
-            vibrator_test_fire();
-        } else {
-            // Panic from cheatsheet or flashlight
             s_current_mode = MODE_WATCHFACE;
             s_diag_first_draw = true;
+        } else if (s_current_mode == MODE_WATCHFACE) {
+            // Long press from watchface: OTA MODE!
+            s_current_mode = MODE_OTA_UPDATE;
         }
         s_needs_redraw = true;
     }
@@ -415,20 +244,11 @@ void app_os_update(void) {
             case MODE_WATCHFACE:
                 render_watchface();
                 break;
-            case MODE_CHEATSHEET:
-                render_cheatsheet();
-                break;
-            case MODE_STOPWATCH:
-                render_stopwatch();
-                break;
             case MODE_VIBRATOR_TEST:
                 render_vibrator_test();
                 break;
             case MODE_OTA_UPDATE:
                 render_ota_update();
-                break;
-            case MODE_FLASHLIGHT:
-                render_flashlight();
                 break;
             default:
                 break;
