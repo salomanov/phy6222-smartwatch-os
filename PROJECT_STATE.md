@@ -115,6 +115,23 @@
        - `custom_firmware_ota.bin` (93 КБ) — готовый образ для беспроводной прошивки через мобильное приложение или скрипт.
    - **Статус сборки**: Успешно скомпилировано (`custom_firmware.hex` + `custom_firmware_ota.bin`), размер прошивки 89.4 КБ текста.
 
-7. **Этап 7: Финальный релиз и готовность к тесту** — **ГОТОВ К ПРОШИВКЕ**:
-   - Все файлы собраны и проверены. Пользователю достаточно запустить `python flash_firmware.py`, один раз подать питание на провод VCC3V, и часы будут прошиты стабильной версией с быстрым BLE и поддержкой OTA.
+7. **Этап 7: Устранение разрыва BLE соединения (Error 8) и полный релиз v1.1** — **ВЫПОЛНЕН [100%]**:
+   - **Коренная причина ошибки `Error 8 (0x8): GATT CONN TIMEOUT` / `Connection parameters update failed with status 8`**:
+     1. `enable_update_request = TRUE` и `TGAP_CONN_PAUSE_PERIPHERAL = 1`: периферия через 1 секунду после подключения навязывала Android принудительную смену интервалов связи на 15–30 мс. Android отклонял запрос, а по истечении таймаута надзора (5000 мс) Link Layer разрывал связь с кодом `0x08: Connection Timeout`. В эталонном `app_wrist.c` параметр `DEFAULT_ENABLE_UPDATE_REQUEST` ВСЕГДА равен `FALSE`.
+     2. В `s_scan_rsp_data` присутствовало поле `GAP_ADTYPE_SLAVE_CONN_INTERVAL_RANGE`, которое провоцировало стек Android на повторные запросы.
+     3. Отсутствие инициализации Link Layer памяти `ll_osalmem_init(g_llLinkHeap, LL_LINK_HEAP_SIZE)`.
+     4. Отсутствие стандартного сервиса информации об устройстве `DevInfo_AddService` и `SimpleProfile_AddService` (из-за чего при Service Discovery единственный `ota_app_service` возвращал `ATT_ERR_READ_NOT_PERMITTED`, что приводило к `Error 8: GATT INSUF AUTHORIZATION`).
+   - **Внесенные исправления в прошивку**:
+     - `firmware/src/ble_manager.c`:
+       - `enable_update_request = FALSE;` — часы не навязывают Android свои интервалы;
+       - `desired_conn_timeout = 1000;` (10 секунд);
+       - Очищен `s_scan_rsp_data` от жестких ограничений интервалов;
+       - Зарегистрированы сервисы: `DevInfo_AddService()` (Device Info 0x180A) и `SimpleProfile_AddService()` (0xFFF0), а также `ota_app_AddService()`.
+     - `firmware/src/main.c`:
+       - Добавлен вызов `ll_osalmem_init((osalMemHdr_t*)g_llLinkHeap, LL_LINK_HEAP_SIZE);`;
+       - Сохранен вызов `ll_patch_slave();`.
+     - `firmware/build.py`:
+       - Подключен модуль `simpleGATTprofile_ota.c`;
+       - Сборка успешно завершена без ошибок и предупреждений линковщика: `custom_firmware.hex` и `custom_firmware_ota.bin` (94.7 КБ).
+   - **Несгораемый релизный архив**: `.backups/firmware_success_2026-10-11_12-37-23/`.
 
