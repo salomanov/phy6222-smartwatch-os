@@ -3,6 +3,7 @@
 #include "gfx.h"
 #include "button.h"
 #include "vibrator.h"
+#include "uart_cli.h"
 #include "mcu.h"
 #include "ble_manager.h"
 #include "bcomdef.h"
@@ -248,10 +249,18 @@ void app_os_panic(void) {
     vibrator_pulse(40);
 }
 
+void app_os_set_time(uint8_t h, uint8_t m, uint8_t s) {
+    s_hours = h % 24;
+    s_minutes = m % 60;
+    s_seconds = s % 60;
+    s_needs_redraw = true;
+}
+
 void app_os_init(void) {
     display_init(0); // Portrait 80x160
     button_init();
     vibrator_init();
+    uart_cli_init();
     
     // Initial welcome buzz
     vibrator_pulse(60);
@@ -261,6 +270,7 @@ void app_os_init(void) {
 
 void app_os_update(void) {
     s_ms_counter += 50; // Called every 50ms by OSAL timer (WATCH_TICK_EVT)
+    uart_cli_update();
 
     // 1-second system timer
     if (s_ms_counter - s_last_sec_tick >= 1000) {
