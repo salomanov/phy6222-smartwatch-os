@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_tools_smartwatch_ref_sdk_components_osal_include_osal_cbtimer_h", "label": "osal_cbtimer.h", "file_type": "code", "source_file": "tools/smartwatch_ref/sdk/components/osal/include/osal_cbtimer.h", "source_location": "L1"}], "edges": [], "raw_calls": [], "parse_errors": {"first_error_line": 99, "multiline_error": false}}

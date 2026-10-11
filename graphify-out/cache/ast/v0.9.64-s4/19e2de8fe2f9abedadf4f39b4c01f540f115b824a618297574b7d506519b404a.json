@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_tools_smartwatch_ref_sdk_components_profiles_batt_battservice_h", "label": "battservice.h", "file_type": "code", "source_file": "tools/smartwatch_ref/sdk/components/profiles/Batt/battservice.h", "source_location": "L1"}], "edges": [], "raw_calls": [], "parse_errors": {"first_error_line": 178, "multiline_error": false}}

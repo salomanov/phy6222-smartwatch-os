@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_tools_smartwatch_ref_sdk_components_ble_host_gatt_profile_uuid_h", "label": "gatt_profile_uuid.h", "file_type": "code", "source_file": "tools/smartwatch_ref/sdk/components/ble/host/gatt_profile_uuid.h", "source_location": "L1"}], "edges": [], "raw_calls": [], "parse_errors": {"first_error_line": 231, "multiline_error": false}}

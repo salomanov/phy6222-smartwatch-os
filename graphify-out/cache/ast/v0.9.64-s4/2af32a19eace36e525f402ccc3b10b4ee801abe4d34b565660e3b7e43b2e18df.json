@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_tools_smartwatch_ref_sdk_components_osal_include_osal_tasks_h", "label": "OSAL_Tasks.h", "file_type": "code", "source_file": "tools/smartwatch_ref/sdk/components/osal/include/OSAL_Tasks.h", "source_location": "L1"}], "edges": [], "raw_calls": [], "parse_errors": {"first_error_line": 62, "multiline_error": false}}

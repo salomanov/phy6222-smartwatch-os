@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_tools_smartwatch_ref_sdk_misc_cmsis_device_phyplus_phy6222_vectors_c", "label": "phy6222_vectors.c", "file_type": "code", "source_file": "tools/smartwatch_ref/sdk/misc/CMSIS/device/phyplus/phy6222_vectors.c", "source_location": "L1"}], "edges": [], "raw_calls": [], "parse_errors": {"first_error_line": 5, "multiline_error": true}}
