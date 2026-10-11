@@ -16,6 +16,7 @@
 #include "hci.h"
 #include "ota_app_service.h"
 #include "devinfoservice.h"
+#include "simpleGATTprofile_ota.h"
 #include "app_os.h"
 #include "vibrator.h"
 #include "log.h"
@@ -40,20 +41,12 @@ static uint8_t s_adv_data[] = {
     'C', 'H', 'A', 'S', 'Y', '-', 'S', 'T', 'E', 'A', 'L', 'T', 'H',
 };
 
-// GAP - Scan Response data (max 31 bytes)
+// GAP - Scan Response data (clean, matching official smartwatch app_wrist.c)
 static uint8_t s_scan_rsp_data[] = {
     // Complete Local Name
     14,
     GAP_ADTYPE_LOCAL_NAME_COMPLETE,
     'C', 'H', 'A', 'S', 'Y', '-', 'S', 'T', 'E', 'A', 'L', 'T', 'H',
-
-    // Connection interval range (15ms - 30ms)
-    0x05,
-    GAP_ADTYPE_SLAVE_CONN_INTERVAL_RANGE,
-    LO_UINT16(12),
-    HI_UINT16(12),
-    LO_UINT16(24),
-    HI_UINT16(24),
 
     // Tx power level: 0 dBm
     0x02,
@@ -170,19 +163,16 @@ void WatchBLE_Init(uint8_t task_id) {
 
     LOG("WatchBLE_Init task=%d\n", task_id);
 
-    // GAP peripheral pause (1 second instead of 6s to rapidly apply parameters)
-    GAP_SetParamValue(TGAP_CONN_PAUSE_PERIPHERAL, 1);
-
     // 1. Setup GAP Peripheral Role Parameters
     uint8_t initial_advertising_enable = TRUE;
-    uint8_t enable_update_request = TRUE;
+    uint8_t enable_update_request = FALSE; // Crucial: FALSE matches official app_wrist.c, prevents L2CAP timeout
     uint8_t adv_chn_map = GAP_ADVCHAN_37 | GAP_ADVCHAN_38 | GAP_ADVCHAN_39;
     uint8_t adv_type = GAP_ADTYPE_ADV_IND; // Connectable undirected advertisement
     uint16_t gap_role_advert_off_time = 0;
-    uint16_t desired_min_interval = 12;   // 15ms (12 * 1.25ms)
-    uint16_t desired_max_interval = 24;   // 30ms (24 * 1.25ms)
+    uint16_t desired_min_interval = 24;    // 30ms (24 * 1.25ms)
+    uint16_t desired_max_interval = 80;    // 100ms (80 * 1.25ms)
     uint16_t desired_slave_latency = 0;
-    uint16_t desired_conn_timeout = 500;  // 5000ms (500 * 10ms)
+    uint16_t desired_conn_timeout = 1000;  // 10000ms (1000 * 10ms supervision timeout)
 
     GAPRole_SetParameter(GAPROLE_ADV_EVENT_TYPE, sizeof(uint8_t), &adv_type);
     GAPRole_SetParameter(GAPROLE_ADV_CHANNEL_MAP, sizeof(uint8_t), &adv_chn_map);
@@ -211,20 +201,29 @@ void WatchBLE_Init(uint8_t task_id) {
     GATTServApp_AddService(GATT_ALL_SERVICES);
     gattServApp_RegisterCB(watch_ProcessGATTMsg);
 
-    // 4. Register Official PhyPlus BLE OTA Service
+    // 4. Register Device Information Service (0x180A)
+    DevInfo_AddService();
+    uint8_t manu_name[] = "PhyPlus";
+    uint8_t model_num[] = "LP715";
+    uint8_t fw_rev[] = "v1.0.0";
+    DevInfo_SetParameter(DEVINFO_MANUFACTURER_NAME, sizeof(manu_name) - 1, manu_name);
+    DevInfo_SetParameter(DEVINFO_MODEL_NUMBER, sizeof(model_num) - 1, model_num);
+    DevInfo_SetParameter(DEVINFO_FIRMWARE_REV, sizeof(fw_rev) - 1, fw_rev);
+
+    // 5. Register Simple GATT Profile (0xFFF0) for Data Exchange
+    SimpleProfile_AddService(GATT_ALL_SERVICES);
+
+    // 6. Register Official PhyPlus BLE OTA Service
     ota_app_AddService();
 
-    // 5. Setup BLE 4.2 / 5.0 High-Speed Features & HW FIFO
+    // 7. Setup MTU & FIFO
     ATT_SetMTUSizeMax(240);
     ll_hw_set_tfifo_space(LL_HW_FIFO_TX_1K_RX_3K);
-    llInitFeatureSet2MPHY(TRUE);
-    llInitFeatureSetDLE(TRUE);
-    HCI_LE_SetDefaultPhyMode(0, 0x00, 0x03, 0x03);
 
-    // 6. Schedule peripheral device start event
+    // 8. Schedule peripheral device start event
     osal_set_event(task_id, WATCH_START_DEVICE_EVT);
 
-    // 7. Start periodic UI & input update timer (every 50 ms)
+    // 9. Start periodic UI & input update timer (every 50 ms)
     osal_start_reload_timer(task_id, WATCH_TICK_EVT, 50);
 }
 

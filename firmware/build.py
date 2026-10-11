@@ -89,10 +89,10 @@ DEFINES = [
     "-DPHY_MCU_TYPE=MCU_BUMBEE_M0",
     "-DUSE_FS=0",
     "-DOTA_TYPE=OTA_TYPE_NONE",
-    "-DDEFAULT_DESIRED_MIN_CONN_INTERVAL=12",
-    "-DDEFAULT_DESIRED_MAX_CONN_INTERVAL=24",
+    "-DDEFAULT_DESIRED_MIN_CONN_INTERVAL=24",
+    "-DDEFAULT_DESIRED_MAX_CONN_INTERVAL=80",
     "-DDEFAULT_DESIRED_SLAVE_LATENCY=0",
-    "-DDEFAULT_DESIRED_CONN_TIMEOUT=500",
+    "-DDEFAULT_DESIRED_CONN_TIMEOUT=1000",
 ]
 
 CFLAGS = [
@@ -146,6 +146,7 @@ def build():
         os.path.join(SDK_DIR, "components", "profiles", "Roles", "gapgattserver.c"),
         os.path.join(SDK_DIR, "components", "profiles", "GATT", "gattservapp.c"),
         os.path.join(SDK_DIR, "components", "profiles", "DevInfo", "devinfoservice.c"),
+        os.path.join(SDK_DIR, "components", "profiles", "SimpleProfile", "simpleGATTprofile_ota.c"),
         os.path.join(SDK_DIR, "components", "profiles", "ota_app", "ota_app_service.c"),
     ]
 

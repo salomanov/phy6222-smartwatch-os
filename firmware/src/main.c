@@ -74,6 +74,8 @@ static void hal_low_power_io_init(void) {
 }
 
 static void ble_mem_init_config(void) {
+    extern void ll_osalmem_init(osalMemHdr_t* hdr, uint32 size);
+    ll_osalmem_init((osalMemHdr_t*)g_llLinkHeap, LL_LINK_HEAP_SIZE);
     osal_mem_set_heap((osalMemHdr_t *)g_largeHeap, LARGE_HEAP_SIZE);
     LL_InitConnectContext(pConnContext,
                           g_pConnectionBuffer,
