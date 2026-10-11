@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>PHY6222 Smartwatch OTA Updater</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #e6edf3; padding: 20px; text-align: center; margin: 0; }
+  .card { background: #161b22; max-width: 580px; margin: 20px auto; padding: 30px; border-radius: 16px; border: 1px solid #30363d; box-shadow: 0 8px 24px rgba(0,0,0,0.6); }
+  h1 { color: #58a6ff; font-size: 24px; margin-top: 0; margin-bottom: 8px; }
+  p { color: #8b949e; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+  .step-box { background: #0d1117; border: 1px solid #21262d; border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left; }
+  .step-title { font-weight: bold; color: #f0883e; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 15px; }
+  .step-desc { font-size: 13px; color: #8b949e; margin-bottom: 12px; }
+  button { background: #238636; color: #fff; font-weight: 600; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+  button:hover:not(:disabled) { background: #2ea043; transform: translateY(-1px); }
+  button:disabled { background: #21262d; color: #484f58; cursor: not-allowed; }
+  button.alt { background: #1f6feb; }
+  button.alt:hover:not(:disabled) { background: #388bfd; }
+  #log { background: #000; color: #39d353; font-family: 'Consolas', monospace; font-size: 12px; text-align: left; padding: 15px; border-radius: 8px; height: 200px; overflow-y: auto; margin-top: 20px; border: 1px solid #30363d; white-space: pre-wrap; word-break: break-all; }
+  .progress-bar { background: #21262d; border-radius: 6px; height: 14px; margin-top: 15px; overflow: hidden; border: 1px solid #30363d; }
+  .progress { background: linear-gradient(90deg, #1f6feb, #58a6ff); height: 100%; width: 0%; transition: width 0.15s; }
+  .status-text { font-size: 13px; color: #58a6ff; margin-top: 8px; font-family: monospace; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+  .badge-app { background: #1f6feb33; color: #58a6ff; border: 1px solid #1f6feb66; }
+  .badge-boot { background: #f0883e33; color: #f0883e; border: 1px solid #f0883e66; }
+</style>
+</head>
+<body>
+<div class='card'>
+  <h1>Часы PHY6222 OTA Flasher</h1>
+  <p>Беспроводная прошивка смарт-часов прямо из браузера через Web Bluetooth (Chrome / Edge)</p>
+
+  <!-- ШАГ 1 -->
+  <div class='step-box'>
+    <div class='step-title'>Шаг 1: Перевод в режим обновления <span class='badge badge-app'>CHASY-STEALTH</span></div>
+    <div class='step-desc'>Если часы работают в штатном режиме, подключитесь к ним, чтобы переключить в загрузчик. (Если на экране уже "OTA UPDATE" или часы уже в PPlusOTA — переходите к Шагу 2).</div>
+    <button id='btnStep1' class='alt'>1. Перевести CHASY-STEALTH в OTA</button>
+  </div>
+
+  <!-- ШАГ 2 -->
+  <div class='step-box'>
+    <div class='step-title'>Шаг 2: Беспроводная запись прошивки <span class='badge badge-boot'>PPlusOTA</span></div>
+    <div class='step-desc'>Выберите файл прошивки (по умолчанию уже выбран custom_firmware_ota.bin) и запустите прошивку.</div>
+    <input type='file' id='fileInput' accept='.bin,.hex' style='font-size:12px; margin-bottom: 10px;'>
+    <br>
+    <button id='btnStep2'>2. Подключиться к PPlusOTA и Прошить</button>
+  </div>
+
+  <div class='progress-bar'><div class='progress' id='pbar'></div></div>
+  <div class='status-text' id='statusText'>Ожидание действий...</div>
+
+  <div id='log'>Готов к работе. Поддерживается в браузерах Chrome, Edge, Яндекс.Браузер на ПК и Android.</div>
+</div>
+
+<script>
+const OTA_SERVICE_UUID = '5833ff01-9b8b-5191-6142-22a4536ef123';
+const OTA_CMD_UUID     = '5833ff02-9b8b-5191-6142-22a4536ef123';
+const OTA_RSP_UUID     = '5833ff03-9b8b-5191-6142-22a4536ef123';
+const OTA_DATA_UUID    = '5833ff04-9b8b-5191-6142-22a4536ef123';
+
+let binData = null;
+let defaultFileName = 'custom_firmware_ota.bin';
+
+function log(msg) {
+  const el = document.getElementById('log');
+  el.textContent += '\n' + msg;
+  el.scrollTop = el.scrollHeight;
+  console.log(msg);
+}
+
+function setProgress(pct, text) {
+  document.getElementById('pbar').style.width = pct + '%';
+  document.getElementById('statusText').textContent = text || (pct + '%');
+}
+
+// Загрузка файла по умолчанию с локального сервера
+window.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const resp = await fetch('../../firmware/build/' + defaultFileName);
+    if (resp.ok) {
+      binData = new Uint8Array(await resp.arrayBuffer());
+      log(`[+] Встроенная прошивка ${defaultFileName} автоматически загружена (${binData.length} байт).`);
+      setProgress(0, 'Готов к прошивке ' + defaultFileName);
+    }
+  } catch(e) {
+    log('[i] Загрузите файл прошивки вручную через кнопку "Обзор"');
+  }
+});
+
+document.getElementById('fileInput').onchange = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    binData = new Uint8Array(reader.result);
+    log(`[+] Выбран файл: ${file.name} (${binData.length} байт)`);
+    setProgress(0, 'Выбран ' + file.name);
+  };
+  reader.readAsArrayBuffer(file);
+};
+
+// ШАГ 1: Перевод CHASY-STEALTH в OTA
+document.getElementById('btnStep1').onclick = async () => {
+  try {
+    log('[*] Поиск устройства CHASY-STEALTH...');
+    const device = await navigator.bluetooth.requestDevice({
+      filters: [{ namePrefix: 'CHASY' }],
+      optionalServices: [OTA_SERVICE_UUID]
+    });
+    log(`[+] Выбрано: ${device.name}. Подключение...`);
+    const server = await device.gatt.connect();
+    const service = await server.getPrimaryService(OTA_SERVICE_UUID);
+    const cmdChar = await service.getCharacteristic(OTA_CMD_UUID);
+    log('[*] Отправка команды перехода в OTA режим [0x01, 0x02, 0x01]...');
+    await cmdChar.writeValue(new Uint8Array([0x01, 0x02, 0x01]));
+    log('[+++] Команда принята! Часы перезагружаются в загрузчик PPlusOTA.');
+    log('[*] Теперь нажмите кнопку "2. Подключиться к PPlusOTA и Прошить"');
+    setProgress(0, 'Часы в режиме PPlusOTA. Нажмите шаг 2.');
+  } catch(err) {
+    log('[!] Ошибка шага 1: ' + err.message);
+  }
+};
+
+// CRC16 ARC (seed=0, poly=0xA001)
+function crc16(data) {
+  let crc = 0;
+  for (let i = 0; i < data.length; i++) {
+    crc ^= data[i];
+    for (let j = 0; j < 8; j++) {
+      if (crc & 1) {
+        crc = (crc >> 1) ^ 0xA001;
+      } else {
+        crc = crc >> 1;
+      }
+    }
+  }
+  return crc & 0xFFFF;
+}
+
+// Парсер файла PHY6 OTA (.bin)
+function parseOtaBin(bytes) {
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const tag = String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]);
+  if (tag !== 'PHY6') {
+    throw new Error('Неверный заголовок OTA файла: ' + tag + ' (ожидался PHY6)');
+  }
+  const partNum = view.getUint32(4, true);
+  const runAddr = view.getUint32(8, true);
+  const totalSize = view.getUint32(12, true);
+  log(`[OTA Header] Секций: ${partNum}, RunAddr: 0x${runAddr.toString(16)}, Размер: ${totalSize}`);
+
+  let partitions = [];
+  let dataOffset = 256; // Заголовок занимает 256 байт
+  for (let i = 0; i < partNum; i++) {
+    const flashAddr = view.getUint32(16 + i * 16, true);
+    const size = view.getUint32(20 + i * 16, true);
+    const partRunAddr = view.getUint32(24 + i * 16, true);
+    const partData = bytes.slice(dataOffset, dataOffset + size);
+    dataOffset += size;
+    // Округление до 4 байт
+    if (size % 4 !== 0) {
+      dataOffset += (4 - (size % 4));
+    }
+    const chk = crc16(partData);
+    partitions.push({
+      index: i,
+      flashAddr: flashAddr,
+      runAddr: partRunAddr,
+      size: size,
+      crc: chk,
+      data: partData
+    });
+    log(`  [Секция ${i}] Flash: 0x${flashAddr.toString(16)}, Run: 0x${partRunAddr.toString(16)}, Размер: ${size} б, CRC16: 0x${chk.toString(16)}`);
+  }
+  return partitions;
+}
+
+// ШАГ 2: Прошивка через PPlusOTA
+document.getElementById('btnStep2').onclick = async () => {
+  if (!binData) {
+    alert('Сначала выберите файл прошивки!');
+    return;
+  }
+
+  let partitions;
+  try {
+    partitions = parseOtaBin(binData);
+  } catch(e) {
+    alert('Ошибка чтения файла: ' + e.message);
+    return;
+  }
+
+  try {
+    log('[*] Поиск загрузчика PPlusOTA (или устройства с OTA сервисом)...');
+    const device = await navigator.bluetooth.requestDevice({
+      filters: [{ namePrefix: 'PPlus' }, { namePrefix: 'OTA' }, { namePrefix: 'CHASY' }],
+      optionalServices: [OTA_SERVICE_UUID]
+    });
+
+    log(`[+] Подключение к ${device.name}...`);
+    const server = await device.gatt.connect();
+    log('[+] Получение службы OTA...');
+    const service = await server.getPrimaryService(OTA_SERVICE_UUID);
+    const cmdChar = await service.getCharacteristic(OTA_CMD_UUID);
+    const rspChar = await service.getCharacteristic(OTA_RSP_UUID);
+    const dataChar = await service.getCharacteristic(OTA_DATA_UUID);
+
+    let rspResolver = null;
+    await rspChar.startNotifications();
+    rspChar.addEventListener('characteristicvaluechanged', (e) => {
+      const resp = new Uint8Array(e.target.value.buffer);
+      log(`<< [Часы]: err=0x${resp[0]?.toString(16)} cmd=0x${resp[1]?.toString(16)}`);
+      if (rspResolver) {
+        rspResolver(resp);
+        rspResolver = null;
+      }
+    });
+
+    function waitForResponse(timeoutMs = 5000) {
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          rspResolver = null;
+          reject(new Error('Таймаут ожидания ответа от часов'));
+        }, timeoutMs);
+        rspResolver = (resp) => {
+          clearTimeout(timer);
+          resolve(resp);
+        };
+      });
+    }
+
+    log('[*] Отправка команды OTA_CMD_START_OTA...');
+    // CMD 1: [0x01, sector_num, burst_size=0 (default 16)]
+    const startCmd = new Uint8Array([0x01, partitions.length, 0x00]);
+    await cmdChar.writeValue(startCmd);
+    const startRsp = await waitForResponse();
+    if (startRsp[0] !== 0) {
+      throw new Error('Часы отклонили START_OTA, код ошибки: ' + startRsp[0]);
+    }
+    log('[+] START_OTA подтвержден успешно!');
+
+    let totalBytesAll = partitions.reduce((sum, p) => sum + p.size, 0);
+    let bytesSentTotal = 0;
+
+    // Передача каждой секции
+    for (let part of partitions) {
+      log(`[*] Запуск секции ${part.index}: размер ${part.size} байт...`);
+      // CMD 2: PARTITION_INFO: 02 ID FA(4) RA(4) SZ(4) CS(2)
+      const partCmd = new Uint8Array(16);
+      const pv = new DataView(partCmd.buffer);
+      partCmd[0] = 0x02; // OTA_CMD_PARTITION_INFO
+      partCmd[1] = part.index;
+      pv.setUint32(2, part.flashAddr, true);
+      pv.setUint32(6, part.runAddr, true);
+      pv.setUint32(10, part.size, true);
+      pv.setUint16(14, part.crc, true);
+
+      await cmdChar.writeValue(partCmd);
+      const partRsp = await waitForResponse();
+      if (partRsp[0] !== 0) {
+        throw new Error(`Ошибка запуска секции ${part.index}: 0x${partRsp[0].toString(16)}`);
+      }
+
+      // Отправка данных секции блоками по MTU (20 байт)
+      const chunkSize = 20;
+      let offset = 0;
+      let burstCount = 0;
+
+      while (offset < part.size) {
+        const end = Math.min(offset + chunkSize, part.size);
+        const chunk = part.data.slice(offset, end);
+        await dataChar.writeValueWithoutResponse(chunk);
+        offset = end;
+        bytesSentTotal += chunk.length;
+        burstCount++;
+
+        const pct = Math.round((bytesSentTotal / totalBytesAll) * 100);
+        setProgress(pct, `Прошивка: ${pct}% (${bytesSentTotal} / ${totalBytesAll} б)`);
+
+        // Каждые 16 пакетов (burst_size) часы шлют подтверждение OTA_RSP_BLOCK_BURST (0x87)
+        if (burstCount % 16 === 0 && offset < part.size) {
+          const bRsp = await waitForResponse(4000);
+          if (bRsp[0] !== 0) {
+            throw new Error('Ошибка подтверждения блока: ' + bRsp[0]);
+          }
+        }
+      }
+
+      // Ожидание завершения секции: OTA_RSP_PARTITION_COMPLETE (0x85) или OTA_RSP_OTA_COMPLETE (0x83)
+      log(`[*] Секция ${part.index} передана, проверка CRC часов...`);
+      const doneRsp = await waitForResponse(8000);
+      if (doneRsp[0] !== 0) {
+        throw new Error(`Ошибка CRC секции ${part.index}: 0x${doneRsp[0].toString(16)}`);
+      }
+      log(`[+] Секция ${part.index} успешно проверена и записана во Flash!`);
+    }
+
+    log('[+++] ВСЯ ПРОШИВКА УСПЕШНО ЗАПИСАНА! Отправка команды перезагрузки...');
+    setProgress(100, 'Успешно! Перезагрузка часов...');
+    // CMD 4: REBOOT [0x04, 0x01]
+    await cmdChar.writeValue(new Uint8Array([0x04, 0x01]));
+    log('[🎉🎉🎉] ЧАСЫ ОБНОВЛЕНЫ И ПЕРЕЗАГРУЖАЮТСЯ В НОВУЮ ПРОШИВКУ!');
+
+  } catch(err) {
+    log('[!] ОШИБКА ПРОШИВКИ: ' + err.message);
+    setProgress(0, 'Ошибка: ' + err.message);
+  }
+};
+</script>
+</body>
+</html>
