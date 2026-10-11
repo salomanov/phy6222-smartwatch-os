@@ -6764,7 +6764,7 @@ Linker script and memory map
                 0x1fff1838                _vectors
                 0x1fff1840                        _sdata = ABSOLUTE (.)
 
-.text           0x1fff1840     0x4768
+.text           0x1fff1840     0x4788
                 0x1fff1840                        _stextram = ABSOLUTE (.)
  *phy6222_start.o(.text)
  .text          0x1fff1840       0x10 E:\Проекты\Часы\firmware\build\phy6222_start.o
@@ -6776,905 +6776,905 @@ Linker script and memory map
                 0x1fff1850                tasksCnt
                 0x1fff1854                tasksArr
  _section_sram_code_
-                0x1fff187c      0x180 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff187c      0x1a0 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  _section_sram_code_
-                0x1fff19fc       0x40 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff1a1c       0x40 E:\Проекты\Часы\firmware\build\sdk_flash.o
  _section_sram_code_
-                0x1fff1a3c      0x194 E:\Проекты\Часы\firmware\build\sdk_uart.o
-                0x1fff1b50                hal_UART0_IRQHandler
-                0x1fff1b90                hal_UART1_IRQHandler
+                0x1fff1a5c      0x194 E:\Проекты\Часы\firmware\build\sdk_uart.o
+                0x1fff1b70                hal_UART0_IRQHandler
+                0x1fff1bb0                hal_UART1_IRQHandler
  _section_sram_code_
-                0x1fff1bd0       0xb4 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
-                0x1fff1bd0                L2CAP_Fragment_SendDataPkt
-                0x1fff1bfc                l2capSegmentBuffToLinkLayer
-                0x1fff1c58                l2capPocessFragmentTxData
+                0x1fff1bf0       0xb4 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+                0x1fff1bf0                L2CAP_Fragment_SendDataPkt
+                0x1fff1c1c                l2capSegmentBuffToLinkLayer
+                0x1fff1c78                l2capPocessFragmentTxData
  *patch.o(.text.*)
  .text.ll_hw_go1
-                0x1fff1c84      0x1c4 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff1c84                ll_hw_go1
+                0x1fff1ca4      0x1c4 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff1ca4                ll_hw_go1
  .text.LL_set_default_conn_params1
-                0x1fff1e48       0x14 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff1e48                LL_set_default_conn_params1
+                0x1fff1e68       0x14 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff1e68                LL_set_default_conn_params1
  .text.llSetupNextSlaveEvent1
-                0x1fff1e5c       0x2c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff1e5c                llSetupNextSlaveEvent1
+                0x1fff1e7c       0x2c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff1e7c                llSetupNextSlaveEvent1
  .text.ll_scheduler2
-                0x1fff1e88       0x48 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff1e88                ll_scheduler2
+                0x1fff1ea8       0x48 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff1ea8                ll_scheduler2
  .text.ll_adptive_adj_next_time1
-                0x1fff1ed0       0xb8 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff1ed0                ll_adptive_adj_next_time1
+                0x1fff1ef0       0xb8 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff1ef0                ll_adptive_adj_next_time1
  .text.llConnTerminate1
-                0x1fff1f88       0x48 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff1f88                llConnTerminate1
+                0x1fff1fa8       0x48 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff1fa8                llConnTerminate1
  .text.config_RTC1
-                0x1fff1fd0       0x74 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff1fd0                config_RTC1
+                0x1fff1ff0       0x74 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff1ff0                config_RTC1
  .text.LL_ENC_AES128_Encrypt1
-                0x1fff2044       0x1a E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2044                LL_ENC_AES128_Encrypt1
- *fill*         0x1fff205e        0x2 
+                0x1fff2064       0x1a E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2064                LL_ENC_AES128_Encrypt1
+ *fill*         0x1fff207e        0x2 
  .text.LL_ENC_Encrypt1
-                0x1fff2060      0x1ac E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2060                LL_ENC_Encrypt1
+                0x1fff2080      0x1ac E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2080                LL_ENC_Encrypt1
  .text.LL_ENC_Decrypt1
-                0x1fff220c      0x1dc E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff220c                LL_ENC_Decrypt1
+                0x1fff222c      0x1dc E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff222c                LL_ENC_Decrypt1
  .text.LL_SetAdvControl1
-                0x1fff23e8      0x1a0 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff23e8                LL_SetAdvControl1
+                0x1fff2408      0x1a0 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2408                LL_SetAdvControl1
  .text.llProcessTxData1
-                0x1fff2588        0xc E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2588                llProcessTxData1
+                0x1fff25a8        0xc E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff25a8                llProcessTxData1
  .text.ll_generateTxBuffer1
-                0x1fff2594      0x1a0 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2594                ll_generateTxBuffer1
+                0x1fff25b4      0x1a0 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff25b4                ll_generateTxBuffer1
  .text.enterSleepProcess1
-                0x1fff2734       0x44 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2734                enterSleepProcess1
+                0x1fff2754       0x44 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2754                enterSleepProcess1
  .text.llSetupSecAdvEvt1
-                0x1fff2778       0x90 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2778                llSetupSecAdvEvt1
+                0x1fff2798       0x90 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2798                llSetupSecAdvEvt1
  .text.LL_SetAdvParam1
-                0x1fff2808       0x5c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2808                LL_SetAdvParam1
+                0x1fff2828       0x5c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2828                LL_SetAdvParam1
  .text.LL_SetDataLengh1
-                0x1fff2864       0x30 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2864                LL_SetDataLengh1
+                0x1fff2884       0x30 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2884                LL_SetDataLengh1
  .text.read_LL_remainder_time1
-                0x1fff2894       0x24 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff28b4       0x24 E:\Проекты\Часы\firmware\build\sdk_patch.o
  .text.llSecAdvAllow1
-                0x1fff28b8       0x4c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff28b8                llSecAdvAllow1
+                0x1fff28d8       0x4c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff28d8                llSecAdvAllow1
  .text.llCalcMaxScanTime1
-                0x1fff2904       0x3c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2904                llCalcMaxScanTime1
+                0x1fff2924       0x3c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2924                llCalcMaxScanTime1
  .text.__wdt_init
-                0x1fff2940       0x18 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2940                __wdt_init
+                0x1fff2960       0x18 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2960                __wdt_init
  .text.wakeup_init1
-                0x1fff2958       0xe8 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2958                wakeup_init1
+                0x1fff2978       0xe8 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2978                wakeup_init1
  .text.wakeupProcess1
-                0x1fff2a40      0x20c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2a40                wakeupProcess1
+                0x1fff2a60      0x20c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2a60                wakeupProcess1
  .text.ll_processBasicIRQ_SRX
-                0x1fff2c4c       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2c4c                ll_processBasicIRQ_SRX
+                0x1fff2c6c       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2c6c                ll_processBasicIRQ_SRX
  .text.ll_processBasicIRQ_secondaryAdvTRX
-                0x1fff2c68       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2c68                ll_processBasicIRQ_secondaryAdvTRX
+                0x1fff2c88       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2c88                ll_processBasicIRQ_secondaryAdvTRX
  .text.ll_processBasicIRQ_ScanTRX
-                0x1fff2c84       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2c84                ll_processBasicIRQ_ScanTRX
+                0x1fff2ca4       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2ca4                ll_processBasicIRQ_ScanTRX
  .text.ll_processBasicIRQ_secondaryScanSRX
-                0x1fff2ca0       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2ca0                ll_processBasicIRQ_secondaryScanSRX
+                0x1fff2cc0       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2cc0                ll_processBasicIRQ_secondaryScanSRX
  .text.ll_processBasicIRQ_secondaryInitSRX
-                0x1fff2cbc       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2cbc                ll_processBasicIRQ_secondaryInitSRX
+                0x1fff2cdc       0x1c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2cdc                ll_processBasicIRQ_secondaryInitSRX
  .text.LL_IRQHandler1
-                0x1fff2cd8      0x164 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2cd8                LL_IRQHandler1
+                0x1fff2cf8      0x164 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2cf8                LL_IRQHandler1
  .text.ll_patch_slave
-                0x1fff2e3c       0x4c E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff2e3c                ll_patch_slave
+                0x1fff2e5c       0x4c E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff2e5c                ll_patch_slave
  *patch_ext_adv.o(.text.*)
  *rf_phy_driver.o(.text.*)
  .text.rf_phy_change_cfg0
-                0x1fff2e88       0xd8 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
-                0x1fff2e88                rf_phy_change_cfg0
+                0x1fff2ea8       0xd8 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
+                0x1fff2ea8                rf_phy_change_cfg0
  .text.rc32k_calibration
-                0x1fff2f60       0x90 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
-                0x1fff2f60                rc32k_calibration
+                0x1fff2f80       0x90 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
+                0x1fff2f80                rc32k_calibration
  .text.rf_calibrate1
-                0x1fff2ff0       0x1c E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
-                0x1fff2ff0                rf_calibrate1
+                0x1fff3010       0x1c E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
+                0x1fff3010                rf_calibrate1
  *pwrmgr.o(.text .text.*)
  .text.hal_pwrmgr_init
-                0x1fff300c       0x18 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff300c                hal_pwrmgr_init
+                0x1fff302c       0x18 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff302c                hal_pwrmgr_init
  .text.hal_pwrmgr_lock
-                0x1fff3024        0xa E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff3024                hal_pwrmgr_lock
+                0x1fff3044        0xa E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff3044                hal_pwrmgr_lock
  .text.hal_pwrmgr_unlock
-                0x1fff302e        0xa E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff302e                hal_pwrmgr_unlock
+                0x1fff304e        0xa E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff304e                hal_pwrmgr_unlock
  .text.hal_pwrmgr_register
-                0x1fff3038       0x4c E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff3038                hal_pwrmgr_register
+                0x1fff3058       0x4c E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff3058                hal_pwrmgr_register
  .text.hal_pwrmgr_wakeup_process
-                0x1fff3084        0x4 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff3084                hal_pwrmgr_wakeup_process
+                0x1fff30a4        0x4 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff30a4                hal_pwrmgr_wakeup_process
  .text.hal_pwrmgr_sleep_process
-                0x1fff3088        0x4 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff3088                hal_pwrmgr_sleep_process
+                0x1fff30a8        0x4 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff30a8                hal_pwrmgr_sleep_process
  .text.hal_pwrmgr_RAM_retention
-                0x1fff308c       0x28 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff308c                hal_pwrmgr_RAM_retention
+                0x1fff30ac       0x28 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff30ac                hal_pwrmgr_RAM_retention
  .text.hal_pwrmgr_RAM_retention_set
-                0x1fff30b4       0x24 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff30b4                hal_pwrmgr_RAM_retention_set
+                0x1fff30d4       0x24 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff30d4                hal_pwrmgr_RAM_retention_set
  .text.hal_pwrmgr_LowCurrentLdo_enable
-                0x1fff30d8       0x30 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
-                0x1fff30d8                hal_pwrmgr_LowCurrentLdo_enable
+                0x1fff30f8       0x30 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff30f8                hal_pwrmgr_LowCurrentLdo_enable
  *timer.o(.text .text.*)
  *flash.o(.text .text.*)
  .text._spif_read_status_reg_x
-                0x1fff3108       0x4c E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff3128       0x4c E:\Проекты\Часы\firmware\build\sdk_flash.o
  .text._spif_wait_nobusy_x.constprop.0
-                0x1fff3154       0x34 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff3174       0x34 E:\Проекты\Часы\firmware\build\sdk_flash.o
  .text.hal_cache_tag_flush
-                0x1fff3188       0x50 E:\Проекты\Часы\firmware\build\sdk_flash.o
-                0x1fff3188                hal_cache_tag_flush
+                0x1fff31a8       0x50 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff31a8                hal_cache_tag_flush
  .text.hal_get_flash_info
-                0x1fff31d8       0xc8 E:\Проекты\Часы\firmware\build\sdk_flash.o
-                0x1fff31d8                hal_get_flash_info
+                0x1fff31f8       0xc8 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff31f8                hal_get_flash_info
  .text.hw_spif_cache_config
-                0x1fff32a0       0x98 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff32c0       0x98 E:\Проекты\Часы\firmware\build\sdk_flash.o
  .text.hal_spif_cache_init
-                0x1fff3338       0x24 E:\Проекты\Часы\firmware\build\sdk_flash.o
-                0x1fff3338                hal_spif_cache_init
+                0x1fff3358       0x24 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff3358                hal_spif_cache_init
  .text.hal_flash_read
-                0x1fff335c       0xd0 E:\Проекты\Часы\firmware\build\sdk_flash.o
-                0x1fff335c                hal_flash_read
+                0x1fff337c       0xd0 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff337c                hal_flash_read
  .text.hal_flash_write
-                0x1fff342c       0xb4 E:\Проекты\Часы\firmware\build\sdk_flash.o
-                0x1fff342c                hal_flash_write
+                0x1fff344c       0xb4 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff344c                hal_flash_write
  .text.hal_flash_erase_sector
-                0x1fff34e0       0xf4 E:\Проекты\Часы\firmware\build\sdk_flash.o
-                0x1fff34e0                hal_flash_erase_sector
+                0x1fff3500       0xf4 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff3500                hal_flash_erase_sector
  *clock.o(.text.*)
  .text.hal_clk_gate_enable
-                0x1fff35d4       0x40 E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff35d4                hal_clk_gate_enable
+                0x1fff35f4       0x40 E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff35f4                hal_clk_gate_enable
  .text.hal_clk_gate_disable
-                0x1fff3614       0x40 E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff3614                hal_clk_gate_disable
+                0x1fff3634       0x40 E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff3634                hal_clk_gate_disable
  .text.hal_clk_reset
-                0x1fff3654       0x6c E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff3654                hal_clk_reset
+                0x1fff3674       0x6c E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff3674                hal_clk_reset
  .text.hal_rtc_clock_config
-                0x1fff36c0       0x7c E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff36c0                hal_rtc_clock_config
+                0x1fff36e0       0x7c E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff36e0                hal_rtc_clock_config
  .text.hal_systick
-                0x1fff373c        0xc E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff373c                hal_systick
+                0x1fff375c        0xc E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff375c                hal_systick
  .text.hal_ms_intv
-                0x1fff3748       0x28 E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff3748                hal_ms_intv
- .text.WaitMs   0x1fff3770       0x12 E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff3770                WaitMs
- *fill*         0x1fff3782        0x2 
+                0x1fff3768       0x28 E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff3768                hal_ms_intv
+ .text.WaitMs   0x1fff3790       0x12 E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff3790                WaitMs
+ *fill*         0x1fff37a2        0x2 
  .text.hal_system_soft_reset
-                0x1fff3784       0x2c E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff3784                hal_system_soft_reset
+                0x1fff37a4       0x2c E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff37a4                hal_system_soft_reset
  .text.hal_rc32k_clk_tracking_init
-                0x1fff37b0       0x28 E:\Проекты\Часы\firmware\build\sdk_clock.o
-                0x1fff37b0                hal_rc32k_clk_tracking_init
+                0x1fff37d0       0x28 E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x1fff37d0                hal_rc32k_clk_tracking_init
  *phy_sec_ext.o(.text .text.*)
  .text.efuse_init
-                0x1fff37d8       0x1c E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
-                0x1fff37d8                efuse_init
+                0x1fff37f8       0x1c E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
+                0x1fff37f8                efuse_init
  *libgcc.a:*.o(.text .text.*)
- .text          0x1fff37f4       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_sqi.o)
-                0x1fff37f4                __gnu_thumb1_case_sqi
- .text          0x1fff3808       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uqi.o)
-                0x1fff3808                __gnu_thumb1_case_uqi
- .text          0x1fff381c       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_shi.o)
-                0x1fff381c                __gnu_thumb1_case_shi
- .text          0x1fff3830       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uhi.o)
-                0x1fff3830                __gnu_thumb1_case_uhi
+ .text          0x1fff3814       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_sqi.o)
+                0x1fff3814                __gnu_thumb1_case_sqi
+ .text          0x1fff3828       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uqi.o)
+                0x1fff3828                __gnu_thumb1_case_uqi
+ .text          0x1fff383c       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_shi.o)
+                0x1fff383c                __gnu_thumb1_case_shi
+ .text          0x1fff3850       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uhi.o)
+                0x1fff3850                __gnu_thumb1_case_uhi
  .text.__aeabi_ddiv
-                0x1fff3844      0x604 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
-                0x1fff3844                __aeabi_ddiv
+                0x1fff3864      0x604 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
+                0x1fff3864                __aeabi_ddiv
  .text.__aeabi_dmul
-                0x1fff3e48      0x598 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
-                0x1fff3e48                __aeabi_dmul
+                0x1fff3e68      0x598 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
+                0x1fff3e68                __aeabi_dmul
  .text.__aeabi_i2d
-                0x1fff43e0       0x5c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
-                0x1fff43e0                __aeabi_i2d
+                0x1fff4400       0x5c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
+                0x1fff4400                __aeabi_i2d
  .text.__aeabi_d2f
-                0x1fff443c      0x10c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
-                0x1fff443c                __aeabi_d2f
- .text          0x1fff4548       0x3c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzsi2.o)
-                0x1fff4548                __clzsi2
- .text          0x1fff4584       0x7c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_arm_cmpdf2.o)
-                0x1fff4584                __aeabi_cdrcmple
-                0x1fff4594                __aeabi_cdcmple
-                0x1fff4594                __aeabi_cdcmpeq
-                0x1fff45a4                __aeabi_dcmpeq
-                0x1fff45b0                __aeabi_dcmplt
-                0x1fff45c4                __aeabi_dcmple
-                0x1fff45d8                __aeabi_dcmpgt
-                0x1fff45ec                __aeabi_dcmpge
- .text          0x1fff4600       0x40 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_aeabi_uldivmod.o)
-                0x1fff4600                __aeabi_uldivmod
+                0x1fff445c      0x10c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
+                0x1fff445c                __aeabi_d2f
+ .text          0x1fff4568       0x3c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzsi2.o)
+                0x1fff4568                __clzsi2
+ .text          0x1fff45a4       0x7c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_arm_cmpdf2.o)
+                0x1fff45a4                __aeabi_cdrcmple
+                0x1fff45b4                __aeabi_cdcmple
+                0x1fff45b4                __aeabi_cdcmpeq
+                0x1fff45c4                __aeabi_dcmpeq
+                0x1fff45d0                __aeabi_dcmplt
+                0x1fff45e4                __aeabi_dcmple
+                0x1fff45f8                __aeabi_dcmpgt
+                0x1fff460c                __aeabi_dcmpge
+ .text          0x1fff4620       0x40 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_aeabi_uldivmod.o)
+                0x1fff4620                __aeabi_uldivmod
  .text.__muldi3
-                0x1fff4640       0x5c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
-                0x1fff4640                __muldi3
-                0x1fff4640                __aeabi_lmul
+                0x1fff4660       0x5c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
+                0x1fff4660                __muldi3
+                0x1fff4660                __aeabi_lmul
  .text.__fixunsdfsi
-                0x1fff469c       0x3c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
-                0x1fff469c                __aeabi_d2uiz
-                0x1fff469c                __fixunsdfsi
+                0x1fff46bc       0x3c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
+                0x1fff46bc                __aeabi_d2uiz
+                0x1fff46bc                __fixunsdfsi
  .text.__fixdfdi
-                0x1fff46d8       0x38 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
-                0x1fff46d8                __fixdfdi
-                0x1fff46d8                __aeabi_d2lz
+                0x1fff46f8       0x38 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
+                0x1fff46f8                __fixdfdi
+                0x1fff46f8                __aeabi_d2lz
  .text.__fixunsdfdi
-                0x1fff4710       0x3c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
-                0x1fff4710                __fixunsdfdi
-                0x1fff4710                __aeabi_d2ulz
+                0x1fff4730       0x3c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
+                0x1fff4730                __fixunsdfdi
+                0x1fff4730                __aeabi_d2ulz
  .text.__floatdidf
-                0x1fff474c       0x2c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
-                0x1fff474c                __aeabi_l2d
-                0x1fff474c                __floatdidf
+                0x1fff476c       0x2c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
+                0x1fff476c                __aeabi_l2d
+                0x1fff476c                __floatdidf
  .text.__udivmoddi4
-                0x1fff4778      0x198 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
-                0x1fff4778                __udivmoddi4
+                0x1fff4798      0x198 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
+                0x1fff4798                __udivmoddi4
  .text.__aeabi_dadd
-                0x1fff4910      0x730 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
-                0x1fff4910                __aeabi_dadd
- .text.__eqdf2  0x1fff5040       0x88 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
-                0x1fff5040                __nedf2
-                0x1fff5040                __eqdf2
- .text.__gedf2  0x1fff50c8       0xe0 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
-                0x1fff50c8                __gedf2
-                0x1fff50c8                __gtdf2
- .text.__ledf2  0x1fff51a8       0xdc C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
-                0x1fff51a8                __ledf2
-                0x1fff51a8                __ltdf2
+                0x1fff4930      0x730 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
+                0x1fff4930                __aeabi_dadd
+ .text.__eqdf2  0x1fff5060       0x88 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
+                0x1fff5060                __nedf2
+                0x1fff5060                __eqdf2
+ .text.__gedf2  0x1fff50e8       0xe0 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
+                0x1fff50e8                __gedf2
+                0x1fff50e8                __gtdf2
+ .text.__ledf2  0x1fff51c8       0xdc C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
+                0x1fff51c8                __ledf2
+                0x1fff51c8                __ltdf2
  .text.__aeabi_dsub
-                0x1fff5284      0x710 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
-                0x1fff5284                __aeabi_dsub
+                0x1fff52a4      0x710 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
+                0x1fff52a4                __aeabi_dsub
  .text.__aeabi_dcmpun
-                0x1fff5994       0x44 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
-                0x1fff5994                __aeabi_dcmpun
+                0x1fff59b4       0x44 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
+                0x1fff59b4                __aeabi_dcmpun
  .text.__aeabi_d2iz
-                0x1fff59d8       0x78 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
-                0x1fff59d8                __aeabi_d2iz
+                0x1fff59f8       0x78 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
+                0x1fff59f8                __aeabi_d2iz
  .text.__aeabi_ui2d
-                0x1fff5a50       0x48 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
-                0x1fff5a50                __aeabi_ui2d
- .text          0x1fff5a98        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
-                0x1fff5a98                __aeabi_idiv0
-                0x1fff5a98                __aeabi_ldiv0
- .text          0x1fff5a9c       0x18 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzdi2.o)
-                0x1fff5a9c                __clzdi2
- *fill*         0x1fff5ab4        0x4 
- .text.__stub   0x1fff5ab8      0x4f0 linker stubs
-                0x1fff5fa8                        _etextram = ABSOLUTE (.)
+                0x1fff5a70       0x48 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
+                0x1fff5a70                __aeabi_ui2d
+ .text          0x1fff5ab8        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
+                0x1fff5ab8                __aeabi_idiv0
+                0x1fff5ab8                __aeabi_ldiv0
+ .text          0x1fff5abc       0x18 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzdi2.o)
+                0x1fff5abc                __clzdi2
+ *fill*         0x1fff5ad4        0x4 
+ .text.__stub   0x1fff5ad8      0x4f0 linker stubs
+                0x1fff5fc8                        _etextram = ABSOLUTE (.)
 
-.vfp11_veneer   0x1fff5fa8        0x0
- .vfp11_veneer  0x1fff5fa8        0x0 linker stubs
+.vfp11_veneer   0x1fff5fc8        0x0
+ .vfp11_veneer  0x1fff5fc8        0x0 linker stubs
 
-.v4_bx          0x1fff5fa8        0x0
- .v4_bx         0x1fff5fa8        0x0 linker stubs
+.v4_bx          0x1fff5fc8        0x0
+ .v4_bx         0x1fff5fc8        0x0 linker stubs
 
-.iplt           0x1fff5fa8        0x0
- .iplt          0x1fff5fa8        0x0 E:\Проекты\Часы\firmware\build\phy6222_start.o
+.iplt           0x1fff5fc8        0x0
+ .iplt          0x1fff5fc8        0x0 E:\Проекты\Часы\firmware\build\phy6222_start.o
 
-.data           0x1fff5fa8      0xbd0
+.data           0x1fff5fc8      0xbd0
  *(.data .data.*)
  .data.s_diag_first_draw
-                0x1fff5fa8        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
+                0x1fff5fc8        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
  .data.s_needs_redraw
-                0x1fff5fa9        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
+                0x1fff5fc9        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
  .data.s_minutes
-                0x1fff5faa        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
- .data.s_hours  0x1fff5fab        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
+                0x1fff5fca        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
+ .data.s_hours  0x1fff5fcb        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
  .data.s_last_mv
-                0x1fff5fac        0x2 E:\Проекты\Часы\firmware\build\src_battery.o
- *fill*         0x1fff5fae        0x2 
+                0x1fff5fcc        0x2 E:\Проекты\Часы\firmware\build\src_battery.o
+ *fill*         0x1fff5fce        0x2 
  .data.s_peripheral_callbacks
-                0x1fff5fb0        0x8 E:\Проекты\Часы\firmware\build\src_ble_manager.o
+                0x1fff5fd0        0x8 E:\Проекты\Часы\firmware\build\src_ble_manager.o
  .data.s_start_ret
-                0x1fff5fb8        0x1 E:\Проекты\Часы\firmware\build\src_ble_manager.o
+                0x1fff5fd8        0x1 E:\Проекты\Часы\firmware\build\src_ble_manager.o
  .data.s_scan_rsp_data
-                0x1fff5fb9       0x12 E:\Проекты\Часы\firmware\build\src_ble_manager.o
+                0x1fff5fd9       0x12 E:\Проекты\Часы\firmware\build\src_ble_manager.o
  .data.s_adv_data
-                0x1fff5fcb       0x12 E:\Проекты\Часы\firmware\build\src_ble_manager.o
+                0x1fff5feb       0x12 E:\Проекты\Часы\firmware\build\src_ble_manager.o
  .data.s_device_name
-                0x1fff5fdd        0xe E:\Проекты\Часы\firmware\build\src_ble_manager.o
- *fill*         0x1fff5feb        0x1 
- .data._height  0x1fff5fec        0x2 E:\Проекты\Часы\firmware\build\src_display.o
- .data._width   0x1fff5fee        0x2 E:\Проекты\Часы\firmware\build\src_display.o
+                0x1fff5ffd        0xe E:\Проекты\Часы\firmware\build\src_ble_manager.o
+ *fill*         0x1fff600b        0x1 
+ .data._height  0x1fff600c        0x2 E:\Проекты\Часы\firmware\build\src_display.o
+ .data._width   0x1fff600e        0x2 E:\Проекты\Часы\firmware\build\src_display.o
  .data._rowstart
-                0x1fff5ff0        0x1 E:\Проекты\Часы\firmware\build\src_display.o
+                0x1fff6010        0x1 E:\Проекты\Часы\firmware\build\src_display.o
  .data._colstart
-                0x1fff5ff1        0x1 E:\Проекты\Часы\firmware\build\src_display.o
- *fill*         0x1fff5ff2        0x2 
+                0x1fff6011        0x1 E:\Проекты\Часы\firmware\build\src_display.o
+ *fill*         0x1fff6012        0x2 
  .data.s_heap_ptr
-                0x1fff5ff4        0x4 E:\Проекты\Часы\firmware\build\src_syscalls.o
+                0x1fff6014        0x4 E:\Проекты\Часы\firmware\build\src_syscalls.o
  .data.s_selected_pin
-                0x1fff5ff8        0x1 E:\Проекты\Часы\firmware\build\src_vibrator.o
- *fill*         0x1fff5ff9        0x3 
+                0x1fff6018        0x1 E:\Проекты\Часы\firmware\build\src_vibrator.o
+ *fill*         0x1fff6019        0x3 
  .data.phy_flash
-                0x1fff5ffc        0xc E:\Проекты\Часы\firmware\build\sdk_flash.o
-                0x1fff5ffc                phy_flash
+                0x1fff601c        0xc E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff601c                phy_flash
  .data.s_xflashCtx
-                0x1fff6008        0x8 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x1fff6028        0x8 E:\Проекты\Часы\firmware\build\sdk_flash.o
  .data.mAdc_Ctx
-                0x1fff6010        0xc E:\Проекты\Часы\firmware\build\sdk_adc.o
+                0x1fff6030        0xc E:\Проекты\Часы\firmware\build\sdk_adc.o
  .data.gapRole_TimeoutMultiplier
-                0x1fff601c        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff603c        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .data.gapRole_MaxConnInterval
-                0x1fff601e        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff603e        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .data.gapRole_MinConnInterval
-                0x1fff6020        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff6040        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .data.gapRole_ConnectionHandle
-                0x1fff6022        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff6042        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .data.gapRole_AdvertData
-                0x1fff6024       0x1f E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff6024                gapRole_AdvertData
+                0x1fff6044       0x1f E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff6044                gapRole_AdvertData
  .data.gapRole_AdvertDataLen
-                0x1fff6043        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff6063        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .data.gapRole_AdvertOffTime
-                0x1fff6044        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- *fill*         0x1fff6046        0x2 
+                0x1fff6064        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ *fill*         0x1fff6066        0x2 
  .data.gapAttrTbl
-                0x1fff6048       0x70 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+                0x1fff6068       0x70 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
  .data.periConnParameters
-                0x1fff60b8        0x8 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
-                0x1fff60b8                periConnParameters
+                0x1fff60d8        0x8 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+                0x1fff60d8                periConnParameters
  .data.periConnParamCharProps
-                0x1fff60c0        0x1 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
- *fill*         0x1fff60c1        0x1 
+                0x1fff60e0        0x1 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+ *fill*         0x1fff60e1        0x1 
  .data.appearance
-                0x1fff60c2        0x2 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+                0x1fff60e2        0x2 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
  .data.appearanceCharProps
-                0x1fff60c4        0x1 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+                0x1fff60e4        0x1 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
  .data.deviceNameCharProps
-                0x1fff60c5        0x1 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
- *fill*         0x1fff60c6        0x2 
+                0x1fff60e5        0x1 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+ *fill*         0x1fff60e6        0x2 
  .data.gattAttrTbl
-                0x1fff60c8       0x40 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff60e8       0x40 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .data.serviceChangedCharProps
-                0x1fff6108        0x1 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff6128        0x1 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .data.appTaskID
-                0x1fff6109        0x1 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
-                0x1fff6109                appTaskID
- *fill*         0x1fff610a        0x2 
+                0x1fff6129        0x1 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff6129                appTaskID
+ *fill*         0x1fff612a        0x2 
  .data.devInfoAttrTbl
-                0x1fff610c      0x130 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff612c      0x130 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoPnpId
-                0x1fff623c        0x7 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff625c        0x7 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoPnpIdProps
-                0x1fff6243        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff6263        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfo11073CertProps
-                0x1fff6244        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff6264        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoMfrNameProps
-                0x1fff6245        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff6265        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoSoftwareRevProps
-                0x1fff6246        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff6266        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoHardwareRevProps
-                0x1fff6247        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff6267        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoFirmwareRevProps
-                0x1fff6248        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff6268        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoSerialNumberProps
-                0x1fff6249        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff6269        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoModelNumberProps
-                0x1fff624a        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff626a        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.devInfoSystemIdProps
-                0x1fff624b        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x1fff626b        0x1 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .data.simpleProfileAttrTbl
-                0x1fff624c      0x150 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x1fff626c      0x150 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .data.simpleProfileChar6UserDesp
-                0x1fff639c        0x8 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x1fff63bc        0x8 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .data.simpleProfileChar6Props
-                0x1fff63a4        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .data.simpleProfileChar5UserDesp
-                0x1fff63a5        0x7 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .data.simpleProfileChar5Props
-                0x1fff63ac        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .data.simpleProfileChar4UserDesp
-                0x1fff63ad        0x7 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .data.simpleProfileChar4Props
-                0x1fff63b4        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .data.simpleProfileChar3UserDesp
-                0x1fff63b5        0x7 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .data.simpleProfileChar3Props
-                0x1fff63bc        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .data.simpleProfileChar2UserDesp
-                0x1fff63bd        0x7 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .data.simpleProfileChar2Props
                 0x1fff63c4        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .data.simpleProfileChar5UserDesp
+                0x1fff63c5        0x7 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .data.simpleProfileChar5Props
+                0x1fff63cc        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .data.simpleProfileChar4UserDesp
+                0x1fff63cd        0x7 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .data.simpleProfileChar4Props
+                0x1fff63d4        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .data.simpleProfileChar3UserDesp
+                0x1fff63d5        0x7 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .data.simpleProfileChar3Props
+                0x1fff63dc        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .data.simpleProfileChar2UserDesp
+                0x1fff63dd        0x7 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .data.simpleProfileChar2Props
+                0x1fff63e4        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .data.simpleProfileChar1UserDesp
-                0x1fff63c5        0x6 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x1fff63e5        0x6 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .data.simpleProfileChar1Props
-                0x1fff63cb        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x1fff63eb        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .data.ota_AttrTbl
-                0x1fff63cc       0x80 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x1fff63ec       0x80 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
  .data.ota_DataProps
-                0x1fff644c        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x1fff646c        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
  .data.ota_ResponseProps
-                0x1fff644d        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x1fff646d        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
  .data.ota_CommandProps
-                0x1fff644e        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
- *fill*         0x1fff644f        0x1 
+                0x1fff646e        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+ *fill*         0x1fff646f        0x1 
  .data.g_ATT_MAX_NUM_HANDLES
-                0x1fff6450        0x2 E:\Проекты\Часы\firmware\build\sdk_att_util.o
-                0x1fff6450                g_ATT_MAX_NUM_HANDLES
+                0x1fff6470        0x2 E:\Проекты\Часы\firmware\build\sdk_att_util.o
+                0x1fff6470                g_ATT_MAX_NUM_HANDLES
  .data.g_ATT_MAX_NUM_HANDLES_INFO
-                0x1fff6452        0x2 E:\Проекты\Часы\firmware\build\sdk_att_util.o
-                0x1fff6452                g_ATT_MAX_NUM_HANDLES_INFO
+                0x1fff6472        0x2 E:\Проекты\Часы\firmware\build\sdk_att_util.o
+                0x1fff6472                g_ATT_MAX_NUM_HANDLES_INFO
  .data.g_ATT_MTU_SIZE_MAX
-                0x1fff6454        0x2 E:\Проекты\Часы\firmware\build\sdk_att_util.o
-                0x1fff6454                g_ATT_MTU_SIZE_MAX
+                0x1fff6474        0x2 E:\Проекты\Часы\firmware\build\sdk_att_util.o
+                0x1fff6474                g_ATT_MTU_SIZE_MAX
  .data.gapParameters
-                0x1fff6456       0x4e E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
-                0x1fff6456                gapParameters
+                0x1fff6476       0x4e E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x1fff6476                gapParameters
  .data.gapAppTaskID
-                0x1fff64a4        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
-                0x1fff64a4                gapAppTaskID
- *fill*         0x1fff64a5        0x3 
+                0x1fff64c4        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x1fff64c4                gapAppTaskID
+ *fill*         0x1fff64c5        0x3 
  .data.gapPeripheralCBs
-                0x1fff64a8        0xc E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+                0x1fff64c8        0xc E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
  .data.gapAdvAppTaskID
-                0x1fff64b4        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+                0x1fff64d4        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
  .data.gapUnwantedTaskID
-                0x1fff64b5        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
-                0x1fff64b5                gapUnwantedTaskID
+                0x1fff64d5        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
+                0x1fff64d5                gapUnwantedTaskID
  .data.nextHandle
-                0x1fff64b6        0x2 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
+                0x1fff64d6        0x2 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
  .data.reqTaskId
-                0x1fff64b8        0x1 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
-                0x1fff64b8                reqTaskId
- *fill*         0x1fff64b9        0x3 
+                0x1fff64d8        0x1 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
+                0x1fff64d8                reqTaskId
+ *fill*         0x1fff64d9        0x3 
  .data.smResponderCBs
-                0x1fff64bc        0xc E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
+                0x1fff64dc        0xc E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
  .data._impure_ptr
-                0x1fff64c8        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-impure.o)
-                0x1fff64c8                _impure_ptr
- *fill*         0x1fff64cc        0x4 
+                0x1fff64e8        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-impure.o)
+                0x1fff64e8                _impure_ptr
+ *fill*         0x1fff64ec        0x4 
  .data._impure_data
-                0x1fff64d0      0x120 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-impure.o)
-                0x1fff64d0                _impure_data
+                0x1fff64f0      0x120 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-impure.o)
+                0x1fff64f0                _impure_data
  .data.__malloc_sbrk_base
-                0x1fff65f0        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
-                0x1fff65f0                __malloc_sbrk_base
+                0x1fff6610        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
+                0x1fff6610                __malloc_sbrk_base
  .data.__malloc_trim_threshold
-                0x1fff65f4        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
-                0x1fff65f4                __malloc_trim_threshold
+                0x1fff6614        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
+                0x1fff6614                __malloc_trim_threshold
  .data.__malloc_av_
-                0x1fff65f8      0x408 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
-                0x1fff65f8                __malloc_av_
- .data.__sglue  0x1fff6a00        0xc C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-findfp.o)
-                0x1fff6a00                __sglue
+                0x1fff6618      0x408 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
+                0x1fff6618                __malloc_av_
+ .data.__sglue  0x1fff6a20        0xc C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-findfp.o)
+                0x1fff6a20                __sglue
  .data.__global_locale
-                0x1fff6a0c      0x16c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-locale.o)
-                0x1fff6a0c                __global_locale
+                0x1fff6a2c      0x16c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-locale.o)
+                0x1fff6a2c                __global_locale
  *(.gnu.linkonce.d.*)
 
-.igot.plt       0x1fff6b78        0x0
- .igot.plt      0x1fff6b78        0x0 E:\Проекты\Часы\firmware\build\phy6222_start.o
-                0x1fff6b78                        . = ALIGN (0x4)
-                0x1fff6b78                        _edata = ABSOLUTE (.)
+.igot.plt       0x1fff6b98        0x0
+ .igot.plt      0x1fff6b98        0x0 E:\Проекты\Часы\firmware\build\phy6222_start.o
+                0x1fff6b98                        . = ALIGN (0x4)
+                0x1fff6b98                        _edata = ABSOLUTE (.)
 
-.bss            0x1fff6b78     0x3064
-                0x1fff6b78                        _sbss = ABSOLUTE (.)
+.bss            0x1fff6b98     0x3064
+                0x1fff6b98                        _sbss = ABSOLUTE (.)
  *(.bss .bss.*)
  .bss.s_vib_count
-                0x1fff6b78        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
+                0x1fff6b98        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
  .bss.s_click_count
-                0x1fff6b7c        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
+                0x1fff6b9c        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
  .bss.s_seconds
-                0x1fff6b80        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
- *fill*         0x1fff6b81        0x3 
+                0x1fff6ba0        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
+ *fill*         0x1fff6ba1        0x3 
  .bss.s_ms_counter
-                0x1fff6b84        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
+                0x1fff6ba4        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
  .bss.s_last_sec_tick
-                0x1fff6b88        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
+                0x1fff6ba8        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
  .bss.s_uptime_seconds
-                0x1fff6b8c        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
+                0x1fff6bac        0x4 E:\Проекты\Часы\firmware\build\src_app_os.o
  .bss.s_current_mode
-                0x1fff6b90        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
- *fill*         0x1fff6b91        0x1 
+                0x1fff6bb0        0x1 E:\Проекты\Часы\firmware\build\src_app_os.o
+ *fill*         0x1fff6bb1        0x1 
  .bss.s_start_calls
-                0x1fff6b92        0x2 E:\Проекты\Часы\firmware\build\src_ble_manager.o
+                0x1fff6bb2        0x2 E:\Проекты\Часы\firmware\build\src_ble_manager.o
  .bss.s_ble_state
-                0x1fff6b94        0x1 E:\Проекты\Часы\firmware\build\src_ble_manager.o
+                0x1fff6bb4        0x1 E:\Проекты\Часы\firmware\build\src_ble_manager.o
  .bss.s_ble_connected
-                0x1fff6b95        0x1 E:\Проекты\Часы\firmware\build\src_ble_manager.o
+                0x1fff6bb5        0x1 E:\Проекты\Часы\firmware\build\src_ble_manager.o
  .bss.s_task_id
-                0x1fff6b96        0x1 E:\Проекты\Часы\firmware\build\src_ble_manager.o
+                0x1fff6bb6        0x1 E:\Проекты\Часы\firmware\build\src_ble_manager.o
  .bss.s_long_press_fired
-                0x1fff6b97        0x1 E:\Проекты\Часы\firmware\build\src_button.o
+                0x1fff6bb7        0x1 E:\Проекты\Часы\firmware\build\src_button.o
  .bss.s_waiting_double
-                0x1fff6b98        0x1 E:\Проекты\Часы\firmware\build\src_button.o
- *fill*         0x1fff6b99        0x3 
+                0x1fff6bb8        0x1 E:\Проекты\Часы\firmware\build\src_button.o
+ *fill*         0x1fff6bb9        0x3 
  .bss.s_release_time
-                0x1fff6b9c        0x4 E:\Проекты\Часы\firmware\build\src_button.o
+                0x1fff6bbc        0x4 E:\Проекты\Часы\firmware\build\src_button.o
  .bss.s_press_time
-                0x1fff6ba0        0x4 E:\Проекты\Часы\firmware\build\src_button.o
+                0x1fff6bc0        0x4 E:\Проекты\Часы\firmware\build\src_button.o
  .bss.s_last_state
-                0x1fff6ba4        0x1 E:\Проекты\Часы\firmware\build\src_button.o
- *fill*         0x1fff6ba5        0x1 
+                0x1fff6bc4        0x1 E:\Проекты\Часы\firmware\build\src_button.o
+ *fill*         0x1fff6bc5        0x1 
  .bss.line_buffer.2
-                0x1fff6ba6       0xa0 E:\Проекты\Часы\firmware\build\src_display.o
+                0x1fff6bc6       0xa0 E:\Проекты\Часы\firmware\build\src_display.o
  .bss._rotation
-                0x1fff6c46        0x1 E:\Проекты\Часы\firmware\build\src_display.o
- .bss.s_spi     0x1fff6c47        0x1 E:\Проекты\Часы\firmware\build\src_display.o
- .bss.buf.0     0x1fff6c48       0x80 E:\Проекты\Часы\firmware\build\src_gfx.o
- .bss.buf.1     0x1fff6cc8       0x50 E:\Проекты\Часы\firmware\build\src_gfx.o
- .bss.buf.2     0x1fff6d18       0x50 E:\Проекты\Часы\firmware\build\src_gfx.o
+                0x1fff6c66        0x1 E:\Проекты\Часы\firmware\build\src_display.o
+ .bss.s_spi     0x1fff6c67        0x1 E:\Проекты\Часы\firmware\build\src_display.o
+ .bss.buf.0     0x1fff6c68       0x80 E:\Проекты\Часы\firmware\build\src_gfx.o
+ .bss.buf.1     0x1fff6ce8       0x50 E:\Проекты\Часы\firmware\build\src_gfx.o
+ .bss.buf.2     0x1fff6d38       0x50 E:\Проекты\Часы\firmware\build\src_gfx.o
  .bss.g_clk32K_config
-                0x1fff6d68        0x1 E:\Проекты\Часы\firmware\build\src_main.o
-                0x1fff6d68                g_clk32K_config
- *fill*         0x1fff6d69        0x3 
+                0x1fff6d88        0x1 E:\Проекты\Часы\firmware\build\src_main.o
+                0x1fff6d88                g_clk32K_config
+ *fill*         0x1fff6d89        0x3 
  .bss.g_llLinkHeap
-                0x1fff6d6c      0x800 E:\Проекты\Часы\firmware\build\src_main.o
-                0x1fff6d6c                g_llLinkHeap
+                0x1fff6d8c      0x800 E:\Проекты\Часы\firmware\build\src_main.o
+                0x1fff6d8c                g_llLinkHeap
  .bss.g_largeHeap
-                0x1fff756c     0x1000 E:\Проекты\Часы\firmware\build\src_main.o
-                0x1fff756c                g_largeHeap
+                0x1fff758c     0x1000 E:\Проекты\Часы\firmware\build\src_main.o
+                0x1fff758c                g_largeHeap
  .bss.pConnContext
-                0x1fff856c      0x284 E:\Проекты\Часы\firmware\build\src_main.o
-                0x1fff856c                pConnContext
+                0x1fff858c      0x284 E:\Проекты\Часы\firmware\build\src_main.o
+                0x1fff858c                pConnContext
  .bss.g_pConnectionBuffer
-                0x1fff87f0      0x754 E:\Проекты\Часы\firmware\build\src_main.o
-                0x1fff87f0                g_pConnectionBuffer
+                0x1fff8810      0x754 E:\Проекты\Часы\firmware\build\src_main.o
+                0x1fff8810                g_pConnectionBuffer
  .bss.tasksEvents
-                0x1fff8f44        0x4 E:\Проекты\Часы\firmware\build\src_osal_tasks.o
-                0x1fff8f44                tasksEvents
- .bss.s_parts   0x1fff8f48       0x80 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8f64        0x4 E:\Проекты\Часы\firmware\build\src_osal_tasks.o
+                0x1fff8f64                tasksEvents
+ .bss.s_parts   0x1fff8f68       0x80 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_running_crc
-                0x1fff8fc8        0x2 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
- *fill*         0x1fff8fca        0x2 
+                0x1fff8fe8        0x2 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+ *fill*         0x1fff8fea        0x2 
  .bss.s_burst_accum
-                0x1fff8fcc        0x4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8fec        0x4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_total_received
-                0x1fff8fd0        0x4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8ff0        0x4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_total_fw_size
-                0x1fff8fd4        0x4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8ff4        0x4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_sector_offset
-                0x1fff8fd8        0x4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8ff8        0x4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_current_sector
-                0x1fff8fdc        0x1 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8ffc        0x1 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_sector_count
-                0x1fff8fdd        0x1 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8ffd        0x1 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_ota_progress
-                0x1fff8fde        0x1 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8ffe        0x1 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_ota_active
-                0x1fff8fdf        0x1 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x1fff8fff        0x1 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .bss.s_heap_buf
-                0x1fff8fe0      0x200 E:\Проекты\Часы\firmware\build\src_syscalls.o
+                0x1fff9000      0x200 E:\Проекты\Часы\firmware\build\src_syscalls.o
  .bss.s_cmd_ready
-                0x1fff91e0        0x1 E:\Проекты\Часы\firmware\build\src_uart_cli.o
- .bss.s_rx_len  0x1fff91e1        0x1 E:\Проекты\Часы\firmware\build\src_uart_cli.o
- .bss.s_rx_buf  0x1fff91e2       0x80 E:\Проекты\Часы\firmware\build\src_uart_cli.o
+                0x1fff9200        0x1 E:\Проекты\Часы\firmware\build\src_uart_cli.o
+ .bss.s_rx_len  0x1fff9201        0x1 E:\Проекты\Часы\firmware\build\src_uart_cli.o
+ .bss.s_rx_buf  0x1fff9202       0x80 E:\Проекты\Часы\firmware\build\src_uart_cli.o
  .bss.s_led_state
-                0x1fff9262        0x1 E:\Проекты\Часы\firmware\build\src_vibrator.o
+                0x1fff9282        0x1 E:\Проекты\Часы\firmware\build\src_vibrator.o
  .bss.s_active_level
-                0x1fff9263        0x1 E:\Проекты\Часы\firmware\build\src_vibrator.o
+                0x1fff9283        0x1 E:\Проекты\Часы\firmware\build\src_vibrator.o
  .bss.s_curr_idx
-                0x1fff9264        0x1 E:\Проекты\Часы\firmware\build\src_vibrator.o
- *fill*         0x1fff9265        0x1 
+                0x1fff9284        0x1 E:\Проекты\Часы\firmware\build\src_vibrator.o
+ *fill*         0x1fff9285        0x1 
  .bss.g_lastSlaveLatency
-                0x1fff9266        0x2 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff9266                g_lastSlaveLatency
+                0x1fff9286        0x2 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff9286                g_lastSlaveLatency
  .bss.g_t_llhwgo
-                0x1fff9268        0x4 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff9268                g_t_llhwgo
+                0x1fff9288        0x4 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff9288                g_t_llhwgo
  .bss.CreateConn_Flag
-                0x1fff926c        0x1 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff926c                CreateConn_Flag
- *fill*         0x1fff926d        0x3 
+                0x1fff928c        0x1 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff928c                CreateConn_Flag
+ *fill*         0x1fff928d        0x3 
  .bss.pGlobal_config
-                0x1fff9270        0x4 E:\Проекты\Часы\firmware\build\sdk_patch.o
-                0x1fff9270                pGlobal_config
+                0x1fff9290        0x4 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x1fff9290                pGlobal_config
  .bss.m_gpioCtx
-                0x1fff9274      0x130 E:\Проекты\Часы\firmware\build\sdk_gpio.o
- .bss.m_spiCtx  0x1fff93a4       0x60 E:\Проекты\Часы\firmware\build\sdk_spi.o
+                0x1fff9294      0x130 E:\Проекты\Часы\firmware\build\sdk_gpio.o
+ .bss.m_spiCtx  0x1fff93c4       0x60 E:\Проекты\Часы\firmware\build\sdk_spi.o
  .bss.s_pwrmgr_cfg
-                0x1fff9404        0x1 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
- *fill*         0x1fff9405        0x3 
- .bss.mCtx      0x1fff9408       0x78 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x1fff9424        0x1 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+ *fill*         0x1fff9425        0x3 
+ .bss.mCtx      0x1fff9428       0x78 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
  .bss.m_uartCtx
-                0x1fff9480       0x40 E:\Проекты\Часы\firmware\build\sdk_uart.o
+                0x1fff94a0       0x40 E:\Проекты\Часы\firmware\build\sdk_uart.o
  .bss.trap_c_callback
-                0x1fff94c0        0x4 E:\Проекты\Часы\firmware\build\sdk_jump_table.o
-                0x1fff94c0                trap_c_callback
+                0x1fff94e0        0x4 E:\Проекты\Часы\firmware\build\sdk_jump_table.o
+                0x1fff94e0                trap_c_callback
  .bss.pGapRoles_ParamUpdateCB
-                0x1fff94c4        0x4 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff94e4        0x4 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .bss.pGapRoles_AppCGs
-                0x1fff94c8        0x4 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff94e8        0x4 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .bss.paramUpdateNoSuccessOption
-                0x1fff94cc        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- *fill*         0x1fff94cd        0x1 
- .bss.gapRole_ConnTimeout
-                0x1fff94ce        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_ConnSlaveLatency
-                0x1fff94d0        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_ConnInterval
-                0x1fff94d2        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_SlaveLatency
-                0x1fff94d4        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_ParamUpdateEnable
-                0x1fff94d6        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_ConnectedDevAddr
-                0x1fff94d7        0x6 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- *fill*         0x1fff94dd        0x1 
- .bss.gapRole_RSSIReadRate
-                0x1fff94de        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_ConnectionLatency
-                0x1fff94e0        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_ConnectionInterval
-                0x1fff94e2        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_AdvFilterPolicy
-                0x1fff94e4        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff94e4                gapRole_AdvFilterPolicy
- .bss.gapRole_AdvChanMap
-                0x1fff94e5        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff94e5                gapRole_AdvChanMap
- .bss.gapRole_AdvDirectAddr
-                0x1fff94e6        0x6 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff94e6                gapRole_AdvDirectAddr
- .bss.gapRole_AdvDirectType
                 0x1fff94ec        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff94ec                gapRole_AdvDirectType
+ *fill*         0x1fff94ed        0x1 
+ .bss.gapRole_ConnTimeout
+                0x1fff94ee        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_ConnSlaveLatency
+                0x1fff94f0        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_ConnInterval
+                0x1fff94f2        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_SlaveLatency
+                0x1fff94f4        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_ParamUpdateEnable
+                0x1fff94f6        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_ConnectedDevAddr
+                0x1fff94f7        0x6 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ *fill*         0x1fff94fd        0x1 
+ .bss.gapRole_RSSIReadRate
+                0x1fff94fe        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_ConnectionLatency
+                0x1fff9500        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_ConnectionInterval
+                0x1fff9502        0x2 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_AdvFilterPolicy
+                0x1fff9504        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff9504                gapRole_AdvFilterPolicy
+ .bss.gapRole_AdvChanMap
+                0x1fff9505        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff9505                gapRole_AdvChanMap
+ .bss.gapRole_AdvDirectAddr
+                0x1fff9506        0x6 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff9506                gapRole_AdvDirectAddr
+ .bss.gapRole_AdvDirectType
+                0x1fff950c        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff950c                gapRole_AdvDirectType
  .bss.gapRole_AdvEventType
-                0x1fff94ed        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff94ed                gapRole_AdvEventType
- .bss.gapRole_ScanRspData
-                0x1fff94ee       0x1f E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .bss.gapRole_ScanRspDataLen
                 0x1fff950d        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff950d                gapRole_AdvEventType
+ .bss.gapRole_ScanRspData
+                0x1fff950e       0x1f E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .bss.gapRole_ScanRspDataLen
+                0x1fff952d        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .bss.gapRole_AdvEnabled
-                0x1fff950e        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff950e                gapRole_AdvEnabled
+                0x1fff952e        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff952e                gapRole_AdvEnabled
  .bss.gapRole_bdAddr
-                0x1fff950f        0x6 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- *fill*         0x1fff9515        0x3 
+                0x1fff952f        0x6 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ *fill*         0x1fff9535        0x3 
  .bss.gapRole_signCounter
-                0x1fff9518        0x4 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff9538        0x4 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .bss.gapRole_SRK
-                0x1fff951c       0x10 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff953c       0x10 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .bss.gapRole_IRK
-                0x1fff952c       0x10 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff954c       0x10 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .bss.gapRole_profileRole
-                0x1fff953c        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff955c        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .bss.gapRole_state
-                0x1fff953d        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff953d                gapRole_state
+                0x1fff955d        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff955d                gapRole_state
  .bss.gapRole_TaskID
-                0x1fff953e        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
-                0x1fff953e                gapRole_TaskID
+                0x1fff955e        0x1 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x1fff955e                gapRole_TaskID
  .bss.deviceName
-                0x1fff953f       0x16 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
- *fill*         0x1fff9555        0x3 
+                0x1fff955f       0x16 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+ *fill*         0x1fff9575        0x3 
  .bss.ggs_AppCBs
-                0x1fff9558        0x4 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+                0x1fff9578        0x4 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
  .bss.s_GATTServCB
-                0x1fff955c        0x4 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff957c        0x4 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .bss.indCharCfg
-                0x1fff9560        0x8 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
- .bss.rsp       0x1fff9568       0xf4 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff9580        0x8 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+ .bss.rsp       0x1fff9588       0xf4 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .bss.attrValue
-                0x1fff965c       0xef E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
- *fill*         0x1fff974b        0x1 
- .bss.attrLen   0x1fff974c        0x2 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
- *fill*         0x1fff974e        0x2 
+                0x1fff967c       0xef E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+ *fill*         0x1fff976b        0x1 
+ .bss.attrLen   0x1fff976c        0x2 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+ *fill*         0x1fff976e        0x2 
  .bss.serviceCBsList
-                0x1fff9750        0x4 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff9770        0x4 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .bss.prepareQueue
-                0x1fff9754       0xf2 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff9774       0xf2 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .bss.maxNumPrepareWrites
-                0x1fff9846        0x1 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
- *fill*         0x1fff9847        0x1 
+                0x1fff9866        0x1 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+ *fill*         0x1fff9867        0x1 
  .bss.prepareWritesTbl
-                0x1fff9848        0x8 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff9868        0x8 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .bss.GATTServApp_TaskID
-                0x1fff9850        0x1 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
-                0x1fff9850                GATTServApp_TaskID
+                0x1fff9870        0x1 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x1fff9870                GATTServApp_TaskID
  .bss.devInfoSystemId
-                0x1fff9851        0x8 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
- *fill*         0x1fff9859        0x1 
+                0x1fff9871        0x8 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+ *fill*         0x1fff9879        0x1 
  .bss.simpleProfileChar6Config
-                0x1fff985a        0x8 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x1fff987a        0x8 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .bss.simpleProfileChar6
-                0x1fff9862       0x14 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x1fff9882       0x14 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .bss.simpleProfileChar5
-                0x1fff9876        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- *fill*         0x1fff9877        0x1 
+                0x1fff9896        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ *fill*         0x1fff9897        0x1 
  .bss.simpleProfileChar4Config
-                0x1fff9878        0x8 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x1fff9898        0x8 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .bss.simpleProfileChar4
-                0x1fff9880        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- *fill*         0x1fff9881        0x1 
- .bss.simpleProfileChar3
-                0x1fff9882        0x2 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .bss.simpleProfileChar2
-                0x1fff9884        0x2 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .bss.simpleProfileChar1
-                0x1fff9886       0x10 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- *fill*         0x1fff9896        0x2 
- .bss.simpleProfile_AppCBs
-                0x1fff9898        0x4 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .bss.ota_AppCBs
-                0x1fff989c        0x4 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
- .bss.ota_DataValue
-                0x1fff98a0        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x1fff98a0        0x1 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  *fill*         0x1fff98a1        0x1 
+ .bss.simpleProfileChar3
+                0x1fff98a2        0x2 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .bss.simpleProfileChar2
+                0x1fff98a4        0x2 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .bss.simpleProfileChar1
+                0x1fff98a6       0x10 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ *fill*         0x1fff98b6        0x2 
+ .bss.simpleProfile_AppCBs
+                0x1fff98b8        0x4 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .bss.ota_AppCBs
+                0x1fff98bc        0x4 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+ .bss.ota_DataValue
+                0x1fff98c0        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+ *fill*         0x1fff98c1        0x1 
  .bss.ota_ResponseCCCD
-                0x1fff98a2        0x8 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x1fff98c2        0x8 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
  .bss.ota_ResponseValue
-                0x1fff98aa        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x1fff98ca        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
  .bss.ota_CommandValue
-                0x1fff98ab        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x1fff98cb        0x1 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
  .bss.gAttMtuSize
-                0x1fff98ac        0x2 E:\Проекты\Часы\firmware\build\sdk_att_util.o
-                0x1fff98ac                gAttMtuSize
+                0x1fff98cc        0x2 E:\Проекты\Часы\firmware\build\sdk_att_util.o
+                0x1fff98cc                gAttMtuSize
  .bss.g_attMtuClientServer
-                0x1fff98ae        0x4 E:\Проекты\Часы\firmware\build\sdk_att_util.o
-                0x1fff98ae                g_attMtuClientServer
+                0x1fff98ce        0x4 E:\Проекты\Часы\firmware\build\sdk_att_util.o
+                0x1fff98ce                g_attMtuClientServer
  .bss.gapCurrentRandomAddr
-                0x1fff98b2        0x6 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x1fff98d2        0x6 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
  .bss.gapParams
-                0x1fff98b8       0x1c E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x1fff98d8       0x1c E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
  .bss.gapAutoAdvPrivateAddrChange
-                0x1fff98d4        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
-                0x1fff98d4                gapAutoAdvPrivateAddrChange
- *fill*         0x1fff98d5        0x1 
+                0x1fff98f4        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x1fff98f4                gapAutoAdvPrivateAddrChange
+ *fill*         0x1fff98f5        0x1 
  .bss.gapPrivateAddrChangeTimeout
-                0x1fff98d6        0x2 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
-                0x1fff98d6                gapPrivateAddrChangeTimeout
+                0x1fff98f6        0x2 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x1fff98f6                gapPrivateAddrChangeTimeout
  .bss.gapDeviceAddrMode
-                0x1fff98d8        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
-                0x1fff98d8                gapDeviceAddrMode
+                0x1fff98f8        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x1fff98f8                gapDeviceAddrMode
  .bss.gapProfileRole
-                0x1fff98d9        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
-                0x1fff98d9                gapProfileRole
- *fill*         0x1fff98da        0x2 
+                0x1fff98f9        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x1fff98f9                gapProfileRole
+ *fill*         0x1fff98fa        0x2 
  .bss.pGapAdvertState
-                0x1fff98dc        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
-                0x1fff98dc                pGapAdvertState
+                0x1fff98fc        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
+                0x1fff98fc                pGapAdvertState
  .bss.terminateReason
-                0x1fff98e0        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+                0x1fff9900        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
  .bss.terminateAllTaskID
-                0x1fff98e1        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
- *fill*         0x1fff98e2        0x2 
+                0x1fff9901        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+ *fill*         0x1fff9902        0x2 
  .bss.pfnCentralConnCBs
-                0x1fff98e4        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
-                0x1fff98e4                pfnCentralConnCBs
+                0x1fff9904        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+                0x1fff9904                pfnCentralConnCBs
  .bss.pAuthLink
-                0x1fff98e8        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
-                0x1fff98e8                pAuthLink
- .bss.pEstLink  0x1fff98ec        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
-                0x1fff98ec                pEstLink
+                0x1fff9908        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+                0x1fff9908                pAuthLink
+ .bss.pEstLink  0x1fff990c        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+                0x1fff990c                pEstLink
  .bss.gapLimitedAdvertisingTimeout
-                0x1fff98f0        0x2 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
- *fill*         0x1fff98f2        0x2 
+                0x1fff9910        0x2 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+ *fill*         0x1fff9912        0x2 
  .bss.pGapScanRspData
-                0x1fff98f4        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+                0x1fff9914        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
  .bss.pGapAdData
-                0x1fff98f8        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+                0x1fff9918        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
  .bss.pfnCentralCBs
-                0x1fff98fc        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
+                0x1fff991c        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
  .bss.pfnPeripheralCBs
-                0x1fff9900        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
-                0x1fff9900                pfnPeripheralCBs
+                0x1fff9920        0x4 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
+                0x1fff9920                pfnPeripheralCBs
  .bss.gapTaskID
-                0x1fff9904        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
-                0x1fff9904                gapTaskID
- *fill*         0x1fff9905        0x3 
+                0x1fff9924        0x1 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
+                0x1fff9924                gapTaskID
+ *fill*         0x1fff9925        0x3 
  .bss.pServiceList
-                0x1fff9908        0x4 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
+                0x1fff9928        0x4 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
  .bss.serverInfoTbl
-                0x1fff990c        0x8 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
-                0x1fff990c                serverInfoTbl
+                0x1fff992c        0x8 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
+                0x1fff992c                serverInfoTbl
  .bss.pfnClientProcessMsgCB
-                0x1fff9914        0x4 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
+                0x1fff9934        0x4 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
  .bss.pfnServerProcessMsgCB
-                0x1fff9918        0x4 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
+                0x1fff9938        0x4 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
  .bss.gattTaskID
-                0x1fff991c        0x1 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
-                0x1fff991c                gattTaskID
+                0x1fff993c        0x1 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
+                0x1fff993c                gattTaskID
  .bss.l2capFlowCtrlMode
-                0x1fff991d        0x1 E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
+                0x1fff993d        0x1 E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
  .bss.l2capChannels
-                0x1fff991e       0x1e E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
-                0x1fff991e                l2capChannels
+                0x1fff993e       0x1e E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
+                0x1fff993e                l2capChannels
  .bss.l2capFixedChannels
-                0x1fff993c       0x10 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
-                0x1fff993c                l2capFixedChannels
+                0x1fff995c       0x10 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
+                0x1fff995c                l2capFixedChannels
  .bss.l2capTaskID
-                0x1fff994c        0x1 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
-                0x1fff994c                l2capTaskID
- *fill*         0x1fff994d        0x1 
+                0x1fff996c        0x1 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
+                0x1fff996c                l2capTaskID
+ *fill*         0x1fff996d        0x1 
  .bss.currSeqNum
-                0x1fff994e        0x2 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
-                0x1fff994e                currSeqNum
- .bss.l2capId   0x1fff9950        0x1 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
- *fill*         0x1fff9951        0x3 
+                0x1fff996e        0x2 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+                0x1fff996e                currSeqNum
+ .bss.l2capId   0x1fff9970        0x1 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+ *fill*         0x1fff9971        0x3 
  .bss.g_sarDbgCnt
-                0x1fff9954       0x34 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
-                0x1fff9954                g_sarDbgCnt
+                0x1fff9974       0x34 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+                0x1fff9974                g_sarDbgCnt
  .bss.l2capSegmentPkt
-                0x1fff9988       0x5c E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
-                0x1fff9988                l2capSegmentPkt
+                0x1fff99a8       0x5c E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+                0x1fff99a8                l2capSegmentPkt
  .bss.l2capReassemblePkt
-                0x1fff99e4       0x10 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
-                0x1fff99e4                l2capReassemblePkt
- .bss.linkCBs   0x1fff99f4       0x14 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
- .bss.linkDB    0x1fff9a08       0x28 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
+                0x1fff9a04       0x10 E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+                0x1fff9a04                l2capReassemblePkt
+ .bss.linkCBs   0x1fff9a14       0x14 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
+ .bss.linkDB    0x1fff9a28       0x28 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
  .bss.pSmGenKey
-                0x1fff9a30        0x4 E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
+                0x1fff9a50        0x4 E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
  .bss.smTO_CBTimer
-                0x1fff9a34        0xf E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
-                0x1fff9a34                smTO_CBTimer
- *fill*         0x1fff9a43        0x1 
+                0x1fff9a54        0xf E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
+                0x1fff9a54                smTO_CBTimer
+ *fill*         0x1fff9a63        0x1 
  .bss.pfnInitiatorCBs
-                0x1fff9a44        0x4 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
+                0x1fff9a64        0x4 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
  .bss.pfnResponderCBs
-                0x1fff9a48        0x4 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
-                0x1fff9a48                pfnResponderCBs
+                0x1fff9a68        0x4 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
+                0x1fff9a68                pfnResponderCBs
  .bss.pPairingParams
-                0x1fff9a4c        0x4 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
-                0x1fff9a4c                pPairingParams
+                0x1fff9a6c        0x4 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
+                0x1fff9a6c                pPairingParams
  .bss.smState_CBTimer
-                0x1fff9a50        0xf E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
-                0x1fff9a50                smState_CBTimer
- .bss.smTaskID  0x1fff9a5f        0x1 E:\Проекты\Часы\firmware\build\sdk_sm_task.o
-                0x1fff9a5f                smTaskID
- .bss.errno     0x1fff9a60        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-reent.o)
-                0x1fff9a60                errno
+                0x1fff9a70        0xf E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
+                0x1fff9a70                smState_CBTimer
+ .bss.smTaskID  0x1fff9a7f        0x1 E:\Проекты\Часы\firmware\build\sdk_sm_task.o
+                0x1fff9a7f                smTaskID
+ .bss.errno     0x1fff9a80        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-reent.o)
+                0x1fff9a80                errno
  .bss.__malloc_current_mallinfo
-                0x1fff9a64       0x28 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
-                0x1fff9a64                __malloc_current_mallinfo
+                0x1fff9a84       0x28 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
+                0x1fff9a84                __malloc_current_mallinfo
  .bss.__malloc_max_total_mem
-                0x1fff9a8c        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
-                0x1fff9a8c                __malloc_max_total_mem
+                0x1fff9aac        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
+                0x1fff9aac                __malloc_max_total_mem
  .bss.__malloc_max_sbrked_mem
-                0x1fff9a90        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
-                0x1fff9a90                __malloc_max_sbrked_mem
+                0x1fff9ab0        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
+                0x1fff9ab0                __malloc_max_sbrked_mem
  .bss.__malloc_top_pad
-                0x1fff9a94        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
-                0x1fff9a94                __malloc_top_pad
- .bss.__sf      0x1fff9a98      0x138 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-findfp.o)
-                0x1fff9a98                __sf
+                0x1fff9ab4        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-mallocr.o)
+                0x1fff9ab4                __malloc_top_pad
+ .bss.__sf      0x1fff9ab8      0x138 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-findfp.o)
+                0x1fff9ab8                __sf
  .bss.__stdio_exit_handler
-                0x1fff9bd0        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-findfp.o)
-                0x1fff9bd0                __stdio_exit_handler
+                0x1fff9bf0        0x4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-findfp.o)
+                0x1fff9bf0                __stdio_exit_handler
  .bss.__lock___malloc_recursive_mutex
-                0x1fff9bd4        0x1 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-lock.o)
-                0x1fff9bd4                __lock___malloc_recursive_mutex
- *fill*         0x1fff9bd5        0x3 
+                0x1fff9bf4        0x1 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-lock.o)
+                0x1fff9bf4                __lock___malloc_recursive_mutex
+ *fill*         0x1fff9bf5        0x3 
  .bss.__lock___sfp_recursive_mutex
-                0x1fff9bd8        0x1 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-lock.o)
-                0x1fff9bd8                __lock___sfp_recursive_mutex
+                0x1fff9bf8        0x1 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(libc_a-lock.o)
+                0x1fff9bf8                __lock___sfp_recursive_mutex
  *(.gnu.linkonce.b.*)
  *(COMMON)
-                0x1fff9bdc                        . = ALIGN (0x4)
- *fill*         0x1fff9bd9        0x3 
-                0x1fff9bdc                        _ebss = ABSOLUTE (.)
+                0x1fff9bfc                        . = ALIGN (0x4)
+ *fill*         0x1fff9bf9        0x3 
+                0x1fff9bfc                        _ebss = ABSOLUTE (.)
 
-.irq_stack      0x1fff9be0      0x400
+.irq_stack      0x1fff9c00      0x400
  *(g_irqstack_base)
- .irq_stack     0x1fff9be0      0x400 E:\Проекты\Часы\firmware\build\phy6222_start.o
-                0x1fff9be0                g_irqstack_base
-                0x1fff9fe0                g_irqstack_top
+ .irq_stack     0x1fff9c00      0x400 E:\Проекты\Часы\firmware\build\phy6222_start.o
+                0x1fff9c00                g_irqstack_base
+                0x1fffa000                g_irqstack_top
                 0x20000000                        g_stack = (ORIGIN (sram) + LENGTH (sram))
 
 .xip            0x11010100    0x14738
@@ -10102,7 +10102,7 @@ Linker script and memory map
  .debug_abbrev  0x0000c693       0x26 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
  .debug_abbrev  0x0000c6b9       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzdi2.o)
 
-.debug_info     0x00000000    0x466c4
+.debug_info     0x00000000    0x466cd
  *(.debug_info)
  .debug_info    0x00000000       0x31 E:\Проекты\Часы\firmware\build\phy6222_start.o
  .debug_info    0x00000031      0xf93 E:\Проекты\Часы\firmware\build\src_app_os.o
@@ -10115,80 +10115,80 @@ Linker script and memory map
  .debug_info    0x00005e81     0x1b93 E:\Проекты\Часы\firmware\build\src_main.o
  .debug_info    0x00007a14      0x19f E:\Проекты\Часы\firmware\build\src_osal_init.o
  .debug_info    0x00007bb3      0x48e E:\Проекты\Часы\firmware\build\src_osal_tasks.o
- .debug_info    0x00008041      0xd9f E:\Проекты\Часы\firmware\build\src_ota_inapp.o
- .debug_info    0x00008de0      0x542 E:\Проекты\Часы\firmware\build\src_syscalls.o
- .debug_info    0x00009322      0x8da E:\Проекты\Часы\firmware\build\src_uart_cli.o
- .debug_info    0x00009bfc      0x793 E:\Проекты\Часы\firmware\build\src_vibrator.o
- .debug_info    0x0000a38f     0x7daa E:\Проекты\Часы\firmware\build\sdk_patch.o
- .debug_info    0x00012139      0x4bf E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
- .debug_info    0x000125f8     0x1f67 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
- .debug_info    0x0001455f      0x9ba E:\Проекты\Часы\firmware\build\sdk_clock.o
- .debug_info    0x00014f19     0x192d E:\Проекты\Часы\firmware\build\sdk_flash.o
- .debug_info    0x00016846     0x1821 E:\Проекты\Часы\firmware\build\sdk_gpio.o
- .debug_info    0x00018067     0x24c7 E:\Проекты\Часы\firmware\build\sdk_spi.o
- .debug_info    0x0001a52e      0xfa2 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
- .debug_info    0x0001b4d0     0x17ba E:\Проекты\Часы\firmware\build\sdk_uart.o
- .debug_info    0x0001cc8a     0x2283 E:\Проекты\Часы\firmware\build\sdk_adc.o
- .debug_info    0x0001ef0d      0xae1 E:\Проекты\Часы\firmware\build\sdk_my_printf.o
- .debug_info    0x0001f9ee      0x2ea E:\Проекты\Часы\firmware\build\sdk_jump_table.o
- .debug_info    0x0001fcd8      0x153 E:\Проекты\Часы\firmware\build\sdk_phy6222_cstart.o
- .debug_info    0x0001fe2b       0x6a E:\Проекты\Часы\firmware\build\sdk_phy6222_vectors.o
- .debug_info    0x0001fe95     0x1936 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .debug_info    0x000217cb      0x27e E:\Проекты\Часы\firmware\build\sdk_gap.o
- .debug_info    0x00021a49      0xa74 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
- .debug_info    0x000224bd     0x3e35 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
- .debug_info    0x000262f2      0x728 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
- .debug_info    0x00026a1a      0xda8 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .debug_info    0x000277c2      0xae6 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
- .debug_info    0x000282a8      0x1cf E:\Проекты\Часы\firmware\build\sdk_crc16.o
- .debug_info    0x00028477      0xc31 E:\Проекты\Часы\firmware\build\sdk_att_server.o
- .debug_info    0x000290a8     0x2a22 E:\Проекты\Часы\firmware\build\sdk_att_util.o
- .debug_info    0x0002baca     0x1325 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
- .debug_info    0x0002cdef      0x396 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
- .debug_info    0x0002d185     0x2f69 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
- .debug_info    0x000300ee     0x1574 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
- .debug_info    0x00031662      0xfa3 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
- .debug_info    0x00032605     0x256c E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
- .debug_info    0x00034b71     0x1259 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
- .debug_info    0x00035dca      0x34a E:\Проекты\Часы\firmware\build\sdk_gatt_uuid.o
- .debug_info    0x00036114      0xa4d E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
- .debug_info    0x00036b61      0xc60 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
- .debug_info    0x000377c1     0x309e E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
- .debug_info    0x0003a85f      0x794 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
- .debug_info    0x0003aff3      0xdd2 E:\Проекты\Часы\firmware\build\sdk_smp.o
- .debug_info    0x0003bdc5     0x2289 E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
- .debug_info    0x0003e04e     0x1f83 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
- .debug_info    0x0003ffd1     0x1616 E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
- .debug_info    0x000415e7      0xc97 E:\Проекты\Часы\firmware\build\sdk_sm_task.o
- .debug_info    0x0004227e       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_sqi.o)
- .debug_info    0x000422af       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uqi.o)
- .debug_info    0x000422e0       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_shi.o)
- .debug_info    0x00042311       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uhi.o)
- .debug_info    0x00042342      0x7b2 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
- .debug_info    0x00042af4      0x7bd C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
- .debug_info    0x000432b1      0x28b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
- .debug_info    0x0004353c      0x286 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
- .debug_info    0x000437c2       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzsi2.o)
- .debug_info    0x000437f3       0x7e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_arm_cmpdf2.o)
- .debug_info    0x00043871       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_aeabi_uldivmod.o)
- .debug_info    0x000438a2      0x42e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
- .debug_info    0x00043cd0      0x33e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
- .debug_info    0x0004400e      0x33d C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
- .debug_info    0x0004434b      0x382 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
- .debug_info    0x000446cd      0x365 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
- .debug_info    0x00044a32      0x3b1 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
- .debug_info    0x00044de3      0x594 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
- .debug_info    0x00045377      0x243 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
- .debug_info    0x000455ba      0x251 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
- .debug_info    0x0004580b      0x251 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
- .debug_info    0x00045a5c      0x591 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
- .debug_info    0x00045fed      0x227 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
- .debug_info    0x00046214      0x1d0 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
- .debug_info    0x000463e4      0x280 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
- .debug_info    0x00046664       0x3c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
- .debug_info    0x000466a0       0x24 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzdi2.o)
+ .debug_info    0x00008041      0xda8 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+ .debug_info    0x00008de9      0x542 E:\Проекты\Часы\firmware\build\src_syscalls.o
+ .debug_info    0x0000932b      0x8da E:\Проекты\Часы\firmware\build\src_uart_cli.o
+ .debug_info    0x00009c05      0x793 E:\Проекты\Часы\firmware\build\src_vibrator.o
+ .debug_info    0x0000a398     0x7daa E:\Проекты\Часы\firmware\build\sdk_patch.o
+ .debug_info    0x00012142      0x4bf E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
+ .debug_info    0x00012601     0x1f67 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
+ .debug_info    0x00014568      0x9ba E:\Проекты\Часы\firmware\build\sdk_clock.o
+ .debug_info    0x00014f22     0x192d E:\Проекты\Часы\firmware\build\sdk_flash.o
+ .debug_info    0x0001684f     0x1821 E:\Проекты\Часы\firmware\build\sdk_gpio.o
+ .debug_info    0x00018070     0x24c7 E:\Проекты\Часы\firmware\build\sdk_spi.o
+ .debug_info    0x0001a537      0xfa2 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+ .debug_info    0x0001b4d9     0x17ba E:\Проекты\Часы\firmware\build\sdk_uart.o
+ .debug_info    0x0001cc93     0x2283 E:\Проекты\Часы\firmware\build\sdk_adc.o
+ .debug_info    0x0001ef16      0xae1 E:\Проекты\Часы\firmware\build\sdk_my_printf.o
+ .debug_info    0x0001f9f7      0x2ea E:\Проекты\Часы\firmware\build\sdk_jump_table.o
+ .debug_info    0x0001fce1      0x153 E:\Проекты\Часы\firmware\build\sdk_phy6222_cstart.o
+ .debug_info    0x0001fe34       0x6a E:\Проекты\Часы\firmware\build\sdk_phy6222_vectors.o
+ .debug_info    0x0001fe9e     0x1936 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .debug_info    0x000217d4      0x27e E:\Проекты\Часы\firmware\build\sdk_gap.o
+ .debug_info    0x00021a52      0xa74 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+ .debug_info    0x000224c6     0x3e35 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+ .debug_info    0x000262fb      0x728 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+ .debug_info    0x00026a23      0xda8 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .debug_info    0x000277cb      0xae6 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+ .debug_info    0x000282b1      0x1cf E:\Проекты\Часы\firmware\build\sdk_crc16.o
+ .debug_info    0x00028480      0xc31 E:\Проекты\Часы\firmware\build\sdk_att_server.o
+ .debug_info    0x000290b1     0x2a22 E:\Проекты\Часы\firmware\build\sdk_att_util.o
+ .debug_info    0x0002bad3     0x1325 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+ .debug_info    0x0002cdf8      0x396 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
+ .debug_info    0x0002d18e     0x2f69 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+ .debug_info    0x000300f7     0x1574 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+ .debug_info    0x0003166b      0xfa3 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
+ .debug_info    0x0003260e     0x256c E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
+ .debug_info    0x00034b7a     0x1259 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
+ .debug_info    0x00035dd3      0x34a E:\Проекты\Часы\firmware\build\sdk_gatt_uuid.o
+ .debug_info    0x0003611d      0xa4d E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
+ .debug_info    0x00036b6a      0xc60 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
+ .debug_info    0x000377ca     0x309e E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+ .debug_info    0x0003a868      0x794 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
+ .debug_info    0x0003affc      0xdd2 E:\Проекты\Часы\firmware\build\sdk_smp.o
+ .debug_info    0x0003bdce     0x2289 E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
+ .debug_info    0x0003e057     0x1f83 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
+ .debug_info    0x0003ffda     0x1616 E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
+ .debug_info    0x000415f0      0xc97 E:\Проекты\Часы\firmware\build\sdk_sm_task.o
+ .debug_info    0x00042287       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_sqi.o)
+ .debug_info    0x000422b8       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uqi.o)
+ .debug_info    0x000422e9       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_shi.o)
+ .debug_info    0x0004231a       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uhi.o)
+ .debug_info    0x0004234b      0x7b2 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
+ .debug_info    0x00042afd      0x7bd C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
+ .debug_info    0x000432ba      0x28b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
+ .debug_info    0x00043545      0x286 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
+ .debug_info    0x000437cb       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzsi2.o)
+ .debug_info    0x000437fc       0x7e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_arm_cmpdf2.o)
+ .debug_info    0x0004387a       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_aeabi_uldivmod.o)
+ .debug_info    0x000438ab      0x42e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
+ .debug_info    0x00043cd9      0x33e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
+ .debug_info    0x00044017      0x33d C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
+ .debug_info    0x00044354      0x382 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
+ .debug_info    0x000446d6      0x365 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
+ .debug_info    0x00044a3b      0x3b1 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
+ .debug_info    0x00044dec      0x594 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
+ .debug_info    0x00045380      0x243 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
+ .debug_info    0x000455c3      0x251 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
+ .debug_info    0x00045814      0x251 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
+ .debug_info    0x00045a65      0x591 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
+ .debug_info    0x00045ff6      0x227 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
+ .debug_info    0x0004621d      0x1d0 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
+ .debug_info    0x000463ed      0x280 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
+ .debug_info    0x0004666d       0x3c C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
+ .debug_info    0x000466a9       0x24 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzdi2.o)
 
-.debug_line     0x00000000    0x3a811
+.debug_line     0x00000000    0x3a82e
  *(.debug_line)
  .debug_line    0x00000000       0x4c E:\Проекты\Часы\firmware\build\phy6222_start.o
  .debug_line    0x0000004c      0xc58 E:\Проекты\Часы\firmware\build\src_app_os.o
@@ -10201,78 +10201,78 @@ Linker script and memory map
  .debug_line    0x0000498f      0xa68 E:\Проекты\Часы\firmware\build\src_main.o
  .debug_line    0x000053f7      0x814 E:\Проекты\Часы\firmware\build\src_osal_init.o
  .debug_line    0x00005c0b      0x948 E:\Проекты\Часы\firmware\build\src_osal_tasks.o
- .debug_line    0x00006553      0xf08 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
- .debug_line    0x0000745b      0x598 E:\Проекты\Часы\firmware\build\src_syscalls.o
- .debug_line    0x000079f3      0x86e E:\Проекты\Часы\firmware\build\src_uart_cli.o
- .debug_line    0x00008261      0x817 E:\Проекты\Часы\firmware\build\src_vibrator.o
- .debug_line    0x00008a78     0x5f50 E:\Проекты\Часы\firmware\build\sdk_patch.o
- .debug_line    0x0000e9c8      0x92f E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
- .debug_line    0x0000f2f7     0x2528 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
- .debug_line    0x0001181f      0xbed E:\Проекты\Часы\firmware\build\sdk_clock.o
- .debug_line    0x0001240c     0x156f E:\Проекты\Часы\firmware\build\sdk_flash.o
- .debug_line    0x0001397b     0x1147 E:\Проекты\Часы\firmware\build\sdk_gpio.o
- .debug_line    0x00014ac2     0x1e20 E:\Проекты\Часы\firmware\build\sdk_spi.o
- .debug_line    0x000168e2      0xef4 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
- .debug_line    0x000177d6     0x1151 E:\Проекты\Часы\firmware\build\sdk_uart.o
- .debug_line    0x00018927     0x13bc E:\Проекты\Часы\firmware\build\sdk_adc.o
- .debug_line    0x00019ce3      0xcec E:\Проекты\Часы\firmware\build\sdk_my_printf.o
- .debug_line    0x0001a9cf      0x889 E:\Проекты\Часы\firmware\build\sdk_jump_table.o
- .debug_line    0x0001b258      0x3a3 E:\Проекты\Часы\firmware\build\sdk_phy6222_cstart.o
- .debug_line    0x0001b5fb       0x80 E:\Проекты\Часы\firmware\build\sdk_phy6222_vectors.o
- .debug_line    0x0001b67b     0x153a E:\Проекты\Часы\firmware\build\sdk_peripheral.o
- .debug_line    0x0001cbb5      0x709 E:\Проекты\Часы\firmware\build\sdk_gap.o
- .debug_line    0x0001d2be      0xc9b E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
- .debug_line    0x0001df59     0x1f4a E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
- .debug_line    0x0001fea3      0x9aa E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
- .debug_line    0x0002084d      0xbda E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
- .debug_line    0x00021427      0xa4c E:\Проекты\Часы\firmware\build\sdk_ota_service.o
- .debug_line    0x00021e73      0x35e E:\Проекты\Часы\firmware\build\sdk_crc16.o
- .debug_line    0x000221d1      0x990 E:\Проекты\Часы\firmware\build\sdk_att_server.o
- .debug_line    0x00022b61     0x1b4a E:\Проекты\Часы\firmware\build\sdk_att_util.o
- .debug_line    0x000246ab      0xfe4 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
- .debug_line    0x0002568f      0x918 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
- .debug_line    0x00025fa7     0x165b E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
- .debug_line    0x00027602     0x149c E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
- .debug_line    0x00028a9e      0xcce E:\Проекты\Часы\firmware\build\sdk_gap_task.o
- .debug_line    0x0002976c     0x14db E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
- .debug_line    0x0002ac47      0xa33 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
- .debug_line    0x0002b67a      0x7cc E:\Проекты\Часы\firmware\build\sdk_gatt_uuid.o
- .debug_line    0x0002be46      0xa21 E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
- .debug_line    0x0002c867      0xb10 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
- .debug_line    0x0002d377     0x1a0f E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
- .debug_line    0x0002ed86      0xb67 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
- .debug_line    0x0002f8ed      0xea3 E:\Проекты\Часы\firmware\build\sdk_smp.o
- .debug_line    0x00030790     0x14a9 E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
- .debug_line    0x00031c39     0x13fc E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
- .debug_line    0x00033035     0x1045 E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
- .debug_line    0x0003407a      0xa85 E:\Проекты\Часы\firmware\build\sdk_sm_task.o
- .debug_line    0x00034aff       0x52 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_sqi.o)
- .debug_line    0x00034b51       0x52 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uqi.o)
- .debug_line    0x00034ba3       0x53 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_shi.o)
- .debug_line    0x00034bf6       0x53 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uhi.o)
- .debug_line    0x00034c49      0xcfe C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
- .debug_line    0x00035947      0xbe9 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
- .debug_line    0x00036530      0x1e9 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
- .debug_line    0x00036719      0x40e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
- .debug_line    0x00036b27       0x5e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzsi2.o)
- .debug_line    0x00036b85       0x62 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_arm_cmpdf2.o)
- .debug_line    0x00036be7       0x55 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_aeabi_uldivmod.o)
- .debug_line    0x00036c3c      0x15e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
- .debug_line    0x00036d9a       0xed C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
- .debug_line    0x00036e87       0xef C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
- .debug_line    0x00036f76       0xf6 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
- .debug_line    0x0003706c       0xee C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
- .debug_line    0x0003715a      0x1f8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
- .debug_line    0x00037352     0x1358 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
- .debug_line    0x000386aa      0x1ae C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
- .debug_line    0x00038858      0x2c4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
- .debug_line    0x00038b1c      0x2a9 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
- .debug_line    0x00038dc5     0x150b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
- .debug_line    0x0003a2d0      0x140 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
- .debug_line    0x0003a410      0x19b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
- .debug_line    0x0003a5ab      0x1c8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
- .debug_line    0x0003a773       0x4a C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
- .debug_line    0x0003a7bd       0x54 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzdi2.o)
+ .debug_line    0x00006553      0xf25 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+ .debug_line    0x00007478      0x598 E:\Проекты\Часы\firmware\build\src_syscalls.o
+ .debug_line    0x00007a10      0x86e E:\Проекты\Часы\firmware\build\src_uart_cli.o
+ .debug_line    0x0000827e      0x817 E:\Проекты\Часы\firmware\build\src_vibrator.o
+ .debug_line    0x00008a95     0x5f50 E:\Проекты\Часы\firmware\build\sdk_patch.o
+ .debug_line    0x0000e9e5      0x92f E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
+ .debug_line    0x0000f314     0x2528 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
+ .debug_line    0x0001183c      0xbed E:\Проекты\Часы\firmware\build\sdk_clock.o
+ .debug_line    0x00012429     0x156f E:\Проекты\Часы\firmware\build\sdk_flash.o
+ .debug_line    0x00013998     0x1147 E:\Проекты\Часы\firmware\build\sdk_gpio.o
+ .debug_line    0x00014adf     0x1e20 E:\Проекты\Часы\firmware\build\sdk_spi.o
+ .debug_line    0x000168ff      0xef4 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+ .debug_line    0x000177f3     0x1151 E:\Проекты\Часы\firmware\build\sdk_uart.o
+ .debug_line    0x00018944     0x13bc E:\Проекты\Часы\firmware\build\sdk_adc.o
+ .debug_line    0x00019d00      0xcec E:\Проекты\Часы\firmware\build\sdk_my_printf.o
+ .debug_line    0x0001a9ec      0x889 E:\Проекты\Часы\firmware\build\sdk_jump_table.o
+ .debug_line    0x0001b275      0x3a3 E:\Проекты\Часы\firmware\build\sdk_phy6222_cstart.o
+ .debug_line    0x0001b618       0x80 E:\Проекты\Часы\firmware\build\sdk_phy6222_vectors.o
+ .debug_line    0x0001b698     0x153a E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+ .debug_line    0x0001cbd2      0x709 E:\Проекты\Часы\firmware\build\sdk_gap.o
+ .debug_line    0x0001d2db      0xc9b E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+ .debug_line    0x0001df76     0x1f4a E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+ .debug_line    0x0001fec0      0x9aa E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+ .debug_line    0x0002086a      0xbda E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+ .debug_line    0x00021444      0xa4c E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+ .debug_line    0x00021e90      0x35e E:\Проекты\Часы\firmware\build\sdk_crc16.o
+ .debug_line    0x000221ee      0x990 E:\Проекты\Часы\firmware\build\sdk_att_server.o
+ .debug_line    0x00022b7e     0x1b4a E:\Проекты\Часы\firmware\build\sdk_att_util.o
+ .debug_line    0x000246c8      0xfe4 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+ .debug_line    0x000256ac      0x918 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
+ .debug_line    0x00025fc4     0x165b E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+ .debug_line    0x0002761f     0x149c E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+ .debug_line    0x00028abb      0xcce E:\Проекты\Часы\firmware\build\sdk_gap_task.o
+ .debug_line    0x00029789     0x14db E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
+ .debug_line    0x0002ac64      0xa33 E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
+ .debug_line    0x0002b697      0x7cc E:\Проекты\Часы\firmware\build\sdk_gatt_uuid.o
+ .debug_line    0x0002be63      0xa21 E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
+ .debug_line    0x0002c884      0xb10 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
+ .debug_line    0x0002d394     0x1a0f E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+ .debug_line    0x0002eda3      0xb67 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
+ .debug_line    0x0002f90a      0xea3 E:\Проекты\Часы\firmware\build\sdk_smp.o
+ .debug_line    0x000307ad     0x14a9 E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
+ .debug_line    0x00031c56     0x13fc E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
+ .debug_line    0x00033052     0x1045 E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
+ .debug_line    0x00034097      0xa85 E:\Проекты\Часы\firmware\build\sdk_sm_task.o
+ .debug_line    0x00034b1c       0x52 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_sqi.o)
+ .debug_line    0x00034b6e       0x52 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uqi.o)
+ .debug_line    0x00034bc0       0x53 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_shi.o)
+ .debug_line    0x00034c13       0x53 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_thumb1_case_uhi.o)
+ .debug_line    0x00034c66      0xcfe C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
+ .debug_line    0x00035964      0xbe9 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
+ .debug_line    0x0003654d      0x1e9 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
+ .debug_line    0x00036736      0x40e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
+ .debug_line    0x00036b44       0x5e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzsi2.o)
+ .debug_line    0x00036ba2       0x62 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_arm_cmpdf2.o)
+ .debug_line    0x00036c04       0x55 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_aeabi_uldivmod.o)
+ .debug_line    0x00036c59      0x15e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
+ .debug_line    0x00036db7       0xed C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
+ .debug_line    0x00036ea4       0xef C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
+ .debug_line    0x00036f93       0xf6 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
+ .debug_line    0x00037089       0xee C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
+ .debug_line    0x00037177      0x1f8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
+ .debug_line    0x0003736f     0x1358 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
+ .debug_line    0x000386c7      0x1ae C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
+ .debug_line    0x00038875      0x2c4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
+ .debug_line    0x00038b39      0x2a9 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
+ .debug_line    0x00038de2     0x150b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
+ .debug_line    0x0003a2ed      0x140 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
+ .debug_line    0x0003a42d      0x19b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
+ .debug_line    0x0003a5c8      0x1c8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
+ .debug_line    0x0003a790       0x4a C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
+ .debug_line    0x0003a7da       0x54 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzdi2.o)
 
 .debug_pubnames
  *(.debug_pubnames)
@@ -11656,7 +11656,7 @@ LOAD linker stubs
  .debug_str     0x00031a93      0x120 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_clzdi2.o)
 
 .debug_loclists
-                0x00000000    0x1d5e4
+                0x00000000    0x1d5b4
  .debug_loclists
                 0x00000000      0x177 E:\Проекты\Часы\firmware\build\src_app_os.o
  .debug_loclists
@@ -11674,130 +11674,130 @@ LOAD linker stubs
  .debug_loclists
                 0x00001e75       0x6a E:\Проекты\Часы\firmware\build\src_osal_tasks.o
  .debug_loclists
-                0x00001edf      0x3d4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x00001edf      0x3a4 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .debug_loclists
-                0x000022b3      0x16a E:\Проекты\Часы\firmware\build\src_syscalls.o
+                0x00002283      0x16a E:\Проекты\Часы\firmware\build\src_syscalls.o
  .debug_loclists
-                0x0000241d       0x7f E:\Проекты\Часы\firmware\build\src_uart_cli.o
+                0x000023ed       0x7f E:\Проекты\Часы\firmware\build\src_uart_cli.o
  .debug_loclists
-                0x0000249c      0x148 E:\Проекты\Часы\firmware\build\src_vibrator.o
+                0x0000246c      0x148 E:\Проекты\Часы\firmware\build\src_vibrator.o
  .debug_loclists
-                0x000025e4     0x3363 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x000025b4     0x3363 E:\Проекты\Часы\firmware\build\sdk_patch.o
  .debug_loclists
-                0x00005947       0xc5 E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
+                0x00005917       0xc5 E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
  .debug_loclists
-                0x00005a0c      0xa50 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
+                0x000059dc      0xa50 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
  .debug_loclists
-                0x0000645c      0x245 E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x0000642c      0x245 E:\Проекты\Часы\firmware\build\sdk_clock.o
  .debug_loclists
-                0x000066a1      0x549 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x00006671      0x549 E:\Проекты\Часы\firmware\build\sdk_flash.o
  .debug_loclists
-                0x00006bea      0x892 E:\Проекты\Часы\firmware\build\sdk_gpio.o
+                0x00006bba      0x892 E:\Проекты\Часы\firmware\build\sdk_gpio.o
  .debug_loclists
-                0x0000747c     0x11ce E:\Проекты\Часы\firmware\build\sdk_spi.o
+                0x0000744c     0x11ce E:\Проекты\Часы\firmware\build\sdk_spi.o
  .debug_loclists
-                0x0000864a      0x326 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x0000861a      0x326 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
  .debug_loclists
-                0x00008970      0x7a7 E:\Проекты\Часы\firmware\build\sdk_uart.o
+                0x00008940      0x7a7 E:\Проекты\Часы\firmware\build\sdk_uart.o
  .debug_loclists
-                0x00009117      0x554 E:\Проекты\Часы\firmware\build\sdk_adc.o
+                0x000090e7      0x554 E:\Проекты\Часы\firmware\build\sdk_adc.o
  .debug_loclists
-                0x0000966b      0x6e5 E:\Проекты\Часы\firmware\build\sdk_my_printf.o
+                0x0000963b      0x6e5 E:\Проекты\Часы\firmware\build\sdk_my_printf.o
  .debug_loclists
-                0x00009d50       0x34 E:\Проекты\Часы\firmware\build\sdk_jump_table.o
+                0x00009d20       0x34 E:\Проекты\Часы\firmware\build\sdk_jump_table.o
  .debug_loclists
-                0x00009d84      0x86b E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x00009d54      0x86b E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .debug_loclists
-                0x0000a5ef      0x119 E:\Проекты\Часы\firmware\build\sdk_gap.o
+                0x0000a5bf      0x119 E:\Проекты\Часы\firmware\build\sdk_gap.o
  .debug_loclists
-                0x0000a708      0x703 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+                0x0000a6d8      0x703 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
  .debug_loclists
-                0x0000ae0b     0x1ba7 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x0000addb     0x1ba7 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .debug_loclists
-                0x0000c9b2      0x45d E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x0000c982      0x45d E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .debug_loclists
-                0x0000ce0f      0x841 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x0000cddf      0x841 E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .debug_loclists
-                0x0000d650      0x2e0 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x0000d620      0x2e0 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
  .debug_loclists
-                0x0000d930       0xea E:\Проекты\Часы\firmware\build\sdk_crc16.o
+                0x0000d900       0xea E:\Проекты\Часы\firmware\build\sdk_crc16.o
  .debug_loclists
-                0x0000da1a      0x390 E:\Проекты\Часы\firmware\build\sdk_att_server.o
+                0x0000d9ea      0x390 E:\Проекты\Часы\firmware\build\sdk_att_server.o
  .debug_loclists
-                0x0000ddaa     0x1bee E:\Проекты\Часы\firmware\build\sdk_att_util.o
+                0x0000dd7a     0x1bee E:\Проекты\Часы\firmware\build\sdk_att_util.o
  .debug_loclists
-                0x0000f998      0x63e E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x0000f968      0x63e E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
  .debug_loclists
-                0x0000ffd6      0x161 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
+                0x0000ffa6      0x161 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
  .debug_loclists
-                0x00010137      0xca3 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+                0x00010107      0xca3 E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
  .debug_loclists
-                0x00010dda      0x791 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+                0x00010daa      0x791 E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
  .debug_loclists
-                0x0001156b      0x469 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
+                0x0001153b      0x469 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
  .debug_loclists
-                0x000119d4      0xeb3 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
+                0x000119a4      0xeb3 E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
  .debug_loclists
-                0x00012887      0x29a E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
+                0x00012857      0x29a E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
  .debug_loclists
-                0x00012b21      0x1c6 E:\Проекты\Часы\firmware\build\sdk_gatt_uuid.o
+                0x00012af1      0x1c6 E:\Проекты\Часы\firmware\build\sdk_gatt_uuid.o
  .debug_loclists
-                0x00012ce7      0x387 E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
+                0x00012cb7      0x387 E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
  .debug_loclists
-                0x0001306e      0x2b6 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
+                0x0001303e      0x2b6 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
  .debug_loclists
-                0x00013324     0x123f E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+                0x000132f4     0x123f E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
  .debug_loclists
-                0x00014563      0x414 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
+                0x00014533      0x414 E:\Проекты\Часы\firmware\build\sdk_linkdb.o
  .debug_loclists
-                0x00014977      0x71b E:\Проекты\Часы\firmware\build\sdk_smp.o
+                0x00014947      0x71b E:\Проекты\Часы\firmware\build\sdk_smp.o
  .debug_loclists
-                0x00015092      0xeea E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
+                0x00015062      0xeea E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
  .debug_loclists
-                0x00015f7c      0xb41 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
+                0x00015f4c      0xb41 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
  .debug_loclists
-                0x00016abd      0x603 E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
+                0x00016a8d      0x603 E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
  .debug_loclists
-                0x000170c0      0x2b9 E:\Проекты\Часы\firmware\build\sdk_sm_task.o
+                0x00017090      0x2b9 E:\Проекты\Часы\firmware\build\sdk_sm_task.o
  .debug_loclists
-                0x00017379     0x17ab C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
+                0x00017349     0x17ab C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
  .debug_loclists
-                0x00018b24      0xe67 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
+                0x00018af4      0xe67 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
  .debug_loclists
-                0x0001998b      0x21a C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
+                0x0001995b      0x21a C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
  .debug_loclists
-                0x00019ba5      0x37e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
+                0x00019b75      0x37e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
  .debug_loclists
-                0x00019f23      0x169 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
+                0x00019ef3      0x169 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
  .debug_loclists
-                0x0001a08c       0x2a C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
+                0x0001a05c       0x2a C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
  .debug_loclists
-                0x0001a0b6       0x2a C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
+                0x0001a086       0x2a C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
  .debug_loclists
-                0x0001a0e0       0x89 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
+                0x0001a0b0       0x89 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
  .debug_loclists
-                0x0001a169       0x59 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
+                0x0001a139       0x59 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
  .debug_loclists
-                0x0001a1c2      0x2b8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
+                0x0001a192      0x2b8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
  .debug_loclists
-                0x0001a47a     0x11f4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
+                0x0001a44a     0x11f4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
  .debug_loclists
-                0x0001b66e      0x18b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
+                0x0001b63e      0x18b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
  .debug_loclists
-                0x0001b7f9      0x308 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
+                0x0001b7c9      0x308 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
  .debug_loclists
-                0x0001bb01      0x349 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
+                0x0001bad1      0x349 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
  .debug_loclists
-                0x0001be4a     0x13f3 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
+                0x0001be1a     0x13f3 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
  .debug_loclists
-                0x0001d23d       0xd4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
+                0x0001d20d       0xd4 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
  .debug_loclists
-                0x0001d311      0x10b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
+                0x0001d2e1      0x10b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
  .debug_loclists
-                0x0001d41c      0x1c8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
+                0x0001d3ec      0x1c8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
 
 .debug_rnglists
-                0x00000000     0x32a0
+                0x00000000     0x3298
  .debug_rnglists
                 0x00000000       0x3d E:\Проекты\Часы\firmware\build\src_app_os.o
  .debug_rnglists
@@ -11817,129 +11817,129 @@ LOAD linker stubs
  .debug_rnglists
                 0x000003d9       0x13 E:\Проекты\Часы\firmware\build\src_osal_tasks.o
  .debug_rnglists
-                0x000003ec       0xd6 E:\Проекты\Часы\firmware\build\src_ota_inapp.o
+                0x000003ec       0xce E:\Проекты\Часы\firmware\build\src_ota_inapp.o
  .debug_rnglists
-                0x000004c2       0x4f E:\Проекты\Часы\firmware\build\src_syscalls.o
+                0x000004ba       0x4f E:\Проекты\Часы\firmware\build\src_syscalls.o
  .debug_rnglists
-                0x00000511       0x56 E:\Проекты\Часы\firmware\build\src_uart_cli.o
+                0x00000509       0x56 E:\Проекты\Часы\firmware\build\src_uart_cli.o
  .debug_rnglists
-                0x00000567       0x85 E:\Проекты\Часы\firmware\build\src_vibrator.o
+                0x0000055f       0x85 E:\Проекты\Часы\firmware\build\src_vibrator.o
  .debug_rnglists
-                0x000005ec      0x4f1 E:\Проекты\Часы\firmware\build\sdk_patch.o
+                0x000005e4      0x4f1 E:\Проекты\Часы\firmware\build\sdk_patch.o
  .debug_rnglists
-                0x00000add       0x4a E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
+                0x00000ad5       0x4a E:\Проекты\Часы\firmware\build\sdk_phy_sec_ext.o
  .debug_rnglists
-                0x00000b27       0xf0 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
+                0x00000b1f       0xf0 E:\Проекты\Часы\firmware\build\sdk_rf_phy_driver.o
  .debug_rnglists
-                0x00000c17       0x61 E:\Проекты\Часы\firmware\build\sdk_clock.o
+                0x00000c0f       0x61 E:\Проекты\Часы\firmware\build\sdk_clock.o
  .debug_rnglists
-                0x00000c78      0x124 E:\Проекты\Часы\firmware\build\sdk_flash.o
+                0x00000c70      0x124 E:\Проекты\Часы\firmware\build\sdk_flash.o
  .debug_rnglists
-                0x00000d9c       0xe6 E:\Проекты\Часы\firmware\build\sdk_gpio.o
+                0x00000d94       0xe6 E:\Проекты\Часы\firmware\build\sdk_gpio.o
  .debug_rnglists
-                0x00000e82      0x1a7 E:\Проекты\Часы\firmware\build\sdk_spi.o
+                0x00000e7a      0x1a7 E:\Проекты\Часы\firmware\build\sdk_spi.o
  .debug_rnglists
-                0x00001029       0x93 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
+                0x00001021       0x93 E:\Проекты\Часы\firmware\build\sdk_pwrmgr.o
  .debug_rnglists
-                0x000010bc       0xbc E:\Проекты\Часы\firmware\build\sdk_uart.o
+                0x000010b4       0xbc E:\Проекты\Часы\firmware\build\sdk_uart.o
  .debug_rnglists
-                0x00001178       0xa4 E:\Проекты\Часы\firmware\build\sdk_adc.o
+                0x00001170       0xa4 E:\Проекты\Часы\firmware\build\sdk_adc.o
  .debug_rnglists
-                0x0000121c       0x76 E:\Проекты\Часы\firmware\build\sdk_my_printf.o
+                0x00001214       0x76 E:\Проекты\Часы\firmware\build\sdk_my_printf.o
  .debug_rnglists
-                0x00001292       0x19 E:\Проекты\Часы\firmware\build\sdk_jump_table.o
+                0x0000128a       0x19 E:\Проекты\Часы\firmware\build\sdk_jump_table.o
  .debug_rnglists
-                0x000012ab       0x13 E:\Проекты\Часы\firmware\build\sdk_phy6222_cstart.o
+                0x000012a3       0x13 E:\Проекты\Часы\firmware\build\sdk_phy6222_cstart.o
  .debug_rnglists
-                0x000012be      0x102 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
+                0x000012b6      0x102 E:\Проекты\Часы\firmware\build\sdk_peripheral.o
  .debug_rnglists
-                0x000013c0       0x13 E:\Проекты\Часы\firmware\build\sdk_gap.o
+                0x000013b8       0x13 E:\Проекты\Часы\firmware\build\sdk_gap.o
  .debug_rnglists
-                0x000013d3       0x75 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
+                0x000013cb       0x75 E:\Проекты\Часы\firmware\build\sdk_gapgattserver.o
  .debug_rnglists
-                0x00001448      0x3a9 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
+                0x00001440      0x3a9 E:\Проекты\Часы\firmware\build\sdk_gattservapp.o
  .debug_rnglists
-                0x000017f1       0x26 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
+                0x000017e9       0x26 E:\Проекты\Часы\firmware\build\sdk_devinfoservice.o
  .debug_rnglists
-                0x00001817       0x7a E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
+                0x0000180f       0x7a E:\Проекты\Часы\firmware\build\sdk_simpleGATTprofile_ota.o
  .debug_rnglists
-                0x00001891       0x38 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
+                0x00001889       0x38 E:\Проекты\Часы\firmware\build\sdk_ota_service.o
  .debug_rnglists
-                0x000018c9       0x25 E:\Проекты\Часы\firmware\build\sdk_crc16.o
+                0x000018c1       0x25 E:\Проекты\Часы\firmware\build\sdk_crc16.o
  .debug_rnglists
-                0x000018ee       0x61 E:\Проекты\Часы\firmware\build\sdk_att_server.o
+                0x000018e6       0x61 E:\Проекты\Часы\firmware\build\sdk_att_server.o
  .debug_rnglists
-                0x0000194f      0x1e1 E:\Проекты\Часы\firmware\build\sdk_att_util.o
+                0x00001947      0x1e1 E:\Проекты\Часы\firmware\build\sdk_att_util.o
  .debug_rnglists
-                0x00001b30       0xc8 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
+                0x00001b28       0xc8 E:\Проекты\Часы\firmware\build\sdk_gap_configmgr.o
  .debug_rnglists
-                0x00001bf8       0x46 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
+                0x00001bf0       0x46 E:\Проекты\Часы\firmware\build\sdk_gap_devmgr.o
  .debug_rnglists
-                0x00001c3e       0xaf E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
+                0x00001c36       0xaf E:\Проекты\Часы\firmware\build\sdk_gap_linkmgr.o
  .debug_rnglists
-                0x00001ced       0xef E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
+                0x00001ce5       0xef E:\Проекты\Часы\firmware\build\sdk_gap_peridevmgr.o
  .debug_rnglists
-                0x00001ddc       0x96 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
+                0x00001dd4       0x96 E:\Проекты\Часы\firmware\build\sdk_gap_task.o
  .debug_rnglists
-                0x00001e72      0x17e E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
+                0x00001e6a      0x17e E:\Проекты\Часы\firmware\build\sdk_gatt_server.o
  .debug_rnglists
-                0x00001ff0       0x5e E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
+                0x00001fe8       0x5e E:\Проекты\Часы\firmware\build\sdk_gatt_task.o
  .debug_rnglists
-                0x0000204e       0x24 E:\Проекты\Часы\firmware\build\sdk_gatt_uuid.o
+                0x00002046       0x24 E:\Проекты\Часы\firmware\build\sdk_gatt_uuid.o
  .debug_rnglists
-                0x00002072       0x49 E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
+                0x0000206a       0x49 E:\Проекты\Часы\firmware\build\sdk_l2cap_if.o
  .debug_rnglists
-                0x000020bb       0x87 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
+                0x000020b3       0x87 E:\Проекты\Часы\firmware\build\sdk_l2cap_task.o
  .debug_rnglists
-                0x00002142      0x16f E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
+                0x0000213a      0x16f E:\Проекты\Часы\firmware\build\sdk_l2cap_util.o
  .debug_rnglists
-                0x000022b1       0x9d E:\Проекты\Часы\firmware\build\sdk_linkdb.o
+                0x000022a9       0x9d E:\Проекты\Часы\firmware\build\sdk_linkdb.o
  .debug_rnglists
-                0x0000234e       0x98 E:\Проекты\Часы\firmware\build\sdk_smp.o
+                0x00002346       0x98 E:\Проекты\Часы\firmware\build\sdk_smp.o
  .debug_rnglists
-                0x000023e6      0x13f E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
+                0x000023de      0x13f E:\Проекты\Часы\firmware\build\sdk_sm_mgr.o
  .debug_rnglists
-                0x00002525       0xd8 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
+                0x0000251d       0xd8 E:\Проекты\Часы\firmware\build\sdk_sm_pairing.o
  .debug_rnglists
-                0x000025fd       0x8d E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
+                0x000025f5       0x8d E:\Проекты\Часы\firmware\build\sdk_sm_rsppairing.o
  .debug_rnglists
-                0x0000268a       0x5c E:\Проекты\Часы\firmware\build\sdk_sm_task.o
+                0x00002682       0x5c E:\Проекты\Часы\firmware\build\sdk_sm_task.o
  .debug_rnglists
-                0x000026e6      0x166 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
+                0x000026de      0x166 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(divdf3.o)
  .debug_rnglists
-                0x0000284c      0x13e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
+                0x00002844      0x13e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(muldf3.o)
  .debug_rnglists
-                0x0000298a       0x64 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
+                0x00002982       0x64 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatsidf.o)
  .debug_rnglists
-                0x000029ee       0x65 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
+                0x000029e6       0x65 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(truncdfsf2.o)
  .debug_rnglists
-                0x00002a53       0x2e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
+                0x00002a4b       0x2e C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
  .debug_rnglists
-                0x00002a81       0x13 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
+                0x00002a79       0x13 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfsi.o)
  .debug_rnglists
-                0x00002a94       0x13 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
+                0x00002a8c       0x13 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixdfdi.o)
  .debug_rnglists
-                0x00002aa7       0x13 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
+                0x00002a9f       0x13 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_fixunsdfdi.o)
  .debug_rnglists
-                0x00002aba       0x13 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
+                0x00002ab2       0x13 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_floatdidf.o)
  .debug_rnglists
-                0x00002acd       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
+                0x00002ac5       0x14 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
  .debug_rnglists
-                0x00002ae1      0x2a8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
+                0x00002ad9      0x2a8 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(adddf3.o)
  .debug_rnglists
-                0x00002d89       0x41 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
+                0x00002d81       0x41 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(eqdf2.o)
  .debug_rnglists
-                0x00002dca       0x58 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
+                0x00002dc2       0x58 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(gedf2.o)
  .debug_rnglists
-                0x00002e22       0x4b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
+                0x00002e1a       0x4b C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(ledf2.o)
  .debug_rnglists
-                0x00002e6d      0x364 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
+                0x00002e65      0x364 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(subdf3.o)
  .debug_rnglists
-                0x000031d1       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
+                0x000031c9       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(unorddf2.o)
  .debug_rnglists
-                0x00003202       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
+                0x000031fa       0x31 C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(fixdfsi.o)
  .debug_rnglists
-                0x00003233       0x6d C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
+                0x0000322b       0x6d C:/Users/Salomanov/AppData/Local/Programs/arm-toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v6-m/nofp\libgcc.a(floatunsidf.o)
 
 .debug_macro    0x00000000     0xf112
  .debug_macro   0x00000000      0x2a5 E:\Проекты\Часы\firmware\build\src_app_os.o

@@ -249,7 +249,12 @@ static void ota_install_firmware_and_reboot(void) {
     memset(buf, 0xFF, 256);
     for (uint8_t i = 0; i < s_sector_count; i++) {
         uint32_t *p32 = (uint32_t *)&buf[i * 16];
-        p32[0] = s_parts[i].flash_addr; // Flash offset
+        // If partition runs in XIP Flash (0x11xxxxxx), flash_addr must be 0x11xxxxxx
+        if (s_parts[i].run_addr >= 0x11000000) {
+            p32[0] = s_parts[i].run_addr;
+        } else {
+            p32[0] = s_parts[i].flash_addr & 0x00FFFFFF;
+        }
         p32[1] = s_parts[i].size;       // Segment size
         p32[2] = s_parts[i].run_addr;   // Run/RAM/XIP address
         p32[3] = 0xFFFFFFFF;           // Flag / reserved
@@ -267,7 +272,11 @@ static void ota_install_firmware_and_reboot(void) {
     hal_flash_write(0x11003000, buf, 16);
     for (uint8_t i = 0; i < s_sector_count; i++) {
         uint32_t b2_part[4];
-        b2_part[0] = s_parts[i].flash_addr | 0x11000000;
+        if (s_parts[i].run_addr >= 0x11000000) {
+            b2_part[0] = s_parts[i].run_addr;
+        } else {
+            b2_part[0] = s_parts[i].flash_addr & 0x00FFFFFF;
+        }
         b2_part[1] = s_parts[i].run_addr;
         b2_part[2] = s_parts[i].size;
         b2_part[3] = (uint32_t)s_parts[i].checksum;
