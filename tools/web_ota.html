@@ -112,11 +112,18 @@ document.getElementById('btnStep1').onclick = async () => {
     const server = await device.gatt.connect();
     const service = await server.getPrimaryService(OTA_SERVICE_UUID);
     const cmdChar = await service.getCharacteristic(OTA_CMD_UUID);
-    log('[*] Отправка команды перехода в OTA режим [0x01, 0x02, 0x01]...');
-    await cmdChar.writeValue(new Uint8Array([0x01, 0x02, 0x01]));
-    log('[+++] Команда принята! Часы перезагружаются в загрузчик PPlusOTA.');
-    log('[*] Теперь нажмите кнопку "2. Подключиться к PPlusOTA и Прошить"');
-    setProgress(0, 'Часы в режиме PPlusOTA. Нажмите шаг 2.');
+    log('[*] Отправка команды немедленного перехода в OTA режим [0x01, 0x02, 0x00]...');
+    try {
+      await cmdChar.writeValue(new Uint8Array([0x01, 0x02, 0x00]));
+    } catch(e) {
+      log('[i] Часы немедленно перезагрузились (разрыв связи): ' + e.message);
+    }
+    try {
+      await server.disconnect();
+    } catch(e) {}
+    log('[+++] Соединение разорвано! Часы перезагрузились в загрузчик PPlusOTA.');
+    log('[*] Подождите 2 секунды и нажмите кнопку "2. Подключиться к PPlusOTA и Прошить"');
+    setProgress(0, 'Часы перезагружаются в PPlusOTA...');
   } catch(err) {
     log('[!] Ошибка шага 1: ' + err.message);
   }
@@ -192,11 +199,15 @@ document.getElementById('btnStep2').onclick = async () => {
   }
 
   try {
-    log('[*] Поиск загрузчика PPlusOTA (или устройства с OTA сервисом)...');
+    log('[*] Поиск загрузчика PPlusOTA в эфире...');
     const device = await navigator.bluetooth.requestDevice({
-      filters: [{ namePrefix: 'PPlus' }, { namePrefix: 'OTA' }, { namePrefix: 'CHASY' }],
+      filters: [{ namePrefix: 'PPlus' }, { namePrefix: 'OTA' }],
       optionalServices: [OTA_SERVICE_UUID]
     });
+
+    if (device.name.includes('CHASY')) {
+      throw new Error('Выбрано устройство CHASY-STEALTH! Сначала нажмите Шаг 1 или зажмите сенсор на экране OTA UPDATE, чтобы войти в PPlusOTA.');
+    }
 
     log(`[+] Подключение к ${device.name}...`);
     const server = await device.gatt.connect();
