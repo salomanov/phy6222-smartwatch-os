@@ -268,20 +268,21 @@ static void ota_install_firmware_and_reboot(void) {
     hdr32[0] = s_sector_count;
     hdr32[1] = 0; // single bank
     hdr32[2] = 0;
-    hdr32[3] = 0xFFFFFFFF;
+    hdr32[3] = 0;
     hal_flash_write(0x11003000, buf, 16);
     for (uint8_t i = 0; i < s_sector_count; i++) {
         uint32_t b2_part[4];
-        if (s_parts[i].run_addr >= 0x11000000) {
-            b2_part[0] = s_parts[i].run_addr;
-        } else {
-            b2_part[0] = s_parts[i].flash_addr & 0x00FFFFFF;
-        }
+        // All flash addresses in 2nd bootinfo MUST have 0x11000000 base for ota_flash_read validation
+        b2_part[0] = 0x11000000 | (s_parts[i].flash_addr & 0x00FFFFFF);
         b2_part[1] = s_parts[i].run_addr;
         b2_part[2] = s_parts[i].size;
         b2_part[3] = (uint32_t)s_parts[i].checksum;
         hal_flash_write(0x11003010 + i * 16, (uint8_t *)b2_part, 16);
     }
+
+    // Write OTA_FAST_BOOT_MAGIC (0xa5a55a5a) at 0x11003ff0 to bypass crc check during boot
+    uint32_t fast_boot_magic = 0xa5a55a5a;
+    hal_flash_write(0x11003ff0, (uint8_t *)&fast_boot_magic, 4);
 
     // 5. Short delay and restart
     for (volatile int dly = 0; dly < 100000; dly++) {

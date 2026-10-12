@@ -79,7 +79,7 @@ async def find_watch():
     print("[*] Finding CHASY-STEALTH...")
     for attempt in range(1, 10):
         device = await BleakScanner.find_device_by_filter(
-            lambda d, adv: d.address.upper() == '62:62:15:07:07:15' or (d.name and 'CHASY' in d.name),
+            lambda d, adv: d.address.upper() == '62:62:15:07:07:15' or (d.name and any(k in d.name.upper() for k in ['CHASY', 'OTA', 'PPLUS'])),
             timeout=4.0
         )
         if device:
