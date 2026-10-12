@@ -47,18 +47,19 @@ static void setup_pin(gpio_pin_e pin) {
     hal_gpio_write(pin, s_active_level ? 0 : 1);
 }
 
-// LED Status (GPIO_P00, Active HIGH: 1 = ON, 0 = OFF)
+// LED Status (GPIO_P00, Active LOW: 0 = ON, 1 = OFF)
 static uint8_t s_led_state = 0;
 
 void led_init(void) {
     hal_gpioretention_register(GPIO_LED);
     hal_gpio_pin_init(GPIO_LED, GPIO_OUTPUT);
-    led_set(0); // Off by default
+    led_set(0); // Off by default (writes 1 to pin)
 }
 
 void led_set(uint8_t on) {
     s_led_state = on ? 1 : 0;
-    hal_gpio_write(GPIO_LED, s_led_state ? 1 : 0);
+    // Active LOW: 0 = LED ON, 1 = LED OFF
+    hal_gpio_write(GPIO_LED, s_led_state ? 0 : 1);
 }
 
 void led_toggle(void) {
@@ -73,8 +74,8 @@ void vibrator_init(void) {
 }
 
 void vibrator_pulse(uint16_t duration_ms) {
-    if (duration_ms < 30) duration_ms = 30;
-    if (duration_ms > 120) duration_ms = 120; // safety ceiling
+    if (duration_ms < 80) duration_ms = 80;   // Minimum 80ms for physical ERM rotor acceleration
+    if (duration_ms > 250) duration_ms = 250; // Safety ceiling
     setup_pin(s_selected_pin);
     led_set(1);
     hal_gpio_write(s_selected_pin, s_active_level ? 1 : 0);

@@ -14,10 +14,10 @@
 
 // Peripherals
 #define BUTTON_PIN            GPIO_P11    // Capacitive touch sensor
-#define GPIO_VIBRATOR         GPIO_P03    // Vibration motor (Active LOW: 0 = ON, 1 = OFF)
-#define VIBRATOR_ACTIVE_LEVEL 0           // 0 = Active LOW
-#define GPIO_LED              GPIO_P00    // Green status LED (Active HIGH: 1 = ON, 0 = OFF)
-#define LED_ACTIVE_LEVEL      1           // 1 = Active HIGH
+#define GPIO_VIBRATOR         GPIO_P03    // Vibration motor (Active HIGH: 1 = ON, 0 = OFF)
+#define VIBRATOR_ACTIVE_LEVEL 1           // 1 = Active HIGH
+#define GPIO_LED              GPIO_P00    // Green status LED (Active LOW: 0 = ON, 1 = OFF)
+#define LED_ACTIVE_LEVEL      0           // 0 = Active LOW
 
 // UART
 #define UART_TX_PIN   GPIO_P09    // UART TX -> CH340 RX

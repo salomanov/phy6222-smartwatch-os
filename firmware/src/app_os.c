@@ -190,8 +190,8 @@ void app_os_update(void) {
         s_vib_count++;
 
         if (s_current_mode == MODE_WATCHFACE) {
-            // Short 30ms haptic tap feedback
-            vibrator_pulse(30);
+            // Tactile 80ms haptic tap feedback
+            vibrator_pulse(80);
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
             vibrator_next_test_pin();
             vibrator_test_fire();
