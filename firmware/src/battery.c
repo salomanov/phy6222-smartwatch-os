@@ -28,3 +28,12 @@ uint8_t battery_get_percent(void) {
     s_last_pct = (uint8_t)(((mv - 3400) * 100) / (4150 - 3400));
     return s_last_pct;
 }
+
+bool battery_is_charging(void) {
+    // When 5V USB is connected, charging IC raises voltage to 4.15-4.25V
+    uint16_t mv = battery_read_mv();
+    if (mv >= 4150) {
+        return true;
+    }
+    return false;
+}

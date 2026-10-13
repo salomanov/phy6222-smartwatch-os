@@ -10,6 +10,7 @@
 #include "bcomdef.h"
 #include "peripheral.h"
 #include "battery.h"
+#include "accel.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -51,18 +52,15 @@ static void render_watchface(void) {
     snprintf(buf, sizeof(buf), "UP: %-4lus", (unsigned long)s_uptime_seconds);
     gfx_draw_string(4, 18, buf, COLOR_WHITE, COLOR_BLACK, 1);
 
-    // Battery Line (Ponytail style: clean and concise)
+    // Power & Battery / Charging status
     uint8_t bat_pct = battery_get_percent();
     uint16_t bat_mv = battery_read_mv();
-    snprintf(buf, sizeof(buf), "BAT: %d%% %dmV", bat_pct, bat_mv);
-    gfx_draw_string(4, 30, buf, (bat_pct > 20) ? COLOR_GREEN : COLOR_RED, COLOR_BLACK, 1);
+    bool is_chg = battery_is_charging();
+    snprintf(buf, sizeof(buf), "PWR:%d.%02dV %s", bat_mv / 1000, (bat_mv % 1000) / 10, is_chg ? "[CHG]" : "[BAT]");
+    gfx_draw_string(4, 30, buf, is_chg ? COLOR_YELLOW : ((bat_pct > 20) ? COLOR_GREEN : COLOR_RED), COLOR_BLACK, 1);
 
     // BLE State Line
     uint8_t bst = ble_get_state();
-    uint8_t cst = ble_get_cb_state();
-    uint8_t bret = ble_get_start_ret();
-    uint16_t bcalls = ble_get_start_calls();
-
     const char *st_name = "INIT";
     uint16_t st_col = COLOR_YELLOW;
     if (bst == 1) { st_name = "START"; st_col = COLOR_CYAN; }
@@ -70,11 +68,20 @@ static void render_watchface(void) {
     else if (bst == 3) { st_name = "CONN "; st_col = COLOR_MAGENTA; }
     else if (bst >= 4) { st_name = "WAIT "; st_col = COLOR_ORANGE; }
 
-    snprintf(buf, sizeof(buf), "BLE: %-5s", st_name);
+    snprintf(buf, sizeof(buf), "BLE:%-5s %d%%", st_name, bat_pct);
     gfx_draw_string(4, 42, buf, st_col, COLOR_BLACK, 1);
 
-    snprintf(buf, sizeof(buf), "B:%d C:%d R:%02X", bst, cst, bret);
-    gfx_draw_string(4, 54, buf, COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    // Accelerometer telemetry
+    accel_update();
+    if (accel_is_detected()) {
+        int16_t ax, ay, az;
+        accel_get_xyz(&ax, &ay, &az);
+        snprintf(buf, sizeof(buf), "ACC:%+d,%+d,%+d", ax, ay, az);
+        gfx_draw_string(4, 54, buf, COLOR_GREEN, COLOR_BLACK, 1);
+    } else {
+        snprintf(buf, sizeof(buf), "ACC:%s", accel_get_name());
+        gfx_draw_string(4, 54, buf, COLOR_ORANGE, COLOR_BLACK, 1);
+    }
 
     // Button input counter
     snprintf(buf, sizeof(buf), "BTN: %-4lu evt", (unsigned long)s_click_count);
@@ -148,6 +155,7 @@ void app_os_init(void) {
     button_init();
     vibrator_init();
     battery_init();
+    accel_init();
     uart_cli_init();
     
     // No buzz on startup (safe and quiet)
