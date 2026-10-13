@@ -93,12 +93,17 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             s_ota_progress = 0;
             s_current_sector = 0;
             s_sector_offset = 0;
-            s_total_fw_size = 0;
             s_total_received = 0;
             s_burst_accum = 0;
             
+            if (pev->size >= 7) {
+                s_total_fw_size = pev->data[3] | (pev->data[4]<<8) | (pev->data[5]<<16) | (pev->data[6]<<24);
+            } else {
+                s_total_fw_size = 0;
+            }
+            
             // Clean staging area in Flash
-            LOG("[OTA-INAPP] Erasing Flash staging area (0x%08X)...\n", OTA_TEMP_BASE);
+            LOG("[OTA-INAPP] Erasing Flash staging area (0x%08X), total size=%d...\n", OTA_TEMP_BASE, s_total_fw_size);
             draw_ota_progress(0);
             vibrator_pulse(100);
             
@@ -133,7 +138,9 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             s_current_sector = idx;
             s_sector_offset = 0;
             s_running_crc = 0;
-            s_total_fw_size += size;
+            if (s_total_fw_size == 0) {
+                s_total_fw_size += size;
+            }
             
             LOG("[OTA-INAPP] Part %d: Flash=0x%06X Run=0x%08X Size=%d CRC=0x%04X\n",
                 idx, flash_addr, run_addr, size, chk);

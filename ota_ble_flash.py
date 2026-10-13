@@ -154,9 +154,9 @@ async def main():
                 await asyncio.sleep(0.02)
             return None
 
-        # 1. Start OTA: [cmd=0x01, sector_num, burst_size=16]
-        print(f"[*] Sending OTA_CMD_START_OTA (partitions: {len(partitions)})...")
-        start_cmd = bytes([0x01, len(partitions), 16])
+        # 1. Start OTA: [cmd=0x01, sector_num, burst_size=16, total_fw_size(4)]
+        print(f"[*] Sending OTA_CMD_START_OTA (partitions: {len(partitions)}, total: {total_bytes} bytes)...")
+        start_cmd = struct.pack('<BBBI', 0x01, len(partitions), 16, total_bytes)
         await client.write_gatt_char(OTA_CMD_UUID, start_cmd, response=True)
         rsp = await wait_for_cmd(0x81, timeout=8.0)
         if not rsp or rsp[0] != 0:
