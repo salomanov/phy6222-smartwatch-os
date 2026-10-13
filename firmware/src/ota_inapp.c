@@ -208,17 +208,39 @@ __attribute__((section("_section_sram_code_"), noinline))
 static void ota_install_firmware_and_reboot(void) {
     __disable_irq();
 
-    // 1. Erase target execution flash sectors (0x11010000 to 0x11035000)
+    // 1. Erase Bootloader Header sector (0x11002000)
+    hal_flash_erase_sector(0x11002000);
+
+    // 2. Erase 2nd bootinfo sector (0x11003000) so no stale metadata interferes with cold boot
+    hal_flash_erase_sector(0x11003000);
+
+    // 3. Erase sectors for SRAM data sections (0x11005000 to 0x1100B000)
+    for (uint32_t a = 0x11005000; a < 0x1100B000; a += 0x1000) {
+        hal_flash_erase_sector(a);
+    }
+
+    // 4. Erase target XIP application sectors (0x11010000 to 0x11035000)
     for (uint32_t a = 0x11010000; a < 0x11035000; a += 0x1000) {
         hal_flash_erase_sector(a);
     }
 
-    // 2. Copy received partitions from staging area (0x11040000) to target flash
+    // 5. Copy 4 partitions from staging buffer (0x11040000) to exact Flash destinations:
+    //    Part 0 -> 0x11010100 (XIP 1)
+    //    Part 1 -> 0x11020000 (XIP 2)
+    //    Part 2 -> 0x11005000 (SRAM section 1)
+    //    Part 3 -> 0x11005400 (SRAM section 2 / Entry)
+    const uint32_t target_flash_addrs[4] = {
+        0x11010100,
+        0x11020000,
+        0x11005000,
+        0x11005400
+    };
+
     uint8_t buf[256];
     uint32_t staging_offset = 0;
 
-    for (uint8_t i = 0; i < s_sector_count; i++) {
-        uint32_t target_flash = 0x11000000 | (s_parts[i].flash_addr & 0x00FFFFFF);
+    for (uint8_t i = 0; i < 4 && i < s_sector_count; i++) {
+        uint32_t target_flash = target_flash_addrs[i];
         uint32_t size = s_parts[i].size;
         uint32_t copied = 0;
 
@@ -235,61 +257,58 @@ static void ota_install_firmware_and_reboot(void) {
         staging_offset += size;
     }
 
-    // 3. Write Bootloader Header at 0x11002000
-    hal_flash_erase_sector(0x11002000);
-
+    // 6. Write Bootloader Header at 0x11002000 (exact wire format for PHY6222 ROM loader)
+    //    Header block (first 256 bytes)
     memset(buf, 0xFF, 256);
     uint32_t *hdr32 = (uint32_t *)buf;
-    hdr32[0] = s_sector_count; // Number of segments
+    hdr32[0] = 4;          // Total segments count
     hdr32[1] = 0xFFFFFFFF;
-    hdr32[2] = 0x1FFF1838;     // Start execution address
+    hdr32[2] = 0x1FFF1838; // Entry start execution address
     hdr32[3] = 0xFFFFFFFF;
     hal_flash_write(0x11002000, buf, 256);
 
+    //    Segments table (at 0x11002100, 4 entries x 16 bytes = 64 bytes)
     memset(buf, 0xFF, 256);
-    for (uint8_t i = 0; i < s_sector_count; i++) {
-        uint32_t *p32 = (uint32_t *)&buf[i * 16];
-        // If partition runs in XIP Flash (0x11xxxxxx), flash_addr must be 0x11xxxxxx
-        if (s_parts[i].run_addr >= 0x11000000) {
-            p32[0] = s_parts[i].run_addr;
-        } else {
-            p32[0] = s_parts[i].flash_addr & 0x00FFFFFF;
-        }
-        p32[1] = s_parts[i].size;       // Segment size
-        p32[2] = s_parts[i].run_addr;   // Run/RAM/XIP address
-        p32[3] = 0xFFFFFFFF;           // Flag / reserved
-    }
-    hal_flash_write(0x11002100, buf, s_sector_count * 16);
+    uint32_t *p32 = (uint32_t *)buf;
 
-    // 4. Also write 2nd bootinfo at 0x11003000
-    hal_flash_erase_sector(0x11003000);
-    memset(buf, 0xFF, 256);
-    hdr32 = (uint32_t *)buf;
-    hdr32[0] = s_sector_count;
-    hdr32[1] = 0; // single bank
-    hdr32[2] = 0;
-    hdr32[3] = 0;
-    hal_flash_write(0x11003000, buf, 16);
-    for (uint8_t i = 0; i < s_sector_count; i++) {
-        uint32_t b2_part[4];
-        // All flash addresses in 2nd bootinfo MUST have 0x11000000 base for ota_flash_read validation
-        b2_part[0] = 0x11000000 | (s_parts[i].flash_addr & 0x00FFFFFF);
-        b2_part[1] = s_parts[i].run_addr;
-        b2_part[2] = s_parts[i].size;
-        b2_part[3] = (uint32_t)s_parts[i].checksum;
-        hal_flash_write(0x11003010 + i * 16, (uint8_t *)b2_part, 16);
-    }
+    // Part 0: XIP 1
+    p32[0]  = 0x00010100;
+    p32[1]  = s_parts[0].size;
+    p32[2]  = 0x11010100;
+    p32[3]  = 0xFFFFFFFF;
 
-    // Write OTA_FAST_BOOT_MAGIC (0xa5a55a5a) at 0x11003ff0 to bypass crc check during boot
-    uint32_t fast_boot_magic = 0xa5a55a5a;
-    hal_flash_write(0x11003ff0, (uint8_t *)&fast_boot_magic, 4);
+    // Part 1: XIP 2
+    p32[4]  = 0x00020000;
+    p32[5]  = s_parts[1].size;
+    p32[6]  = 0x11020000;
+    p32[7]  = 0xFFFFFFFF;
 
-    // 5. Short delay and restart
+    // Part 2: SRAM 1
+    p32[8]  = 0x00005000;
+    p32[9]  = s_parts[2].size;
+    p32[10] = 0x1FFF0000;
+    p32[11] = 0xFFFFFFFF;
+
+    // Part 3: SRAM 2 (Entry)
+    p32[12] = 0x00005400;
+    p32[13] = s_parts[3].size;
+    p32[14] = 0x1FFF1838;
+    p32[15] = 0xFFFFFFFF;
+
+    hal_flash_write(0x11002100, buf, 64);
+
+    // 7. Safe Hardware Reset executed strictly from SRAM (no Flash code execution)
     for (volatile int dly = 0; dly < 100000; dly++) {
         __asm__ volatile ("nop");
     }
 
-    hal_system_soft_reset();
+    AP_AON->SLEEP_R[0] = 4;
+    AP_AON->SLEEP_R[1] = 0;
+    AP_PCR->SW_RESET1 = 0;
+
+    while (1) {
+        __asm__ volatile ("nop");
+    }
 }
 
 void ota_inapp_init(void) {

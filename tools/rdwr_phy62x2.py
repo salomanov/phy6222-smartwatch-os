@@ -102,16 +102,34 @@ class phyflasher:
 		return self.hexf
 	def write_cmd(self, pkt):
 		self._port.write(pkt.encode())
-		read = self._port.read(6)
-		return read == b'#OK>>:'
+		read = bytearray()
+		t_end = time.time() + 1.0
+		while time.time() < t_end:
+			b = self._port.read(1)
+			if b:
+				read += b
+				if b'#OK>>:' in read:
+					return True
+		return False
 	def SendResetCmd(self):
 		return self._port.write(str.encode('reset '))
 	def read_reg(self, addr):
 		pkt = 'rdreg%08x ' % addr
-		sent = self._port.write(pkt.encode())
-		read = self._port.read(17)
-		if len(read) == 17 and read[0:3] == b'=0x' and read[11:17] == b'#OK>>:':
-			return int(read[1:11], 16)
+		self._port.write(pkt.encode())
+		read = bytearray()
+		t_end = time.time() + 1.0
+		while time.time() < t_end:
+			b = self._port.read(1)
+			if b:
+				read += b
+				if b'#OK>>:' in read:
+					idx = read.find(b'=0x')
+					if idx != -1 and len(read) >= idx + 10:
+						try:
+							return int(read[idx+1:idx+11], 16)
+						except:
+							pass
+					break
 		return None
 	def write_reg(self, addr, data):
 		return self.write_cmd('wrreg%08x %08x ' % (addr, data))
@@ -428,6 +446,8 @@ class phyflasher:
 		if not self.ReadRevision():
 			self._port.close()
 			exit(4)
+		time.sleep(0.05)
+		self._port.flushInput()
 		if not self.FlashUnlock():
 			self._port.close()
 			exit(4)
