@@ -1,0 +1,96 @@
+[0001.4s] hey guys new day new update about the
+[0006.1s] €120 Smartwatch from
+[0009.1s] AliExpress first of all this thing
+[0012.6s] really has some potential but at the
+[0016.2s] same time not so for example the battery
+[0019.2s] is just so small that you can never ever
+[0022.5s] really wear it like a smartwatch unless
+[0025.8s] you want to charge it every day but then
+[0028.7s] it's really not worth it even at € Euro
+[0032.0s] to just use it as a status display or
+[0034.2s] something like that or some Gadget you
+[0037.0s] connect via b or zigby to something it
+[0039.8s] might be workable but let me share some
+[0043.8s] updates so after tinkering around with
+[0046.2s] it and yeah reverse engineering the pin
+[0049.6s] out so far and yeah writing a custom
+[0054.0s] firmware and yeah also using the work
+[0057.7s] from AR Baron check him out he makes
+[0060.8s] some great stuff um I now finally able
+[0065.4s] to share the OTA flashing
+[0068.8s] method since it's a telling s so inside
+[0073.0s] it is directly compatible and the
+[0075.6s] manufacturer of the Smartwatch directly
+[0077.9s] made it compatible to the yeah stock
+[0081.8s] telling over theair update method and
+[0084.9s] this is also what we're going to use now
+[0087.7s] to update this
+[0090.5s] €120 Smartwatch from completely stock
+[0094.9s] this is really like new and out of the
+[0098.6s] box let's get a USB cable to power it
+[0104.8s] up if I can get this right with one
+[0109.5s] hand uh let's do
+[0112.9s] it in an
+[0115.0s] unpleasant way so like that we have
+[0121.4s] the
+[0122.6s] Smartwatch charging now and in theory it
+[0128.2s] should already advertise ble um
+[0134.4s] data this is really like out of the box
+[0137.6s] yeah you can see it's now advertising
+[0139.8s] and we can connect to
+[0141.4s] it and after it has connected to the
+[0144.6s] Smartwatch like so this is not notifying
+[0148.6s] about anything I can select the update
+[0152.1s] file I want to flash like so and it will
+[0155.8s] directly start to flash
+[0159.0s] it if the connection stays on so let's
+[0163.6s] reconnect it did just uh yeah cancel the
+[0167.3s] connection I guess it needed some more
+[0173.2s] time it says it's connected again so
+[0176.1s] let's just redo
+[0178.4s] that and yeah as you can see the update
+[0181.1s] is now running and it is saying that an
+[0183.8s] over the air update is going on and
+[0187.5s] let's just wait for the update to
+[0192.5s] finish and yeah as you have seen in the
+[0196.3s] last video the connection is really just
+[0198.7s] for power so there is no way of having
+[0202.0s] any data transferring over the USB
+[0206.4s] connector and yeah the upload is nearly
+[0209.0s] finished
+[0210.7s] and it should reboot anytime as you can
+[0213.5s] see here so you have a fully custom fmer
+[0217.8s] running now and if I press this Touch
+[0222.5s] button in the lower part you can see it
+[0226.1s] also writes it on the
+[0228.4s] display and just as a word of caution
+[0232.5s] make sure that the PCB looks similar to
+[0235.4s] this one or at best the same so it's the
+[0238.4s] version 5. three because multiple
+[0242.7s] versions of this Smartwatch are
+[0245.2s] available and some have a different pin
+[0247.6s] out or some have like a real ice quc
+[0250.7s] acceleration sensor or a real heart rate
+[0252.7s] sensor so if you update anything on
+[0255.4s] these over the air you could Breck the
+[0259.0s] your firmware but it's always uh
+[0261.8s] possible to recover via the S SWS pin
+[0265.1s] and a usb2 u converter so it's not like
+[0268.6s] everything is lost
+[0270.4s] just make sure to flash the right thing
+[0272.9s] and yeah have the correct
+[0277.4s] firmware it turns out this screen is not
+[0280.2s] 240x 240 pixel it is
+[0283.8s] 128x
+[0285.5s] 128 pixels in
+[0288.0s] size it's not as nicely looking but on
+[0291.5s] the other hand it's also simpler to
+[0293.5s] drive it with the 16 kiloby of ram we
+[0296.6s] have so also the screen will refresh
+[0301.0s] faster with a lower resolution of course
+[0303.7s] so it's also its good and its
+[0307.1s] bad and yeah so now we have
+[0310.3s] a reflashed Smartwatch for
+[0314.6s] €120 and can develop our own firmware so
+[0318.6s] this is now
+[0322.4s] hacked okay that's all for today

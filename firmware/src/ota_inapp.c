@@ -45,9 +45,14 @@ static void send_response(uint8_t cmd_rsp, uint8_t status) {
 }
 
 static void draw_ota_progress(uint8_t pct) {
-    display_fill_screen(COLOR_BLACK);
-    gfx_draw_rect(0, 0, 80, 16, COLOR_NAVY);
-    gfx_draw_string(8, 4, "OTA FLASH", COLOR_CYAN, COLOR_NAVY, 1);
+    static bool s_ota_bg_drawn = false;
+    if (!s_ota_bg_drawn) {
+        s_ota_bg_drawn = true;
+        display_fill_screen(COLOR_BLACK);
+        gfx_draw_rect(0, 0, 80, 16, COLOR_NAVY);
+        gfx_draw_string(8, 4, "OTA FLASH", COLOR_CYAN, COLOR_NAVY, 1);
+        gfx_draw_string(8, 115, "DO NOT DISCONNECT", COLOR_RED, COLOR_BLACK, 1);
+    }
     
     char pct_str[16];
     pct_str[0] = '0' + (pct / 100);
@@ -60,13 +65,14 @@ static void draw_ota_progress(uint8_t pct) {
         if (pct_str[1] == '0') pct_str[1] = ' ';
     }
     
+    // Fast partial draw only
     gfx_draw_string(14, 50, pct_str, COLOR_YELLOW, COLOR_BLACK, 2);
     gfx_draw_progress_bar(5, 85, 70, 12, pct, COLOR_GREEN, COLOR_DARKGREY);
     
-    if (pct < 100) {
-        gfx_draw_string(8, 115, "DO NOT DISCONNECT", COLOR_RED, COLOR_BLACK, 1);
-    } else {
-        gfx_draw_string(12, 115, "REBOOTING...", COLOR_GREEN, COLOR_BLACK, 1);
+    if (pct >= 100) {
+        gfx_draw_string(8, 115, "                  ", COLOR_BLACK, COLOR_BLACK, 1);
+        gfx_draw_string(8, 115, "REBOOTING...", COLOR_GREEN, COLOR_BLACK, 1);
+        s_ota_bg_drawn = false; // reset for next session
     }
 }
 
@@ -218,7 +224,7 @@ static void ota_install_firmware_and_reboot(void) {
     // 1. Erase Bootloader Header sector (0x11002000)
     hal_flash_erase_sector(0x11002000);
 
-    // 2. Erase 2nd bootinfo sector (0x11003000) so no stale metadata interferes with cold boot
+    // 2. Erase 2nd bootinfo sector (0x11003000)
     hal_flash_erase_sector(0x11003000);
 
     // 3. Erase sectors for SRAM data sections (0x11005000 to 0x1100B000)
@@ -231,23 +237,22 @@ static void ota_install_firmware_and_reboot(void) {
         hal_flash_erase_sector(a);
     }
 
-    // 5. Copy 4 partitions from staging buffer (0x11040000) to exact Flash destinations:
-    //    Part 0 -> 0x11010100 (XIP 1)
-    //    Part 1 -> 0x11020000 (XIP 2)
-    //    Part 2 -> 0x11005000 (SRAM section 1)
-    //    Part 3 -> 0x11005400 (SRAM section 2 / Entry)
-    const uint32_t target_flash_addrs[4] = {
-        0x11010100,
-        0x11020000,
-        0x11005000,
-        0x11005400
-    };
-
+    // 5. Copy 4 partitions from staging buffer (0x11040000) to exact Flash destinations.
+    // NOTE: MUST compute target addresses purely with math in CPU registers,
+    // NEVER from a const array in Flash, because Flash 0x11010000-0x11035000 is now erased!
     uint8_t buf[256];
     uint32_t staging_offset = 0;
 
     for (uint8_t i = 0; i < 4 && i < s_sector_count; i++) {
-        uint32_t target_flash = target_flash_addrs[i];
+        uint32_t target_flash = 0x11005400; // default Part 3
+        if (i == 0) {
+            target_flash = 0x11010100;
+        } else if (i == 1) {
+            target_flash = 0x11020000;
+        } else if (i == 2) {
+            target_flash = 0x11005000;
+        }
+
         uint32_t size = s_parts[i].size;
         uint32_t copied = 0;
 
@@ -265,18 +270,22 @@ static void ota_install_firmware_and_reboot(void) {
     }
 
     // 6. Write Bootloader Header at 0x11002000 (exact wire format for PHY6222 ROM loader)
-    //    Header block (first 256 bytes)
-    memset(buf, 0xFF, 256);
-    uint32_t *hdr32 = (uint32_t *)buf;
-    hdr32[0] = 4;          // Total segments count
-    hdr32[1] = 0xFFFFFFFF;
-    hdr32[2] = 0x1FFF1838; // Entry start execution address
-    hdr32[3] = 0xFFFFFFFF;
+    // Clear buffer in SRAM loop (avoid calling libc memset which lives in erased Flash!)
+    uint32_t *p32 = (uint32_t *)buf;
+    for (int k = 0; k < 64; k++) {
+        p32[k] = 0xFFFFFFFF;
+    }
+
+    p32[0] = 4;          // Total segments count
+    p32[1] = 0xFFFFFFFF;
+    p32[2] = 0x1FFF1838; // Entry start execution address
+    p32[3] = 0xFFFFFFFF;
     hal_flash_write(0x11002000, buf, 256);
 
-    //    Segments table (at 0x11002100, 4 entries x 16 bytes = 64 bytes)
-    memset(buf, 0xFF, 256);
-    uint32_t *p32 = (uint32_t *)buf;
+    // Segments table (at 0x11002100, 4 entries x 16 bytes = 64 bytes)
+    for (int k = 0; k < 64; k++) {
+        p32[k] = 0xFFFFFFFF;
+    }
 
     // Part 0: XIP 1
     p32[0]  = 0x00010100;
@@ -304,7 +313,35 @@ static void ota_install_firmware_and_reboot(void) {
 
     hal_flash_write(0x11002100, buf, 64);
 
-    // 7. Safe Hardware Reset executed strictly from SRAM (no Flash code execution)
+    // 7. Write 2nd Boot Info Table at 0x11003000 (Required by PHY6222 slboot secondary bootloader!)
+    for (int k = 0; k < 64; k++) {
+        p32[k] = 0xFFFFFFFF;
+    }
+
+    p32[0] = 2;          // ram_part_idx count
+    p32[1] = 0;          // Single bank mode (OTAF_SINGLE_BANK)
+    p32[2] = 0;
+    p32[3] = 0xFFFFFFFF;
+
+    // Part 2 info (SRAM section 1): Flash 0x11005000, Run 0x1FFF0000, Size, Checksum
+    p32[4] = 0x11005000;
+    p32[5] = 0x1FFF0000;
+    p32[6] = s_parts[2].size;
+    p32[7] = s_parts[2].checksum;
+
+    // Part 3 info (SRAM section 2 / Entry): Flash 0x11005400, Run 0x1FFF1838, Size, Checksum
+    p32[8]  = 0x11005400;
+    p32[9]  = 0x1FFF1838;
+    p32[10] = s_parts[3].size;
+    p32[11] = s_parts[3].checksum;
+
+    hal_flash_write(0x11003000, buf, 48);
+
+    // Write Fast Boot Magic at 0x11003FF0 (bypass slow CRC verification in slboot)
+    uint32_t fast_boot = 0xA5A55A5A;
+    hal_flash_write(0x11003FF0, (uint8_t *)&fast_boot, 4);
+
+    // 8. Safe Hardware Reset executed strictly from SRAM (no Flash code execution)
     for (volatile int dly = 0; dly < 100000; dly++) {
         __asm__ volatile ("nop");
     }

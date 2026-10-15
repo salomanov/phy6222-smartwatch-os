@@ -1,0 +1,145 @@
+[0001.6s] hey guys let's quickly check out these
+[0004.4s] cheap smart watches that you can get for
+[0007.6s] as low as
+[0009.8s] €120 each if you take 10 pieces of them
+[0014.7s] from AliExpress I will link them down in
+[0016.9s] the description you need to check out
+[0019.8s] not
+[0020.8s] the um product page itself but
+[0023.5s] AliExpress offers sometimes these 341
+[0027.0s] orders or offers where you have like
+[0030.1s] list of stuff and it will change the
+[0035.2s] content of stuff or Hardware based on
+[0038.4s] what you have in your shopping cart so
+[0040.8s] if you do not see these SmartWatches
+[0042.7s] directly you just put other SmartWatches
+[0045.2s] in your shopping cart and refresh the
+[0047.0s] page until you find them for I think
+[0051.6s] €1.50 and if you take 10 pieces then it
+[0055.5s] will subtract three again
+[0060.0s] no guarantees here because they might be
+[0063.7s] doing it differently in different
+[0065.4s] regions or whatever but let's talk about
+[0069.4s] the hardware I was really hoping to get
+[0074.0s] a telling tless Art chip inside and
+[0077.7s] spoiler there
+[0079.2s] is what you will get
+[0081.9s] is
+[0084.0s] basically the strap and the Smartwatch
+[0087.2s] and the charger is itself integrated
+[0089.6s] into to the watch and the description of
+[0093.7s] it is like step counter hard rate sensor
+[0098.3s] and all kinds of
+[0101.4s] shenanigans overall you got like uh
+[0106.4s] 240 by
+[0108.2s] 240 resolution screen let's try to turn
+[0114.2s] a watch on yeah you can see it's even
+[0117.8s] working it will now charge
+[0120.7s] it has this RGB screen 240x 240 with an
+[0125.4s] st7789 or something display type you
+[0129.5s] have one touch button here in the lower
+[0131.9s] part not a full touch screen you have an
+[0135.9s] LED in the back side which is not a hard
+[0138.2s] rate sensor it's it's just an LED
+[0141.1s] blinking to an rism and it will just
+[0145.1s] spit out some yeah fake values for your
+[0148.2s] heart rate these step counter I will
+[0151.5s] show it in a moment is like ridiculous
+[0154.7s] uh it it's offering also like uh
+[0157.7s] waterproof design or whatever but as you
+[0160.6s] can see already here it's just clipped
+[0164.3s] into
+[0165.9s] place and you have like the case open no
+[0170.8s] um seal or
+[0173.2s] anything then you can remove the PCB
+[0177.4s] together with the display by unclipping
+[0179.7s] it
+[0180.4s] it and you need to wiggle it out a bit
+[0183.2s] since the charging connector has this
+[0186.3s] spring contacts and it tries to push it
+[0188.6s] in as much as
+[0190.8s] possible after opening it up you can see
+[0194.0s] that the PCB itself is like the um
+[0197.0s] design for a small Fitness tracker and
+[0200.5s] not a smartwatch so they will just
+[0203.0s] connect a different screen to it and
+[0205.4s] otherwise it's the same the battery is
+[0208.3s] like ridiculously small it will be maybe
+[0212.6s] like 65 80 milliamp hour you have a
+[0217.8s] vibration motor which is quite nice and
+[0221.5s] let me show you the
+[0225.6s] LED and yeah as you can see it's really
+[0228.4s] like just one LED connected with the
+[0232.3s] resistor there's nothing else only two
+[0235.4s] traces no way of sensing any heart rate
+[0239.3s] or what
+[0240.4s] whatsoever then let's quickly go over
+[0243.3s] the PCB zoom in a
+[0246.2s] bit and you can first of all see the
+[0249.2s] mainc is the tlsr
+[0253.0s] 8232 which is quite nice you can see
+[0256.3s] here the touch sensor chip a bit of
+[0261.0s] charging I see and um I presume a mosfet
+[0265.5s] to switch on the
+[0267.1s] backlight and normally you would have
+[0269.9s] like here at this region and I squ C
+[0273.1s] acceleration sensor you would have here
+[0276.2s] the heart rate sensor connected but they
+[0278.8s] decided to go cheap on both of these
+[0280.8s] option because the step counter is just
+[0284.0s] this coil or the spring which has the
+[0288.2s] pin in the middle and if you shake it it
+[0290.4s] will just connect these two and each
+[0292.7s] Shake is like a step and I can also show
+[0296.4s] it in detail by opening it up
+[0300.0s] let's just clip it
+[0302.2s] open I mean I haven't looked inside of
+[0304.9s] one until now but I'm fairly sure this
+[0307.7s] is it okay you can see it's a ball in
+[0311.1s] the middle and if you shake it the ball
+[0314.3s] will just like move and do the
+[0317.8s] connection on and
+[0320.0s] off so not a spring but uh as simpler to
+[0324.9s] trigger mechanism
+[0328.2s] overall as you can see here so it's
+[0330.8s] fairly cheap to to
+[0333.2s] make that ball is
+[0336.0s] gone and otherwise yeah the vibration
+[0339.0s] motor and such but overall it's like a
+[0344.7s] fairly
+[0346.2s] interesting piece of tech while not
+[0350.0s] usable as a smartwatch you can really
+[0352.0s] take this PCB and display for this
+[0356.1s] €120 write a custom film for it like
+[0359.4s] with the me
+[0361.7s] thermometers have it either speak
+[0364.3s] Bluetooth low energy or have it speak
+[0367.3s] like zigp and integrated into open E
+[0371.2s] paper link for example to show like a
+[0374.2s] status
+[0375.7s] display or even going one step further
+[0379.5s] but with a bit more
+[0381.2s] Hardware um thinkering you can connect
+[0384.0s] this chip to the ESP 32 S3 and even
+[0389.2s] build like a spaghetti access point for
+[0392.1s] the open eaper link and use the radio
+[0394.9s] inside of the tlsr as the main radio for
+[0398.5s] everything and use the display still as
+[0401.6s] like the real display for the access
+[0406.9s] point and show like infos about the
+[0409.1s] access
+[0411.0s] point to yeah just basically reuse it
+[0414.8s] and hack
+[0416.1s] this thing further
+[0419.9s] uh or write like uh custom Smartwatch
+[0423.6s] firmware and do everything else you
+[0427.0s] would want to
+[0428.7s] do it's quite some Hardware you get for
+[0433.6s] the price while the half of it is fake
+[0437.3s] it's still pretty
+[0439.0s] nice and yeah check it out and maybe
+[0442.8s] there will be future updates with a
+[0445.4s] custom firmware or an open eaper link
+[0448.0s] access point to use it
+[0450.6s] even
+[0451.6s] further have a great day

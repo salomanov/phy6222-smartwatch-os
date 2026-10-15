@@ -138,8 +138,9 @@ async def main():
             raw = list(data)
             status = raw[0] if len(raw) > 0 else -1
             cmd = raw[1] if len(raw) > 1 else -1
-            print(f"  << [BLE NOTIF] status=0x{status:02X}, cmd=0x{cmd:02X}")
-            rsp_queue.append(raw)
+            if cmd != 0x87:
+                print(f"  << [BLE NOTIF] status=0x{status:02X}, cmd=0x{cmd:02X}")
+                rsp_queue.append(raw)
 
         await client.start_notify(OTA_RSP_UUID, on_notification)
         await asyncio.sleep(0.5)
@@ -197,14 +198,14 @@ async def main():
 
                 # Send chunk with retry on transient WinRT BLE stack error
                 written = False
-                for w_try in range(5):
+                for w_try in range(8):
                     try:
                         await client.write_gatt_char(OTA_DATA_UUID, chunk, response=True)
                         written = True
                         break
                     except Exception as e:
-                        print(f"  [WARN] Write error on offset {offset}: {e}, retrying {w_try+1}/5...")
-                        await asyncio.sleep(0.1)
+                        print(f"  [WARN] Write error on offset {offset}: {e}, retrying {w_try+1}/8...")
+                        await asyncio.sleep(0.3)
 
                 if not written:
                     raise RuntimeError(f"Failed to write chunk at offset {offset}")
@@ -213,8 +214,8 @@ async def main():
                 if offset % 4600 < chunk_size or offset >= len(p_data):
                     print(f"  [PROGRESS] {pct}% ({total_sent}/{total_bytes} bytes sent, part {idx}: {offset}/{len(p_data)})")
 
-                # Small delay to give PHY6222 Flash controller time to write and prevent BLE buffer overrun
-                await asyncio.sleep(0.012)
+                # Pacing aligned with BLE connection interval (30-40ms) + Flash write
+                await asyncio.sleep(0.035)
 
             # Allow BLE stack to process the final packet and calculate CRC
             await asyncio.sleep(0.2)

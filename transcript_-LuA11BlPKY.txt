@@ -1,0 +1,88 @@
+[0001.6s] hey guys so a while ago already I did
+[0005.2s] talk about these
+[0007.2s] €120 SmartWatches from
+[0010.4s] AliExpress and I showed how I hacked
+[0013.9s] them and how I installed a custom
+[0015.8s] firmware onto them and today I want to
+[0018.3s] finally release also the open eaper link
+[0021.1s] B version of this custom firmware this
+[0024.2s] does allow it uh to use this Smartwatch
+[0027.0s] as a status display for Smart Home
+[0030.5s] or something else whatever you want and
+[0035.2s] use it wall powered because of the LCD
+[0040.1s] drawing too much current no battery will
+[0043.1s] last
+[0044.6s] uh long enough let's say it that way and
+[0049.7s] I want to start by showing you how to
+[0051.5s] flash it I did show it in an earlier
+[0053.3s] video already but just to have it
+[0055.8s] complete so basically you need to put it
+[0058.6s] on a charger connect to the so-called
+[0062.3s] 716 uh device you will find the url to
+[0066.4s] the Flasher in the description you need
+[0068.7s] to wait until it's um
+[0070.8s] connected then you can select the right
+[0073.6s] file and this will start the upload if
+[0077.6s] it does not start you need to just
+[0079.8s] reselect the file sometimes the um
+[0083.7s] Smartwatch needs to get into this um
+[0087.4s] yeah basically update mode first
+[0090.6s] so just trying it a few times maybe hit
+[0095.1s] reconnect first yeah like
+[0097.5s] this and then the update will start it
+[0101.2s] does not take
+[0103.0s] long to use it then you can either use
+[0106.4s] the open eaper link access point with
+[0108.6s] Bluetooth low energy enabled which you
+[0110.6s] can see here is showing it already or
+[0113.7s] you can also use the Bluetooth web
+[0117.0s] uploader for
+[0118.4s] images as I also mentioned in my latest
+[0121.1s] video for the universal eaper
+[0124.5s] firmware so let's wait until this is
+[0129.0s] finished it will then also restart
+[0132.1s] directly into the new
+[0134.6s] firmware and yeah while we're waiting it
+[0138.0s] is advised to really open up the watch
+[0141.0s] and disconnect the battery inside
+[0143.1s] because it has no real charger and
+[0145.5s] should you leave the USB connected all
+[0147.8s] the time there is kind of fire hazard so
+[0151.7s] please disconnect the battery if you use
+[0153.7s] it for a long time on a charger okay the
+[0157.0s] flashing is done it is rebooted we can
+[0160.0s] now check out the ble open eer link
+[0163.7s] uploader via the web there you need to
+[0166.9s] select 128 by 128 pixels we can even
+[0172.0s] yeah do like two colors and then we need
+[0176.0s] to connect to this new
+[0177.9s] shown uh B device
+[0180.4s] device which is this 289 F5 and so on so
+[0186.1s] we just connect to
+[0187.9s] it and we can see that it is connected
+[0191.5s] already and upload the
+[0193.9s] image this does take a few seconds but
+[0197.0s] then yeah we already have the image
+[0199.8s] here and at the same time or the same
+[0203.6s] way this does work via the open eaper
+[0206.3s] link access point basically you have
+[0210.9s] your um displays here and C can set the
+[0215.3s] content you want to show on them let's
+[0217.9s] just make the current date for this
+[0222.3s] one or you can also do firmware updates
+[0225.2s] by now to yeah
+[0227.8s] just also have
+[0230.3s] this possible to not need to stay on
+[0234.7s] this firmware
+[0236.1s] forever and I did saw that the watch
+[0240.4s] or the price of the watch is really
+[0242.3s] going up and down right now it's at
+[0244.1s] like3 each and at the lowest it was
+[0248.2s] really at
+[0249.8s] €120 and otherwise yeah it's a
+[0253.6s] nice small status display you can put
+[0256.4s] somewhere you can even just like
+[0257.9s] disassemble it and put it in a nice 3D
+[0260.1s] printed
+[0261.4s] case and yeah just to show that have a
+[0266.1s] nice day

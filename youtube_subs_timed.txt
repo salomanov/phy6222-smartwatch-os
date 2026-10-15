@@ -1,0 +1,500 @@
+[00:00:00] I have a new watch. It is terrible.
+[00:00:14] What you're looking at here is what's commonly called
+[00:00:16] an M4 wristband or fitness band or some such thing. It is the cheapest and nastier smart
+[00:00:22] watch that small amounts of money can buy. This cost me two francs sixty, which is about
+[00:00:27] fifty percent more than this knockoff blue pill cost me. What you get for this very small
+[00:00:34] amount of money? Not much. Technically this is a BLE attached smart watch. It connects
+[00:00:42] to a mobile phone, a computer, notifications and things to it. Practically it's basically
+[00:00:48] trash. They achieve the price point by cutting out all the extraneous features like battery
+[00:00:55] life and reliability and a user interface and buttons and stuff like that. Let me take
+[00:01:02] it off my wrist and I'll give you the tour. The silicone wristband came with it. The watch
+[00:01:10] itself just pops out like that. This is the first watch face. This one is built in. You
+[00:01:18] get a choice of two, one of which is programmable from the smartphone app. Pressing the button
+[00:01:24] cycles you through the main menu. A long press selects the item. So the steps function
+[00:01:34] is a step counter. That while I have been playing with this on my desk has gone up by about
+[00:01:41] two hundred. So I am not convinced that is like accurate, maybe real. Heart rate is the
+[00:01:50] heart rate sensor. It also somehow detects blood pressure and blood oxygen levels. It works
+[00:01:56] by blinking the LED on the bottom for a long period of time. And then eventually it comes
+[00:02:05] up with a number which is always about this. I don't think the heart sensor is real.
+[00:02:13] The watch is a bunch of sport related activities. We've got running, skipping and sit up. These
+[00:02:21] are all the same. If I select it, it seems to be a timer. It may hook up to the step counter
+[00:02:31] to make the K-Cal thing work. Assuming that's real. Let me just shake this about a bit.
+[00:02:36] Has it done anything? No. So moving on. Message. This is possibly the only actual useful feature
+[00:02:46] the thing has. This allows your smartphone to push messages to the watch and it displays
+[00:02:51] them on the screen. I currently don't have it hooked up to the phones which just says
+[00:02:56] null and if I select it, nothing happens. Sleep appears to be some kind of sleep sensor.
+[00:03:03] I don't know how this works and I don't care. Weather pulls weather information from an
+[00:03:09] unknown source on the smartphone app. No smartphone. Therefore it says it is sunny and zero
+[00:03:15] degrees. Music lets you control your phone's music player. Somehow it is deeply cumbersome.
+[00:03:26] A single press cycles the cursor. A long press actually makes the thing happen. Of course
+[00:03:31] no smartphone so it doesn't do anything. More takes you to more items. First on of which
+[00:03:40] is the camera. This does not have a camera. What this does is triggers the camera on your
+[00:03:45] phone. Again, no smartphone doesn't do anything. Looking for causes the smartphone to vibrate
+[00:03:53] and the phone has an equivalent feature that causes the wristband to vibrate. This could
+[00:04:00] actually be useful. These things are so cheap that you could use one as a locator. Buy
+[00:04:06] it, stick it on a keychain somewhere, except the battery life is not brilliant. I'll talk
+[00:04:13] about that later. Theme lets you switch between the two watch faces. You've got the built-in
+[00:04:18] one. Programmerable one. The smartphone app lets you program this to a limited extent.
+[00:04:23] You can basically just change the backdrop. I've used a completely black one here and you
+[00:04:29] can move the numbers around and that's all. Reset. Reset. The thing, I'm not quite sure
+[00:04:36] what this is supposed to achieve given that there is no state stored on this to speak of.
+[00:04:42] This provides a QR code that takes you to the downloadable app which is actually not completely
+[00:04:47] trash. It's still quite trash and this appears to be the about your smartwatch screen is
+[00:04:53] the same chipset and you've seen all the features. What am I actually going to do with
+[00:05:00] this thing? The answer should be obvious. I'm going to pull it apart which is done by
+[00:05:05] spudging here and then it just comes apart and it's actually quite lucky there because
+[00:05:13] bits of fragile. It does still seem to be working. Here is the thing. This metal pad here
+[00:05:23] is for the touch thing. It pushes onto the metal mesh here on the front half. You've got
+[00:05:31] the screen. We've got a little PCB underneath it and this is as far as might as assembly
+[00:05:38] has gone so this is all new to me. We have a tiny battery, a glued in. No, it's just sitting
+[00:05:52] there. We've got the connection to the heart rate sensor which is two wires. I think that
+[00:06:04] is probably just nearly D and that round thing is the vibration unit. Let me pull this
+[00:06:18] out and put it down somewhere. Here we are looking at the bottom of the board. We have these
+[00:06:26] two contacts here connect to the USB and they're used to charge the battery. The battery itself
+[00:06:34] is soldered on here. These two contacts are for the LED slash heart sensor. The vibrator
+[00:06:47] connects here. I have managed to break this wire. It was connected to that pad there. Here we have
+[00:06:56] the micro controller that makes it all tick and there's some passives probably for managing the
+[00:07:04] battery and doing the Bluetooth stuff. Let me turn it over. So this is what really interests
+[00:07:15] me about this thing. On the board here we have test pads. TXRX Vibos and BT. That's probably
+[00:07:26] the Bluetooth antenna and if I move the screen out of the way. Over on this side we have
+[00:07:39] test 3.3 volts, ground, dat and SWS. I happen to know that SWS is single wire debug
+[00:07:48] and oh good it still works. So what we've got here is a battery powered micro controller with a
+[00:08:01] screen on a tiny PCB with Bluetooth low energy with a whole bunch of useful ports brought out.
+[00:08:09] What can I do with this?
+[00:09:39] Well I think that is some of my finest work. That's sarcasm. This horrible mess of bad
+[00:10:03] solder joints and cap turn tape is the fitness watch spread out onto a break up board. It's actually
+[00:10:11] one of these PCBs. This is a thing I had made for the brother word processor project that I
+[00:10:19] still haven't done the final episode on. I had to make five of these and I used one for the real
+[00:10:24] project so I now have four spare. In fact they've got lots of connected pins and 3.3 volts and 5
+[00:10:33] volt power rails and so they're actually quite well suited for this and you know I might as well
+[00:10:37] use it for something. Let me show you around the board. This is USB 5 volt power. It's routed through
+[00:10:44] this switch here to the PCB. The battery which is slightly squidgy which is a bit disturbing
+[00:10:52] is routed through this switch also to the board. So I can isolate either the battery or all the power
+[00:11:00] or just run it off AC etc etc. These two lights here indicate the status of the 5 volt and 3.3
+[00:11:08] volt rails. The 5 volt rail comes directly from the USB 3.3 volt comes from the tap of the
+[00:11:15] board's own regulator. That's this wire here. The peripherals are all still present so we've got the
+[00:11:21] vibrator here and the fake heart rate sensor here and these pins are the URTXRX and reset SWS
+[00:11:33] data and test and ground and that is basically all there is to it. I use magnet wire in a lot of
+[00:11:42] places. Is that magnet wire? No that's a hair. This is magnet wire which is very similar to a hair.
+[00:11:51] Let me just go into that. I picked this because it was the thinnest wire I had and in fact this
+[00:12:01] turned out to be a big mistake. Magnet wire is incredibly hard to deal with. It's just so thin and
+[00:12:07] flimsy that controlling it is difficult. Plus before you can solder to it you've got to strip the
+[00:12:13] enamel coating off which is a pain. Once I switched to this thicker wire things became a lot easier.
+[00:12:21] I can actually strip this using my fingernails. Having the microscope made an enormous difference.
+[00:12:27] My ability to control the soldering iron accurately turns out to be limited by my ability to see
+[00:12:34] rather than my ability to move the soldering iron itself. The trickiest bit of soldering was
+[00:12:41] the reset wire which actually goes on to one end of a tiny surface mount capacitor on the other side
+[00:12:48] of this board and that was really painful and I'm very proud of the fact that I actually managed
+[00:12:54] to solder one of these solid core wires to it. I think it's actually this green wire here which goes
+[00:13:03] to a pin here which is then routed via track to the arpin there. This is the point where I finally
+[00:13:11] come clean. I'm not reverse engineering this thing. Someone's already done that. I'm just following
+[00:13:16] the instructions and according to the instructions now that I've done the breakout board I should be able
+[00:13:23] to build a debug interface, plug it in and then I can read and write the flash. There's only one small
+[00:13:30] problem. It doesn't flip in work. This is what the setup looks like. This is on our Baron.net's
+[00:13:40] website which has a lot of useful information on reverse engineering these things. The board here
+[00:13:47] is very slightly different from mine which is interesting and slightly suspicious so it's possible
+[00:13:56] mine doesn't work the same way but anyway let me walk you through it. We're using the SDM32
+[00:14:02] blue pill as a debugger interface between the actual computer and the board itself. The board
+[00:14:08] debugger interface consists of a single line SWS here which is used for both transmit and receive.
+[00:14:16] The blue pill debugger here is using two pins a six and a seven. A seven is used for receive and
+[00:14:24] a six for transmit. There is also b zero here which is used to hard reset the board and of course
+[00:14:33] a ground interface. The protocol is weird and extremely bespoke. Each bit is transferred as five
+[00:14:42] time units. These two red boxes here show a zero bit which is low high high high high
+[00:14:51] and a one bit which is low low low low high. There is also occasionally a single low time unit
+[00:15:01] which is used for handshaking. The conversation is controlled by the debugger interface. The board
+[00:15:08] here only talks when the debugger tells it to. This avoids the need for any kind of contention logic.
+[00:15:17] The debugger line is pulled high by a pull-up resistor. The two ends can drive it low by connecting
+[00:15:25] the line to ground through a transistor. I don't know yet where the pull-up resistor is. It could be
+[00:15:31] at either end. That is something I may need to find out. Why isn't it working on my setup? Well
+[00:15:39] as always the thing to do is to hook it up to the oscilloscope and see what is actually going on.
+[00:15:47] I have replaced my nice neat test harness cable with this breadboard thing. The resistor and the
+[00:15:54] test harness has been replaced with this pot. It's all set up and running. The PC is continually
+[00:16:01] pinning the board with a get chip ID command. All I need to do now is turn on the oscilloscope
+[00:16:12] and there's a thing. That is a packet and its reply. If I zoom out you can see that we're sending
+[00:16:20] lots of packets one after the other. If I zoom in
+[00:16:29] this stuff is the outgoing command to the board. This is the board reply which is very interesting.
+[00:16:42] Notice that the board responses are not actually dropping to zero volts. They are only dropping by a
+[00:16:56] pretty small amount. In fact I should be able to tell this thing to figure out what it is.
+[00:17:01] If I set it to here go to vertical v min and down here it's 24 volts. That's not right.
+[00:17:17] 35 volts. I mean it's clearly not 35 volts. I think I have the times 10 stuff set up incorrectly.
+[00:17:27] The probe is set to times 10 and it's set here to times 10 so it should be working but
+[00:17:34] ignore that. I mean that's clearly 3.5 volts for the maximum and 2.4 volts for the minimum. If I scroll left
+[00:17:44] minimum goes down to minus 6.8 which is here. That mark there is showing zero volts.
+[00:17:54] That's interesting. It means that the board driver on the debug line is unable to drop the
+[00:18:04] voltage all the way to zero. The most likely reason for this is that there's a pull-up
+[00:18:10] resistor somewhere which the board driver is unable to overcome. Looking at the circuit diagram
+[00:18:18] the reason why this resistor is in line between the debug line and the TX pin
+[00:18:24] suggests that the pull-up resistor is on the TX pin of the microcontroller and that this thing
+[00:18:32] is supposed to reduce the ability of the pull-up resistor to pull-up. IE make it easier for this thing
+[00:18:38] to pull the thing down so possibly just increasing the resistance might help. Anyway let's just try
+[00:18:45] fiddling with this resistor. I haven't tried this. Let's see what happens to the
+[00:18:52] that signal. So if we increase it
+[00:19:09] nothing's happening.
+[00:19:15] Yeah. In fact I found two sets of instructions with different resistance values. This was set to
+[00:19:26] 750 ohms. I also saw one K-ohm. Clearly it doesn't matter what it is. So I think there's two
+[00:19:34] possibilities as to why this isn't working. Two options. One is a software issue where that the
+[00:19:40] Python client that's talking to the debugger interface doesn't understand this particular chip
+[00:19:46] that is it reads the chip ID but it doesn't understand it. The other option is that the debugger is
+[00:19:53] unable to read the response from the board due to the pull-up resistor and in fact looking at
+[00:19:59] the way this thing works I'm a bit suspicious because the STM32 has controllable pull-up
+[00:20:08] resistors and all the pins. So when this is listening to the board shouldn't it be disabling
+[00:20:14] the pull-up resistor effectively tristating the pin. In fact it should be possible for this thing
+[00:20:22] to actually just use one pin. I think there's probably something in the STM32 architecture that
+[00:20:27] doesn't allow it but that signal looks really suspicious to me.
+[00:20:32] Finally after a great deal of work I have the debugger interface working and all I have to do
+[00:20:42] to make that happen was to throw away the STM32 version and write my own from scratch using an
+[00:20:50] RP2040 aka Raspberry Pi Pico. In fact the RP2040 PIO hardware makes this kind of interface really easy
+[00:20:58] to use so all I need now is a single connection from the SWSPIN to the Pico and another connection
+[00:21:08] for the reset line and I don't need any of the resistor stuff or shorting two pins together or
+[00:21:13] anything but anyway can demonstrate that this is running and now I can do this.
+[00:21:29] Just to reset the board and look we have a flashing light. I have managed to compile one of our
+[00:21:37] barren test programs, deploy it onto the thing, program the flash and it works and we have a flashing
+[00:21:44] light. This is good news it means we've done all the hardware stuff. The next step is to think about
+[00:21:52] the software. Before we do that we're going to go in a brief detour and take a look
+[00:21:58] to see what's inside this thing. This is a zoomed in image that I stitched together from images from
+[00:22:05] my terrible USB microscope and let's you see the major components of the inside. In particular
+[00:22:12] you can see the Bluetooth antenna, the clock crystal, the unpopulated pad for the heart rate
+[00:22:17] sensor, clearly marked HRS and a pad that I think might actually be for the accelerometer in which case
+[00:22:26] the step counter values I was looking at earlier would in fact be fake. But the most obvious
+[00:22:32] component is the CPU which is a TLSR8232. This is made by Tellink which is a Chinese internet of
+[00:22:41] things company that produces chips for a well-during different variety of protocols and applications.
+[00:22:48] This particular chip that TLSR8232 is strangely not visible on their product page.
+[00:22:57] However if you go to mouse, you can find it for sale here and this is exactly the same chip
+[00:23:03] that's in my smartwatch. Entertainingly even if you buy a thousand of them the price you're paying
+[00:23:10] is about half of what I paid for the entire smartwatch. Luckily it is possible to find Tellink's
+[00:23:16] documentation if you search for it with Google and that gives you stuff like the data sheets,
+[00:23:23] the SDK, the manual for the SDK which is very useful and of course the IDE. The IDE is particularly
+[00:23:32] important because it comes with a compiler toolchain. Why do you need a compiler toolchain?
+[00:23:40] Well this thing is not a ARM processor. It is Tellink's proprietary CPU called the TC32
+[00:23:50] and the TC32 is fascinating. This is a file from Tellink's SDK. This is the startup code.
+[00:23:57] This is the first thing that executes when the chip comes alive and it contains the usual stuff
+[00:24:03] you'd expect to see here like the very first thing in the flash is a jump to the reset routine.
+[00:24:09] Here is where the IRQ setup etc etc. Here is the reset routine itself at hex 20 bytes into the
+[00:24:18] flash and this is some TC32 machine code. All the TC32 instructions as you can see start with a T.
+[00:24:27] So T load our clearly loads of value from memory into a register, T-Comp compares to registers,
+[00:24:36] jump if greater than or equal to add. This is all looking extremely familiar if you're used to
+[00:24:42] these small embedded risk machines. In fact possibly two familiar. Let me show you their compiler.
+[00:24:50] Luckily there are Linux binaries available. TC32, LGCC and it is a GCC port,
+[00:24:58] although there isn't any source available. If I ask it for target specific options,
+[00:25:04] we get some stuff. Here is the option to enable TC32 code generation.
+[00:25:10] Here is an option for modifying the ARM thumb stack frame. Here are some stuff for the APCS
+[00:25:19] ARM calling convention stuff. In fact as far as I can tell I think their back end is basically
+[00:25:27] the ARM back end with a few minor adjustments. I suspect that all they've done is done a custom
+[00:25:34] assembler and then changed the code generator to produce these instructions rather than the
+[00:25:42] equivalent thumb instructions. So let's try an experiment. I will pull some code out of this file
+[00:25:50] and convert it to thumb and then we'll assemble the two and see what they look like.
+[00:25:57] So here it is. This is the TC32 code. This is the thumb code and yes I did just search and
+[00:26:05] replace all the instruction names for the thumb equivalent. Here is the disassembly of the TC32 code.
+[00:26:14] So here is that first TLoDAR which turns into 0910 etc all the way down. Here is the disassembly
+[00:26:24] of the thumb code and you will see that the actual bytes generated are very nearly the same.
+[00:26:31] In fact as far as I can tell there's only like one maybe two bits of difference between the
+[00:26:38] thumb instructions and the TC32 instructions which means I'm pretty sure that TC32 is basically
+[00:26:47] just a subset of thumb with the op codes rearranged just enough that you can't run thumb code on
+[00:26:55] the TC32 processor. This isn't necessarily a bad idea. The thumb instruction set is very good.
+[00:27:02] It's spectacularly dense producing very small programs. If you're going to base your own instruction
+[00:27:08] set on something you could do a lot worse than copy thumb but this does seem to be kind of blatant.
+[00:27:15] On the plus side it does make the code quite easy to read.
+[00:27:20] So let me delete all these windows and let's take a look at the SDK itself. It is not complicated
+[00:27:30] which is great. You get a directory full of headers and c files which contains most of the interface
+[00:27:39] to the underlying hardware. So if I go to gpi.c this is the interface for the gpi.os.
+[00:27:48] You get source. All these are doing is writing to the underlying hardware registers which you can
+[00:27:55] read up on in the data sheet. So we've got routines for initializing stuff, routines for changing
+[00:28:05] the function and so on. The source being available means that it's easy to reason about and debug.
+[00:28:13] There doesn't seem to be detailed SDK documentation but there are lots of good comments both in
+[00:28:19] the implementation and in the headers that you'll likely be interacting with.
+[00:28:26] You do get some binary only libraries. For example this one contains the BLE stack.
+[00:28:34] So you don't get source to that which is a bit of a shame. You get a standard GNU LD linker script
+[00:28:41] for actually putting together flash images which is nice. It's all simple and straightforward and
+[00:28:48] doesn't try to do anything that's magic which is basically ideal if you're going to be writing
+[00:28:53] software for one of these embedded chips. But most importantly we also have our barons github
+[00:29:01] who has done all the heavy lifting of figuring out how to actually build programs against the SDK.
+[00:29:08] So I just follow here through to blinky and this is the program that I just ran.
+[00:29:15] It's dead simple. We include a lot of the SDK stuff. We initialize the CPU. We tell it what
+[00:29:24] clock crystal we're using. Initialize the GPUs. Tell it that PB4 is to be used as a GPU.
+[00:29:31] Set it to be an output pin. Set the level and then every 500 milliseconds we toggle it.
+[00:29:39] It's that simple and there's also a make file that actually builds it. But honestly this just being
+[00:29:47] GCC and LD that is pretty straightforward. So all in all it's actually a simple and easy to use
+[00:29:56] SDK which I like. Armed with our new knowledge of how things work we can actually make some
+[00:30:02] modifications to our program. Let's try making the UART work because I haven't done that yet.
+[00:30:07] That'll be interesting to try. So the first thing we need to do is that because of the pin
+[00:30:14] assignments on the board we need to move our blinky light pin away from B4 because that's going
+[00:30:21] to be the UART TX line. We're going to use C1 which is the test pad which I've already brought out
+[00:30:26] to a pin. So that's just going to be a matter of PIO, PC1. That was PC1 wasn't it? Yes.
+[00:30:38] And then change these to PIO, PIO, PB4 to pin. Right. Now we want the UART.
+[00:30:53] Our Baron has provided some handy sample code that makes the UART work. But it's using DMA and I
+[00:31:00] don't want to use DMA for this. I want to do this the simple way. So we're going to go straight
+[00:31:05] to the UART.H file which contains all the SDK functions and we want to, the first thing we do
+[00:31:14] is want to set the pins. So that will be UART set pin TXB4, RXB5, PB4, TKO, PB5.
+[00:31:32] Okay. Now we want to initialize it using init board rate which I looked at earlier. That is down here.
+[00:31:45] We need to set the various clock dividers to get the board rate we want. We want 115kb. Luckily the
+[00:31:51] values we can just pull right off this table. So that's going to be 9,13. Now we want the
+[00:32:02] parity and stop bits. So we want 8n1. So we go look at the enums up here. 8 you get by default.
+[00:32:12] n is parity none.
+[00:32:21] And stop bit 1 is here.
+[00:32:26] Okay. In order to actually output something, we scroll down, we go past all the DMA and interrupt stuff.
+[00:32:37] And eventually we get some standard functions mod NDMA for the non-DMA method.
+[00:32:44] And this is the one we want. UART NDMA send byte. So UART NDMA send byte.
+[00:32:55] And we're going to send out additional low case Q. Okay. That should be our program.
+[00:33:02] So over here we run our make file. And we get a output binary which we can look at. And we see it is
+[00:33:13] 4k of text, 12 bytes initialized variables, 420 bytes of uninitialized. So that will be leaving
+[00:33:22] well, 1,6,8,4 minus 12 minus 420. That leaves that many bytes spare to do stuff with.
+[00:33:36] Okay. So I think that's our program. The next thing to do is to download it onto the board.
+[00:33:45] Rearrange the pins, hook up a serial terminal and see if it works.
+[00:33:49] So back at the workbench, the first thing I'm going to do is to just move the
+[00:33:58] blinky over to T pin. Then I can flash it using my Python client for the telling debugger thing
+[00:34:14] that I put together. Let's do that from the right directory. There we go. There's a raise of
+[00:34:19] flashes and writes it very slowly. That has successfully flashed it, but the CPU still in halt. So
+[00:34:29] tell it tell it to run. And oh, thank goodness, that works. Okay. Next thing is to hook up the UART.
+[00:34:38] This is the TX pin from the PICO's UART, which I now see has the wrong connector. This has
+[00:34:51] to connect to the pin over here. So let me just try and dig up a replacement wire. Got one.
+[00:35:01] Okay. So
+[00:35:10] that goes to a spare row. I'm going to use white for this. That goes down here.
+[00:35:22] And then this will then go to one of these two pins. Let's just go for that one first.
+[00:35:30] Now back on the terminal, we want to start up our serial terminal. And nothing happens.
+[00:35:42] Okay, the configuration is right. So I bet we've plugged that into the RX line. Let's try the other one.
+[00:35:50] Oh, thank goodness. That this is actually the first most tried this for real. So I am very glad
+[00:35:56] that that has worked with an absolute minimum of drama. So we've got a fully functioning SDK. We
+[00:36:02] can write programs that are not the example programs that someone else wrote. We have the UART
+[00:36:07] working. We have standard GPIOs working. We don't have the screen working yet, but honestly,
+[00:36:13] I trust our barons code to do that. So the next thing is to write something with it.
+[00:36:19] Oh, look, I seem to have done a micro python port. So if anyone doesn't know what micro python is,
+[00:36:29] it's a port of python to ridiculously small microcontrollers. It runs just fine in this thing,
+[00:36:36] 16K of RAM. And it gives you a full python environment. You know, we are looking at the
+[00:36:41] python command lines. So you can do expressions, you can do strings, you can define functions,
+[00:36:50] you can do classes. It all works. Porting it is really straightforward. It took me about an hour
+[00:36:59] to get from a C hello world to getting the micro python command prompt working. There were a lot
+[00:37:05] of later rough edges as I learned more about how both micro python and this thing works. Turns out
+[00:37:13] that the SDK that I said was pretty good is less good once you look at the details. It's got a lot
+[00:37:19] of missing features, undocumented things and just plain broken things. But I have made it work.
+[00:37:26] So not only do we have a full python system, we have a bunch of peripherals as well. So I can do
+[00:37:33] from machine input pin. I can make a pin. I can type on this little keyboard. Let me see,
+[00:37:49] we put our white LED on test. I think it was. It's called pad test. We can set output pin.
+[00:38:04] We can set it high. The light goes on. We can set it low. Light goes off. I did also, by the way,
+[00:38:14] find that the green LED here is in fact hooked up to the debugging port so we can repurpose that
+[00:38:24] as a GPIO. That should be called pad. Oh yes, notice that you actually get a proper readline
+[00:38:33] implementation. It's even as tab completion. I'm not sure you can see that. There it is.
+[00:38:39] And we can set it off. And on again, set it off. We're probably taking quite a lot of current.
+[00:38:49] We have other features. Before I do that, let me just show you if we import GC, this allows us to
+[00:38:57] show you how much memory is free, which is 7K. Let me do a garbage collection.
+[00:39:02] And that's gone up to 9.5K. That's actually a reasonable amount for this thing. You can write
+[00:39:11] respectable small programs and then we'll fit in RAM. But of course, this being micro python,
+[00:39:17] there are features here. You don't have to put your Python programs in RAM. You can embed them
+[00:39:23] into the flash image and run them directly out of flash. So your Python bytecode consumes no RAM.
+[00:39:29] So the RAM here is used only for your program workspace and it stretches a lot further
+[00:39:36] than you would think. But other features, let me import OS. We have a file system,
+[00:39:47] which is empty. So micro python is currently about 130 odd K. And the flash is 512 K, which 500
+[00:39:58] is usable. So all the rest is a little FS flash file system. And if I can find this one,
+[00:40:08] stat VFS, stat VFS slash, that shows us we're using 4K blocks. There are 85 on the flash 81 R&amp;U.
+[00:40:21] Let's write a file. It's right, and we're going to write hello world. Where did I put the back
+[00:40:36] slash on this keyboard? Not that one. Oh yeah, it's an American keyboard. It doesn't have a back
+[00:40:43] slash when there's a UK key map on it. Let's just do that then. And it writes and closes the file.
+[00:40:55] So now if we do this here again, there is our file. And if we do stat VFS, we can see we've used
+[00:41:03] one block. The command line prompt makes writing programs for this thing breeze, but there are other
+[00:41:10] features. Let me switch. Let me close the terminal and switch to the other thing here, because
+[00:41:23] AidaFruit's AMP program is a very handy tool that will talk to a micro python or circuit
+[00:41:32] python board and do stuff with it. So if we do LS, it will show us the file system. I can do
+[00:41:42] get test.text. And that has red and dump test.text to stood out. Let me try and put a file. Let's do
+[00:41:59] put readme.md. And that should copy it onto the flash like so. Go back to here, fire up the terminal again.
+[00:42:15] At rest, list dear. AMP does a soft reset of the board. So we have to do that. And there's our file.
+[00:42:26] We can do a equals. Actually, let's do.
+[00:42:34] Forl in trying to remember how this works. Open test.text is that work? Printl. Yep, that does work.
+[00:42:52] I should probably use a with there, but I'm not going to. These are just going to leak and stay open.
+[00:43:03] The garbage collectible catch them eventually. Yes, it's not a very big file. So I've zoomed in a
+[00:43:12] bit on the things, make it a bit more visible. You won't be able to see me typing, but never mind.
+[00:43:18] Let me write a very simple program just to show you how this works. We want to not to do that.
+[00:43:27] From machine import pin. So we are going to create a pin for the
+[00:43:36] the the led, which is on pad sWS pin dot out. It comes on. Let me turn that off.
+[00:43:50] Guy, the cent is inverted. Let me turn that off. Button is button pin dot in while while true.
+[00:44:06] LED not button. So now if I push the button,
+[00:44:19] this is the thing that micro python makes so easy. I don't have to flash it. I don't have to
+[00:44:26] compile anything. You can just connect up your serial terminal and type and it just works.
+[00:44:36] Let me reset the thing. Hey, that worked. So the LEDs attached to the software debugging pin.
+[00:44:50] I had repurposed that as a GPIO and yet I was still able to reset the board using the debugger.
+[00:44:58] So apparently just because it's a GPIO doesn't mean the debugger stops listening, which is
+[00:45:04] a little bit worrying to be honest. What happens if you're using it as an iOP and you just happen
+[00:45:10] to receive stuff that the debugger interprets anyway, never mind. So let me go back to this window
+[00:45:17] and I'll show you another feature which is this one. We can use AMP to download and run arbitrary
+[00:45:26] python files, which is great for doing development. And in fact, what I've done is,
+[00:45:32] oh yeah, I have to turn off the serial terminal first otherwise that may get everything confused
+[00:45:43] back to the other window. There we go. We have a clock. Yes, I made the screen work.
+[00:45:51] That was really annoying. So the screen is interesting. Our barons watch has a ST
+[00:46:01] 77789, I think possibly a something three, but one of those. This does not. This has a GC1209,
+[00:46:10] which is subtly incompatible to the ST7789, which means that these watchers do vary somewhat,
+[00:46:19] which is not great. So I knew that our barons had a slightly different PCB from having looked
+[00:46:28] pictures, but having a different screen is interesting. So the big difference between
+[00:46:36] this and the ST7789 is the ST7789 has more video memory. It will support 320 by 240 screens.
+[00:46:47] And the controller chip, which is embedded into this glass slab, contains the frame buffer for
+[00:46:52] the screen. You send commands to it that draw into the video memory and then stuff shows up on the
+[00:46:58] screen. The GC1209 has less video memories, but only supports a frame buffer of 132 by 132
+[00:47:12] or something by 160. I forget what the something is. This screen is 80 by 160. So we need the second
+[00:47:21] mode. You control which geometry the controller chip is set to by strapping certain pins. And
+[00:47:29] this interface cable has the wrong set of pins strapped. So when the thing starts up, it
+[00:47:35] assumes it's connected to a 132 by 132 LCD and you only get part of the screen. It's cropped
+[00:47:44] to 4 by 132 by 132 square. You can override the geometry setting, but it took forever to find the
+[00:47:52] weird undocumented command sequence from someone on the interwebs. That does it. Luckily I did find it.
+[00:48:01] At that point I was basically reduced to randomly fiddling with things to try and understand what
+[00:48:08] was going on. So it was a great relief when I finally made it work. Anyway, this is a clock.
+[00:48:14] It's a very bad clock. It shows the time since start up, since the clock program started up,
+[00:48:22] rather. The internal timer is 32 bits and rolls over, rather irritatingly soon. So I have to keep
+[00:48:31] my own count of the time, which gets updated once a second. We have just to show it's doing something.
+[00:48:38] In tiny blue writing down here is the amount of free memory. And if you watch it, you can see it
+[00:48:44] slowly count down as the heap fills up and then jump up again as a garbage collection happens.
+[00:48:50] And over here we have what might be the battery voltage. This is using some of telling sample code
+[00:48:59] to try and read the battery, but their code was producing unsensical results.
+[00:49:04] And I ended up scaling it by a factor of two and it produces what might be the right result.
+[00:49:12] I fiddled with it a bit and it does vary slightly and it does seem to drop when I disconnect the
+[00:49:18] power, but I don't know if it's working. Which brings me to my next major point.
+[00:49:25] I don't have any power management stuff in this. It's running flat out.
+[00:49:29] How long will this tiny and disturbingly squishy battery last?
+[00:49:35] So I am going to reg up a time lapse and find out.
+[00:49:58] I was honestly expecting it to take longer than that. I know what's happening, of course.
+[00:50:08] This is my clock program in Python. The way it works is it figures out when the next second is
+[00:50:17] and it just sleeps for that long. This isn't actually quite right due to the way the clock rolls over.
+[00:50:22] Really I need to figure out a way to change the underlying clock time to be a 64 bit in.
+[00:50:28] But anyway, this works well enough. But if we go look at the sleep function,
+[00:50:33] this is my implementation in the TC32 back end and all it does is it calls the telling SDK
+[00:50:42] sleep function. And if we go and look at that, it just spins the CPU at full power for the
+[00:50:50] appropriate amount of time. The CPU is running flat out at 100% maximum power usage. So that is
+[00:50:58] why we're only getting about 45 minutes of runtime. Really what I should be doing is using an interrupt,
+[00:51:06] setting one of the hardware timers and then putting the CPU to sleep until the interrupt happens.
+[00:51:12] But I don't know how to do that. There are some functions in the SDK that suggest that they're
+[00:51:17] doing that. But they don't seem to be complete and at this point I can't be bothered to actually
+[00:51:24] figure it out. I can deal with all of that later because I have other things to get on with. You see?
+[00:51:36] I have a new smartwatch. Yes, by buying another one, I now magically have two of them.
+[00:51:46] This is the original packaging. You get a plastic bag full of smartwatch stuff.
+[00:51:52] We have the watch, which works. And we have a silicone wristband, which kind of works.
+[00:52:01] And we have some instruction manuals which I haven't bothered to read, but probably also in the
+[00:52:06] works. The point of this is that the one that I've ever sectored, which is here in this plastic
+[00:52:14] bag, is probably not going back inside the case. So by buying a second one, it's not like
+[00:52:22] they're expensive, I should be able to do a similar modification to this, but in a much more
+[00:52:28] user-friendly way. And hopefully end up with something that is actually small and elegant and
+[00:52:36] useful and stuff. But first of course,
+[00:52:49] okay, let's open this up the way I did the other one. So yeah, I sincerely doubt that this thing
+[00:52:59] is waterproof. So here we have the works just as they were before.
+[00:53:09] And it looks like the same PCB. Yeah, I'm pretty sure that's the same. And I want to try and
+[00:53:17] add some pins somewhere for an external connector. I thought of using this if I can
+[00:53:25] cut away part of the case. I should then be able to solder something wise in.
+[00:53:56] So
+[00:54:10] some rather poor dremeling later and I do actually have a slot for this thing. It would stick in here.
+[00:54:20] I'll probably say I need to fasten it in with hot glue. But now it's done. I don't really like it
+[00:54:28] very much. Yeah, I'm not very keen. Luckily I do have two of these cases. There's the other one.
+[00:54:37] So there is a certain amount of scope for screwing up.
+[00:54:53] Yes, I think I prefer it with the wires and the hole. It's less elegant in that there's
+[00:55:02] we stuff hanging off it when it's not in use. But I think it's going to be so much less hassle
+[00:55:08] this way. So can we fit the works back in?
+[00:55:12] And again, that's the PCB in place. Now let's see if we can actually route these wires somewhere useful.
+[00:55:43] I'm being an idiot with this. I'm trying to route the wires through this tiny little hole.
+[00:55:52] But I am doing it all wrong. I don't need a hole.
+[00:56:03] By cutting a slot rather than a hole, I achieve exactly the same effect because when the
+[00:56:10] lid is put on, it turns into a hole. But now I can just slide the wires down rather than having
+[00:56:18] to thread them through the hole.
+[00:56:41] So here it is, all hooked up. And if I touch the button, it still works, which is rather nice.
+[00:56:53] I have this here hooked up to my debugger bridge on the Raspberry Pi Pico via four wires.
+[00:57:00] In order TX or possibly RX, RX or possibly TX, ground and SWS data. I do not have the reset line
+[00:57:08] hooked up because getting at the reset line of one of these things is ridiculously hard.
+[00:57:14] And it turns out you don't actually need it. When the stock firmware is running,
+[00:57:20] the debugger cannot communicate with the device. However, I can manually restart this and then the
+[00:57:26] debugger can grab control and hold the CPU. This has actually shown up an interesting point,
+[00:57:32] which is once the CPU is holtered, you can't turn it off. The battery is hard wired into it.
+[00:57:40] I can unplug the USB, but I can't unplug the battery. This means that it will just sit there with
+[00:57:48] the CPU holtered running the battery down until the battery goes flat. The only way of getting out
+[00:57:54] of this state is to use the debugger to start the CPU up again. So let's plug this back in.
+[00:57:59] Turn that this is not plugged in at this end.
+[00:58:06] There we go. And it starts charging. So I have the debugger working and I have been able to
+[00:58:15] dump the ROM, which is shown up a rather interesting issue, in that the ROM on this is actually
+[00:58:21] different from the one I got off the Vivid Sectored one. Here we are looking at the two ROMs.
+[00:58:28] The one on the left is from the old wristband and the one on the right is from the new wristband.
+[00:58:33] And they are very similar, but there is a byte here, which is different. And in addition,
+[00:58:39] there are more changes further on. Each of these things has a version number, which if I find,
+[00:58:49] typing correctly, come on, there we go. V17944 for the old one. And
+[00:58:59] V173874 for the new one. And you can see this in the about page. More than that, there's a
+[00:59:06] additional serial number, which you can see here, 309141545, also visible on the about screen,
+[00:59:19] where over on this one, the number is different. And you'll also notice that these strings are in
+[00:59:29] a different place. I did dump the ROM several times and compare the results. So I'm pretty sure
+[00:59:36] that they are correct. Also, I have reflashed the old wristband with the old ROM and it works.
+[00:59:45] So that's nice. I haven't tried that yet on the new one. I was expecting the ROMs to be different
+[00:59:52] because the shoddy app that comes with them fit pro. When you change a preference setting,
+[00:59:58] it actually reflashes the device remotely. So it's expecting to see some changes, but I would have
+[01:00:05] thought that that would just be the the visual assets. It's this stuff. But it seems to be more
+[01:00:13] than that. Given that the screens are different than the two devices, then maybe there is a different
+[01:00:19] driver built in. Or maybe it just happens to update this stuff when you change the preferences and
+[01:00:25] what I'm looking at is nothing at all. I will try reflashing the second device with the old ROM
+[01:00:31] and seeing what happens. But I honestly have other things I want to do with it, such as run
+[01:00:39] micro-pifing on it. Yep, it works fine. I find more through to this page. V17944, this is the
+[01:00:54] version number for the first ROM. Anyway, onto micro-pifing. Okay, because the reset line's not hooked up,
+[01:01:06] it's asking me to manually reset the thing. I have to unplug the power to get the watch to
+[01:01:13] actually start up normally. So I find more reset.
+[01:01:27] And here we go.
+[01:01:36] And it works. Excellent. This means I do in fact have the RX and the TX lines wide the right way
+[01:01:48] around, which means I can replace this horrible thing with a natural connector. Okay,
+[01:01:57] here we go. That's the wrong port. I'll get you that to TTY2.
+[01:02:08] And the watch works excellent. Although I notice I think the colors are different and it's clipped.
+[01:02:30] So I've gone away and looked at the footage and yes the colors are different. I will bring up
+[01:02:34] some B-roll here. Now this is very interesting. It suggests that there is a way for the firmware
+[01:02:43] to figure out what kind of screen is being used and configuring it accordingly because the
+[01:02:48] configuration settings are obviously different for the different types of screen. I was unable to
+[01:02:52] make this work. I tried it. I wanted to read back stuff like the screen ID and I would actually
+[01:03:01] thought that the MySouline Mastering Slave Out, which connects the screen to the processor,
+[01:03:09] wasn't hooked up. But this means that if the firmware is capable of adapting to different screens
+[01:03:15] there must be a way for it to do that. So I have another look I suppose. But anyway the main thing
+[01:03:22] is it works. So some uptime. I think these things are really interesting. They're cheap. They're
+[01:03:30] easy to hack. They're pleasantly unusual. I mean not just another arm. And if you hunt for it there's
+[01:03:36] a reasonable amount of information out there. There's a decent data sheet with holes in it. There's a
+[01:03:42] mostly adequate SDK with holes in it. There's a compiler with big holes in it. I'll get onto that later.
+[01:03:50] And you can get these absolutely everywhere. So here is AliExpress. Pages of them. And then for some
+[01:03:58] reason you go onto Performance Sports Stripes for BMW. And the pricing on AliExpress is you know
+[01:04:08] anything from two and a bit euros to seven eight euros. If you go to Alibaba they're even cheaper
+[01:04:19] but of course you do need to buy more. I found this one where the price actually starts at 80 US
+[01:04:28] cents. Although for that you do have to buy 100 million of them. For your three francs,
+[01:04:35] dollars, pounds, euros you actually get quite a bit of functionality. They run micro-pights
+[01:04:41] and very nicely. There's actually quite a lot of hardware in one of these things.
+[01:04:47] Now the biggest thing about these devices which I haven't really talked about is the Bluetooth
+[01:04:54] low energy stack. The reason why I haven't talked about it much is that even though there are
+[01:05:00] samples in the SDK for making it work and our barren has some examples. For some reason the BLE
+[01:05:09] stack wants to load into RAM not into Flash and it consumes 10k. And given that the device has 16k
+[01:05:16] and it uses two and a half K for its SBI cache, that doesn't really leave a lot of space. So
+[01:05:23] if it's going to be a tool viable to use BLE with MicroPython it will need a brand new stack
+[01:05:29] that uses less RAM. The other big issue is you do have to modify them in order to reprogram them.
+[01:05:37] You can flash them OTA and suppose it would be possible to reverse engineer that protocol
+[01:05:45] but I don't want to. So anyone who wants to flash it is going to have to open it up and
+[01:05:52] solder some very small wires on. One issue I came up with that hasn't showed up on camera is that
+[01:05:59] without the reset line wired up I actually had a fair bit of difficulty making the device reboot
+[01:06:05] properly after flashing an image. I think it was failing to reset properly. Now it is possible to
+[01:06:16] halt and run the CPU via the debug interface. And I'm not sure that restarting the CPU is working
+[01:06:24] properly. I have also found a command which is supposed to do a full reset of the device
+[01:06:33] but I'm not convinced that works properly either. It's much easier if you can wire up the reset
+[01:06:38] line but wiring up the reset line is decidedly nontrivial. And now let's talk about the
+[01:06:44] compiler. Telling has a port of GCC to the TC32. It is very old and not very good and there's no
+[01:06:53] source available which is really naughty of them. It's got some really bad bugs. For example,
+[01:07:01] here is a C-program. It is just a simple switch statement which compiles into a jump table.
+[01:07:09] Down here are the targets. So here is where we call funk with parameter 0. We load the parameter. We
+[01:07:16] jump to tjl funk to actually do the work. Here we have the jump table and this is encoded as a set of
+[01:07:25] bytes. Unfortunately here is the code that actually jumps via the jump table. And we take the initial
+[01:07:37] value we multiply it by 4. We load the address of the jump table. We add the jump table address to
+[01:07:46] the multiply by 4 value. Read the address and jump. But these are not addresses. These are bytes.
+[01:07:55] This just doesn't work. It's garbage. Luckily there's a compiler flag that allows you to make the
+[01:08:03] compiler generate tree style switch statements. Here it is. And those do work. But without the flag,
+[01:08:11] your code will just crash as soon as it hits the switch statement. So for this to be a decent
+[01:08:18] platform, it really needs a new compiler. Porting LLVMLGCC to the TC32 would be hard. However,
+[01:08:26] I suspect it would be much easier to generate cortex m0 code. And then assemble this for the TC32.
+[01:08:34] Because I think that the two architectures are so similar that this would be trivial. So there is
+[01:08:42] some interesting work there to figure out the exact relationship between TC32 and cortex m0.
+[01:08:51] Given the battery life, I'm not sure one of these would actually work as a watch.
+[01:08:56] It would be interesting to see how long the battery would last when sleeping. Probably
+[01:09:00] easily long enough. But I don't know whether you could sleep the CPU while also having the LCD
+[01:09:07] enabled and still get 24 hours battery life. The stock firmware just turns the screen off after a
+[01:09:14] few seconds. You have to touch the button to make the time appear, which means it's not very useful
+[01:09:19] as a watch. But I can totally imagine these things being useful as a mini control panel user interface
+[01:09:28] for some other project. Just being able to use one as a monitor. So all it does is display data
+[01:09:36] that's fed to it via the UART or something. That would be plausible. The little fiddly to modify
+[01:09:41] the device to actually do that. But it's not like they're expensive. So anyway, I am going to leave
+[01:09:48] it here because this has actually taken quite a while of walk-lock time. And I am desperately afraid
+[01:09:55] this is going to end up either being a two hour video or a 10 minute video. So I need to go away
+[01:10:00] and start editing. There is a lot more stuff to do here. I may or may not do some of it off camera
+[01:10:07] depending on how enthusiastic I feel. Everything is going up on Github, including my debugger bridge,
+[01:10:13] which is this thing currently being displayed here. As a standard Raspberry Pi Pico project,
+[01:10:24] the MicroPython port, I'm going to talk to the MicroPython people about upstreaming it.
+[01:10:29] I am not sure they will want it given that it needs this weird proprietary compiler, but we'll see.
+[01:10:34] But that's the Beyond Github anyway. Stuff like ROMs and the SDKs and the data sheets I have uploaded
+[01:10:41] to archive.org, links to all these things will be below in the description. So, as always,
+[01:10:49] I hope you enjoyed this video. Please let me know what you think in the comments.

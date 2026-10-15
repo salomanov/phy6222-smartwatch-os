@@ -31,66 +31,45 @@ static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
 static bool s_diag_first_draw = true;
 
+#define FW_VERSION_STR "v1.3.0-OTA"
+
 static void render_watchface(void) {
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
         display_fill_screen(COLOR_BLACK);
-        gfx_draw_rect(0, 0, 80, 14, COLOR_NAVY);
-        gfx_draw_string(6, 3, "LP715 DIAG", COLOR_CYAN, COLOR_NAVY, 1);
-        gfx_draw_fast_h_line(2, 66, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 70, "CHASY-STEALTH", COLOR_CYAN, COLOR_BLACK, 1);
-        gfx_draw_string(4, 82, "RF: 1M 0dBm", COLOR_GREEN, COLOR_BLACK, 1);
-        gfx_draw_fast_h_line(2, 94, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 98, "PERIPHERALS:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_fast_h_line(2, 136, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 142, "CLICK: VIB SCAN", COLOR_GREEN, COLOR_BLACK, 1);
-        gfx_draw_string(4, 152, "HOLD: OTA MODE", COLOR_CYAN, COLOR_BLACK, 1);
+        
+        // Header
+        gfx_draw_rect(0, 0, 80, 16, COLOR_NAVY);
+        gfx_draw_string(6, 4, "LP715 OTA TEST", COLOR_CYAN, COLOR_NAVY, 1);
+        
+        gfx_draw_fast_h_line(2, 20, 76, COLOR_DARKGREY);
+        
+        // Firmware Version & Build Date
+        gfx_draw_string(4, 26, "FW VER:", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_string(4, 38, FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
+        
+        gfx_draw_string(4, 52, "BUILD DATE:", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_string(4, 64, __DATE__, COLOR_WHITE, COLOR_BLACK, 1);
+        gfx_draw_string(4, 76, __TIME__, COLOR_CYAN, COLOR_BLACK, 1);
+        
+        gfx_draw_fast_h_line(2, 90, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 96, "DEVICE UP TIME:", COLOR_YELLOW, COLOR_BLACK, 1);
+        
+        gfx_draw_fast_h_line(2, 130, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 136, "BLE: AIR OTA OK", COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 148, "READY FOR FLASH", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
-    // Hardware status: Uptime & Battery
-    char buf[20];
-    snprintf(buf, sizeof(buf), "UP: %-4lus", (unsigned long)s_uptime_seconds);
-    gfx_draw_string(4, 18, buf, COLOR_WHITE, COLOR_BLACK, 1);
-
-    // Power & Battery / Charging status
-    uint8_t bat_pct = battery_get_percent();
-    uint16_t bat_mv = battery_read_mv();
-    bool is_chg = battery_is_charging();
-    snprintf(buf, sizeof(buf), "PWR:%d.%02dV %s", bat_mv / 1000, (bat_mv % 1000) / 10, is_chg ? "[CHG]" : "[BAT]");
-    gfx_draw_string(4, 30, buf, is_chg ? COLOR_YELLOW : ((bat_pct > 20) ? COLOR_GREEN : COLOR_RED), COLOR_BLACK, 1);
-
-    // BLE State Line
-    uint8_t bst = ble_get_state();
-    const char *st_name = "INIT";
-    uint16_t st_col = COLOR_YELLOW;
-    if (bst == 1) { st_name = "START"; st_col = COLOR_CYAN; }
-    else if (bst == 2) { st_name = "ADV  "; st_col = COLOR_GREEN; }
-    else if (bst == 3) { st_name = "CONN "; st_col = COLOR_MAGENTA; }
-    else if (bst >= 4) { st_name = "WAIT "; st_col = COLOR_ORANGE; }
-
-    snprintf(buf, sizeof(buf), "BLE:%-5s %d%%", st_name, bat_pct);
-    gfx_draw_string(4, 42, buf, st_col, COLOR_BLACK, 1);
-
-    // Accelerometer telemetry
-    accel_update();
-    if (accel_is_detected()) {
-        int16_t ax, ay, az;
-        accel_get_xyz(&ax, &ay, &az);
-        snprintf(buf, sizeof(buf), "ACC:%+d,%+d,%+d", ax, ay, az);
-        gfx_draw_string(4, 54, buf, COLOR_GREEN, COLOR_BLACK, 1);
-    } else {
-        snprintf(buf, sizeof(buf), "ACC:%s", accel_get_name());
-        gfx_draw_string(4, 54, buf, COLOR_ORANGE, COLOR_BLACK, 1);
-    }
-
-    // Button input counter
-    snprintf(buf, sizeof(buf), "BTN: %-4lu evt", (unsigned long)s_click_count);
+    // Dynamic ticking Uptime: HH:MM:SS
+    char buf[24];
+    uint32_t sec = s_uptime_seconds;
+    uint32_t h = sec / 3600;
+    uint32_t m = (sec % 3600) / 60;
+    uint32_t s = sec % 60;
+    snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu (%lus)", (unsigned long)h, (unsigned long)m, (unsigned long)s, (unsigned long)sec);
     gfx_draw_string(4, 110, buf, COLOR_WHITE, COLOR_BLACK, 1);
-
-    // Vibrator pulse counter
-    snprintf(buf, sizeof(buf), "VIB: %-4lu buzz", (unsigned long)s_vib_count);
-    gfx_draw_string(4, 122, buf, COLOR_WHITE, COLOR_BLACK, 1);
 }
+
 
 static void render_vibrator_test(void) {
     display_fill_screen(COLOR_BLACK);
