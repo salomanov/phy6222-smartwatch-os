@@ -31,43 +31,66 @@ static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
 static bool s_diag_first_draw = true;
 
-#define FW_VERSION_STR "v1.3.0-OTA"
+#define FW_VERSION_STR "v1.4.0-OTA"
 
 static void render_watchface(void) {
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
         display_fill_screen(COLOR_BLACK);
         
-        // Header
-        gfx_draw_rect(0, 0, 80, 16, COLOR_NAVY);
-        gfx_draw_string(6, 4, "LP715 OTA TEST", COLOR_CYAN, COLOR_NAVY, 1);
+        // Header (Navy Blue Bar)
+        gfx_fill_rect(0, 0, 80, 16, COLOR_NAVY);
+        gfx_draw_string(4, 4, "LP715 CUSTOM", COLOR_CYAN, COLOR_NAVY, 1);
         
-        gfx_draw_fast_h_line(2, 20, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 18, 76, COLOR_DARKGREY);
         
-        // Firmware Version & Build Date
-        gfx_draw_string(4, 26, "FW VER:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_string(4, 38, FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
+        // Firmware Version
+        gfx_draw_string(4, 22, "FW: " FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
         
-        gfx_draw_string(4, 52, "BUILD DATE:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_string(4, 64, __DATE__, COLOR_WHITE, COLOR_BLACK, 1);
-        gfx_draw_string(4, 76, __TIME__, COLOR_CYAN, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 33, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 36, "ACCEL SENSOR:", COLOR_YELLOW, COLOR_BLACK, 1);
         
-        gfx_draw_fast_h_line(2, 90, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 96, "DEVICE UP TIME:", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 84, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 88, "UPTIME:", COLOR_YELLOW, COLOR_BLACK, 1);
         
-        gfx_draw_fast_h_line(2, 130, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 136, "BLE: AIR OTA OK", COLOR_GREEN, COLOR_BLACK, 1);
-        gfx_draw_string(4, 148, "READY FOR FLASH", COLOR_CYAN, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 114, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 144, "HOLD: AIR FLASH", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
-    // Dynamic ticking Uptime: HH:MM:SS
     char buf[24];
+
+    // 1. Live Accelerometer Telemetry
+    int16_t ax = 0, ay = 0, az = 0;
+    accel_get_xyz(&ax, &ay, &az);
+
+    snprintf(buf, sizeof(buf), "%-7s %-5s", accel_get_name(), accel_get_pins());
+    gfx_draw_string(4, 48, buf, accel_is_detected() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
+
+    snprintf(buf, sizeof(buf), "X:%+4d Y:%+4d", (int)ax, (int)ay);
+    gfx_draw_string(4, 60, buf, COLOR_CYAN, COLOR_BLACK, 1);
+
+    snprintf(buf, sizeof(buf), "Z:%+4d ID:%02X", (int)az, (unsigned int)accel_get_chip_id());
+    gfx_draw_string(4, 72, buf, COLOR_CYAN, COLOR_BLACK, 1);
+
+    // 2. Dynamic ticking Uptime: HH:MM:SS
     uint32_t sec = s_uptime_seconds;
     uint32_t h = sec / 3600;
     uint32_t m = (sec % 3600) / 60;
     uint32_t s = sec % 60;
     snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu (%lus)", (unsigned long)h, (unsigned long)m, (unsigned long)s, (unsigned long)sec);
-    gfx_draw_string(4, 110, buf, COLOR_WHITE, COLOR_BLACK, 1);
+    gfx_draw_string(4, 100, buf, COLOR_WHITE, COLOR_BLACK, 1);
+
+    // 3. Battery status
+    uint8_t bat_pct = battery_get_percent();
+    snprintf(buf, sizeof(buf), "BAT: %d%% (%s)", bat_pct, battery_is_charging() ? "CHG" : "OK");
+    gfx_draw_string(4, 118, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
+
+    // 4. BLE status
+    if (ble_is_connected()) {
+        gfx_draw_string(4, 130, "BLE: CONNECTED ", COLOR_GREEN, COLOR_BLACK, 1);
+    } else {
+        gfx_draw_string(4, 130, "BLE: ADV CHASY ", COLOR_YELLOW, COLOR_BLACK, 1);
+    }
 }
 
 
@@ -159,6 +182,20 @@ void app_os_update(void) {
                 s_hours = (s_hours + 1) % 24;
             }
         }
+        // Accelerometer update and telemetry
+        if (!accel_is_detected() && (s_uptime_seconds % 5 == 0)) {
+            accel_init();
+        }
+        accel_update();
+        int16_t ax = 0, ay = 0, az = 0;
+        accel_get_xyz(&ax, &ay, &az);
+
+        LOG("[ACCEL] %s (%s, Addr=0x%02X, ID=0x%02X): X=%+d Y=%+d Z=%+d\n",
+            accel_get_name(), accel_get_pins(), accel_get_addr(), accel_get_chip_id(),
+            (int)ax, (int)ay, (int)az);
+
+        ble_notify_accel(accel_get_name(), ax, ay, az);
+
         // If BLE is still in INIT (B:0), trigger GAPRole_StartDevice once at startup
         if (ble_get_state() == 0 && ble_get_start_calls() == 0) {
             ble_try_start_device();
@@ -179,6 +216,9 @@ void app_os_update(void) {
         if (s_current_mode == MODE_WATCHFACE) {
             // Tactile 80ms haptic tap feedback
             vibrator_pulse(80);
+            if (!accel_is_detected()) {
+                accel_init();
+            }
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
             vibrator_next_test_pin();
             vibrator_test_fire();

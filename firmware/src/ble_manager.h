@@ -19,5 +19,6 @@ uint16_t ble_get_start_calls(void);
 uint8_t ble_get_task_id(void);
 void ble_try_start_device(void);
 void ble_start_ota_mode(void);
+void ble_notify_accel(const char *name, int16_t x, int16_t y, int16_t z);
 
 #endif // BLE_MANAGER_H

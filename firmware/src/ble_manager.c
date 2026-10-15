@@ -255,3 +255,12 @@ uint16_t WatchBLE_ProcessEvent(uint8_t task_id, uint16_t events) {
 
     return 0;
 }
+
+void ble_notify_accel(const char *name, int16_t x, int16_t y, int16_t z) {
+    if (!s_ble_connected) return;
+    char buf[20];
+    int len = snprintf(buf, sizeof(buf), "%s:%+d,%+d,%+d", name, (int)x, (int)y, (int)z);
+    if (len > 0) {
+        simpleProfile_Notify(SIMPLEPROFILE_CHAR6, (uint8)len, buf);
+    }
+}
