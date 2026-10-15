@@ -13,13 +13,11 @@ typedef struct {
 } i2c_pin_pair_t;
 
 static const i2c_pin_pair_t s_pairs[] = {
-    // Factory LP719 / LP715 pinout reversed from factory ROM
+    // Pure candidates on LP715_MB_V1.3
     { GPIO_P16, GPIO_P17, "P16/P17" },
     { GPIO_P17, GPIO_P16, "P17/P16" },
     { GPIO_P14, GPIO_P15, "P14/P15" },
     { GPIO_P15, GPIO_P14, "P15/P14" },
-    { GPIO_P26, GPIO_P27, "P26/P27" },
-    { GPIO_P27, GPIO_P26, "P27/P26" },
 };
 #define NUM_PAIRS (sizeof(s_pairs) / sizeof(s_pairs[0]))
 
@@ -237,122 +235,123 @@ void accel_init(void) {
     hal_gpio_write(GPIO_P02, 1);
 
     hal_gpio_cfg_analog_io(GPIO_P07, Bit_DISABLE);
+    // Enable digital GPIO mode on P16/P17 (disconnect analog 32K crystal circuit)
+    subWriteReg(&(AP_AON->PMCTL2_0), 6, 6, 0x01);
+    WaitUs(50);
+    hal_gpio_cfg_analog_io(GPIO_P16, Bit_DISABLE);
+    hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
+
+    // Power enable P02 (analog rail) and P07 (sensor VCC rail in factory ROM)
+    hal_gpio_cfg_analog_io(GPIO_P02, Bit_DISABLE);
+    hal_gpio_pin_init(GPIO_P02, GPIO_OUTPUT);
+    hal_gpio_write(GPIO_P02, 1);
+
+    hal_gpio_cfg_analog_io(GPIO_P07, Bit_DISABLE);
     hal_gpio_pin_init(GPIO_P07, GPIO_OUTPUT);
     hal_gpio_write(GPIO_P07, 1);
 
-    // Set P18 (INT1) and P33 (INT2/SDO) as high pull-up
+    // Set P18 (INT1) as high pull-up input
     hal_gpio_cfg_analog_io(GPIO_P18, Bit_DISABLE);
     hal_gpio_pin_init(GPIO_P18, GPIO_INPUT);
     hal_gpio_pull_set(GPIO_P18, GPIO_PULL_UP_S);
 
-    hal_gpio_cfg_analog_io(GPIO_P33, Bit_DISABLE);
-    hal_gpio_pin_init(GPIO_P33, GPIO_INPUT);
-    hal_gpio_pull_set(GPIO_P33, GPIO_PULL_UP_S);
-
     WaitMs(30);
 
-    for (int p33_state = 1; p33_state >= 0; p33_state--) {
-        // P33 controls SDO (I2C address bit 0: 1->0x19, 0->0x18 for SC7A20)
-        hal_gpio_cfg_analog_io(GPIO_P33, Bit_DISABLE);
-        hal_gpio_pin_init(GPIO_P33, GPIO_OUTPUT);
-        hal_gpio_write(GPIO_P33, p33_state);
-        WaitMs(10);
+    LOG("[ACCEL] Starting auto-scan of %d pairs (P02=1, P07=1)...\n", (int)NUM_PAIRS);
 
-        LOG("[ACCEL] Scan pass with P33(SDO)=%d across %d pairs...\n", p33_state, (int)NUM_PAIRS);
+    for (size_t p = 0; p < NUM_PAIRS; p++) {
+        s_scl = s_pairs[p].scl;
+        s_sda = s_pairs[p].sda;
 
-        for (size_t p = 0; p < NUM_PAIRS; p++) {
-            s_scl = s_pairs[p].scl;
-            s_sda = s_pairs[p].sda;
+        hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
+        hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
+        release_bus();
+        WaitMs(1);
 
-            hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
-            hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
-            release_bus();
+        // Verify bus idle state: both lines MUST float HIGH with pull-ups!
+        if (hal_gpio_read(s_scl) == 0 || hal_gpio_read(s_sda) == 0) {
+            LOG("[ACCEL] Pair %s stuck LOW (SCL=%d, SDA=%d), skip\n",
+                s_pairs[p].desc, hal_gpio_read(s_scl), hal_gpio_read(s_sda));
+            continue;
+        }
 
-            // Verify bus idle state: both lines MUST float HIGH with pull-ups!
-            if (hal_gpio_read(s_scl) == 0 || hal_gpio_read(s_sda) == 0) {
-                LOG("[ACCEL] Pair %s stuck LOW (SCL=%d, SDA=%d), skip\n",
-                    s_pairs[p].desc, hal_gpio_read(s_scl), hal_gpio_read(s_sda));
-                continue;
-            }
+        for (size_t a = 0; a < NUM_ADDRS; a++) {
+            uint8_t dev_addr = s_addrs[a];
 
-            for (size_t a = 0; a < NUM_ADDRS; a++) {
-                uint8_t dev_addr = s_addrs[a];
+            // Ping test: send START + SLA+W, check ACK
+            i2c_start();
+            bool ack = i2c_write_byte((dev_addr << 1) | 0);
+            i2c_stop();
 
-                // Ping test: send START + SLA+W, check ACK
-                i2c_start();
-                bool ack = i2c_write_byte((dev_addr << 1) | 0);
-                i2c_stop();
+            if (ack) {
+                LOG("[ACCEL ACK!] Pair %s answered Addr=0x%02X!\n", s_pairs[p].desc, dev_addr);
+                uint8_t val = 0;
 
-                if (ack) {
-                    LOG("[ACCEL ACK!] Pair %s answered Addr=0x%02X!\n", s_pairs[p].desc, dev_addr);
-                    uint8_t val = 0;
-
-                    // Test 1: QMA6100P / QMA7981 (Reg 0x00 != 0 && != 0xFF)
-                    if (dev_addr == 0x12 || dev_addr == 0x13) {
-                        i2c_write_reg(dev_addr, 0x11, 0x80); // soft reset
-                        WaitMs(15);
-                        if (i2c_read_reg(dev_addr, 0x00, &val) && val != 0x00 && val != 0xFF) {
-                            LOG("[ACCEL] QMA CHIP_ID: 0x%02X on %s (P33=%d)\n", val, s_pairs[p].desc, p33_state);
-                            s_detected = true;
-                            s_i2c_addr = dev_addr;
-                            s_chip_id = val;
-                            s_pin_desc = s_pairs[p].desc;
-                            s_sensor_type = SENSOR_TYPE_QMA;
-                            if (val == 0xE8 || val == 0x01) strcpy(s_sensor_name, "QMA7981");
-                            else if (val == 0x90 || val == 0x05) strcpy(s_sensor_name, "QMA6100");
-                            else snprintf(s_sensor_name, sizeof(s_sensor_name), "QMA:%02X", val);
-
-                            i2c_write_reg(dev_addr, 0x0F, 0x01); // 2g
-                            i2c_write_reg(dev_addr, 0x10, 0x08); // 50Hz
-                            i2c_write_reg(dev_addr, 0x11, 0x80); // active
-                            return;
-                        }
-                    }
-
-                    // Test 2: SC7A20 / LIS3DH (Reg 0x0F)
-                    if (i2c_read_reg(dev_addr, 0x0F, &val) && val != 0x00 && val != 0xFF) {
-                        LOG("[ACCEL] SC7A20 WHO_AM_I: 0x%02X on %s (P33=%d)\n", val, s_pairs[p].desc, p33_state);
-                        if (val == 0x11 || val == 0x33 || val == 0x26) {
-                            s_detected = true;
-                            s_sensor_type = SENSOR_TYPE_SC7A;
-                            s_i2c_addr = dev_addr;
-                            s_chip_id = val;
-                            s_pin_desc = s_pairs[p].desc;
-                            strcpy(s_sensor_name, "SC7A20");
-
-                            i2c_write_reg(dev_addr, 0x20, 0x57); // 100Hz, Normal mode, XYZ enable
-                            i2c_write_reg(dev_addr, 0x23, 0x08); // High resolution
-                            return;
-                        }
-                    }
-
-                    // Test 3: Generic Reg 0x00
+                // Test 1: QMA6100P / QMA7981 (Reg 0x00 != 0 && != 0xFF)
+                if (dev_addr == 0x12 || dev_addr == 0x13) {
+                    i2c_write_reg(dev_addr, 0x11, 0x80); // soft reset
+                    WaitMs(15);
                     if (i2c_read_reg(dev_addr, 0x00, &val) && val != 0x00 && val != 0xFF) {
-                        LOG("[ACCEL] Generic CHIP_ID: 0x%02X on %s (P33=%d)\n", val, s_pairs[p].desc, p33_state);
+                        LOG("[ACCEL] QMA CHIP_ID: 0x%02X on %s\n", val, s_pairs[p].desc);
                         s_detected = true;
                         s_i2c_addr = dev_addr;
                         s_chip_id = val;
                         s_pin_desc = s_pairs[p].desc;
-                        s_sensor_type = SENSOR_TYPE_HK01;
-                        snprintf(s_sensor_name, sizeof(s_sensor_name), "ID:%02X", val);
-                        return;
-                    }
+                        s_sensor_type = SENSOR_TYPE_QMA;
+                        if (val == 0xE8 || val == 0x01) strcpy(s_sensor_name, "QMA7981");
+                        else if (val == 0x90 || val == 0x05) strcpy(s_sensor_name, "QMA6100");
+                        else snprintf(s_sensor_name, sizeof(s_sensor_name), "QMA:%02X", val);
 
-                    // Test 4: Reg 0x01 (DA280 / MSA301)
-                    if (i2c_read_reg(dev_addr, 0x01, &val) && (val == 0x13 || val == 0x26)) {
-                        LOG("[ACCEL] DA280/MSA301 ID: 0x%02X on %s (P33=%d)\n", val, s_pairs[p].desc, p33_state);
-                        s_detected = true;
-                        s_i2c_addr = dev_addr;
-                        s_chip_id = val;
-                        s_pin_desc = s_pairs[p].desc;
-                        s_sensor_type = SENSOR_TYPE_DA280;
-                        strcpy(s_sensor_name, "DA280");
+                        i2c_write_reg(dev_addr, 0x0F, 0x01); // 2g
+                        i2c_write_reg(dev_addr, 0x10, 0x08); // 50Hz
+                        i2c_write_reg(dev_addr, 0x11, 0x80); // active
                         return;
                     }
                 }
+
+                // Test 2: SC7A20 / LIS3DH (Reg 0x0F)
+                if (i2c_read_reg(dev_addr, 0x0F, &val) && val != 0x00 && val != 0xFF) {
+                    LOG("[ACCEL] SC7A20 WHO_AM_I: 0x%02X on %s\n", val, s_pairs[p].desc);
+                    if (val == 0x11 || val == 0x33 || val == 0x26) {
+                        s_detected = true;
+                        s_sensor_type = SENSOR_TYPE_SC7A;
+                        s_i2c_addr = dev_addr;
+                        s_chip_id = val;
+                        s_pin_desc = s_pairs[p].desc;
+                        strcpy(s_sensor_name, "SC7A20");
+
+                        i2c_write_reg(dev_addr, 0x20, 0x57); // 100Hz, Normal mode, XYZ enable
+                        i2c_write_reg(dev_addr, 0x23, 0x08); // High resolution
+                        return;
+                    }
+                }
+
+                // Test 3: Generic Reg 0x00
+                if (i2c_read_reg(dev_addr, 0x00, &val) && val != 0x00 && val != 0xFF) {
+                    LOG("[ACCEL] Generic CHIP_ID: 0x%02X on %s\n", val, s_pairs[p].desc);
+                    s_detected = true;
+                    s_i2c_addr = dev_addr;
+                    s_chip_id = val;
+                    s_pin_desc = s_pairs[p].desc;
+                    s_sensor_type = SENSOR_TYPE_HK01;
+                    snprintf(s_sensor_name, sizeof(s_sensor_name), "ID:%02X", val);
+                    return;
+                }
+
+                // Test 4: Reg 0x01 (DA280 / MSA301)
+                if (i2c_read_reg(dev_addr, 0x01, &val) && (val == 0x13 || val == 0x26)) {
+                    LOG("[ACCEL] DA280/MSA301 ID: 0x%02X on %s\n", val, s_pairs[p].desc);
+                    s_detected = true;
+                    s_i2c_addr = dev_addr;
+                    s_chip_id = val;
+                    s_pin_desc = s_pairs[p].desc;
+                    s_sensor_type = SENSOR_TYPE_DA280;
+                    strcpy(s_sensor_name, "DA280");
+                    return;
+                }
             }
-            release_bus();
         }
+        release_bus();
     }
 
     strcpy(s_sensor_name, "NONE");

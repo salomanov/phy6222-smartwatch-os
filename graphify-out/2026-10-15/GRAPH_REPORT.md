@@ -1,422 +1,369 @@
-# Graph Report - Часы  (2026-10-11)
+# Graph Report - Часы  (2026-10-15)
 
 ## Corpus Check
-- 1150 files · ~1,695,808 words
-- Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 365 file(s) not represented in the graph (top: .o 78, .ini 72, .s 46)
+- cluster-only mode — file stats not available
 
 ## Summary
-- 10597 nodes · 32549 edges · 442 communities (359 shown, 83 thin omitted)
-- Extraction: 79% EXTRACTED · 21% INFERRED · 0% AMBIGUOUS · INFERRED: 6859 edges (avg confidence: 0.85)
+- 10702 nodes · 32818 edges · 394 communities (324 shown, 70 thin omitted)
+- Extraction: 79% EXTRACTED · 21% INFERRED · 0% AMBIGUOUS · INFERRED: 6891 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f7f7fb24`
+- Built from commit: `23a9c7a3`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- hal_gpio_init
-- gatt.h
+- bus_dev.h
+- OSAL.h
 - log.h
+- UI_generic_onoff_model_server_create
 - core_list_join.c
-- bleuart_at_cmd.c
-- ll_common.c
-- aligenie_appl
-- hal_gpio_pull_set
 - ecc.c
-- hal_uart_init
-- GAP_DeviceDiscoveryRequest
+- rf_phy_driver
+- GAP_EndDiscoverable
 - gapbondmgr.c
 - ll.c
-- OSAL.h
-- appl_main
-- GAP_SetParamValue
-- l2cap_util.c
-- mesh_light/source/bleMesh/appl_sample_example_phylight.c
+- singlebank_otadongle.c
+- MS_access_api.h
+- ll_common.c
+- ota/otam_protocol.c
+- patch.c
 - appl_sample_example_phylpn.c
-- appl_sample_example_phyfriend.c
-- mesh_multiconn/source/bleMesh/appl_sample_example_phylight.c
-- ppsp_impl.c
-- string
-- global_config.h
-- appl_sample_mesh_switch.c
-- appl_model_server_state_handler.c
-- gatt_client.c
-- hal_gpio_read
+- hal_gpio_pull_set
+- aliGenie_appl_Generic.h
+- appl_dump_bytes
+- l2cap_util.c
 - arm_math.h
-- sm_pairing.c
+- ll_hwItf.c
+- mesh_light/source/bleMesh/appl_sample_example_phylight.c
+- GAPRole_SetParameter
+- gatt_client.c
+- mesh_multiconn/source/bleMesh/appl_sample_example_phylight.c
+- appl_model_server_state_handler.c
+- GAPRole_GetParameter
+- appl_sample_example_phyfriend.c
 - light_xyl_server/appl_model_state_handler.c
-- att_util.c
 - CLI_strtoi
 - GATTServApp_InitCharCfg
+- EM_alloc_mem
+- cry.c
 - appl_config_client.c
-- ll_processBasicIRQ
-- voice.c
-- light_ctl_server/appl_model_state_handler.c
-- aliGenie_appl_create_elements_and_models
 - gattservapp.c
+- light_ctl_server/appl_model_state_handler.c
+- light_hsl_server/appl_model_state_handler.c
+- att_util.c
 - attSendMsg
-- ll_hwItf.c
-- hal_rom_boot_init
-- HID/hiddev.c
-- src/display.c
-- uint8
-- uint8
-- display/gfx.c
-- simpleBLECentralEventCB
 - appl_sample_mesh_gateway.c
-- CLI_strtoi
-- patch.c
+- display/gfx.c
+- appl_sample_example_5.c
 - ATT_GetCurrentMTUSize
-- ll_hw_rst_tfifo
-- wristservice.c
-- gatt_server.c
-- LL_InitConnectContext
-- sbc_multi_schedule.c
-- Miniterm
-- test_ecc_dh.c
-- aliGenie_appl_common.c
-- at_multi_schedule.c
-- multi_schedule.c
-- generic_power_level_server/appl_model_state_handler.c
+- hal_gpio_pin_init
+- osal_memory_statics
 - spi.c
+- HIDVoice/hiddev.c
+- at_ble_sbm_cmd.c
+- HID/hiddev.c
+- bleuart_at_cmd.c
+- gap_linkmgr.c
+- ll_hw_rst_tfifo
+- gatt_server.c
+- light_lightness_server/appl_model_state_handler.c
+- aligenie_appl
+- wristservice.c
+- sys
+- miniterm.py
+- LL_InitConnectContext
+- simpleBLECentral.c
+- voice.c
+- Miniterm
+- multi_schedule.c
+- ll_processBasicIRQ
+- generic_power_level_server/appl_model_state_handler.c
+- aliGenie_appl_common.c
 - bsp_button.c
 - smp.c
-- climodel/cli_model.c
-- appl_sample_example_10a.c
-- fs.c
-- SimpleBLECentral_ProcessEvent
-- miniterm.py
 - aliGenie_blebrr.c
+- climodel/cli_model.c
+- hal_uart_init
+- appl_sample_example_10a.c
+- blebrr_handle_evt_scan_complete
+- sbc_multi_schedule.c
+- uint8
+- GAP_UpdateAdvertisingData
+- blebrr.c
 - appl_sample_example_11.c
-- sys
-- appl_sample_example_6.c
-- Source/peripheral.c
-- ll_hw_drv.c
+- find_model_private_data
 - sm_mgr.c
-- gap_linkmgr.c
+- appl_sample_example_6.c
+- sm_pairing.c
 - phyflasher
 - appl_sample_example_8.c
-- singlebank_otadongle.c
-- cli_core_proxy.c
-- MS_generic_onoff_api.h
-- blebrr.c
-- blebrr_pl.c
-- appl_sample_example_5.c
-- spiflash.c
-- WaitMs
-- light_lightness_server/appl_model_state_handler.c
-- constants.h
-- cry.c
+- cli_cmd_stack_push
+- EM_start_timer
 - GATTServApp_Init
-- GAP_GetParamValue
-- uint16
-- generic_level_server/appl_model_state_handler.c
-- EM_alloc_mem
-- att_client.c
 - init_attr
-- UINT16
-- appl_prov.c
-- light_lc_server/appl_model_state_handler.c
-- at_multi_timer.c
-- GAP_MakeDiscoverable
-- simpleBLECentral.c
-- test_hmac.c
-- light_hsl_server/appl_model_state_handler.c
-- appl_sample_example_10.c
-- smart_rf/source/phy_plus_phy.c
+- rf_phy_direct_test
+- bleuart_ProcessEvent
+- spiflash.c
+- ppsp_impl.c
+- aliGenie_bleMesh_curtain/source/model_vendor/aliGenie_appl_Vendor_light.c
+- ll_hw_drv.c
+- constants.h
+- tools/rdwr_phy62x2.py
+- llGetNextDataChanCSA2
+- ll_def.h
+- GAP_GetParamValue
 - sbpSmartRF/source/phy_plus_phy.c
-- GAP_DeviceDiscoveryCancel
-- ConsoleBase
 - UINT16
+- light_lc_server/appl_model_state_handler.c
+- GAP_MakeDiscoverable
+- test_hmac.c
+- WaitMs
+- hal_pwrmgr_unlock
+- appl_prov.c
+- appl_sample_example_10.c
+- GAP_SetParamValue
+- list_slst.c
+- gap_configmgr.c
+- UINT16
+- generic_level_server/appl_model_state_handler.c
+- aliGenie_bleMesh_fogger/source/aliGenie_appl.c
 - appl_sample_example_9.c
 - aliGenie_bleMesh_curtain/source/aliGenie_appl.c
-- aliGenie_bleMesh_fan/source/aliGenie_appl.c
 - aliGenie_bleMesh_fanlight/source/aliGenie_appl.c
-- aliGenie_bleMesh_fogger/source/aliGenie_appl.c
+- smart_rf/source/phy_plus_phy.c
+- aliGenie_appl_Vendor_heater.c
 - EXT_cbtimer.c
-- GAPBondMgr_LinkEst
+- vibrator.c
+- blebrr_pl.c
 - phyflasher
 - aliGenie_bleMesh_3KeySwitch/source/aliGenie_appl.c
+- uart.c
+- MultiRole_processGAPMsg
+- phy_sec_ext.c
 - sm_intpairing.c
+- appl_sample_example_1.c
+- aliGenie_bleMesh_fan/source/aliGenie_appl.c
 - aliGenie_bleMesh_heater/source/aliGenie_appl.c
 - aliGenie_bleMesh_light/source/aliGenie_appl.c
 - aliGenie_bleMesh_socket/source/aliGenie_appl.c
-- EM_timer.c
-- cli_cmd_stack_push
-- appl_sample_example_1.c
+- at_multi_schedule.c
 - ancs_attr.c
-- dma.c
+- EM_timer.c
+- cli_model_server.c
 - i2c_common.c
 - cli_light_hsl_client.c
-- hidkbd.c
-- central.c
-- gap_configmgr.c
+- GAPBondMgr_LinkEst
+- ConsoleBase
+- appl_light_hsl_client.c
 - appl_model_server_callback.c
-- GAP_EstablishLinkReq
-- gen_aligenie_auth_val
-- vendormodel_client_cb
-- ota_protocol.c
-- flash.c
-- appl_generic_onoff_client.c
+- asyncio
+- multiGetSlaveConnList
+- sm_rsppairing.c
+- generic_onoff_server/appl_model_state_handler.c
 - tc_sha256_update
 - aliGenie_appl_Vendor_fogger.c
-- timer.c
-- hal_gpio_write
-- appl_generic_admin_property_server_cb
-- appl_generic_onoff_server_cb
+- generic_power_onoff_server/appl_model_state_handler.c
 - cli_generic_property_client.c
 - cli_light_lightness_client.c
+- timer.c
 - test_utils.h
 - EM_os.c
-- cli_brr.c
+- OTA_internal_flash/Source/main.c
 - appl_light_lightness_client.c
 - cli_light_ctl_client.c
 - cli_light_lc_client.c
 - CLI_strtoarray
-- blebrr_handle_evt_scan_complete
 - aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_fan.c
+- bStatus_t
 - core_cmFunc.h
-- spiflash_demo.c
+- dma.c
 - appl_light_ctl_client.c
-- appl_light_lc_client.c
 - cli_health_client.c
 - aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_light.c
 - core_cmInstr.h
-- aliGenie_bleMesh_fogger/source/model_vendor/aliGenie_appl_Vendor_light.c
-- crc16
+- process_ctrl_cmd
+- GAP_DeviceDiscoveryCancel
+- slb.c
+- voice_demo.c
+- blebrr_gatt_mode_set
+- appl_health_client.c
 - cli_generic_power_level_client.c
 - cli_light_xyl_client.c
 - cli_time_client.c
 - appl_sample_example_7.c
-- GAP_EndDiscoverable
-- aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_light.c
 - aliGenie_bleMesh_light/source/model_vendor/aliGenie_appl_Vendor_light.c
+- UI_generic_onoff_model_server_cb
 - test_cmac_mode.c
-- slb.c
+- aliGenie_bleMesh_fogger/source/model_vendor/aliGenie_appl_Vendor_light.c
+- EM_debug.c
+- app_os.c
+- appl_scheduler_server_cb
+- appl_time_server_cb
+- vendormodel_client_cb
 - appl_generic_power_level_client.c
-- appl_light_hsl_client.c
 - appl_light_xyl_client.c
+- appl_generic_admin_property_server_cb
 - appl_sensor_server_cb
-- aliGenie_bleMesh_curtain/source/model_vendor/aliGenie_appl_Vendor_light.c
+- aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_light.c
 - aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_fan.c
-- aliGenie_bleMesh_heater/source/model_vendor/aliGenie_appl_Vendor_light.c
-- voice_demo.c
-- GATT_WriteCharValue
-- aes-ccm.c
+- AudioGATTprofile.c
+- hal_gpio_write
+- src/gfx.c
 - i2c_soft_driver.c
-- kscan.c
-- uart.c
-- i2c_io.c
-- sm_rsppairing.c
-- cli_scene_client.c
-- bleuart_ProcessEvent
-- tools/rdwr_phy62x2.py
-- test_ctr_prng.c
-- ota/otam_protocol.c
-- MS_vendormodel_server_state_update
 - voice_circ_buff.c
-- cli_demo.c
+- i2c_io.c
+- cli_scene_client.c
+- tc_aes_encrypt
+- GATT_WriteCharValue
+- extAdvInfo_t
+- gap_task.c
+- test_ctr_prng.c
+- uint8
+- MS_vendormodel_server_state_update
+- i2c.c
 - appl_scene_client.c
 - appl_time_client.c
 - cli_generic_level_client.c
-- MultiProfile_Notify
-- find_model_private_data
-- aliGenie_appl_Vendor_heater.c
-- extAdvInfo_t
-- adc_demo.c
-- observer.c
-- GATTServApp_ReadCharCfg
-- console_rx_handler
 - appl_generic_level_client.c
-- cli_main.c
-- cli_generic_location_client.c
-- GAP_UpdateAdvertisingData
-- src/syscalls.c
-- UI_light_lightness_server_cb
-- gap_task.c
-- app_os_update
-- appl_scheduler_client.c
-- appl_health_server.c
-- appl_generic_location_client.c
-- bStatus_t
-- UI_light_ctl_server_cb
-- simpleProfile_Notify
-- SimpleBLEPeripheral_ProcessEvent
-- ll_enc.c
-- UI_generic_onoff_model_server_cb
-- i2c.c
-- appl_health_client.c
 - appl_generic_battery_server_cb
 - appl_generic_location_server_cb
-- appl_scheduler_server_cb
-- appl_time_server_cb
-- cli_generic_onoff_client.c
+- cli_main.c
+- cli_generic_location_client.c
+- process_cmd
+- mesh_gateway/source/bleMesh/dongleKey.c
+- mesh_lpn/source/bleMesh/dongleKey.c
+- accel.c
+- appl_scheduler_client.c
+- adcMeasureTask
+- appl_generic_location_client.c
+- SimpleBLEPeripheral_ProcessEvent
+- gattNotifyEvent
+- gap_simpletask.c
+- ble_disc_service
+- bStatus_t
+- gen_aligenie_auth_val
+- spiflash_demo.c
 - cli_scheduler_client.c
 - powerstate_set
-- aliGenie_appl_Vendor_Curtain.c
 - UI_light_hsl_server_cb
-- mesh_gateway/source/bleMesh/dongleKey.c
-- hal_pwrmgr_unlock
-- mesh_switch/source/bleMesh/dongleKey.c
-- GATTServApp_ProcessCCCWriteReq
-- ooo_bin.py
+- llEnqueueCtrlPkt
+- sec/aes.c
+- display/display.c
+- bleuart_Notify
+- qdec_hw_config
 - core_cm0.h
-- EM_start_timer
 - key.c
 - led_light.c
+- appl_proxy.c
+- appl_generic_onoff_client.c
+- blebrr_gatt.c
 - cli_core_provision.c
 - cli_generic_default_transition_time_client.c
+- cli_generic_onoff_client.c
 - cli_generic_power_onoff_client.c
-- bleMesh_ProcessEvent
-- gpio_wakeup_handle
-- sec/aes.c
-- GAPMultiRole_SetParameter
+- GAPRole_SetParameter
+- aliGenie_bleMesh_3KeySwitch/source/appl_hard/aliGenie_led_light.c
+- UI_setup_prov
+- aliGenie_bleMesh_fan/source/appl_hard/aliGenie_led_light.c
+- aliGenie_bleMesh_fogger/source/appl_hard/aliGenie_led_light.c
+- UI_light_ctl_server_cb
+- aliGenie_bleMesh_socket/source/appl_hard/aliGenie_led_light.c
+- hal_dma_init
+- ooo_bin.py
 - linkdb.c
-- generic_power_onoff_server/appl_model_state_handler.c
+- ppsp_serv_set_para
 - appl_generic_default_transition_time_client.c
+- appl_generic_power_onoff_client.c
 - appl_scene_server_cb
-- sk_WriteAttrCB
-- aliGenie_appl_Prov.c
-- uint8
-- my_printf.c
-- float32_t
-- hal_keyboard_matrix.c
-- appl_light_lightness_server.c
+- MultiProfile_Notify
+- ll_enc.c
+- app.c
+- hal_kscan_timeout_handler
+- generic_onoff_set_pl
+- appl_health_server.c
 - cli_core_transport.c
 - cli_generic_battery_client.c
-- EM_debug.c
+- bStatus_t
+- GAPRole_ProcessEvent
+- bStatus_t
+- at_multi_timer.c
+- multi_timer.c
 - simpleProfile_Notify
-- qdec_hw_config
-- phy_sec_ext.c
+- simpleProfile_Notify
 - core_cm0plus.h
-- appl_proxy.c
-- appl_dump_bytes
-- scanParamWriteAttrCB
+- hal_adc_value_cal
+- appl_generic_battery_client_cb
+- cli_brr.c
+- HeartRate_MeasNotify
 - enableSleep
-- bleuart_Notify
+- Полная аппаратная спецификация и база знаний: Смарт-часы LP715 / LP719 на SoC PhyPlus PHY6222
+- scanParamWriteAttrCB
 - aliGenie_appl_Vendor_fanlight.c
 - aliGenie_appl_Vendor_socket.c
-- appl_generic_power_level_server.c
+- UI_phy_model_server_cb
+- UI_phy_model_server_cb
 - uint8
 - EM_platform.c
-- bStatus_t
+- ota_ble_flash.py
 - cli_ps.c
-- hal_system_soft_reset
-- bStatus_t
-- multi_timer.c
+- sk_WriteAttrCB
 - bStatus_t
 - bStatus_t
-- simpleProfile_Notify
-- blebrr_gatt.c
 - bStatus_t
-- Полная аппаратная спецификация и база знаний: Смарт-часы LP715 / LP719 на SoC PhyPlus PHY6222
+- aliGenie_bleMesh_fanlight/source/bleswitch.c
 - bStatus_t
-- appl_scene_server_cb
+- aliGenie_bleMesh_fogger/source/bleswitch.c
 - bStatus_t
-- cli_core_network.c
 - bStatus_t
-- ppsp_serv_set_para
+- aliGenie_bleMesh_socket/source/bleswitch.c
+- bStatus_t
+- bStatus_t
+- bStatus_t
 - bStatus_t
 - SBP Mulit-Connection Porting Guide
-- bStatus_t
-- bStatus_t
-- bStatus_t
-- bStatus_t
-- bStatus_t
-- adcMeasureTask
-- LL_CreateConn0
-- gattNotifyEvent
-- EM_debug.h
+- led.c
 - slboot.c
-- API_RESULT
 - sbc_multi_timer.c
+- API_RESULT
 - LL_ConnectionlessIQ_SampleEnable0
-- gap_devmgr.c
-- armcm0
-- btypes.h
-- LL_PLUS_GetLocalPhyMode
-- hal_adc_value_cal
-- UI_proxy_beacon_callback
-- appl_generic_power_onoff_client.c
-- UI_generic_onoff_server_cb
-- bleMesh_ProcessGAPMsg
+- llCheckWhiteListUsage
+- pulse_measure_callback
+- appl_light_xyl_set_actual
 - cli_core.c
-- bleMesh_ProcessGAPMsg
-- cli_friend_listadd
-- Voice_Queue.c
+- Batt_HandleConnStatusCB
+- adc_Poilling_ProcessEvent
+- LL_SetExtAdvParam
 - appl_generic_property_client_cb
+- appl_light_lc_client_cb
 - appl_sensor_client_cb
-- BUP_init
 - ota_WriteAttrCB
-- vendor_Aligenie_indication
-- bleMesh_ProcessEvent
-- appWristProcEvt
-- Watchdog_Demo_Init
-- otaProtocol_RunApp
+- bleMesh_check_node_inline
+- Voice_Queue.c
+- Проект: Переделка / Реверс-инжиниринг умного браслета (LP715_MB_V1.3)
 - multiRoleApp_ProcessEvent
 - appl_utils.c
-- HidKbd_GetParameter
-- HidKbd_GetParameter
-- multiGetSlaveConnList
-- adc_Poilling_ProcessEvent
-- led.c
-- GAP_SendSlaveSecurityRequest
-- UI_vendor_example_client_cb
-- simpleBLEGATTDiscoveryEvent
-- watchBLE_StateNotificationCB
-- watch_ProcessGATTMsg
-- freesans12pt7b
-- hal_types
-- Проект: Переделка / Реверс-инжиниринг умного браслета (LP715_MB_V1.3)
-- multiRoleEachScanCB
-- ProcessUartData
-- ProcessUartData
-- ProcessUartData
-- ProcessUartData
-- ProcessUartData
-- ProcessUartData
-- ProcessUartData
-- ProcessUartData
-- devInfo_ReadAttrCB
-- ProcessUartData
-- cli_internal_status
-- cli_internal_status
-- ProcessUartData
-- ProcessUartData
-- ProcessUartData
-- multiRoleEachScanCB
-- multiRoleEachScanCB
-- peripheralStateReadRssiCB
-- peripheralStateReadRssiCB
-- peripheralStateReadRssiCB
-- peripheralStateReadRssiCB
-- cli_internal_status
-- fs_Init
 - at_div
-- GATT_InitClient
-- LL_SetAdvParam0
-- console_init
-- hal_pwrmgr_poweroff
-- HidDev_Register
-- at_pcnt
-- ProcessUartData
-- pin_event_handler
-- HeartRate_Register
-- otamProtocol_init
-- isSleepAllow
-- init_extadv_config
+- 🕹️ phy6222_smartwatch
+- HidKbd_GetParameter
+- HidKbd_GetParameter
+- GAP_SendSlaveSecurityRequest
+- gattRegisterClient
+- simpleBLEGATTDiscoveryEvent
+- OSAL_gpio.c
+- LL_Write_Rf_Path_Compensation
+- LL_Init0
 
 ## God Nodes (most connected - your core abstractions)
 1. `CLI_strtoi()` - 192 edges
-2. `EM_start_timer()` - 113 edges
-3. `hal_gpio_pull_set()` - 110 edges
+2. `hal_gpio_pull_set()` - 113 edges
+3. `EM_start_timer()` - 113 edges
 4. `appl_dump_bytes()` - 95 edges
 5. `GAP_SetParamValue()` - 70 edges
 6. `EM_alloc_mem()` - 67 edges
-7. `GAP_GetParamValue()` - 63 edges
-8. `hal_gpio_pin_init()` - 62 edges
+7. `hal_gpio_pin_init()` - 66 edges
+8. `GAP_GetParamValue()` - 63 edges
 9. `EM_free_mem()` - 55 edges
 10. `GATTServApp_InitCharCfg()` - 53 edges
 
@@ -427,1471 +374,1329 @@
   PROJECT_STATE.md → tools/smartwatch_ref/sdk/components/profiles/DevInfo/devinfoservice.c
 - `4. Дорожная карта и текущий прогресс` --references--> `ota_app_AddService()`  [INFERRED]
   PROJECT_STATE.md → tools/smartwatch_ref/sdk/components/profiles/ota_app/ota_app_service.c
-- `ble_start_ota_mode()` --calls--> `hal_system_soft_reset()`  [INFERRED]
-  firmware/src/ble_manager.c → tools/smartwatch_ref/sdk/components/driver/clock/clock.c
-- `ble_start_ota_mode()` --calls--> `WaitMs()`  [INFERRED]
-  firmware/src/ble_manager.c → tools/smartwatch_ref/sdk/components/driver/clock/clock.c
+- `hal_init()` --calls--> `hal_rtc_clock_config()`  [INFERRED]
+  firmware/src/main.c → tools/smartwatch_ref/sdk/components/driver/clock/clock.c
+- `hal_init()` --calls--> `hal_gpio_init()`  [INFERRED]
+  firmware/src/main.c → tools/smartwatch_ref/sdk/components/driver/gpio/gpio.c
 
 ## Import Cycles
 - None detected.
 
-## Communities (442 total, 83 thin omitted)
+## Communities (394 total, 70 thin omitted)
 
-### Community 0 - "hal_gpio_init"
+### Community 0 - "bus_dev.h"
+Cohesion: 0.02
+Nodes (240): hal_rfphy_init(), hal_rc32k_clk_tracking_init(), hal_rfPhyFreqOff_Set(), hal_rtc_clock_config(), hal_xtal16m_cap_Set(), hal_gpio_init(), hal_pwrmgr_get_module_lock_status(), hal_pwrmgr_init() (+232 more)
+
+### Community 1 - "OSAL.h"
 Cohesion: 0.03
-Nodes (204): CLK32K_e, hal_init(), hal_low_power_io_init(), main(), app_osal_init(), pwrmgr_Hdl_t, sysclk_t, hal_rtc_clock_config() (+196 more)
-
-### Community 1 - "gatt.h"
-Cohesion: 0.05
-Nodes (43): ali_genie_profile, battservice, blebrr, bsp_button, cli_model, cliface, devinfoservice, em_debug (+35 more)
+Nodes (27): HeartRate_Register(), extBLECentralScantimeoutEvtCB(), multiRoleEachScanCB(), ProcessUartData(), ProcessUartData(), ProcessUartData(), ProcessUartData(), ProcessUartData() (+19 more)
 
 ### Community 2 - "log.h"
-Cohesion: 0.05
-Nodes (37): app_datetime, at_svn_write_read, clock, config, core_802, flash, freemono9pt7b, fs (+29 more)
-
-### Community 3 - "core_list_join.c"
-Cohesion: 0.05
-Nodes (135): core_portable, core_results, CORE_TICKS, list_cmp, list_data, list_head, MAIN_RETURN_TYPE, mat_params (+127 more)
-
-### Community 4 - "bleuart_at_cmd.c"
-Cohesion: 0.11
-Nodes (26): AT_ctx_t, at_addr(), at_aint(), at_aust(), at_avda(), at_baud(), at_cint(), at_cont() (+18 more)
-
-### Community 5 - "ll_common.c"
-Cohesion: 0.05
-Nodes (123): connParam_t, llDataQ_t, ll_pdu_length_ctrl_t, llConnState_t, uint16, uint32, uint8, chan_mam() (+115 more)
-
-### Community 6 - "aligenie_appl"
 Cohesion: 0.02
-Nodes (194): aligenie_appl, aligenie_appl_light, aligenie_appl_vendor_fan, aligenie_appl_vendor_fanlight, aligenie_appl_vendor_fogger, aligenie_appl_vendor_light, BLEBRR_GATT_IFACE_EVENT_PL_CB, DECL_CONST (+186 more)
+Nodes (37): on_uart_evt(), hal_adc_clock_config(), hal_adc_init(), hal_adc_load_calibration_value(), hal_I2C0_IRQHandler(), hal_I2C1_IRQHandler(), i2cs_irq_handler(), i2cs_irq_rx_handler() (+29 more)
 
-### Community 7 - "hal_gpio_pull_set"
+### Community 3 - "UI_generic_onoff_model_server_create"
 Cohesion: 0.03
-Nodes (129): aligenie_led_light, button_init(), gpio_dir_t, gpio_pupd_e, pwm, pwm_ch_t, PWM_CLK_DIV_e, PWM_CNT_MODE_e (+121 more)
+Nodes (71): blebrr_register(), ext_cbtimer_em_init(), EXT_cbtimer_init(), cli_core_setup(), appl_mesh_sample(), appl_mesh_sample(), appl_mesh_sample(), appl_mesh_sample() (+63 more)
 
-### Community 8 - "ecc.c"
-Cohesion: 0.17
-Nodes (52): cmpresult_t, apply_z(), bitcount_t, uECC_Curve, uECC_word_t, cond_set(), double_jacobian_default(), bits2int() (+44 more)
+### Community 4 - "core_list_join.c"
+Cohesion: 0.05
+Nodes (107): calc_func(), calc_func_0(), calc_func_1(), calc_func_2(), calc_func_3(), calc_func_4(), calc_func_5(), calc_func_6() (+99 more)
 
-### Community 9 - "hal_uart_init"
-Cohesion: 0.07
-Nodes (40): hal_uart_deinit(), hal_uart_init(), bleMesh_uart_init(), bleMesh_uart_init(), bleMesh_uart_init(), bleMesh_uart_init(), bleMesh_uart_init(), bleMesh_uart_init() (+32 more)
+### Community 5 - "ecc.c"
+Cohesion: 0.05
+Nodes (74): apply_z(), cond_set(), uECC_make_key(), uECC_make_key_with_d(), uECC_shared_secret(), double_jacobian_default(), bits2int(), smax() (+66 more)
 
-### Community 10 - "GAP_DeviceDiscoveryRequest"
+### Community 6 - "rf_phy_driver"
+Cohesion: 0.05
+Nodes (13): ble_mesh_connect_start_led(), bleswitch_init(), bleswitch_scan_pro(), KSCAN_Init(), KSCAN_ProcessEvent(), ble_mesh_connect_start_led(), bleswitch_init(), bleswitch_scan_pro() (+5 more)
+
+### Community 7 - "GAP_EndDiscoverable"
+Cohesion: 0.03
+Nodes (67): blebrr_timer_stop(), blebrr_handle_evt_adv_complete(), blebrr_handle_evt_adv_report(), blebrr_handle_le_connection_pl(), blebrr_handle_le_disconnection_pl(), mesh_client_update_conidx(), gapRole_ProcessGAPMsg(), bleMesh_ProcessGAPMsg() (+59 more)
+
+### Community 8 - "gapbondmgr.c"
+Cohesion: 0.06
+Nodes (77): check_addr(), fs_erase_ucds_all_sector(), fs_erase_ucds_one_sector(), fs_get_free_item(), fs_init(), fs_search_items(), fs_spif_read(), fs_spif_write() (+69 more)
+
+### Community 9 - "ll.c"
+Cohesion: 0.06
+Nodes (94): initResolvingList(), calculateTimeDelta(), ll_generateExtAdvDid(), LL_AddDevToPeriodicAdvList(), LL_AddResolvingListLDevice(), LL_ClearAdvSets(), LL_ClearPeriodicAdvList(), LL_ClearResolvingList() (+86 more)
+
+### Community 10 - "singlebank_otadongle.c"
 Cohesion: 0.04
-Nodes (98): gapDevDiscReq_t, l2capParamUpdateReq_t, blebrr_timer_stop(), blebrr_handle_evt_adv_complete(), blebrr_handle_evt_adv_report(), blebrr_handle_le_connection_pl(), blebrr_handle_le_disconnection_pl(), API_RESULT (+90 more)
+Nodes (70): hal_systick(), app_powerkey_longpress_report(), app_powerkey_press_report(), checksum(), is_sencond_link(), otam_oneclick_app_conn(), otam_oneclick_app_scan_f(), otam_oneclick_app_scan_wl() (+62 more)
 
-### Community 11 - "gapbondmgr.c"
-Cohesion: 0.10
-Nodes (54): gapAuthCompleteEvent_t, gapBondCharCfg_t, gapBondRec_t, gattEventHdr_t, osal_snv_read(), gapLinkUpdateEvent_t, MultiRole_ProcessParamUpdateInfo(), multiRolePasscodeCB() (+46 more)
+### Community 12 - "ll_common.c"
+Cohesion: 0.07
+Nodes (84): chan_mam(), chan_perm(), chan_prn(), chan_rev_8(), get_rx_read_ptr(), get_rx_write_ptr(), get_tx_write_ptr(), getRxBufferFree() (+76 more)
 
-### Community 12 - "ll.c"
-Cohesion: 0.06
-Nodes (81): int16, initResolvingList(), int8, llStatus_t, uint32, uint8, calculateTimeDelta(), llCheckWhiteListUsage() (+73 more)
-
-### Community 13 - "OSAL.h"
-Cohesion: 0.06
-Nodes (12): ble_at, bsp_button_task, bsp_gpio, hal, ll_sleep, osal_snv, osal_tasks, phy_plus_phy (+4 more)
-
-### Community 14 - "appl_main"
+### Community 13 - "ota/otam_protocol.c"
 Cohesion: 0.04
-Nodes (6): appl_main, cli_main, ms_scheduler_api, ms_sensor_api, UINT8, main_generic_default_transition_time_server_operations()
+Nodes (58): on_ota_service_event(), ota_install_firmware_and_reboot(), check_chip_mAddr(), flash_write_word(), hal_cache_init(), hal_cache_tag_flush(), hal_flash_erase_all(), hal_flash_erase_block64() (+50 more)
 
-### Community 15 - "GAP_SetParamValue"
-Cohesion: 0.09
-Nodes (92): WatchBLE_Init(), gattServMsgCB_t, perStatsByChan_t, 4. Дорожная карта и текущий прогресс, hal_pwrmgr_lock(), bStatus_t, DevInfo_AddService(), DevInfo_SetParameter() (+84 more)
+### Community 14 - "patch.c"
+Cohesion: 0.05
+Nodes (67): hal_pwrmgr_enter_sleep_rtc_reset(), hal_pwrmgr_enter_standby(), hal_pwrmgr_RAM_retention_clr(), wakeupProcess_standby(), ll_hw_set_empty_head(), LL_set_default_conn_params0(), ll_processMissMasterEvt(), ll_processMissSlaveEvt() (+59 more)
 
-### Community 16 - "l2cap_util.c"
+### Community 15 - "appl_sample_example_phylpn.c"
 Cohesion: 0.06
-Nodes (84): l2capChannel_t, l2capCmdReject_t, l2capEchoReq_t, l2capInfoReq_t, l2capParamUpdateRsp_t, l2capSegmentBuff_t, l2capSignalCmd_t, pfnL2CAPBuildCmd_t (+76 more)
+Nodes (63): appl_mesh_sample(), heartbeat_reply_delay_handler(), timeout_cb(), UI_app_config_server_callback(), UI_frndsetup_cb(), UI_gatt_iface_event_pl_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set() (+55 more)
 
-### Community 17 - "mesh_light/source/bleMesh/appl_sample_example_phylight.c"
+### Community 16 - "hal_gpio_pull_set"
+Cohesion: 0.05
+Nodes (55): hal_gpio_btn_init(), hal_gpio_pull_set(), hal_pwm_ch_enable(), hal_pwm_ch_reg(), hal_pwm_ch_start(), hal_pwm_ch_stop(), hal_pwm_close_channel(), hal_pwm_destroy() (+47 more)
+
+### Community 17 - "aliGenie_appl_Generic.h"
 Cohesion: 0.07
-Nodes (78): appl_mesh_sample(), appl_mesh_sample_recover(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW (+70 more)
+Nodes (3): UI_proxy_callback(), UI_proxy_start_adv(), UI_register_proxy()
 
-### Community 18 - "appl_sample_example_phylpn.c"
+### Community 18 - "appl_dump_bytes"
 Cohesion: 0.07
-Nodes (80): appl_mesh_sample(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T (+72 more)
+Nodes (60): appl_dump_bytes(), appl_mesh_sample(), MS_vendor_example_client_init(), timeout_cb(), UI_access_publish(), UI_app_config_server_callback(), UI_frndsetup_cb(), UI_gatt_iface_event_pl_cb() (+52 more)
 
-### Community 19 - "appl_sample_example_phyfriend.c"
-Cohesion: 0.06
-Nodes (88): light_ctrl(), UINT8, generic_onoff_set_pl(), Hue_2_RGB(), light_ctl_set_pl(), light_hsl_set_pl(), light_lightness_set_pl(), vendor_mode_backlight_onoff_set_pl() (+80 more)
-
-### Community 20 - "mesh_multiconn/source/bleMesh/appl_sample_example_phylight.c"
+### Community 19 - "l2cap_util.c"
 Cohesion: 0.07
-Nodes (79): blebrr_gatt_mode_set(), appl_mesh_sample(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW (+71 more)
+Nodes (52): GATT_AppCompletedMsg(), L2CAP_CmdReject(), L2CAP_ConnParamUpdateRsp(), L2CAP_EchoReq(), L2CAP_HostNumCompletedPkts(), L2CAP_InfoReq(), L2CAP_RegisterApp(), L2CAP_SendData() (+44 more)
 
-### Community 21 - "ppsp_impl.c"
+### Community 20 - "arm_math.h"
+Cohesion: 0.07
+Nodes (57): arm_bilinear_interp_f32(), arm_bilinear_interp_q15(), arm_bilinear_interp_q31(), arm_bilinear_interp_q7(), arm_circularRead_f32(), arm_circularRead_q15(), arm_circularRead_q7(), arm_circularWrite_f32() (+49 more)
+
+### Community 21 - "ll_hwItf.c"
+Cohesion: 0.05
+Nodes (57): get_tx_read_ptr(), ll_isFirstAdvChn(), ll_isLegacyAdv(), update_tx_read_ptr(), getPN23RandNumber(), ll_add_adv_task0(), ll_add_adv_task_periodic0(), ll_addTask0() (+49 more)
+
+### Community 22 - "mesh_light/source/bleMesh/appl_sample_example_phylight.c"
+Cohesion: 0.07
+Nodes (58): appl_mesh_sample(), appl_mesh_sample_recover(), heartbeat_reply_delay_handler(), timeout_cb(), UI_app_config_server_callback(), UI_gatt_iface_event_pl_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set() (+50 more)
+
+### Community 23 - "GAPRole_SetParameter"
+Cohesion: 0.11
+Nodes (64): WatchBLE_Init(), 4. Дорожная карта и текущий прогресс, hal_pwrmgr_lock(), DevInfo_AddService(), GATTServApp_AddService(), GATTServApp_RegisterForMsg(), ota_app_AddService(), otaProtocol_address_plus() (+56 more)
+
+### Community 24 - "gatt_client.c"
+Cohesion: 0.11
+Nodes (49): mesh_client_process_gattMsg(), Multi_centralAction(), ATT_PrepareWriteReq(), GATT_DiscAllCharDescs(), GATT_DiscAllChars(), GATT_DiscAllPrimaryServices(), GATT_DiscCharsByUUID(), GATT_DiscPrimaryServiceByUUID() (+41 more)
+
+### Community 25 - "mesh_multiconn/source/bleMesh/appl_sample_example_phylight.c"
 Cohesion: 0.08
-Nodes (68): core_sque_t, list_slst_t, list_snod_e, list_snod_t, list_sque_t, ppsp_serv_appl_CBs_t, hal_flash_read(), int32 (+60 more)
+Nodes (55): appl_mesh_sample(), heartbeat_reply_delay_handler(), proxy_dly_generic_onoff(), timeout_cb(), UI_app_config_server_callback(), UI_gatt_iface_event_pl_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set() (+47 more)
 
-### Community 22 - "string"
+### Community 26 - "appl_model_server_state_handler.c"
 Cohesion: 0.07
-Nodes (14): BUP_Evt_t, display, dma, stdarg, stdbool, stddef, stdint, stdio (+6 more)
+Nodes (51): appl_scene_server_cb(), appl_generic_level_transition_complete_cb(), appl_generic_onoff_states_initialization(), appl_generic_onoff_transition_complete_cb(), appl_generic_onoff_transition_start_cb(), appl_generic_power_level_set_range(), appl_generic_power_level_transition_complete_cb(), appl_light_ctl_lightness_set_actual() (+43 more)
 
-### Community 23 - "global_config.h"
+### Community 27 - "GAPRole_GetParameter"
 Cohesion: 0.04
-Nodes (12): aligenie_appl_node_mng, aligenie_appl_prov, aligenie_appl_proxy, aligenie_appl_vendor, aligenie_blemesh, blemesh, lib_light, memwatch (+4 more)
+Nodes (41): DevInfo_GetParameter(), devInfo_ReadAttrCB(), DevInfo_SetParameter(), check_PerStatsProcess(), check_PerStatsProcess(), simpleBLEAddDeviceInfo(), simpleBLECentralEventCB(), bleuart_conn_interval() (+33 more)
 
-### Community 24 - "appl_sample_mesh_switch.c"
-Cohesion: 0.09
-Nodes (67): MS_VENDOR_EXAMPLE_CLIENT_CB, appl_mesh_sample(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE (+59 more)
+### Community 28 - "appl_sample_example_phyfriend.c"
+Cohesion: 0.08
+Nodes (53): appl_mesh_sample(), heartbeat_reply_delay_handler(), proxy_dly_generic_onoff(), timeout_cb(), UI_app_config_server_callback(), UI_gatt_iface_event_pl_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set() (+45 more)
 
-### Community 25 - "appl_model_server_state_handler.c"
-Cohesion: 0.06
-Nodes (57): appl_light_lc_server_publish(), appl_scene_server_cb(), appl_generic_level_transition_complete_cb(), appl_generic_onoff_states_initialization(), appl_generic_onoff_transition_complete_cb(), appl_generic_onoff_transition_start_cb(), appl_generic_power_level_set_range(), appl_generic_power_level_transition_complete_cb() (+49 more)
-
-### Community 26 - "gatt_client.c"
-Cohesion: 0.11
-Nodes (68): gattClientInfo_t, gattParseRsp_t, gattPrepareWriteReq_t, gattMsgEvent_t, mesh_client_process_gattMsg(), Multi_centralAction(), ATT_PrepareWriteReq(), attPrepareWriteReq_t (+60 more)
-
-### Community 27 - "hal_gpio_read"
-Cohesion: 0.06
-Nodes (62): bit_action_e, Freq_Type_e, gpio_fmux_e, gpio_polarity_e, gpioin_Hdl_t, hal_ms_intv(), gpio_pin_e, uint32 (+54 more)
-
-### Community 28 - "arm_math.h"
-Cohesion: 0.09
-Nodes (62): arm_bilinear_interp_instance_q15, arm_bilinear_interp_instance_q31, arm_bilinear_interp_instance_q7, arm_pid_instance_q15, arm_pid_instance_q31, armcm4, core_cm3, core_cm4 (+54 more)
-
-### Community 29 - "sm_pairing.c"
-Cohesion: 0.16
-Nodes (37): smLinkSecurityReq_t, gapGetDevAddress(), gapGetDevAddressMode(), gapGetIRK(), gapGetSRK(), smInitiatorSendNextKeyInfo(), bStatus_t, smpMsgs_t (+29 more)
-
-### Community 30 - "light_xyl_server/appl_model_state_handler.c"
+### Community 29 - "light_xyl_server/appl_model_state_handler.c"
 Cohesion: 0.10
-Nodes (55): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), appl_light_hsl_server_cb(), appl_light_lightness_server_cb(), appl_light_xyl_server_cb(), appl_scene_server_cb(), API_RESULT (+47 more)
+Nodes (41): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), appl_light_hsl_server_cb(), appl_light_lightness_server_cb(), appl_light_xyl_server_cb(), appl_scene_server_cb(), main_light_xyl_server_operations() (+33 more)
 
-### Community 31 - "att_util.c"
-Cohesion: 0.11
-Nodes (58): ATT_BuildErrorRsp(), ATT_BuildExchangeMTUReq(), ATT_BuildExchangeMTURsp(), ATT_BuildExecuteWriteReq(), ATT_BuildFindByTypeValueReq(), ATT_BuildFindByTypeValueRsp(), ATT_BuildFindInfoReq(), ATT_BuildFindInfoRsp() (+50 more)
-
-### Community 32 - "CLI_strtoi"
+### Community 30 - "CLI_strtoi"
 Cohesion: 0.14
-Nodes (59): appl_config_client_print_composition_data(), appl_configuration_client_cb(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_modelc_config() (+51 more)
+Nodes (54): appl_config_client_print_composition_data(), appl_configuration_client_cb(), cli_modelc_config(), cli_modelc_config_appkey_add(), cli_modelc_config_appkey_delete(), cli_modelc_config_appkey_get(), cli_modelc_config_appkey_update(), cli_modelc_config_beacon_get() (+46 more)
 
-### Community 33 - "GATTServApp_InitCharCfg"
+### Community 31 - "GATTServApp_InitCharCfg"
 Cohesion: 0.06
-Nodes (57): battServiceCB_t, mesh_prov_cb, mesh_proxy_cb, ota_ProfileChangeCB_t, scanParamServiceCB_t, blebrr_gatt_send_pl(), BRR_HANDLE, bStatus_t (+49 more)
+Nodes (34): ota_inapp_init(), blebrr_gatt_send_pl(), mesh_prov_deinit(), mesh_prov_handle_conn(), mesh_prov_init(), mesh_prov_notify_data_out(), mesh_prov_write_cb(), mesh_proxy_deinit() (+26 more)
+
+### Community 32 - "EM_alloc_mem"
+Cohesion: 0.07
+Nodes (53): appl_generic_property_client_get_model_handle(), appl_generic_property_client_set_publish_address(), appl_send_generic_admin_properties_get(), appl_send_generic_admin_property_get(), appl_send_generic_admin_property_set(), appl_send_generic_admin_property_set_unacknowledged(), appl_send_generic_client_properties_get(), appl_send_generic_manufacturer_properties_get() (+45 more)
+
+### Community 33 - "cry.c"
+Cohesion: 0.08
+Nodes (33): aes_encrypt(), aes_encrypt_deinit(), aes_encrypt_init(), aes_ccm_ad(), aes_ccm_ae(), aes_ccm_auth(), aes_ccm_auth_start(), aes_ccm_decr_auth() (+25 more)
 
 ### Community 34 - "appl_config_client.c"
 Cohesion: 0.07
-Nodes (57): appl_config_client_cb(), appl_config_client_get_model_handle(), appl_config_client_print_composition_data(), appl_config_client_set_publish_address(), appl_send_config_appkey_add(), appl_send_config_appkey_delete(), appl_send_config_appkey_get(), appl_send_config_appkey_update() (+49 more)
+Nodes (52): appl_config_client_cb(), appl_config_client_get_model_handle(), appl_config_client_print_composition_data(), appl_config_client_set_publish_address(), appl_send_config_appkey_add(), appl_send_config_appkey_delete(), appl_send_config_appkey_get(), appl_send_config_appkey_update() (+44 more)
 
-### Community 35 - "ll_processBasicIRQ"
-Cohesion: 0.17
-Nodes (48): PLUSPHY_IRQHandler(), ll_CalcRandomAddr(), ll_getRPAListEntry(), ll_isAddrInWhiteList(), ll_isIrkAllZero(), ll_parseExtHeader(), ll_ResolveRandomAddrs(), llAllocateSyncHandle() (+40 more)
+### Community 35 - "gattservapp.c"
+Cohesion: 0.12
+Nodes (42): GATTServApp_DelService(), GATTServApp_DeregisterService(), gattServApp_DeregisterServiceCBs(), gattServApp_EnqueuePrepareWriteReq(), GATTServApp_FindAttr(), gattServApp_FindAuthorizeAttrCB(), gattServApp_FindCharCfgItem(), gattServApp_FindPrepareWriteQ() (+34 more)
 
-### Community 36 - "voice.c"
-Cohesion: 0.07
-Nodes (41): I2C_CLOCK_e, i2cs_channel_t, i2cs_hdl_t, i2cs_mode_t, hal_clk_gate_enable(), dma_wakeup_handler(), gpio_pin_e, i2c_dev_t (+33 more)
-
-### Community 37 - "light_ctl_server/appl_model_state_handler.c"
+### Community 36 - "light_ctl_server/appl_model_state_handler.c"
 Cohesion: 0.10
-Nodes (49): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), appl_light_ctl_server_cb(), appl_light_ctl_temperature_server_cb(), appl_light_lightness_server_cb(), appl_scene_server_cb(), API_RESULT (+41 more)
+Nodes (35): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), appl_light_ctl_server_cb(), appl_light_ctl_temperature_server_cb(), appl_light_lightness_server_cb(), appl_scene_server_cb(), main_light_ctl_server_operations() (+27 more)
 
-### Community 38 - "aliGenie_appl_create_elements_and_models"
-Cohesion: 0.33
-Nodes (5): aligenie_appl_vendor_heater, aliGenie_appl_create_elements_and_models(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_NODE_ID
+### Community 37 - "light_hsl_server/appl_model_state_handler.c"
+Cohesion: 0.11
+Nodes (36): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), appl_light_hsl_hue_server_cb(), appl_light_hsl_saturation_server_cb(), appl_light_hsl_server_cb(), appl_light_lightness_server_cb(), appl_scene_server_cb() (+28 more)
 
-### Community 39 - "gattservapp.c"
-Cohesion: 0.13
-Nodes (53): gattCharCfg_t, pfnGATTAuthorizeAttrCB_t, pfnGATTReadAttrCB_t, pfnGATTWriteAttrCB_t, prepareWrites_t, attPrepareWriteReq_t, bStatus_t, CONST (+45 more)
+### Community 38 - "att_util.c"
+Cohesion: 0.12
+Nodes (51): ATT_BuildErrorRsp(), ATT_BuildExchangeMTUReq(), ATT_BuildExchangeMTURsp(), ATT_BuildExecuteWriteReq(), ATT_BuildFindByTypeValueReq(), ATT_BuildFindByTypeValueRsp(), ATT_BuildFindInfoReq(), ATT_BuildFindInfoRsp() (+43 more)
 
-### Community 40 - "attSendMsg"
-Cohesion: 0.15
-Nodes (30): attBuildMsg_t, attFindByTypeValueRsp_t, attFindInfoRsp_t, attPrepareWriteRsp_t, attReadBlobRsp_t, attReadByGrpTypeRsp_t, attReadByTypeRsp_t, attReadMultiRsp_t (+22 more)
+### Community 39 - "attSendMsg"
+Cohesion: 0.08
+Nodes (27): ATT_ExchangeMTUReq(), ATT_ExecuteWriteReq(), ATT_FindByTypeValueReq(), ATT_FindInfoReq(), ATT_HandleValueCfm(), ATT_ReadBlobReq(), ATT_ReadByGrpTypeReq(), ATT_ReadByTypeReq() (+19 more)
 
-### Community 41 - "ll_hwItf.c"
-Cohesion: 0.06
-Nodes (60): LL_PLUS_AdvDataFilterCB_t, LL_PLUS_ScanRequestFilterCB_t, get_tx_read_ptr(), ll_isFirstAdvChn(), update_tx_read_ptr(), llConnState_t, periodicAdvInfo_t, uint16 (+52 more)
-
-### Community 42 - "hal_rom_boot_init"
-Cohesion: 0.07
-Nodes (50): hal_rfphy_init(), __ATTR_SECTION_XIP__, hal_rc32k_clk_tracking_init(), hal_rfPhyFreqOff_Set(), hal_xtal16m_cap_Set(), hal_rfphy_init(), hal_rfphy_init(), hal_rfphy_init() (+42 more)
-
-### Community 43 - "HID/hiddev.c"
+### Community 40 - "appl_sample_mesh_gateway.c"
 Cohesion: 0.09
-Nodes (44): scanparamservice, bStatus_t, gaprole_States_t, gattAttribute_t, gattMsgEvent_t, hidDevCB_t, hidDevCfg_t, hidDevReport_t (+36 more)
+Nodes (36): blebrr_create_gatt_conn_pl(), appl_mesh_sample(), ui_check_destnation_address(), UI_check_hash(), UI_check_networkid(), UI_config_client_appkey_add(), UI_config_client_appkey_binding(), UI_config_client_cb() (+28 more)
 
-### Community 44 - "src/display.c"
-Cohesion: 0.12
-Nodes (37): fmt_2digits(), render_cheatsheet(), render_ota_update(), render_stopwatch(), backlight_off(), backlight_on(), display_delay_ms(), display_draw_pixel() (+29 more)
-
-### Community 45 - "uint8"
-Cohesion: 0.08
-Nodes (42): bStatus_t, gaprole_States_t, gattAttribute_t, gattMsgEvent_t, hidDevReport_t, hidRptMap_t, osal_event_hdr_t, uint16 (+34 more)
-
-### Community 46 - "uint8"
-Cohesion: 0.10
-Nodes (36): GAPMultiListMode_t, gapMultiRolesCBs_t, bdAddr2Str(), gapDeviceInfoEvent_t, gapEventHdr_t, gattMsgEvent_t, osal_event_hdr_t, uint16 (+28 more)
-
-### Community 47 - "display/gfx.c"
-Cohesion: 0.05
-Nodes (56): app, gfx, GFXfont, 🔌 Connection Images, 🛠️ How to Build, 🕹️ phy6222_smartwatch, app_init(), app_update() (+48 more)
-
-### Community 48 - "simpleBLECentralEventCB"
-Cohesion: 0.11
-Nodes (23): perStats_t, check_PerStatsProcess(), gapCentralRoleEvent_t, check_PerStatsProcess(), simpleBLEAddDeviceInfo(), simpleBLECentralEventCB(), bdAddr2Str(), uint8 (+15 more)
-
-### Community 49 - "appl_sample_mesh_gateway.c"
-Cohesion: 0.13
-Nodes (39): blebrr_create_gatt_conn_pl(), appl_mesh_sample(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_NET_ADDR, NETIF_HANDLE, PROV_HANDLE (+31 more)
-
-### Community 50 - "CLI_strtoi"
-Cohesion: 0.08
-Nodes (34): light_color_t, light_color_quickSet(), at_add_cuuid(), at_add_suuid(), at_channel_map(), at_conn_fliter_policy(), at_conn_para_update(), at_dlu() (+26 more)
-
-### Community 51 - "patch.c"
-Cohesion: 0.05
-Nodes (73): EFUSE_block_t, hciStatus_t, __ATTR_SECTION_SRAM__, hal_pwrmgr_enter_sleep_rtc_reset(), hal_pwrmgr_enter_standby(), hal_pwrmgr_RAM_retention_clr(), wakeupProcess_standby(), ll_hw_set_empty_head() (+65 more)
-
-### Community 52 - "ATT_GetCurrentMTUSize"
-Cohesion: 0.06
-Nodes (48): at_notify(), bdAddr2Str(), osal_event_hdr_t, uint16, uint8, extBlePeripheral_ProcessEvent(), extBlePeripheral_ProcessOSALMsg(), simpleProfileChangeCB() (+40 more)
-
-### Community 53 - "ll_hw_rst_tfifo"
-Cohesion: 0.22
-Nodes (49): ll_getFirstAdvChn(), llGetNextAdvChn(), llResetRfCounters(), llSetupExtInit(), llSetupExtScan(), llSetupInit(), llSetupPrdScan(), llSetupScan0() (+41 more)
-
-### Community 54 - "wristservice.c"
-Cohesion: 0.11
-Nodes (42): app_wrist, datetime_t, time_t, app_datetime(), app_datetime_adjust_baseline(), app_datetime_diff(), app_datetime_init(), app_datetime_set() (+34 more)
-
-### Community 55 - "gatt_server.c"
-Cohesion: 0.14
-Nodes (43): gattServerInfo_t, gattService_t, attHandleValueInd_t, attHandleValueNoti_t, attMsg_t, attPacket_t, attWriteReq_t, bStatus_t (+35 more)
-
-### Community 56 - "LL_InitConnectContext"
-Cohesion: 0.11
-Nodes (45): ble_mem_init_config(), ll_osalmem_init(), ble_mem_init_config(), ble_mem_init_config(), ble_mem_init_config(), ble_mem_init_config(), ble_mem_init_config(), ble_mem_init_config() (+37 more)
-
-### Community 57 - "sbc_multi_schedule.c"
-Cohesion: 0.19
-Nodes (26): gapLinkUpdateEvent_t, GAPMultiLinkInfo_t, multiScehdule_t, uint16, uint8, muliSchedule_config(), multiConfigLink_status(), multiConfigSchAdv_param() (+18 more)
-
-### Community 58 - "Miniterm"
-Cohesion: 0.08
-Nodes (23): ask_for_port(), key_description(), main(), Miniterm, generate a readable description for a key, \ Show a list of ports and ask the user for a choice. To make selection easier…, \ Terminal application. Copy data from serial port to console and vice versa.…, Stop reader thread only, wait for clean exit of thread (+15 more)
-
-### Community 59 - "test_ecc_dh.c"
-Cohesion: 0.10
-Nodes (40): ecc, ecc_dh, ecc_dsa, ecc_platform_specific, fcntl, test_ecc_utils, uECC_Curve, uECC_make_key() (+32 more)
-
-### Community 60 - "aliGenie_appl_common.c"
-Cohesion: 0.10
-Nodes (37): appl_get_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE, UCHAR (+29 more)
-
-### Community 61 - "at_multi_schedule.c"
-Cohesion: 0.13
-Nodes (38): at_conn_req(), GAPMultiRole_State_t, uint16, uint8, multiRole_setup_adv_scanRspData(), multiRoleEstablishCB(), multiRoleNotifyCB(), multiRoleProfileChangeCB() (+30 more)
-
-### Community 62 - "multi_schedule.c"
-Cohesion: 0.11
-Nodes (41): GAPMultiRole_State_t, gattMsgEvent_t, osal_event_hdr_t, uint16, uint8, multiRole_setup_adv_scanRspData(), multiRoleApp_ProcessEvent(), multiRoleApp_ProcessOSALMsg() (+33 more)
-
-### Community 63 - "generic_power_level_server/appl_model_state_handler.c"
-Cohesion: 0.24
-Nodes (17): appl_generic_level_model_state_set(), appl_generic_level_transition_complete_cb(), appl_generic_onoff_transition_complete_cb(), appl_generic_power_level_set_range(), appl_generic_power_level_transition_complete_cb(), appl_model_power_cycle(), appl_model_state_set(), appl_power_level_set_actual() (+9 more)
-
-### Community 64 - "spi.c"
-Cohesion: 0.11
-Nodes (36): AP_SSI_TypeDef, hal_spi_t, spi_Cfg_t, spi_Ctx_t, SPI_DFS_e, SPI_INDEX_e, SPI_SCMOD_e, SPI_TMOD_e (+28 more)
-
-### Community 65 - "bsp_button.c"
+### Community 41 - "display/gfx.c"
 Cohesion: 0.07
-Nodes (41): BTN_COMBINE_T, BTN_T, Gpio_Btn_Info, bsp_btn_map(), bsp_DetectBtn(), bsp_GetKey(), bsp_InitBtn(), bsp_is_key_press() (+33 more)
+Nodes (41): app_init(), display_fill_window(), gfx_clear(), gfx_draw_arc(), gfx_draw_bitmap(), gfx_draw_bitmap_bg(), gfx_draw_char(), gfx_draw_circle() (+33 more)
 
-### Community 66 - "smp.c"
-Cohesion: 0.13
-Nodes (40): pfnSMBuildCmd_t, smpSecurityReq_t, l2capDataEvent_t, smProcessDataMsg(), bStatus_t, smpEncInfo_t, smpIdentityAddrInfo_t, smpIdentityInfo_t (+32 more)
+### Community 42 - "appl_sample_example_5.c"
+Cohesion: 0.08
+Nodes (29): appl_mesh_sample(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set(), UI_generic_onoff_model_states_initialization(), UI_generic_onoff_server_cb(), UI_health_self_test_00(), UI_health_self_test_01(), UI_health_self_test_FF() (+21 more)
 
-### Community 67 - "climodel/cli_model.c"
-Cohesion: 0.25
-Nodes (22): API_RESULT, UCHAR, UINT16, UINT32, cli_core_modelc_config_key_refresh_phase_set(), cli_core_modelc_config_netkey_update(), cli_demo_help(), cli_demo_reset() (+14 more)
-
-### Community 68 - "appl_sample_example_10a.c"
-Cohesion: 0.10
-Nodes (40): API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS (+32 more)
-
-### Community 69 - "fs.c"
-Cohesion: 0.12
-Nodes (42): ftst_t, osalSnvId_t, osalSnvLen_t, search_type, crc16(), crc16_byte(), check_addr(), fs_erase_ucds_all_sector() (+34 more)
-
-### Community 70 - "SimpleBLECentral_ProcessEvent"
-Cohesion: 0.04
-Nodes (57): GAPCentralRole_EstablishLink(), GAPCentralRole_TerminateLink(), uint16, uint8, centralTestVectorProcess(), simpleBLECentral_ReadWriteNotifyTest(), bdAddr2Str(), gapDeviceInfoEvent_t (+49 more)
-
-### Community 71 - "miniterm.py"
+### Community 43 - "ATT_GetCurrentMTUSize"
 Cohesion: 0.06
-Nodes (26): atexit, codecs, ctypes, msvcrt, serial_tools, signal, termios, threading (+18 more)
+Nodes (31): bdAddr2Str(), extBlePeripheral_ProcessEvent(), extBlePeripheral_ProcessOSALMsg(), simpleProfileChangeCB(), SimpleProfile_GetParameter(), simpleProfile_HandleConnStatusCB(), simpleProfile_Notify(), simpleProfile_ReadAttrCB() (+23 more)
 
-### Community 72 - "aliGenie_blebrr.c"
-Cohesion: 0.15
-Nodes (34): blebrr_advertise_pl(), blebrr_adv_duplicate_filter(), blebrr_adv_send(), blebrr_adv_sleep(), blebrr_adv_wakeup(), blebrr_advscan_timeout_handler(), blebrr_bcon_send(), blebrr_clear_bcon() (+26 more)
-
-### Community 73 - "appl_sample_example_11.c"
-Cohesion: 0.10
-Nodes (39): API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS (+31 more)
-
-### Community 74 - "sys"
-Cohesion: 0.11
-Nodes (14): find_serial_port(), main(), delay, find_serial_port(), main(), find_serial_port(), main(), glob (+6 more)
-
-### Community 75 - "appl_sample_example_6.c"
-Cohesion: 0.12
-Nodes (37): MS_VENDOR_EXAMPLE_SERVER_CB, API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T (+29 more)
-
-### Community 76 - "Source/peripheral.c"
-Cohesion: 0.08
-Nodes (40): bleuart_conn_interval(), bleuart_StateNotificationCB(), gaprole_States_t, bStatus_t, Gap_ExtAdv_Param, GapAdv_dataTypes_t, GapAdv_enableOptions_t, GapAdv_eventMaskFlags_t (+32 more)
-
-### Community 77 - "ll_hw_drv.c"
-Cohesion: 0.10
-Nodes (26): bit_to_byte(), ble_crc24_gen(), byte_to_bit(), uint8, ll_hw_config(), ll_hw_get_last_ack(), ll_hw_get_nAck(), ll_hw_get_rfifo_info() (+18 more)
-
-### Community 78 - "sm_mgr.c"
-Cohesion: 0.15
-Nodes (37): authReq_t, sm_Encrypt_t, bStatus_t, CONST, uint16, uint8, generate_subkey(), leftshift_onebit() (+29 more)
-
-### Community 79 - "gap_linkmgr.c"
-Cohesion: 0.12
-Nodes (43): gapAuthParams_t, gapCentralConnCBs_t, hciEvt_BLEConnComplete_t, hciEvt_BLEConnUpdateComplete_t, hciEvt_DisconnComplete_t, keyDist_t, smIdentityInfo_t, smSecurityInfo_t (+35 more)
-
-### Community 81 - "appl_sample_example_8.c"
-Cohesion: 0.10
-Nodes (37): API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS (+29 more)
-
-### Community 82 - "singlebank_otadongle.c"
-Cohesion: 0.04
-Nodes (92): gapEstLinkReqEvent_t, gapUpdateLinkParamReq_t, oneclk_evt_t, otac_scan_dev_t, otam_cmd_conn_t, otam_cmd_mode_t, hal_systick(), BLE_gap_connect_cancel() (+84 more)
-
-### Community 83 - "cli_core_proxy.c"
-Cohesion: 0.41
-Nodes (13): appl_proxy_register(), API_RESULT, UCHAR, UINT32, cli_core_add_addr_to_filter(), cli_core_proxy(), cli_core_proxy_client_op(), cli_core_proxy_server_op() (+5 more)
-
-### Community 84 - "MS_generic_onoff_api.h"
+### Community 44 - "hal_gpio_pin_init"
 Cohesion: 0.09
-Nodes (22): appl_generic_onoff_server_cb(), appl_scene_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T (+14 more)
+Nodes (40): button_init(), button_is_down(), button_update(), disable_analog_pin(), hal_gpio_cfg_analog_io(), hal_gpio_debug_mux(), hal_gpio_ds_control(), hal_gpio_fast_write() (+32 more)
 
-### Community 85 - "blebrr.c"
-Cohesion: 0.16
-Nodes (34): blebrr_adv_duplicate_filter(), blebrr_adv_send(), blebrr_adv_sleep(), blebrr_adv_wakeup(), blebrr_advscan_timeout_handler(), blebrr_bcon_send(), blebrr_clear_bcon(), blebrr_dequeue() (+26 more)
-
-### Community 86 - "blebrr_pl.c"
-Cohesion: 0.11
-Nodes (29): mesh_prov_client_cb, mesh_proxy_client_cb, blebrr_scan_enable(), appl_mesh_prov_data_in_wt_cb(), appl_mesh_prov_data_out_ccd_cb(), appl_mesh_prov_data_out_notif_cb(), appl_mesh_prov_notif_config_status_cb(), appl_mesh_proxy_data_in_wt_cb() (+21 more)
-
-### Community 87 - "appl_sample_example_5.c"
-Cohesion: 0.17
-Nodes (28): appl_mesh_sample(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, PROV_HANDLE, UCHAR, UINT16, UINT8 (+20 more)
-
-### Community 88 - "spiflash.c"
-Cohesion: 0.15
-Nodes (34): spi_evt_t, hal_spi_dma_set(), DMA_CH_t, check_flash_space(), dma_cb(), spi_cb(), spiflash_block_erase_32KB(), spiflash_block_erase_64KB() (+26 more)
-
-### Community 89 - "WaitMs"
+### Community 45 - "osal_memory_statics"
 Cohesion: 0.04
-Nodes (79): WaitMs(), WaitUs(), hal_watchdog_feed(), ble_mesh_connect_start_led(), bleswitch_scan_pro(), uint16, uint8, KSCAN_Init() (+71 more)
+Nodes (23): centralTestVectorProcess(), simpleBLECentral_ReadWriteNotifyTest(), centralTestVectorProcess(), simpleBLECentral_ReadWriteNotifyTest(), cli_internal_status(), UI_set_uuid_octet(), cli_internal_status(), UI_set_uuid_octet() (+15 more)
 
-### Community 90 - "light_lightness_server/appl_model_state_handler.c"
-Cohesion: 0.13
-Nodes (31): math, appl_scene_server_cb(), MS_ACCESS_MODEL_HANDLE, UINT16, UINT8, main_light_lightness_server_operations(), appl_generic_level_model_state_set(), appl_generic_level_transition_complete_cb() (+23 more)
+### Community 46 - "spi.c"
+Cohesion: 0.10
+Nodes (38): config_dma_channel4spirx(), config_dma_channel4spitx(), hal_SPI0_IRQHandler(), hal_SPI1_IRQHandler(), hal_spi_bus_deinit(), hal_spi_bus_init(), hal_spi_dfs_set(), hal_spi_get_transmit_bus_state() (+30 more)
 
-### Community 91 - "constants.h"
+### Community 47 - "HIDVoice/hiddev.c"
 Cohesion: 0.08
-Nodes (40): aes, cbc_mode, ctr_mode, add_round_key(), TCAesKeySched_t, inv_mix_columns(), inv_shift_rows(), inv_sub_bytes() (+32 more)
+Nodes (32): HidDev_GetParameter(), HidDev_PasscodeRsp(), HidDev_ProcessEvent(), hidDev_ProcessOSALMsg(), HidDev_ReadAttrCB(), HidDev_Register(), HidDev_RegisterReports(), HidDev_Report() (+24 more)
 
-### Community 92 - "cry.c"
-Cohesion: 0.16
-Nodes (29): else, p256_cortex_ecdh, ret, INT32, UCHAR, UINT16, uint8, cry_aes_128_ccm_decrypt() (+21 more)
+### Community 48 - "at_ble_sbm_cmd.c"
+Cohesion: 0.08
+Nodes (41): light_color_quickSet(), at_add_cuuid(), at_add_suuid(), at_channel_map(), at_conn_cancel(), at_conn_fliter_policy(), at_conn_para_update(), at_conn_terminate() (+33 more)
 
-### Community 93 - "GATTServApp_Init"
+### Community 49 - "HID/hiddev.c"
+Cohesion: 0.09
+Nodes (31): HidDev_GetParameter(), HidDev_PasscodeRsp(), HidDev_ProcessEvent(), hidDev_ProcessOSALMsg(), HidDev_ReadAttrCB(), HidDev_Register(), HidDev_RegisterReports(), HidDev_Report() (+23 more)
+
+### Community 50 - "bleuart_at_cmd.c"
+Cohesion: 0.07
+Nodes (37): at_addr(), at_aint(), at_aust(), at_avda(), at_baud(), at_cint(), at_cont(), at_ctout() (+29 more)
+
+### Community 51 - "gap_linkmgr.c"
+Cohesion: 0.10
+Nodes (29): gapProcessConnEvt(), gapProcessConnUpdateCmdStatus(), gapProcessCreateLLConnCmdStatus(), gapProcessL2CAPSignalEvt(), gapTerminateConnComplete(), disconnectNext(), GAP_Authenticate(), GAP_Bond() (+21 more)
+
+### Community 52 - "ll_hw_rst_tfifo"
+Cohesion: 0.23
+Nodes (46): ll_getFirstAdvChn(), llGetNextAdvChn(), llResetRfCounters(), llSetupExtInit(), llSetupExtScan(), llSetupInit(), llSetupPrdScan(), llSetupScan0() (+38 more)
+
+### Community 53 - "gatt_server.c"
+Cohesion: 0.13
+Nodes (34): battNotifyCB(), GATT_DeregisterService(), GATT_FindHandle(), GATT_FindHandleUUID(), GATT_FindNextAttr(), GATT_Indication(), GATT_InitServer(), GATT_Notification() (+26 more)
+
+### Community 54 - "light_lightness_server/appl_model_state_handler.c"
+Cohesion: 0.11
+Nodes (27): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), appl_light_lightness_server_cb(), appl_scene_server_cb(), main_light_lightness_server_operations(), appl_generic_level_model_state_set(), appl_generic_level_transition_complete_cb() (+19 more)
+
+### Community 55 - "aligenie_appl"
+Cohesion: 0.05
+Nodes (8): aliGenie_appl_create_elements_and_models(), aliGenie_appl_create_elements_and_models(), aliGenie_appl_create_elements_and_models(), aliGenie_appl_create_elements_and_models(), aliGenie_appl_create_elements_and_models(), aliGenie_appl_create_elements_and_models(), aliGenie_appl_create_elements_and_models(), vendor_Aligenie_indication()
+
+### Community 56 - "wristservice.c"
+Cohesion: 0.11
+Nodes (32): app_datetime(), app_datetime_adjust_baseline(), app_datetime_diff(), app_datetime_init(), app_datetime_set(), app_datetime_sync_handler(), app_datetime_time_t(), check_default_datetime() (+24 more)
+
+### Community 57 - "sys"
+Cohesion: 0.11
+Nodes (12): find_serial_port(), main(), find_serial_port(), main(), build(), find_serial_port(), main(), find_serial_port() (+4 more)
+
+### Community 58 - "miniterm.py"
+Cohesion: 0.05
+Nodes (10): Colorize, CR, CRLF, DebugIO, LF, NoControls, NoTerminal, Out (+2 more)
+
+### Community 59 - "LL_InitConnectContext"
+Cohesion: 0.11
+Nodes (44): ble_mem_init_config(), ll_osalmem_init(), ble_mem_init_config(), ble_mem_init_config(), ble_mem_init_config(), ble_mem_init_config(), ble_mem_init_config(), ble_mem_init_config() (+36 more)
+
+### Community 60 - "simpleBLECentral.c"
+Cohesion: 0.10
+Nodes (28): GAPCentralRole_CancelDiscovery(), GAPCentralRole_CancelRssi(), GAPCentralRole_EstablishLink(), GAPCentralRole_GetParameter(), GAPCentralRole_ProcessEvent(), gapCentralRole_ProcessGAPMsg(), gapCentralRole_ProcessOSALMsg(), gapCentralRole_RssiAlloc() (+20 more)
+
+### Community 61 - "voice.c"
+Cohesion: 0.07
+Nodes (26): hal_clk_gate_enable(), dma_wakeup_handler(), hal_i2c_init(), hal_i2c_pin_init(), i2cs_init(), hal_voice_amic_gain(), hal_voice_amic_mode(), hal_voice_amute_off() (+18 more)
+
+### Community 62 - "Miniterm"
+Cohesion: 0.08
+Nodes (4): ask_for_port(), key_description(), main(), Miniterm
+
+### Community 63 - "multi_schedule.c"
+Cohesion: 0.11
+Nodes (29): multiRole_setup_adv_scanRspData(), multiRoleApp_ProcessEvent(), multiRoleApp_ProcessOSALMsg(), multiRoleAppProcessGATTMsg(), multiRoleEstablishCB(), multiRoleNotifyCB(), multiRoleTerminateCB(), muliSchedule_config() (+21 more)
+
+### Community 64 - "ll_processBasicIRQ"
 Cohesion: 0.21
-Nodes (36): osalInitTasks(), gapBondCBs_t, CbTimerInit(), GATTServApp_Init(), GAPMultiRole_Init(), GAPCentralRole_Init(), GAPBondMgr_Init(), GAPBondMgr_Register() (+28 more)
+Nodes (43): PLUSPHY_IRQHandler(), ll_CalcRandomAddr(), ll_getRPAListEntry(), ll_isAddrInWhiteList(), ll_isIrkAllZero(), ll_parseExtHeader(), ll_ResolveRandomAddrs(), LL_ENC_sm_ah() (+35 more)
 
-### Community 94 - "GAP_GetParamValue"
+### Community 65 - "generic_power_level_server/appl_model_state_handler.c"
 Cohesion: 0.12
-Nodes (32): gapParamIDs_t, rflib_lr, bStatus_t, Gap_ExtAdv_Param, GapAdv_dataTypes_t, GapAdv_enableOptions_t, GapAdv_eventMaskFlags_t, gapEventHdr_t (+24 more)
+Nodes (23): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_level_server_cb(), appl_generic_power_onoff_server_cb(), appl_scene_server_cb(), main_generic_power_level_server_operations(), appl_generic_level_model_state_set(), appl_generic_level_transition_complete_cb() (+15 more)
 
-### Community 95 - "uint16"
-Cohesion: 0.08
-Nodes (40): perByChan_t, uint16, llEnqueueCtrlPkt(), LL_ChanMapUpdate(), LL_ConnActive(), LL_Connection_CTE_Request_Enable0(), LL_Connection_CTE_Response_Enable0(), LL_ConnUpdate() (+32 more)
+### Community 66 - "aliGenie_appl_common.c"
+Cohesion: 0.10
+Nodes (24): appl_get_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add(), UI_get_device_key(), UI_get_net_key() (+16 more)
 
-### Community 96 - "generic_level_server/appl_model_state_handler.c"
-Cohesion: 0.11
-Nodes (27): appl_generic_level_server_cb(), appl_scene_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T (+19 more)
+### Community 67 - "bsp_button.c"
+Cohesion: 0.07
+Nodes (27): bsp_btn_map(), bsp_DetectBtn(), bsp_GetKey(), bsp_InitBtn(), bsp_is_key_press(), bsp_KeyEmpty(), bsp_KeyPro(), bsp_PutKey() (+19 more)
 
-### Community 97 - "EM_alloc_mem"
+### Community 68 - "smp.c"
 Cohesion: 0.13
-Nodes (34): appl_generic_property_client_get_model_handle(), appl_generic_property_client_set_publish_address(), appl_send_generic_admin_properties_get(), appl_send_generic_admin_property_get(), appl_send_generic_admin_property_set(), appl_send_generic_admin_property_set_unacknowledged(), appl_send_generic_client_properties_get(), appl_send_generic_manufacturer_properties_get() (+26 more)
+Nodes (24): smProcessDataMsg(), smpBuildEncInfo(), smpBuildIdentityAddrInfo(), smpBuildIdentityInfo(), smpBuildMasterID(), smpBuildPairingConfirm(), smpBuildPairingFailed(), smpBuildPairingRandom() (+16 more)
 
-### Community 98 - "att_client.c"
-Cohesion: 0.16
-Nodes (23): ATT_ExchangeMTUReq(), ATT_ExecuteWriteReq(), ATT_FindByTypeValueReq(), ATT_FindInfoReq(), ATT_HandleValueCfm(), ATT_ReadBlobReq(), ATT_ReadByGrpTypeReq(), ATT_ReadByTypeReq() (+15 more)
+### Community 69 - "aliGenie_blebrr.c"
+Cohesion: 0.13
+Nodes (28): hal_pwrmgr_poweroff(), blebrr_advertise_pl(), blebrr_adv_duplicate_filter(), blebrr_adv_send(), blebrr_adv_sleep(), blebrr_adv_wakeup(), blebrr_advscan_timeout_handler(), blebrr_bcon_send() (+20 more)
 
-### Community 99 - "init_attr"
-Cohesion: 0.16
-Nodes (32): MS_CALLBACK_DATA_T, API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_STATE_PARAMS, MS_ACCESS_VENDOR_MODEL_STATE_PARAMS, MS_APPKEY_HANDLE (+24 more)
-
-### Community 100 - "UINT16"
-Cohesion: 0.17
-Nodes (35): MS_STATE_GENERIC_USER_PROPERTY_STRUCT, appl_light_ctl_temp_set_range(), appl_light_lightness_set_linear(), appl_model_generic_battery_state_get(), appl_model_generic_battery_state_set(), appl_model_generic_level_state_get(), appl_model_generic_level_state_set(), appl_model_generic_location_state_get() (+27 more)
-
-### Community 101 - "appl_prov.c"
+### Community 70 - "climodel/cli_model.c"
 Cohesion: 0.12
-Nodes (30): appl_is_configured(), appl_list_beacons(), appl_prov_bind(), appl_prov_bind_device(), appl_prov_callback(), appl_prov_get_local_public_key(), appl_prov_input_auth_val(), appl_prov_set_auth_action() (+22 more)
+Nodes (28): dbg_printf(), dbg_printf_init(), log_vsprintf(), my_dump_byte(), number(), skip_atoi(), _strnlen(), _uart_putc() (+20 more)
+
+### Community 71 - "hal_uart_init"
+Cohesion: 0.07
+Nodes (30): hal_uart_deinit(), hal_uart_init(), bleMesh_uart_init(), bleMesh_uart_init(), bleMesh_uart_init(), bleMesh_uart_init(), bleMesh_uart_init(), bleMesh_uart_init() (+22 more)
+
+### Community 72 - "appl_sample_example_10a.c"
+Cohesion: 0.10
+Nodes (25): timeout_cb(), UI_frndsetup_cb(), UI_gatt_iface_event_pl_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set(), UI_generic_onoff_model_states_initialization(), UI_generic_onoff_server_cb(), UI_health_self_test_00() (+17 more)
+
+### Community 73 - "blebrr_handle_evt_scan_complete"
+Cohesion: 0.07
+Nodes (23): blebrr_disconnect_pl(), blebrr_handle_evt_scan_complete(), bleMesh_ProcessEvent(), bleMesh_ProcessEvent(), bleMesh_ProcessGAPMsg(), bleMesh_ProcessGATTMsg(), bleMesh_ProcessL2CAPMsg(), bleMesh_ProcessOSALMsg() (+15 more)
+
+### Community 74 - "sbc_multi_schedule.c"
+Cohesion: 0.13
+Nodes (28): multiRole_setup_adv_scanRspData(), multiRoleEstablishCB(), multiRoleNotifyCB(), multiRoleScanDoneCB(), multiRoleTerminateCB(), muliSchedule_config(), multiConfigLink_status(), multiConfigSchAdv_param() (+20 more)
+
+### Community 75 - "uint8"
+Cohesion: 0.08
+Nodes (28): hidCCSendReport(), hidCCSendReportKey(), HidKbd_ProcessEvent(), hidKbd_ProcessGattMsg(), hidKbd_ProcessOSALMsg(), hidKbdEvtCB(), hidKbdRcvReport(), hidKbdRptCB() (+20 more)
+
+### Community 76 - "GAP_UpdateAdvertisingData"
+Cohesion: 0.06
+Nodes (33): gapRole_ProcessGAPMsg(), BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params() (+25 more)
+
+### Community 77 - "blebrr.c"
+Cohesion: 0.14
+Nodes (28): light_timeout_handle(), blebrr_adv_duplicate_filter(), blebrr_adv_send(), blebrr_adv_sleep(), blebrr_adv_wakeup(), blebrr_advscan_timeout_handler(), blebrr_bcon_send(), blebrr_clear_bcon() (+20 more)
+
+### Community 78 - "appl_sample_example_11.c"
+Cohesion: 0.10
+Nodes (24): timeout_cb(), UI_frndsetup_cb(), UI_gatt_iface_event_pl_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set(), UI_generic_onoff_model_states_initialization(), UI_generic_onoff_server_cb(), UI_health_self_test_00() (+16 more)
+
+### Community 79 - "find_model_private_data"
+Cohesion: 0.10
+Nodes (20): appl_model_tree_del(), copyget_generic_scene_modele_handle(), find_element_by_model(), find_model_handles(), find_model_private_data(), find_model_private_data_ch(), get_model_handles_of_element(), set_all_element_addr_by_element_handle() (+12 more)
+
+### Community 80 - "sm_mgr.c"
+Cohesion: 0.15
+Nodes (29): generate_subkey(), leftshift_onebit(), padding(), sm_ah(), sm_c1new(), SM_CalcRandomAddr(), sm_CMAC(), sm_d1() (+21 more)
+
+### Community 81 - "appl_sample_example_6.c"
+Cohesion: 0.12
+Nodes (23): MODEL_OPCODE_HANDLER_EMPTY_DEF(), MS_vendor_example_server_init(), MS_vendor_example_server_state_update(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set(), UI_generic_onoff_model_states_initialization(), UI_generic_onoff_server_cb(), UI_health_self_test_00() (+15 more)
+
+### Community 82 - "sm_pairing.c"
+Cohesion: 0.16
+Nodes (29): gapGetDevAddress(), gapGetDevAddressMode(), smInitiatorSendNextKeyInfo(), sm_c1(), SM_PasskeyUpdate(), SM_StartPairing(), smDetermineIOCaps(), smDetermineKeySize() (+21 more)
+
+### Community 84 - "appl_sample_example_8.c"
+Cohesion: 0.10
+Nodes (23): timeout_cb(), UI_gatt_iface_event_pl_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set(), UI_generic_onoff_model_states_initialization(), UI_generic_onoff_server_cb(), UI_health_self_test_00(), UI_health_self_test_01() (+15 more)
+
+### Community 85 - "cli_cmd_stack_push"
+Cohesion: 0.12
+Nodes (18): appl_proxy_register(), cli_core_network(), cli_core_network_get_ivindex(), cli_core_network_send_packet(), cli_core_network_set_pkt_hdr(), cli_core_network_snb(), cli_core_add_addr_to_filter(), cli_core_proxy() (+10 more)
+
+### Community 86 - "EM_start_timer"
+Cohesion: 0.11
+Nodes (30): blebrr_gatt_mode_get(), MS_common_reset(), EM_start_timer(), mesh_model_device_provisioned_ind_pl(), UI_gatt_iface_event_pl_cb(), UI_gatt_iface_event_pl_cb(), UI_prov_bind(), UI_gatt_iface_event_pl_cb() (+22 more)
+
+### Community 87 - "GATTServApp_Init"
+Cohesion: 0.21
+Nodes (36): osalInitTasks(), CbTimerInit(), GATTServApp_Init(), GAPMultiRole_Init(), GAPCentralRole_Init(), GAPBondMgr_Init(), osalInitTasks(), osalInitTasks() (+28 more)
+
+### Community 88 - "init_attr"
+Cohesion: 0.13
+Nodes (17): init_attr_tbl(), get_attr(), init_attr(), make_attr_pdu(), MS_VENDOR_ALIGENIE_server_state_update(), parse_attr_val(), print_attr_tbl(), set_attr() (+9 more)
+
+### Community 89 - "rf_phy_direct_test"
+Cohesion: 0.14
+Nodes (30): WaitUs(), hal_watchdog_feed(), simple_rfphy_dtm_ext_demo(), simple_rfphy_dtm_ext_demo(), gen_pn_prbs9(), rc32k_calibration(), rf_calibrate1(), rf_phy_ana_cfg() (+22 more)
+
+### Community 90 - "bleuart_ProcessEvent"
+Cohesion: 0.09
+Nodes (31): at_at(), at_get_auto_slp_time(), at_get_dma_flag(), at_get_led_mode(), at_get_pw_mode(), at_reset(), at_dma_get_buf_len(), at_dma_get_notify_flag() (+23 more)
+
+### Community 91 - "spiflash.c"
+Cohesion: 0.15
+Nodes (32): hal_spi_dma_set(), check_flash_space(), dma_cb(), spi_cb(), spiflash_block_erase_32KB(), spiflash_block_erase_64KB(), spiflash_bus_busy(), spiflash_chip_erase() (+24 more)
+
+### Community 92 - "ppsp_impl.c"
+Cohesion: 0.21
+Nodes (30): ppsp_impl_ack_conn(), ppsp_impl_cal_crc16_CCITT_FALSE(), ppsp_impl_chk_msgs_leng(), ppsp_impl_chk_msgs_numb(), ppsp_impl_chk_msgs_opco(), ppsp_impl_chk_msgs_seqn(), ppsp_impl_dec_cipr(), ppsp_impl_enc_text() (+22 more)
+
+### Community 93 - "aliGenie_bleMesh_curtain/source/model_vendor/aliGenie_appl_Vendor_light.c"
+Cohesion: 0.11
+Nodes (16): light_ctrl(), curtain_control_set(), curtain_mode_set(), curtain_position_set(), curtain_recall_mode_set(), curtain_recall_mode_set2(), init_attr_tbl_curtain(), UI_HARD_generic_onoff_set() (+8 more)
+
+### Community 94 - "ll_hw_drv.c"
+Cohesion: 0.09
+Nodes (27): bit_to_byte(), ble_crc24_gen(), byte_to_bit(), ll_hw_config(), ll_hw_get_iq_RawSample(), ll_hw_get_last_ack(), ll_hw_get_nAck(), ll_hw_get_rfifo_info() (+19 more)
+
+### Community 95 - "constants.h"
+Cohesion: 0.10
+Nodes (17): add_round_key(), inv_mix_columns(), inv_shift_rows(), inv_sub_bytes(), mult_row_column(), tc_aes128_set_decrypt_key(), tc_aes_decrypt(), tc_cbc_mode_decrypt() (+9 more)
+
+### Community 96 - "tools/rdwr_phy62x2.py"
+Cohesion: 0.08
+Nodes (13): arg_auto_int(), FatalError, main(), ParseHexFile(), arg_auto_int(), do_crc(), FatalError, main() (+5 more)
+
+### Community 97 - "llGetNextDataChanCSA2"
+Cohesion: 0.13
+Nodes (29): llAdjSlaveLatencyValue(), llAllocateSyncHandle(), llAllocConnId(), llConvertCtrlProcTimeoutToEvent(), llConvertLstoToEvent(), llEventDelta(), llEventInRange(), llGenerateCRC() (+21 more)
+
+### Community 98 - "ll_def.h"
+Cohesion: 0.08
+Nodes (10): app_os_init(), battery_get_percent(), battery_init(), battery_is_charging(), battery_read_mv(), watch_ProcessGATTMsg(), watchBLE_StateNotificationCB(), hal_init() (+2 more)
+
+### Community 99 - "GAP_GetParamValue"
+Cohesion: 0.12
+Nodes (18): GapAdv_create(), GapAdv_enable(), GapAdv_loadByHandle(), GapAdv_setEventMask(), GAPRole_GetParameter(), gapRole_HandleParamUpdateNoSuccess(), GAPRole_Init(), GAPRole_ProcessEvent() (+10 more)
+
+### Community 100 - "sbpSmartRF/source/phy_plus_phy.c"
+Cohesion: 0.13
+Nodes (29): phy_allow_rx(), phy_allow_tx(), phy_hw_go(), phy_hw_set_srx(), phy_hw_set_stx(), phy_hw_set_trx(), phy_hw_stop(), phy_hw_timing_setting() (+21 more)
+
+### Community 101 - "UINT16"
+Cohesion: 0.18
+Nodes (29): appl_light_lc_server_publish(), appl_light_ctl_temp_set_range(), appl_light_lc_set_actual(), appl_light_lc_set_actual_propery(), appl_light_lightness_set_linear(), appl_model_generic_battery_state_get(), appl_model_generic_battery_state_set(), appl_model_generic_level_state_get() (+21 more)
 
 ### Community 102 - "light_lc_server/appl_model_state_handler.c"
 Cohesion: 0.13
-Nodes (27): appl_generic_onoff_server_cb(), appl_light_lc_server_cb(), appl_light_lightness_server_cb(), appl_scene_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT (+19 more)
+Nodes (14): appl_generic_onoff_server_cb(), appl_light_lc_server_cb(), appl_light_lightness_server_cb(), appl_scene_server_cb(), main_light_lc_server_operations(), appl_light_lightness_set_linear(), appl_model_light_lightness_state_get(), appl_model_light_lightness_state_set() (+6 more)
 
-### Community 103 - "at_multi_timer.c"
-Cohesion: 0.23
-Nodes (8): uint32, multitimer_init(), multitimer_loop(), multitimer_loop_slave(), multitimer_slave_del(), multitimer_stop(), multitimer_stop_slave(), multitimer_ticks()
-
-### Community 104 - "GAP_MakeDiscoverable"
+### Community 103 - "GAP_MakeDiscoverable"
 Cohesion: 0.16
-Nodes (31): gapAdvDataToken_t, gapAdvertisingParams_t, gapAdvToken_t, bStatus_t, hciEvt_CmdComplete_t, uint16, uint8, GAP_GetAdvToken() (+23 more)
+Nodes (24): GAP_GetAdvToken(), GAP_MakeDiscoverable(), GAP_RemoveAdvToken(), GAP_SetAdvToken(), GAP_UpdateAdvTokens(), gapAddAdvToken(), gapAllocAdvRecs(), gapBuildADTokens() (+16 more)
 
-### Community 105 - "simpleBLECentral.c"
-Cohesion: 0.12
-Nodes (8): central, hciEvt_ScanTimeout_t, ll_common, ll_enc, simpleblecentral, extBLECentralScantimeoutEvtCB(), uint32, ll_adptive_adj_next_time0()
-
-### Community 106 - "test_hmac.c"
+### Community 104 - "test_hmac.c"
 Cohesion: 0.16
-Nodes (27): hmac, hmac_prng, TCHmacPrng_t, TCHmacState_t, tc_hmac_prng_generate(), tc_hmac_prng_init(), tc_hmac_prng_reseed(), update() (+19 more)
+Nodes (21): tc_hmac_prng_generate(), tc_hmac_prng_init(), tc_hmac_prng_reseed(), update(), rekey(), tc_hmac_final(), tc_hmac_init(), tc_hmac_set_key() (+13 more)
 
-### Community 107 - "light_hsl_server/appl_model_state_handler.c"
+### Community 105 - "WaitMs"
+Cohesion: 0.09
+Nodes (19): WaitMs(), hal_QDEC_IRQHandler(), ble_mesh_connect_start_led(), bleswitch_init(), bleswitch_scan_pro(), KSCAN_Init(), KSCAN_ProcessEvent(), ble_mesh_connect_start_led() (+11 more)
+
+### Community 106 - "hal_pwrmgr_unlock"
 Cohesion: 0.11
-Nodes (50): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), appl_light_hsl_hue_server_cb(), appl_light_hsl_saturation_server_cb(), appl_light_hsl_server_cb(), appl_light_lightness_server_cb(), appl_scene_server_cb() (+42 more)
+Nodes (20): hal_pwrmgr_unlock(), hal_qdec_timeout_handler(), console_parse_cmd(), console_rx_handler(), dongleKey_init(), get_gpioin_index(), gpio_key_timer_handler(), key_idle_handler() (+12 more)
+
+### Community 107 - "appl_prov.c"
+Cohesion: 0.12
+Nodes (22): appl_is_configured(), appl_list_beacons(), appl_prov_bind(), appl_prov_bind_device(), appl_prov_callback(), appl_prov_get_local_public_key(), appl_prov_input_auth_val(), appl_prov_set_auth_action() (+14 more)
 
 ### Community 108 - "appl_sample_example_10.c"
 Cohesion: 0.13
-Nodes (31): appl_mesh_sample(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T (+23 more)
+Nodes (18): appl_mesh_sample(), UI_frndsetup_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set(), UI_generic_onoff_model_states_initialization(), UI_generic_onoff_server_cb(), UI_health_self_test_00(), UI_health_self_test_01() (+10 more)
 
-### Community 109 - "smart_rf/source/phy_plus_phy.c"
+### Community 109 - "GAP_SetParamValue"
+Cohesion: 0.12
+Nodes (28): GAPMultiRole_SetParameter(), multiConfigSlaveList(), multiRoleAPP_AdvInit(), multiRoleAPP_ComInit(), multiRoleApp_Init(), multiRoleAPP_ScIn_Init(), MultiProfile_AddService(), MultiProfile_RegisterAppCBs() (+20 more)
+
+### Community 110 - "list_slst.c"
+Cohesion: 0.15
+Nodes (20): core_sque_del(), core_sque_ini(), core_sque_new(), core_sque_pop(), core_sque_psh(), list_slst_add(), list_slst_emu(), list_slst_has() (+12 more)
+
+### Community 111 - "gap_configmgr.c"
 Cohesion: 0.13
-Nodes (29): pktCfg_t, phy_hw_pktFmt_Config(), osalInitTasks(), uint8, Smart_nRF_Init(), osalInitTasks(), pktCfg_t, uint16 (+21 more)
+Nodes (22): GAP_ConfigDeviceAddr(), GAP_SecParamsInit(), gapAddAddrAdj(), gapDetermineAddrType(), gapGetIRK(), gapGetSignCounter(), gapGetSRK(), gapIncSignCounter() (+14 more)
 
-### Community 110 - "sbpSmartRF/source/phy_plus_phy.c"
+### Community 112 - "UINT16"
+Cohesion: 0.15
+Nodes (27): appl_generic_admin_property_server_get_model_handle(), appl_generic_admin_property_server_publish(), appl_generic_level_server_get_model_handle(), appl_generic_level_server_publish(), appl_generic_manufacturer_property_server_get_model_handle(), appl_generic_manufacturer_property_server_publish(), appl_generic_onoff_server_get_model_handle(), appl_generic_onoff_server_publish() (+19 more)
+
+### Community 113 - "generic_level_server/appl_model_state_handler.c"
 Cohesion: 0.11
-Nodes (39): uint16, uint32, uint8, phy_allow_rx(), phy_allow_tx(), phy_hw_go(), phy_hw_set_srx(), phy_hw_set_stx() (+31 more)
+Nodes (13): appl_generic_level_server_cb(), appl_scene_server_cb(), main_generic_level_server_operations(), appl_generic_level_transition_complete_cb(), appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), appl_scene_delete_saved_state() (+5 more)
 
-### Community 111 - "GAP_DeviceDiscoveryCancel"
-Cohesion: 0.15
-Nodes (26): gapAdvertRec_t, hciEvt_BLEAdvPktReport_t, hciEvt_DevInfo_t, l2capSignalEvent_t, bStatus_t, hciEvt_CmdComplete_t, hciEvt_CommandStatus_t, uint16 (+18 more)
-
-### Community 112 - "ConsoleBase"
-Cohesion: 0.07
-Nodes (12): object, Console, ConsoleBase, Out, signal handler for a clean exit on SIGINT, OS abstraction for console (input/output codec, no echo), Set console to read single characters, no echo, Restore default console settings (+4 more)
-
-### Community 113 - "UINT16"
-Cohesion: 0.15
-Nodes (31): appl_generic_admin_property_server_get_model_handle(), appl_generic_admin_property_server_publish(), appl_generic_level_server_get_model_handle(), appl_generic_level_server_publish(), appl_generic_manufacturer_property_server_get_model_handle(), appl_generic_manufacturer_property_server_publish(), appl_generic_onoff_server_get_model_handle(), appl_generic_onoff_server_publish() (+23 more)
-
-### Community 114 - "appl_sample_example_9.c"
-Cohesion: 0.13
-Nodes (30): API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_SUBNET_HANDLE, NETIF_HANDLE, PROV_HANDLE, UCHAR, UINT16 (+22 more)
-
-### Community 115 - "aliGenie_bleMesh_curtain/source/aliGenie_appl.c"
-Cohesion: 0.15
-Nodes (28): appl_get_sig_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE, UCHAR (+20 more)
-
-### Community 116 - "aliGenie_bleMesh_fan/source/aliGenie_appl.c"
+### Community 114 - "aliGenie_bleMesh_fogger/source/aliGenie_appl.c"
 Cohesion: 0.14
-Nodes (30): blebrr_set_adv_scanrsp_data_pl(), appl_get_sig_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE (+22 more)
+Nodes (20): UI_set_brr_scan_rsp_data(), blebrr_set_adv_scanrsp_data_pl(), appl_get_sig_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add() (+12 more)
+
+### Community 115 - "appl_sample_example_9.c"
+Cohesion: 0.13
+Nodes (20): timeout_cb(), UI_gatt_iface_event_pl_cb(), UI_generic_onoff_client_cb(), UI_generic_onoff_set(), UI_health_self_test_00(), UI_health_self_test_01(), UI_health_self_test_FF(), UI_health_server_cb() (+12 more)
+
+### Community 116 - "aliGenie_bleMesh_curtain/source/aliGenie_appl.c"
+Cohesion: 0.14
+Nodes (19): appl_get_sig_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add(), UI_get_device_key(), UI_health_self_test_00() (+11 more)
 
 ### Community 117 - "aliGenie_bleMesh_fanlight/source/aliGenie_appl.c"
-Cohesion: 0.15
-Nodes (28): appl_get_sig_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE, UCHAR (+20 more)
-
-### Community 118 - "aliGenie_bleMesh_fogger/source/aliGenie_appl.c"
 Cohesion: 0.14
-Nodes (29): appl_get_sig_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE, UCHAR (+21 more)
+Nodes (19): appl_get_sig_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add(), UI_get_device_key(), UI_health_self_test_00() (+11 more)
 
-### Community 119 - "EXT_cbtimer.c"
+### Community 118 - "smart_rf/source/phy_plus_phy.c"
+Cohesion: 0.13
+Nodes (24): phy_hw_pktFmt_Config(), osalInitTasks(), Smart_nRF_Init(), osalInitTasks(), phy_hw_go(), phy_hw_pktFmt_Config(), phy_hw_set_srx(), phy_hw_set_stx() (+16 more)
+
+### Community 119 - "aliGenie_appl_Vendor_heater.c"
+Cohesion: 0.14
+Nodes (14): aliGenie_appl_create_elements_and_models(), heater_childLockOnOff_set(), heater_errorCode_set(), heater_heaterPower_set(), heater_heatStatus_set(), heater_humidificationSwitch_set(), heater_humidity_set(), heater_powerstate_set() (+6 more)
+
+### Community 120 - "EXT_cbtimer.c"
 Cohesion: 0.18
-Nodes (29): EXT_CBTIMER_ENTITY, EXT_cbtimer_handle, extpfnCbTimer_t, EM_RESULT, Status_t, UCHAR, uint16, UINT32 (+21 more)
+Nodes (19): CbTimerProcessEvent(), CbTimerStart(), CbTimerStop(), CbTimerUpdate(), ext_cbtimer_em_shutdown(), ext_cbtimer_get_ms_timestamp(), EXT_cbtimer_get_remain_timer(), EXT_cbtimer_get_remaining_time() (+11 more)
 
-### Community 120 - "GAPBondMgr_LinkEst"
-Cohesion: 0.08
-Nodes (29): otaProtocol_mtu(), otaProtocol_TimerEvt(), at_enter_smp(), attExchangeMTUReq_t, bStatus_t, gattMsgEvent_t, osal_event_hdr_t, uint16 (+21 more)
+### Community 121 - "vibrator.c"
+Cohesion: 0.13
+Nodes (27): app_os_update(), render_vibrator_test(), ble_get_start_calls(), ble_get_state(), ble_is_connected(), ble_start_ota_mode(), ble_try_start_device(), WatchBLE_ProcessEvent() (+19 more)
 
-### Community 122 - "aliGenie_bleMesh_3KeySwitch/source/aliGenie_appl.c"
+### Community 122 - "blebrr_pl.c"
+Cohesion: 0.12
+Nodes (21): appl_mesh_prov_data_in_wt_cb(), appl_mesh_prov_data_out_ccd_cb(), appl_mesh_prov_data_out_notif_cb(), appl_mesh_proxy_data_in_wt_cb(), appl_mesh_proxy_data_out_ccd_cb(), appl_mesh_proxy_data_out_notif_cb(), appl_mesh_proxy_notif_config_status_cb(), blebrr_advertise_data_pl() (+13 more)
+
+### Community 124 - "aliGenie_bleMesh_3KeySwitch/source/aliGenie_appl.c"
 Cohesion: 0.15
-Nodes (28): appl_get_sig_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE, UCHAR (+20 more)
+Nodes (19): appl_get_sig_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add(), UI_get_device_key(), UI_get_net_key() (+11 more)
 
-### Community 123 - "sm_intpairing.c"
+### Community 125 - "uart.c"
+Cohesion: 0.12
+Nodes (22): clear_adcc_cfg(), hal_adc_config_channel(), hal_ADC_IRQHandler(), hal_adc_stop(), set_differential_mode(), hal_clk_gate_disable(), hal_clk_gate_get(), hal_clk_reset() (+14 more)
+
+### Community 126 - "MultiRole_processGAPMsg"
+Cohesion: 0.12
+Nodes (22): bdAddr2Str(), GAPMultiRole_GetParameter(), Multi_peripheralUpdateParam(), multi_ScannerInsertDev(), multiClearSlaveList(), multiDelCurrentConnNode(), multilist_free_central_action_actimerlist(), multilist_free_sdplist() (+14 more)
+
+### Community 127 - "phy_sec_ext.c"
+Cohesion: 0.11
+Nodes (23): crc16(), crc16_byte(), ota_flash_read(), ota_flash_read_bootsector(), void(), sector_crc(), sector_crypto(), load_fw() (+15 more)
+
+### Community 128 - "sm_intpairing.c"
 Cohesion: 0.15
-Nodes (28): smInitiatorCBs_t, smpPairingRsp_t, bStatus_t, linkDBItem_t, smpEncInfo_t, smpIdentityAddrInfo_t, smpIdentityInfo_t, smpMasterID_t (+20 more)
-
-### Community 124 - "aliGenie_bleMesh_heater/source/aliGenie_appl.c"
-Cohesion: 0.16
-Nodes (27): appl_get_sig_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE, UCHAR (+19 more)
-
-### Community 125 - "aliGenie_bleMesh_light/source/aliGenie_appl.c"
-Cohesion: 0.15
-Nodes (28): appl_get_sig_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE, UCHAR (+20 more)
-
-### Community 126 - "aliGenie_bleMesh_socket/source/aliGenie_appl.c"
-Cohesion: 0.15
-Nodes (28): appl_get_sig_model_handle_by_element_addr(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_APPKEY_HANDLE, MS_NET_ADDR, MS_SUBNET_HANDLE, UCHAR (+20 more)
-
-### Community 127 - "EM_timer.c"
-Cohesion: 0.17
-Nodes (27): EM_timer_handle, TIMER_ENTITY, blebrr_lp_stop(), EM_RESULT, pfnCbTimer_t, Status_t, UCHAR, uint32 (+19 more)
-
-### Community 128 - "cli_cmd_stack_push"
-Cohesion: 0.14
-Nodes (38): CLI_COMMAND, UINT16, cli_cmd_stack_push(), API_RESULT, UCHAR, UINT32, cli_model(), API_RESULT (+30 more)
+Nodes (14): setupInitiatorKeys(), SM_InitiatorInit(), SM_StartEncryption(), smEncLTK(), smpInitiatorProcessEncryptionInformation(), smpInitiatorProcessIdentityAddrInfo(), smpInitiatorProcessIdentityInfo(), smpInitiatorProcessIncoming() (+6 more)
 
 ### Community 129 - "appl_sample_example_1.c"
 Cohesion: 0.14
-Nodes (28): appl_mesh_sample(), API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T (+20 more)
+Nodes (16): appl_mesh_sample(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set(), UI_generic_onoff_model_states_initialization(), UI_generic_onoff_server_cb(), UI_health_self_test_00(), UI_health_self_test_01(), UI_health_self_test_FF() (+8 more)
 
-### Community 130 - "ancs_attr.c"
+### Community 130 - "aliGenie_bleMesh_fan/source/aliGenie_appl.c"
+Cohesion: 0.16
+Nodes (18): appl_get_sig_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add(), UI_get_device_key(), UI_health_self_test_00() (+10 more)
+
+### Community 131 - "aliGenie_bleMesh_heater/source/aliGenie_appl.c"
+Cohesion: 0.16
+Nodes (18): appl_get_sig_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add(), UI_get_device_key(), UI_health_self_test_00() (+10 more)
+
+### Community 132 - "aliGenie_bleMesh_light/source/aliGenie_appl.c"
+Cohesion: 0.16
+Nodes (18): appl_get_sig_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add(), UI_get_device_key(), UI_health_self_test_00() (+10 more)
+
+### Community 133 - "aliGenie_bleMesh_socket/source/aliGenie_appl.c"
+Cohesion: 0.16
+Nodes (18): appl_get_sig_model_handle_by_element_addr(), timeout_cb(), UI_app_config_server_callback(), UI_binding_app_key(), UI_check_app_key(), UI_config_appkey_add(), UI_get_device_key(), UI_health_self_test_00() (+10 more)
+
+### Community 134 - "at_multi_schedule.c"
 Cohesion: 0.19
-Nodes (27): ancs_attr_evt_t, ancs_ctx_t, ancs_parse_state_t, encode_app_attr_t, all_req_attrs_parsed(), ancs_parse_get_attrs_response(), app_attr_encode_app_id(), app_attr_encode_attr_id() (+19 more)
+Nodes (21): muliSchedule_config(), multiConfigLink_status(), multiConfigSchAdv_param(), multiConfigSchScan_param(), multiLinkConnParamUpdate(), multiLinkStatusGetSlaveConnPeerIdx(), multiRole_cacLen_list(), multiRole_create_list() (+13 more)
 
-### Community 131 - "dma.c"
-Cohesion: 0.10
-Nodes (32): DMA_CH_CFG_t, DMA_CONN_e, HAL_DMA_t, spi, DMA_CH_t, get_dst_conn(), get_src_conn(), hal_dma_config_channel() (+24 more)
+### Community 135 - "ancs_attr.c"
+Cohesion: 0.21
+Nodes (20): all_req_attrs_parsed(), ancs_parse_get_attrs_response(), app_attr_encode_app_id(), app_attr_encode_attr_id(), app_attr_encode_cmd_id(), app_attr_is_requested(), app_attr_nb_to_get(), app_attrs_get() (+12 more)
 
-### Community 132 - "i2c_common.c"
-Cohesion: 0.10
-Nodes (24): Fmux_Type_e, I2C_Hdl_t, I2C_Slave_Parameter, AP_I2C_TypeDef, MODULE_e, Hal_Check_IIC_Closed(), Hal_Get_IIC_Instance(), Hal_GetIIC_IRQID() (+16 more)
+### Community 136 - "EM_timer.c"
+Cohesion: 0.17
+Nodes (18): blebrr_lp_stop(), EM_get_remain_timer(), EM_is_active_timer(), EM_list_timer(), EM_restart_timer(), EM_restart_timerEx(), EM_stop_timer(), em_timer_get_ms_timestamp() (+10 more)
 
-### Community 133 - "cli_light_hsl_client.c"
+### Community 137 - "cli_model_server.c"
 Cohesion: 0.25
-Nodes (26): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_light_hsl_client_cb(), cli_modelc_light_hsl(), cli_modelc_light_hsl_default_get() (+18 more)
+Nodes (24): cli_health_status_publish(), cli_model_server(), cli_models_foundation(), cli_models_generics(), cli_models_generics_battery(), cli_models_generics_default_transition_time(), cli_models_generics_level(), cli_models_generics_location() (+16 more)
 
-### Community 134 - "hidkbd.c"
-Cohesion: 0.09
-Nodes (42): hiddev, hidkbdservice, gattMsgEvent_t, osal_event_hdr_t, uint16, uint8, hidCCSendReport(), hidCCSendReportKey() (+34 more)
+### Community 139 - "i2c_common.c"
+Cohesion: 0.10
+Nodes (19): Hal_Check_IIC_Closed(), Hal_Get_IIC_Instance(), Hal_GetIIC_IRQID(), Hal_GetIIC_ModuleID(), Hal_GetIIC_PIN_Fmux(), Hal_IIC_Addr_Valid(), Hal_IIC_Read_RXFIFO(), Hal_IIC_Register_CallBack() (+11 more)
 
-### Community 135 - "central.c"
-Cohesion: 0.09
-Nodes (37): gapCentralRoleCB_t, gapCentralRoleRssi_t, bStatus_t, gapEventHdr_t, osal_event_hdr_t, uint16, uint8, GAPCentralRole_CancelDiscovery() (+29 more)
+### Community 140 - "cli_light_hsl_client.c"
+Cohesion: 0.25
+Nodes (21): cli_light_hsl_client_cb(), cli_modelc_light_hsl(), cli_modelc_light_hsl_default_get(), cli_modelc_light_hsl_default_set(), cli_modelc_light_hsl_default_set_unacknowledged(), cli_modelc_light_hsl_get(), cli_modelc_light_hsl_get_model_handle(), cli_modelc_light_hsl_hue_get() (+13 more)
 
-### Community 136 - "gap_configmgr.c"
-Cohesion: 0.11
-Nodes (34): hciRetParam_LeReadBufSize_t, bStatus_t, uint16, uint32, uint8, GAP_ConfigDeviceAddr(), GAP_SecParamsInit(), gapAddAddrAdj() (+26 more)
-
-### Community 137 - "appl_model_server_callback.c"
-Cohesion: 0.44
-Nodes (25): appl_generic_admin_property_server_cb(), appl_generic_battery_server_cb(), appl_generic_client_property_server_cb(), appl_generic_level_server_cb(), appl_generic_location_server_cb(), appl_generic_manufacturer_property_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_level_server_cb() (+17 more)
-
-### Community 138 - "GAP_EstablishLinkReq"
+### Community 141 - "GAPBondMgr_LinkEst"
 Cohesion: 0.08
-Nodes (27): gapEstLinkReq_t, BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params() (+19 more)
+Nodes (14): otaProtocol_mtu(), GAPBondMgr_LinkEst(), on_gatt_mtu_req(), ota_flow_ctrl(), ota_ProcessGATTMsg(), ota_ProcessOSALMsg(), otaApp_ProcessEvent(), on_gatt_mtu_req() (+6 more)
 
-### Community 139 - "gen_aligenie_auth_val"
-Cohesion: 0.17
-Nodes (22): mbedtls_sha256_context, mbedtls_internal_sha256_process(), mbedtls_sha256_clone(), mbedtls_sha256_finish_ret(), mbedtls_sha256_free(), mbedtls_sha256_init(), mbedtls_sha256_process(), mbedtls_sha256_starts() (+14 more)
+### Community 143 - "appl_light_hsl_client.c"
+Cohesion: 0.13
+Nodes (20): appl_light_hsl_client_cb(), appl_light_hsl_client_get_model_handle(), appl_light_hsl_client_set_publish_address(), appl_send_light_hsl_default_get(), appl_send_light_hsl_default_set(), appl_send_light_hsl_default_set_unacknowledged(), appl_send_light_hsl_get(), appl_send_light_hsl_hue_get() (+12 more)
 
-### Community 140 - "vendormodel_client_cb"
-Cohesion: 0.10
-Nodes (24): MS_VENDORMODEL_CLIENT_CB, API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_STATE_PARAMS, MS_ACCESS_VENDORMODEL_STATE_PARAMS (+16 more)
+### Community 144 - "appl_model_server_callback.c"
+Cohesion: 0.44
+Nodes (19): appl_generic_admin_property_server_cb(), appl_generic_battery_server_cb(), appl_generic_client_property_server_cb(), appl_generic_level_server_cb(), appl_generic_location_server_cb(), appl_generic_manufacturer_property_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_level_server_cb() (+11 more)
 
-### Community 141 - "ota_protocol.c"
-Cohesion: 0.17
-Nodes (25): ota_Evt_t, ota_part_t, uint32, otafm_write_partition(), ota_flash_erase_area(), ota_flash_read_bootsector(), handle_error(), handle_error_fatal() (+17 more)
-
-### Community 142 - "flash.c"
+### Community 145 - "asyncio"
 Cohesion: 0.15
-Nodes (31): otafmesh_dev_t, __ATTR_SECTION_SRAM__, CHIP_ID_STATUS_e, check_chip_mAddr(), flash_write_word(), hal_cache_init(), hal_cache_tag_flush(), hal_flash_erase_all() (+23 more)
+Nodes (3): main(), main(), main()
 
-### Community 143 - "appl_generic_onoff_client.c"
-Cohesion: 0.20
-Nodes (13): appl_generic_onoff_client_cb(), appl_generic_onoff_client_get_model_handle(), appl_generic_onoff_client_set_publish_address(), appl_send_generic_onoff_get(), appl_send_generic_onoff_set(), appl_send_generic_onoff_set_unacknowledged(), API_RESULT, MS_ACCESS_MODEL_HANDLE (+5 more)
+### Community 146 - "multiGetSlaveConnList"
+Cohesion: 0.13
+Nodes (17): multi_devInLinkList(), multiAddSlaveConnList(), multiDevInConfSlaveList(), multiGetConfigSlaveList(), multiGetSlaveConnList(), at_conn_req(), multiRole_setup_adv_scanRspData(), multiRoleApp_ProcessEvent() (+9 more)
 
-### Community 144 - "tc_sha256_update"
+### Community 147 - "sm_rsppairing.c"
+Cohesion: 0.15
+Nodes (11): smRegisterResponder(), SM_ResponderInit(), smpResponderProcessEncryptionInformation(), smpResponderProcessIdentityAddrInfo(), smpResponderProcessIdentityInfo(), smpResponderProcessIncoming(), smpResponderProcessMasterID(), smpResponderProcessPairingRandom() (+3 more)
+
+### Community 148 - "generic_onoff_server/appl_model_state_handler.c"
+Cohesion: 0.11
+Nodes (9): appl_generic_onoff_server_cb(), appl_scene_server_cb(), main_generic_onoff_server_operations(), appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), appl_scene_delete_saved_state(), appl_scene_recall_saved_state() (+1 more)
+
+### Community 149 - "tc_sha256_update"
 Cohesion: 0.32
-Nodes (22): BigEndian(), TCSha256State_t, compress(), tc_sha256_final(), tc_sha256_init(), tc_sha256_update(), check_result(), main() (+14 more)
+Nodes (21): BigEndian(), compress(), tc_sha256_final(), tc_sha256_init(), tc_sha256_update(), check_result(), main(), test_1() (+13 more)
 
-### Community 145 - "aliGenie_appl_Vendor_fogger.c"
+### Community 150 - "aliGenie_appl_Vendor_fogger.c"
 Cohesion: 0.18
-Nodes (23): API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T, UI_DATA_GENERIC_ONOFF_MODEL_T, UINT32, UINT8, fogger_filterExpired_set(), fogger_fog_set() (+15 more)
+Nodes (13): fogger_filterExpired_set(), fogger_fog_set(), fogger_fogLevel_set(), fogger_mode_set(), fogger_powerstate_set(), fogger_recall_mode_set(), fogger_recall_mode_set2(), fogger_targethumidity_set() (+5 more)
 
-### Community 146 - "timer.c"
+### Community 151 - "generic_power_onoff_server/appl_model_state_handler.c"
+Cohesion: 0.13
+Nodes (10): appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), main_generic_power_onoff_server_operations(), appl_model_power_cycle(), appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), appl_scene_delete_saved_state() (+2 more)
+
+### Community 152 - "cli_generic_property_client.c"
+Cohesion: 0.27
+Nodes (18): cli_generic_property_client_cb(), cli_modelc_generic_admin_properties_get(), cli_modelc_generic_admin_property_get(), cli_modelc_generic_admin_property_set(), cli_modelc_generic_admin_property_set_unacknowledged(), cli_modelc_generic_client_properties_get(), cli_modelc_generic_manufacturer_properties_get(), cli_modelc_generic_manufacturer_property_get() (+10 more)
+
+### Community 153 - "cli_light_lightness_client.c"
+Cohesion: 0.27
+Nodes (18): cli_light_lightness_client_cb(), cli_modelc_light_lightness(), cli_modelc_light_lightness_default_get(), cli_modelc_light_lightness_default_set(), cli_modelc_light_lightness_default_set_unacknowledged(), cli_modelc_light_lightness_get(), cli_modelc_light_lightness_get_model_handle(), cli_modelc_light_lightness_last_get() (+10 more)
+
+### Community 154 - "timer.c"
 Cohesion: 0.14
-Nodes (20): AP_TIM_TypeDef, ap_tm_hdl_t, hal_pwrmgr_unregister(), hal_TIMER5_IRQHandler(), hal_TIMER6_IRQHandler(), hal_timer_clear_int(), hal_timer_deinit(), hal_timer_init() (+12 more)
+Nodes (14): hal_TIMER5_IRQHandler(), hal_TIMER6_IRQHandler(), hal_timer_clear_int(), hal_timer_deinit(), hal_timer_init(), hal_timer_mask_int(), hal_timer_set(), hal_timer_set_loadtimer() (+6 more)
 
-### Community 147 - "hal_gpio_write"
-Cohesion: 0.25
-Nodes (18): hal_gpio_write(), hal_spi_transmit(), console_wakeup_handler(), backlight_turn_off(), backlight_turn_on(), display_draw_pixel(), display_fill_screen(), display_fill_window() (+10 more)
-
-### Community 148 - "appl_generic_admin_property_server_cb"
-Cohesion: 0.19
-Nodes (17): appl_generic_admin_property_server_cb(), appl_generic_client_property_server_cb(), appl_generic_manufacturer_property_server_cb(), appl_generic_user_property_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW (+9 more)
-
-### Community 149 - "appl_generic_onoff_server_cb"
-Cohesion: 0.28
-Nodes (13): appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS (+5 more)
-
-### Community 150 - "cli_generic_property_client.c"
-Cohesion: 0.27
-Nodes (23): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_generic_property_client_cb(), cli_modelc_generic_admin_properties_get(), cli_modelc_generic_admin_property_get() (+15 more)
-
-### Community 151 - "cli_light_lightness_client.c"
-Cohesion: 0.27
-Nodes (23): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_light_lightness_client_cb(), cli_modelc_light_lightness(), cli_modelc_light_lightness_default_get() (+15 more)
-
-### Community 152 - "test_utils.h"
+### Community 155 - "test_utils.h"
 Cohesion: 0.23
-Nodes (20): ccm_mode, TCCcmMode_t, TCAesKeySched_t, ccm_cbc_mac(), ccm_ctr_mode(), tc_ccm_config(), tc_ccm_decryption_verification(), tc_ccm_generation_encryption() (+12 more)
+Nodes (17): ccm_cbc_mac(), ccm_ctr_mode(), tc_ccm_config(), tc_ccm_decryption_verification(), tc_ccm_generation_encryption(), fatal(), show_str(), do_test() (+9 more)
 
-### Community 153 - "EM_os.c"
+### Community 156 - "EM_os.c"
 Cohesion: 0.15
-Nodes (22): EM_thread_attr_type, EM_thread_cond_attr_type, EM_thread_cond_type, EM_thread_mutex_attr_type, EM_thread_mutex_type, EM_THREAD_START_ROUTINE, EM_thread_type, INT32 (+14 more)
+Nodes (11): EM_get_current_time(), EM_get_local_time(), EM_thread_attr_init(), EM_thread_cond_init(), EM_thread_cond_signal(), EM_thread_cond_wait(), EM_thread_create(), EM_thread_mutex_init() (+3 more)
 
-### Community 154 - "cli_brr.c"
-Cohesion: 0.51
-Nodes (10): API_RESULT, UCHAR, UINT32, cli_brr(), cli_config_ntf(), cli_create_gatt_conn(), cli_discover_service(), cli_scan_feature() (+2 more)
+### Community 157 - "OTA_internal_flash/Source/main.c"
+Cohesion: 0.13
+Nodes (7): BLE_gap_connect_cancel(), hal_init(), hal_rfphy_init(), main(), ota_main(), GAP_UpdateLinkParamReq(), gapCancelLinkReq()
 
-### Community 155 - "appl_light_lightness_client.c"
+### Community 158 - "appl_light_lightness_client.c"
 Cohesion: 0.15
-Nodes (22): appl_light_lightness_client_cb(), appl_light_lightness_client_get_model_handle(), appl_light_lightness_client_set_publish_address(), appl_send_light_lightness_default_get(), appl_send_light_lightness_default_set(), appl_send_light_lightness_default_set_unacknowledged(), appl_send_light_lightness_get(), appl_send_light_lightness_last_get() (+14 more)
+Nodes (17): appl_light_lightness_client_cb(), appl_light_lightness_client_get_model_handle(), appl_light_lightness_client_set_publish_address(), appl_send_light_lightness_default_get(), appl_send_light_lightness_default_set(), appl_send_light_lightness_default_set_unacknowledged(), appl_send_light_lightness_get(), appl_send_light_lightness_last_get() (+9 more)
 
-### Community 156 - "cli_light_ctl_client.c"
+### Community 159 - "cli_light_ctl_client.c"
 Cohesion: 0.28
-Nodes (22): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_light_ctl_client_cb(), cli_modelc_light_ctl(), cli_modelc_light_ctl_default_get() (+14 more)
+Nodes (17): cli_light_ctl_client_cb(), cli_modelc_light_ctl(), cli_modelc_light_ctl_default_get(), cli_modelc_light_ctl_default_set(), cli_modelc_light_ctl_default_set_unacknowledged(), cli_modelc_light_ctl_get(), cli_modelc_light_ctl_get_model_handle(), cli_modelc_light_ctl_set() (+9 more)
 
-### Community 157 - "cli_light_lc_client.c"
+### Community 160 - "cli_light_lc_client.c"
 Cohesion: 0.28
-Nodes (22): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_light_lc_client_cb(), cli_modelc_light_lc(), cli_modelc_light_lc_get_model_handle() (+14 more)
+Nodes (17): cli_light_lc_client_cb(), cli_modelc_light_lc(), cli_modelc_light_lc_get_model_handle(), cli_modelc_light_lc_light_onoff_get(), cli_modelc_light_lc_light_onoff_set(), cli_modelc_light_lc_light_onoff_set_unacknowledged(), cli_modelc_light_lc_mode_get(), cli_modelc_light_lc_mode_set() (+9 more)
 
-### Community 158 - "CLI_strtoarray"
+### Community 161 - "CLI_strtoarray"
 Cohesion: 0.28
-Nodes (22): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_modelc_sensor(), cli_modelc_sensor_cadence_get(), cli_modelc_sensor_cadence_set() (+14 more)
+Nodes (17): cli_modelc_sensor(), cli_modelc_sensor_cadence_get(), cli_modelc_sensor_cadence_set(), cli_modelc_sensor_cadence_set_unacknowledged(), cli_modelc_sensor_column_get(), cli_modelc_sensor_descriptor_get(), cli_modelc_sensor_get(), cli_modelc_sensor_get_model_handle() (+9 more)
 
-### Community 159 - "blebrr_handle_evt_scan_complete"
-Cohesion: 0.09
-Nodes (29): blebrr_disconnect_pl(), blebrr_handle_evt_scan_complete(), bleMesh_ProcessEvent(), uint16, uint8, bleMesh_ProcessEvent(), uint16, uint8 (+21 more)
-
-### Community 160 - "aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_fan.c"
+### Community 162 - "aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_fan.c"
 Cohesion: 0.25
-Nodes (22): API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T, UI_DATA_GENERIC_ONOFF_MODEL_T, UINT32, UINT8, fan_angleAutoAllOnOff_set(), fan_angleAutoLROnOff_set() (+14 more)
+Nodes (16): fan_angleAutoAllOnOff_set(), fan_angleAutoLROnOff_set(), fan_angleAutoUDOnOff_set(), fan_childLockOnOff_set(), fan_direction_set(), fan_heaterPower_set(), fan_humidity_set(), fan_mode_set() (+8 more)
 
-### Community 161 - "core_cmFunc.h"
+### Community 163 - "bStatus_t"
+Cohesion: 0.13
+Nodes (12): GapAdv_create(), GapAdv_enable(), GapAdv_loadByHandle(), GapAdv_setEventMask(), gapRole_HandleParamUpdateNoSuccess(), GAPRole_ProcessEvent(), gapRole_ProcessGAPMsg(), gapRole_ProcessOSALMsg() (+4 more)
+
+### Community 164 - "core_cmFunc.h"
 Cohesion: 0.16
-Nodes (21): cmsis_ccs, cmsis_iar, pplus_enter_programming_mode(), __get_APSR(), __get_BASEPRI(), __get_CONTROL(), __get_FAULTMASK(), __get_FPSCR() (+13 more)
+Nodes (18): pplus_enter_programming_mode(), __get_APSR(), __get_BASEPRI(), __get_CONTROL(), __get_FAULTMASK(), __get_FPSCR(), __get_IPSR(), __get_MSP() (+10 more)
 
-### Community 162 - "spiflash_demo.c"
-Cohesion: 0.21
-Nodes (19): spiflash, hal_spi_get_transmit_bus_state(), hal_spi_set_force_cs(), hal_spi_set_int_mode(), hal_spi_set_tx_buffer(), uint16, uint8, spi_demo_ProcessEvent() (+11 more)
+### Community 165 - "dma.c"
+Cohesion: 0.16
+Nodes (15): get_dst_conn(), get_src_conn(), hal_dma_config_channel(), hal_dma_deinit(), hal_DMA_IRQHandler(), hal_dma_start_channel(), hal_dma_status_control(), hal_dma_stop_channel() (+7 more)
 
-### Community 163 - "appl_light_ctl_client.c"
+### Community 166 - "appl_light_ctl_client.c"
 Cohesion: 0.15
-Nodes (21): appl_light_ctl_client_cb(), appl_light_ctl_client_get_model_handle(), appl_light_ctl_client_set_publish_address(), appl_send_light_ctl_default_get(), appl_send_light_ctl_default_set(), appl_send_light_ctl_default_set_unacknowledged(), appl_send_light_ctl_get(), appl_send_light_ctl_set() (+13 more)
+Nodes (16): appl_light_ctl_client_cb(), appl_light_ctl_client_get_model_handle(), appl_light_ctl_client_set_publish_address(), appl_send_light_ctl_default_get(), appl_send_light_ctl_default_set(), appl_send_light_ctl_default_set_unacknowledged(), appl_send_light_ctl_get(), appl_send_light_ctl_set() (+8 more)
 
-### Community 164 - "appl_light_lc_client.c"
-Cohesion: 0.15
-Nodes (21): appl_light_lc_client_cb(), appl_light_lc_client_get_model_handle(), appl_light_lc_client_set_publish_address(), appl_send_light_lc_light_onoff_get(), appl_send_light_lc_light_onoff_set(), appl_send_light_lc_light_onoff_set_unacknowledged(), appl_send_light_lc_mode_get(), appl_send_light_lc_mode_set() (+13 more)
-
-### Community 165 - "cli_health_client.c"
+### Community 167 - "cli_health_client.c"
 Cohesion: 0.29
-Nodes (21): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_health_client_cb(), cli_modelc_health(), cli_modelc_health_attention_get() (+13 more)
+Nodes (16): cli_health_client_cb(), cli_modelc_health(), cli_modelc_health_attention_get(), cli_modelc_health_attention_set(), cli_modelc_health_attention_set_unacknowledged(), cli_modelc_health_fault_clear(), cli_modelc_health_fault_clear_unacknowledged(), cli_modelc_health_fault_get() (+8 more)
 
-### Community 166 - "aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_light.c"
+### Community 168 - "aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_light.c"
 Cohesion: 0.17
-Nodes (20): light_ctrl(), API_RESULT, MS_NET_ADDR, UINT16, UINT32, vendor_Aligenie_indication(), API_RESULT, MS_ACCESS_MODEL_HANDLE (+12 more)
+Nodes (10): light_ctrl(), vendor_Aligenie_indication(), init_attr_tbl_light(), light_brightness_set(), light_color_set(), light_mode_set(), light_powerstate_set(), light_recall_mode_set() (+2 more)
 
-### Community 167 - "core_cmInstr.h"
+### Community 169 - "core_cmInstr.h"
 Cohesion: 0.17
-Nodes (21): __CLREX(), __CLZ(), __DMB(), __DSB(), __STATIC_INLINE, __ISB(), __LDREXB(), __LDREXH() (+13 more)
+Nodes (20): __CLREX(), __CLZ(), __DMB(), __DSB(), __ISB(), __LDREXB(), __LDREXH(), __LDREXW() (+12 more)
 
-### Community 168 - "aliGenie_bleMesh_fogger/source/model_vendor/aliGenie_appl_Vendor_light.c"
-Cohesion: 0.19
-Nodes (18): COLOR_RGB_T, light_ctrl(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T, UI_DATA_GENERIC_ONOFF_MODEL_T, UINT32, UINT8 (+10 more)
+### Community 170 - "process_ctrl_cmd"
+Cohesion: 0.15
+Nodes (18): send_response(), hal_system_soft_reset(), handle_error(), handle_error_fatal(), handle_error_state(), otaProtocol_TimerEvt(), process_ctrl_cmd(), process_ota_data() (+10 more)
 
-### Community 169 - "crc16"
+### Community 171 - "GAP_DeviceDiscoveryCancel"
+Cohesion: 0.21
+Nodes (14): GAP_DeviceDiscoveryCancel(), gapAllocScanRecs(), gapCentProcessHCICmdEvt(), gapFindEmptyScanRec(), gapFindScanRec(), gapFreeScanRecs(), gapProcessAdvertDevInfo(), gapProcessAdvertisementReport() (+6 more)
+
+### Community 172 - "slb.c"
 Cohesion: 0.20
-Nodes (14): ota_flash_load_app, crc16(), crc16_byte(), ota_fw_t, otafm_fw_load(), ota_flash_read(), void(), sector_crypto() (+6 more)
+Nodes (17): ota_flash_erase(), slb_apply_exch_zone_to_fw(), slb_boot_load_exch_zone(), slb_boot_recover_exch_zone(), slb_check_currfw_exchfw(), slb_erase_fw(), slb_flash_calc_checksum(), slb_oob_piece_write() (+9 more)
 
-### Community 170 - "cli_generic_power_level_client.c"
-Cohesion: 0.30
-Nodes (20): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_generic_power_level_client_cb(), cli_modelc_generic_power_default_get(), cli_modelc_generic_power_default_set() (+12 more)
+### Community 173 - "voice_demo.c"
+Cohesion: 0.16
+Nodes (13): hal_voice_init(), pin_voice_stop_event(), stop_voice_task(), voice_data_encode_inqueue(), voice_evt_handler_adpcm(), voice_Init(), voice_ProcessEvent(), voice_ProcessOSALMsg() (+5 more)
 
-### Community 171 - "cli_light_xyl_client.c"
-Cohesion: 0.30
-Nodes (20): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_light_xyl_client_cb(), cli_modelc_light_xyl(), cli_modelc_light_xyl_default_get() (+12 more)
-
-### Community 172 - "cli_time_client.c"
+### Community 174 - "blebrr_gatt_mode_set"
 Cohesion: 0.28
-Nodes (19): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_modelc_tai_utc_delta_get(), cli_modelc_tai_utc_delta_set(), cli_modelc_time() (+11 more)
+Nodes (17): appl_prov_register(), appl_prov_setup(), blebrr_gatt_mode_set(), appl_indicate_provisioning_state(), cli_clear_persistent(), cli_config_gatt_proxy_get(), cli_config_gatt_proxy_set(), cli_demo_init() (+9 more)
 
-### Community 173 - "appl_sample_example_7.c"
+### Community 175 - "appl_health_client.c"
+Cohesion: 0.16
+Nodes (15): appl_health_client_cb(), appl_health_client_get_model_handle(), appl_health_client_set_publish_address(), appl_send_health_attention_get(), appl_send_health_attention_set(), appl_send_health_attention_set_unacknowledged(), appl_send_health_fault_clear(), appl_send_health_fault_clear_unacknowledged() (+7 more)
+
+### Community 176 - "cli_generic_power_level_client.c"
+Cohesion: 0.30
+Nodes (15): cli_generic_power_level_client_cb(), cli_modelc_generic_power_default_get(), cli_modelc_generic_power_default_set(), cli_modelc_generic_power_default_set_unacknowledged(), cli_modelc_generic_power_last_get(), cli_modelc_generic_power_level(), cli_modelc_generic_power_level_get(), cli_modelc_generic_power_level_get_model_handle() (+7 more)
+
+### Community 177 - "cli_light_xyl_client.c"
+Cohesion: 0.30
+Nodes (15): cli_light_xyl_client_cb(), cli_modelc_light_xyl(), cli_modelc_light_xyl_default_get(), cli_modelc_light_xyl_default_set(), cli_modelc_light_xyl_default_set_unacknowledged(), cli_modelc_light_xyl_get(), cli_modelc_light_xyl_get_model_handle(), cli_modelc_light_xyl_range_get() (+7 more)
+
+### Community 178 - "cli_time_client.c"
+Cohesion: 0.28
+Nodes (14): cli_modelc_tai_utc_delta_get(), cli_modelc_tai_utc_delta_set(), cli_modelc_time(), cli_modelc_time_get(), cli_modelc_time_get_model_handle(), cli_modelc_time_role_get(), cli_modelc_time_role_set(), cli_modelc_time_set() (+6 more)
+
+### Community 179 - "appl_sample_example_7.c"
 Cohesion: 0.24
-Nodes (19): API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, PROV_HANDLE, UCHAR, UINT16, UINT32, UI_config_client_appkey_add() (+11 more)
+Nodes (13): appl_mesh_sample(), UI_config_client_appkey_add(), UI_config_client_cb(), UI_config_client_get_composition_data(), UI_config_client_model_app_bind(), UI_generic_onoff_client_cb(), UI_generic_onoff_set(), UI_prov_callback() (+5 more)
 
-### Community 174 - "GAP_EndDiscoverable"
-Cohesion: 0.15
-Nodes (17): bStatus_t, gapEventHdr_t, gapRolesCBs_t, osal_event_hdr_t, uint16, uint8, GAPRole_GetParameter(), GAPRole_Init() (+9 more)
-
-### Community 175 - "aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_light.c"
+### Community 180 - "aliGenie_bleMesh_light/source/model_vendor/aliGenie_appl_Vendor_light.c"
 Cohesion: 0.18
-Nodes (18): API_RESULT, MS_NET_ADDR, UINT16, UINT32, vendor_Aligenie_indication(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T (+10 more)
+Nodes (9): vendor_Aligenie_indication(), init_attr_tbl_light(), light_brightness_set(), light_color_set(), light_mode_set(), light_powerstate_set(), light_recall_mode_set(), light_recall_mode_set2() (+1 more)
 
-### Community 176 - "aliGenie_bleMesh_light/source/model_vendor/aliGenie_appl_Vendor_light.c"
-Cohesion: 0.18
-Nodes (19): API_RESULT, MS_NET_ADDR, UINT16, UINT32, vendor_Aligenie_indication(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T (+11 more)
+### Community 181 - "UI_generic_onoff_model_server_cb"
+Cohesion: 0.17
+Nodes (8): anticalc_trans_time(), calc_trans_time(), UI_ACTION_generic_onoff_delay_cb(), UI_ACTION_generic_onoff_trans_cb(), UI_generic_onoff_model_server_cb(), UI_generic_onoff_model_state_get(), UI_generic_onoff_model_state_set(), UI_generic_onoff_send_sts_now()
 
-### Community 177 - "test_cmac_mode.c"
+### Community 182 - "test_cmac_mode.c"
 Cohesion: 0.29
-Nodes (18): cmac_mode, TCAesKeySched_t, TCCmacState_t, gf_double(), tc_cmac_erase(), tc_cmac_final(), tc_cmac_init(), tc_cmac_setup() (+10 more)
+Nodes (14): gf_double(), tc_cmac_erase(), tc_cmac_final(), tc_cmac_init(), tc_cmac_setup(), tc_cmac_update(), _set(), main() (+6 more)
 
-### Community 178 - "slb.c"
-Cohesion: 0.20
-Nodes (19): slb_fwinfo_t, stream_st_t, ota_flash_erase(), slb_apply_exch_zone_to_fw(), slb_boot_load_exch_zone(), slb_boot_recover_exch_zone(), slb_check_currfw_exchfw(), slb_erase_fw() (+11 more)
+### Community 183 - "aliGenie_bleMesh_fogger/source/model_vendor/aliGenie_appl_Vendor_light.c"
+Cohesion: 0.19
+Nodes (10): init_attr_tbl_light(), light_brightness_set(), light_color_set(), light_mode_set(), light_powerstate_set(), light_recall_mode_set(), UI_HARD_generic_onoff_set(), calc_color_rgb() (+2 more)
 
-### Community 179 - "appl_generic_power_level_client.c"
-Cohesion: 0.27
-Nodes (13): appl_generic_power_level_client_get_model_handle(), appl_generic_power_level_client_set_publish_address(), appl_send_generic_power_default_get(), appl_send_generic_power_default_set(), appl_send_generic_power_default_set_unacknowledged(), appl_send_generic_power_last_get(), appl_send_generic_power_level_get(), appl_send_generic_power_level_set() (+5 more)
-
-### Community 180 - "appl_light_hsl_client.c"
-Cohesion: 0.13
-Nodes (25): appl_light_hsl_client_cb(), appl_light_hsl_client_get_model_handle(), appl_light_hsl_client_set_publish_address(), appl_send_light_hsl_default_get(), appl_send_light_hsl_default_set(), appl_send_light_hsl_default_set_unacknowledged(), appl_send_light_hsl_get(), appl_send_light_hsl_hue_get() (+17 more)
-
-### Community 181 - "appl_light_xyl_client.c"
+### Community 184 - "EM_debug.c"
 Cohesion: 0.16
-Nodes (19): appl_light_xyl_client_cb(), appl_light_xyl_client_get_model_handle(), appl_light_xyl_client_set_publish_address(), appl_send_light_xyl_default_get(), appl_send_light_xyl_default_set(), appl_send_light_xyl_default_set_unacknowledged(), appl_send_light_xyl_get(), appl_send_light_xyl_range_get() (+11 more)
+Nodes (6): EM_debug_dump_bytes(), EM_debug_dump_decimal(), EM_debug_get_current_timestamp(), EM_debug_printf(), EM_set_debug_level(), EM_update_module_debug_flag()
 
-### Community 182 - "appl_sensor_server_cb"
+### Community 185 - "app_os.c"
+Cohesion: 0.13
+Nodes (9): app_os_panic(), app_os_set_time(), render_ota_update(), render_watchface(), gfx_draw_string(), draw_ota_progress(), ota_inapp_is_active(), crc16() (+1 more)
+
+### Community 186 - "appl_scheduler_server_cb"
+Cohesion: 0.12
+Nodes (5): appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), appl_scheduler_server_cb(), main_scheduler_server_operations()
+
+### Community 187 - "appl_time_server_cb"
+Cohesion: 0.12
+Nodes (5): appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), appl_time_server_cb(), main_time_server_operations()
+
+### Community 188 - "vendormodel_client_cb"
+Cohesion: 0.14
+Nodes (5): MS_vendormodel_client_init(), MS_vendormodel_client_send_reliable_pdu(), MS_vendormodel_client_state_update(), vendormodel_client_cb(), UI_vendor_model_set()
+
+### Community 189 - "appl_generic_power_level_client.c"
+Cohesion: 0.16
+Nodes (14): appl_generic_power_level_client_cb(), appl_generic_power_level_client_get_model_handle(), appl_generic_power_level_client_set_publish_address(), appl_send_generic_power_default_get(), appl_send_generic_power_default_set(), appl_send_generic_power_default_set_unacknowledged(), appl_send_generic_power_last_get(), appl_send_generic_power_level_get() (+6 more)
+
+### Community 190 - "appl_light_xyl_client.c"
+Cohesion: 0.16
+Nodes (14): appl_light_xyl_client_cb(), appl_light_xyl_client_get_model_handle(), appl_light_xyl_client_set_publish_address(), appl_send_light_xyl_default_get(), appl_send_light_xyl_default_set(), appl_send_light_xyl_default_set_unacknowledged(), appl_send_light_xyl_get(), appl_send_light_xyl_range_get() (+6 more)
+
+### Community 191 - "appl_generic_admin_property_server_cb"
+Cohesion: 0.25
+Nodes (8): appl_generic_admin_property_server_cb(), appl_generic_client_property_server_cb(), appl_generic_manufacturer_property_server_cb(), appl_generic_user_property_server_cb(), main_generic_property_server_operations(), appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization()
+
+### Community 192 - "appl_sensor_server_cb"
 Cohesion: 0.21
-Nodes (18): appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), appl_search_sensor_property_id(), appl_search_sensor_setting_property_id(), API_RESULT, UINT16, UINT8 (+10 more)
+Nodes (8): appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), appl_search_sensor_property_id(), appl_search_sensor_setting_property_id(), appl_sensor_server_cb(), appl_sensor_setup_server_cb(), main_sensor_server_operations()
 
-### Community 183 - "aliGenie_bleMesh_curtain/source/model_vendor/aliGenie_appl_Vendor_light.c"
+### Community 193 - "aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_light.c"
 Cohesion: 0.18
-Nodes (18): API_RESULT, MS_NET_ADDR, UINT16, UINT32, vendor_Aligenie_indication(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T (+10 more)
+Nodes (8): vendor_Aligenie_indication(), init_attr_tbl_light(), light_brightness_set(), light_color_set(), light_mode_set(), light_powerstate_set(), light_recall_mode_set(), UI_HARD_generic_onoff_set()
 
-### Community 184 - "aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_fan.c"
+### Community 194 - "aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_fan.c"
 Cohesion: 0.31
-Nodes (19): API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T, UINT32, fan_angleAutoAllOnOff_set(), fan_angleAutoLROnOff_set(), fan_angleAutoUDOnOff_set(), fan_childLockOnOff_set() (+11 more)
+Nodes (15): fan_angleAutoAllOnOff_set(), fan_angleAutoLROnOff_set(), fan_angleAutoUDOnOff_set(), fan_childLockOnOff_set(), fan_direction_set(), fan_heaterPower_set(), fan_humidity_set(), fan_mode_set() (+7 more)
 
-### Community 185 - "aliGenie_bleMesh_heater/source/model_vendor/aliGenie_appl_Vendor_light.c"
-Cohesion: 0.18
-Nodes (18): API_RESULT, MS_NET_ADDR, UINT16, UINT32, vendor_Aligenie_indication(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T (+10 more)
+### Community 195 - "AudioGATTprofile.c"
+Cohesion: 0.23
+Nodes (10): AudioProfile_AddService(), AudioProfile_GetParameter(), AudioProfile_HandleConnStatusCB(), AudioProfile_Notify(), AudioProfile_Read(), AudioProfile_ReadAttrCB(), AudioProfile_RegisterAppCBs(), AudioProfile_SetParameter() (+2 more)
 
-### Community 186 - "voice_demo.c"
-Cohesion: 0.16
-Nodes (18): hal_voice_init(), GPIO_Pin_e, IO_Wakeup_Pol_e, osal_event_hdr_t, uint16, uint8, pin_voice_stop_event(), stop_voice_task() (+10 more)
+### Community 196 - "hal_gpio_write"
+Cohesion: 0.25
+Nodes (17): backlight_off(), backlight_on(), display_delay_ms(), display_draw_pixel(), display_fill_screen(), display_init(), display_set_addr_window(), display_set_rotation() (+9 more)
 
-### Community 187 - "GATT_WriteCharValue"
-Cohesion: 0.13
-Nodes (20): ancs_evt_hdl_t, ancs_notif_attr_id, Ancs_CCCDConfig(), ble_ancs_attr_add(), ble_ancs_disconnect(), ble_ancs_get_app_attrs(), ble_ancs_handle_gatt_event(), ble_ancs_init() (+12 more)
-
-### Community 188 - "aes-ccm.c"
+### Community 197 - "src/gfx.c"
 Cohesion: 0.29
-Nodes (15): cry, aes_encrypt(), aes_encrypt_deinit(), aes_encrypt_init(), u8, aes_ccm_ad(), aes_ccm_ae(), aes_ccm_auth() (+7 more)
+Nodes (18): display_fill_window(), display_get_height(), display_get_width(), gfx_draw_battery_icon(), gfx_draw_ble_icon(), gfx_draw_char(), gfx_draw_circle(), gfx_draw_fast_h_line() (+10 more)
 
-### Community 189 - "i2c_soft_driver.c"
+### Community 198 - "i2c_soft_driver.c"
 Cohesion: 0.20
-Nodes (18): i2c_drv_struct_t, i2c_reg_addrmode_enum_t, uint16, uint8, I2c_Soft_ProcessEvent(), add_i2c_interface(), GPIO_Pin_e, uint16 (+10 more)
+Nodes (11): I2c_Soft_ProcessEvent(), add_i2c_interface(), i2c_deinit(), i2c_driver_read(), i2c_driver_write(), i2c_init(), i2c_read_byte(), i2c_start() (+3 more)
 
-### Community 190 - "kscan.c"
-Cohesion: 0.18
-Nodes (18): kscan_Cfg_t, KSCAN_COLS_e, KSCAN_ROWS_e, kscan_Evt_t, uint16, uint8, get_key_matrix(), hal_kscan_clear_config() (+10 more)
-
-### Community 191 - "uart.c"
-Cohesion: 0.09
-Nodes (37): adc_Cfg_t, adc_CH_t, adc_CLOCK_SEL_t, adc_Hdl_t, hal_UART0_IRQHandler, hal_UART1_IRQHandler, clear_adcc_cfg(), disable_analog_pin() (+29 more)
-
-### Community 192 - "i2c_io.c"
-Cohesion: 0.22
-Nodes (13): gpio_pin_e, i2c_ack(), I2C_delay(), i2c_io_pin_deinit(), i2c_io_pin_init(), i2c_io_read(), i2c_io_write(), i2c_nack() (+5 more)
-
-### Community 193 - "sm_rsppairing.c"
-Cohesion: 0.14
-Nodes (27): smp, smResponderCBs_t, smRegisterResponder(), bStatus_t, linkDBItem_t, smpEncInfo_t, smpIdentityAddrInfo_t, smpIdentityInfo_t (+19 more)
-
-### Community 194 - "cli_scene_client.c"
-Cohesion: 0.32
-Nodes (18): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_modelc_scene(), cli_modelc_scene_delete(), cli_modelc_scene_delete_unacknowledged() (+10 more)
-
-### Community 195 - "bleuart_ProcessEvent"
-Cohesion: 0.10
-Nodes (25): bleuart_Evt_t, at_get_dma_flag(), at_get_led_mode(), at_get_rxpath_flag(), at_reset(), at_dma_BLE_to_uart_DMA_tx(), at_dma_get_buf_len(), at_dma_get_notify_flag() (+17 more)
-
-### Community 196 - "tools/rdwr_phy62x2.py"
-Cohesion: 0.09
-Nodes (19): argparse, io, arg_auto_int(), FatalError, main(), ParseHexFile(), RuntimeError, arg_auto_int() (+11 more)
-
-### Community 197 - "test_ctr_prng.c"
-Cohesion: 0.28
-Nodes (16): ctr_prng, PRNG_Vector, TCCtrPrng_t, arrInc(), tc_ctr_prng_generate(), tc_ctr_prng_init(), tc_ctr_prng_reseed(), tc_ctr_prng_uninstantiate() (+8 more)
-
-### Community 198 - "ota/otam_protocol.c"
-Cohesion: 0.09
-Nodes (25): crc16, hal_mcu, ota_mesh, ota_mesh_master, otam_cmd, otafm_dev_add(), otafm_format(), ota_fw_t (+17 more)
-
-### Community 199 - "MS_vendormodel_server_state_update"
-Cohesion: 0.14
-Nodes (17): MS_VENDORMODEL_SERVER_CB, __ATTR_SECTION_XIP__, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_STATE_PARAMS, MS_ACCESS_VENDORMODEL_STATE_PARAMS (+9 more)
-
-### Community 200 - "voice_circ_buff.c"
+### Community 199 - "voice_circ_buff.c"
 Cohesion: 0.26
-Nodes (18): tboolean, tCircularBuffer, CreateCircularBuffer(), DestroyCircularBuffer(), FillBuffer(), FillZeroes(), GetBufferEmptySize(), GetBufferSize() (+10 more)
+Nodes (16): CreateCircularBuffer(), DestroyCircularBuffer(), FillBuffer(), FillZeroes(), GetBufferEmptySize(), GetBufferSize(), GetReadPtr(), GetWritePtr() (+8 more)
 
-### Community 201 - "cli_demo.c"
-Cohesion: 0.33
-Nodes (17): appl_prov_register(), appl_indicate_provisioning_state(), API_RESULT, UCHAR, UINT32, cli_clear_persistent(), cli_config_gatt_proxy_get(), cli_config_gatt_proxy_set() (+9 more)
+### Community 200 - "i2c_io.c"
+Cohesion: 0.22
+Nodes (12): i2c_ack(), I2C_delay(), i2c_io_pin_deinit(), i2c_io_pin_init(), i2c_io_read(), i2c_io_write(), i2c_nack(), i2c_rx() (+4 more)
 
-### Community 202 - "appl_scene_client.c"
-Cohesion: 0.16
-Nodes (17): appl_scene_client_cb(), appl_scene_client_get_model_handle(), appl_scene_client_set_publish_address(), appl_send_scene_delete(), appl_send_scene_delete_unacknowledged(), appl_send_scene_get(), appl_send_scene_recall(), appl_send_scene_recall_unacknowledged() (+9 more)
-
-### Community 203 - "appl_time_client.c"
-Cohesion: 0.18
-Nodes (17): appl_send_tai_utc_delta_get(), appl_send_tai_utc_delta_set(), appl_send_time_get(), appl_send_time_role_get(), appl_send_time_role_set(), appl_send_time_set(), appl_send_time_zone_get(), appl_send_time_zone_set() (+9 more)
-
-### Community 204 - "cli_generic_level_client.c"
-Cohesion: 0.33
-Nodes (17): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_generic_level_client_cb(), cli_modelc_generic_delta_set(), cli_modelc_generic_delta_set_unacknowledged() (+9 more)
-
-### Community 205 - "MultiProfile_Notify"
+### Community 201 - "cli_scene_client.c"
 Cohesion: 0.32
-Nodes (12): multiRoleProfileChangeCB(), bStatus_t, gattAttribute_t, uint16, uint8, MultiProfile_GetParameter(), multiProfile_HandleConnStatusCB(), MultiProfile_Notify() (+4 more)
+Nodes (13): cli_modelc_scene(), cli_modelc_scene_delete(), cli_modelc_scene_delete_unacknowledged(), cli_modelc_scene_get(), cli_modelc_scene_get_model_handle(), cli_modelc_scene_recall(), cli_modelc_scene_recall_unacknowledged(), cli_modelc_scene_register_get() (+5 more)
 
-### Community 206 - "find_model_private_data"
-Cohesion: 0.13
-Nodes (22): appl_model_tree_del(), MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_HANDLE, MS_NET_ADDR, UINT16, copyget_generic_scene_modele_handle(), find_element_by_model(), find_model_handles() (+14 more)
+### Community 202 - "tc_aes_encrypt"
+Cohesion: 0.22
+Nodes (15): add_round_key(), mix_columns(), mult_row_column(), rotword(), shift_rows(), sub_bytes(), tc_aes128_set_encrypt_key(), tc_aes_encrypt() (+7 more)
 
-### Community 207 - "aliGenie_appl_Vendor_heater.c"
-Cohesion: 0.31
-Nodes (17): API_RESULT, UI_DATA_ALIGENIE_MODEL_T, UI_DATA_GENERIC_ONOFF_MODEL_T, UINT32, UINT8, heater_childLockOnOff_set(), heater_errorCode_set(), heater_heaterPower_set() (+9 more)
+### Community 203 - "GATT_WriteCharValue"
+Cohesion: 0.12
+Nodes (14): ebc_char_data_test(), extBLECentral_ProcessEvent(), extBLECentral_ProcessOSALMsg(), extBLECentralPairStateCB(), extBLECentralPasscodeCB(), extBLECentralProcessGATTMsg(), extBLECentralRssiCB(), extBLECentralStartDiscoveryService() (+6 more)
 
-### Community 208 - "extAdvInfo_t"
+### Community 204 - "extAdvInfo_t"
 Cohesion: 0.20
-Nodes (18): extAdvInfo_t, periodicAdvInfo_t, LL_InitExtendedAdv(), LL_InitPeriodicAdv(), llPrdAdvDecideNextChn(), llSetupAdvExtIndPDU0(), llSetupAuxAdvIndPDU0(), llSetupAuxChainIndPDU0() (+10 more)
+Nodes (15): ll_hw_set_cte_txSupp(), LL_InitExtendedAdv(), LL_InitPeriodicAdv(), llPrdAdvDecideNextChn(), llSetupAdvExtIndPDU0(), llSetupAuxAdvIndPDU0(), llSetupAuxChainIndPDU0(), llSetupAuxConnectRspPDU0() (+7 more)
 
-### Community 210 - "observer.c"
+### Community 205 - "gap_task.c"
+Cohesion: 0.18
+Nodes (11): GAP_Init(), GAP_NumActiveConnections(), GAP_ProcessEvent(), GAP_RegisterForHCIMsgs(), gapProcessBLEEvents(), gapProcessCommandStatusEvt(), gapProcessHCICmdCompleteEvt(), gapProcessOSALMsg() (+3 more)
+
+### Community 206 - "test_ctr_prng.c"
+Cohesion: 0.28
+Nodes (13): arrInc(), tc_ctr_prng_generate(), tc_ctr_prng_init(), tc_ctr_prng_reseed(), tc_ctr_prng_uninstantiate(), tc_ctr_prng_update(), executePRNG_TestVector(), hexStringToBytes() (+5 more)
+
+### Community 207 - "uint8"
+Cohesion: 0.19
+Nodes (15): GAPMultiRole_CancelDiscovery(), GAPMultiRole_EstablishLink(), GAPMultiRole_ProcessEvent(), GAPMultiRole_StartDevice(), GAPMultiRole_StartDiscovery(), GAPMultiRole_TerminateConnection(), multiGetLinkStrategy(), multiGetScanStrategy() (+7 more)
+
+### Community 208 - "MS_vendormodel_server_state_update"
+Cohesion: 0.14
+Nodes (3): MS_vendormodel_server_init(), MS_vendormodel_server_state_update(), vendormodel_server_cb()
+
+### Community 209 - "i2c.c"
 Cohesion: 0.20
-Nodes (15): gapObserverRoleCB_t, bStatus_t, gapEventHdr_t, osal_event_hdr_t, uint16, uint8, GAPObserverRole_CancelDiscovery(), GAPObserverRole_GetParameter() (+7 more)
+Nodes (14): hal_i2c_addr_update(), hal_i2c_read(), _hal_i2c_read_s(), hal_i2c_send(), _hal_i2c_send_byte(), _hal_i2c_send_byte_x(), hal_i2c_send_x(), hal_i2c_tx_start() (+6 more)
 
-### Community 211 - "GATTServApp_ReadCharCfg"
-Cohesion: 0.21
-Nodes (14): battNotifyCB(), linkDBItem_t, GATTServApp_ReadCharCfg(), attHandleValueNoti_t, bStatus_t, gattAttribute_t, uint16, uint8 (+6 more)
+### Community 210 - "appl_scene_client.c"
+Cohesion: 0.18
+Nodes (12): appl_scene_client_cb(), appl_scene_client_get_model_handle(), appl_scene_client_set_publish_address(), appl_send_scene_delete(), appl_send_scene_delete_unacknowledged(), appl_send_scene_get(), appl_send_scene_recall(), appl_send_scene_recall_unacknowledged() (+4 more)
 
-### Community 212 - "console_rx_handler"
-Cohesion: 0.67
-Nodes (3): uart_Evt_t, console_parse_cmd(), console_rx_handler()
+### Community 211 - "appl_time_client.c"
+Cohesion: 0.18
+Nodes (12): appl_send_tai_utc_delta_get(), appl_send_tai_utc_delta_set(), appl_send_time_get(), appl_send_time_role_get(), appl_send_time_role_set(), appl_send_time_set(), appl_send_time_zone_get(), appl_send_time_zone_set() (+4 more)
+
+### Community 212 - "cli_generic_level_client.c"
+Cohesion: 0.33
+Nodes (12): cli_generic_level_client_cb(), cli_modelc_generic_delta_set(), cli_modelc_generic_delta_set_unacknowledged(), cli_modelc_generic_level(), cli_modelc_generic_level_get(), cli_modelc_generic_level_get_model_handle(), cli_modelc_generic_level_set(), cli_modelc_generic_level_set_publish_address() (+4 more)
 
 ### Community 213 - "appl_generic_level_client.c"
 Cohesion: 0.18
-Nodes (16): appl_generic_level_client_cb(), appl_generic_level_client_get_model_handle(), appl_generic_level_client_set_publish_address(), appl_send_generic_delta_set(), appl_send_generic_delta_set_unacknowledged(), appl_send_generic_level_get(), appl_send_generic_level_set(), appl_send_generic_level_set_unacknowledged() (+8 more)
+Nodes (11): appl_generic_level_client_cb(), appl_generic_level_client_get_model_handle(), appl_generic_level_client_set_publish_address(), appl_send_generic_delta_set(), appl_send_generic_delta_set_unacknowledged(), appl_send_generic_level_get(), appl_send_generic_level_set(), appl_send_generic_level_set_unacknowledged() (+3 more)
 
-### Community 214 - "cli_main.c"
-Cohesion: 0.25
-Nodes (16): cli_input(), API_RESULT, UCHAR, UINT32, cli_back(), cli_cmd_stack_pop(), cli_gatt_bearer_iface_event_pl_cb(), cli_help() (+8 more)
+### Community 214 - "appl_generic_battery_server_cb"
+Cohesion: 0.14
+Nodes (5): appl_generic_battery_server_cb(), main_generic_battery_server_operations(), appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization()
 
-### Community 215 - "cli_generic_location_client.c"
-Cohesion: 0.34
-Nodes (16): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_generic_location_client_cb(), cli_modelc_generic_location(), cli_modelc_generic_location_get_model_handle() (+8 more)
-
-### Community 216 - "GAP_UpdateAdvertisingData"
-Cohesion: 0.18
-Nodes (15): bStatus_t, gapEventHdr_t, gapRolesCBs_t, osal_event_hdr_t, uint16, uint8, GAPRole_GetParameter(), GAPRole_Init() (+7 more)
-
-### Community 218 - "UI_light_lightness_server_cb"
-Cohesion: 0.22
-Nodes (16): API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_HANDLE, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS, UINT16 (+8 more)
-
-### Community 219 - "gap_task.c"
-Cohesion: 0.18
-Nodes (18): gapCentralCBs_t, gapPeripheralCBs_t, hciEvt_CmdComplete_t, hciEvt_CommandStatus_t, osal_event_hdr_t, uint16, uint8, GAP_Init() (+10 more)
-
-### Community 220 - "app_os_update"
-Cohesion: 0.13
-Nodes (22): button_event_t, app_os_init(), app_os_panic(), app_os_update(), render_flashlight(), render_watchface(), ble_get_cb_state(), ble_get_start_calls() (+14 more)
-
-### Community 221 - "appl_scheduler_client.c"
-Cohesion: 0.19
-Nodes (15): MS_SCHEDULER_ACTION_SET_STRUCT, appl_input_schedule_register(), appl_scheduler_client_cb(), appl_scheduler_client_get_model_handle(), appl_scheduler_client_set_publish_address(), appl_send_scheduler_action_get(), appl_send_scheduler_action_set(), appl_send_scheduler_action_set_unacknowledged() (+7 more)
-
-### Community 222 - "appl_health_server.c"
-Cohesion: 0.23
-Nodes (12): main_register_models(), appl_health_self_test_00(), appl_health_self_test_02(), appl_health_self_test_FF(), appl_health_server_cb(), appl_health_server_send_status(), API_RESULT, MS_ACCESS_MODEL_HANDLE (+4 more)
-
-### Community 223 - "appl_generic_location_client.c"
-Cohesion: 0.19
-Nodes (15): appl_generic_location_client_cb(), appl_generic_location_client_get_model_handle(), appl_generic_location_client_set_publish_address(), appl_send_generic_location_global_get(), appl_send_generic_location_global_set(), appl_send_generic_location_global_set_unacknowledged(), appl_send_generic_location_local_get(), appl_send_generic_location_local_set() (+7 more)
-
-### Community 224 - "bStatus_t"
-Cohesion: 0.29
-Nodes (12): bStatus_t, gattAttribute_t, multiProfileCBs_t, uint16, uint8, MultiProfile_GetParameter(), multiProfile_HandleConnStatusCB(), MultiProfile_Notify() (+4 more)
-
-### Community 225 - "UI_light_ctl_server_cb"
-Cohesion: 0.25
-Nodes (15): API_RESULT, MS_ACCESS_ELEMENT_HANDLE, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS, UINT16 (+7 more)
-
-### Community 226 - "simpleProfile_Notify"
-Cohesion: 0.26
-Nodes (12): bStatus_t, gattAttribute_t, simpleProfileCBs_t, uint16, uint8, SimpleProfile_GetParameter(), simpleProfile_HandleConnStatusCB(), simpleProfile_Notify() (+4 more)
-
-### Community 227 - "SimpleBLEPeripheral_ProcessEvent"
-Cohesion: 0.12
-Nodes (18): gapEventHdr_t, osal_event_hdr_t, uint16, SimpleBLEPeripheral_ProcessEvent(), simpleBLEPeripheral_ProcessGAPMsg(), simpleBLEPeripheral_ProcessOSALMsg(), osal_event_hdr_t, uint16 (+10 more)
-
-### Community 228 - "ll_enc.c"
-Cohesion: 0.29
-Nodes (12): llConnState_t, uint32, uint8, LL_ENC_AES128_Encrypt0(), LL_ENC_Decrypt0(), LL_ENC_Encrypt0(), LL_ENC_GenDeviceIV0(), LL_ENC_GenDeviceSKD0() (+4 more)
-
-### Community 229 - "UI_generic_onoff_model_server_cb"
-Cohesion: 0.17
-Nodes (20): anticalc_trans_time(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS, MS_NET_ADDR (+12 more)
-
-### Community 230 - "i2c.c"
-Cohesion: 0.19
-Nodes (18): hal_i2c_addr_update(), hal_i2c_read(), _hal_i2c_read_s(), hal_i2c_send(), _hal_i2c_send_byte(), _hal_i2c_send_byte_x(), hal_i2c_send_x(), hal_i2c_tx_start() (+10 more)
-
-### Community 231 - "appl_health_client.c"
-Cohesion: 0.16
-Nodes (20): appl_health_client_cb(), appl_health_client_get_model_handle(), appl_health_client_set_publish_address(), appl_send_health_attention_get(), appl_send_health_attention_set(), appl_send_health_attention_set_unacknowledged(), appl_send_health_fault_clear(), appl_send_health_fault_clear_unacknowledged() (+12 more)
-
-### Community 232 - "appl_generic_battery_server_cb"
+### Community 215 - "appl_generic_location_server_cb"
 Cohesion: 0.15
-Nodes (14): appl_generic_battery_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS, UINT8 (+6 more)
+Nodes (5): appl_generic_location_server_cb(), main_generic_location_server_operations(), appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization()
 
-### Community 233 - "appl_generic_location_server_cb"
+### Community 216 - "cli_main.c"
+Cohesion: 0.25
+Nodes (12): cli_input(), cli_back(), cli_cmd_stack_pop(), cli_gatt_bearer_iface_event_pl_cb(), cli_help(), cli_input(), cli_reset(), cli_root() (+4 more)
+
+### Community 217 - "cli_generic_location_client.c"
+Cohesion: 0.34
+Nodes (11): cli_generic_location_client_cb(), cli_modelc_generic_location(), cli_modelc_generic_location_get_model_handle(), cli_modelc_generic_location_global_get(), cli_modelc_generic_location_global_set(), cli_modelc_generic_location_global_set_unacknowledged(), cli_modelc_generic_location_local_get(), cli_modelc_generic_location_local_set() (+3 more)
+
+### Community 218 - "process_cmd"
 Cohesion: 0.16
-Nodes (14): appl_generic_location_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS, UINT8 (+6 more)
+Nodes (12): handleConnStatusCB(), load_ota_version(), ota_app_AddService_UseKey(), ota_disconnect_link(), ota_ReadAttrCB(), ota_vendor_module_StartOTA(), ota_WriteAttrCB(), process_cmd() (+4 more)
 
-### Community 234 - "appl_scheduler_server_cb"
-Cohesion: 0.16
-Nodes (14): appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), UINT16, UINT8, appl_scheduler_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS (+6 more)
+### Community 219 - "mesh_gateway/source/bleMesh/dongleKey.c"
+Cohesion: 0.27
+Nodes (11): dongleKey_init(), get_gpioin_index(), gpio_key_timer_handler(), key_idle_handler(), key_press_debonce_handler(), key_press_debonce_timer_handler(), key_press_handler(), key_release_debonce_handler() (+3 more)
 
-### Community 235 - "appl_time_server_cb"
-Cohesion: 0.12
-Nodes (15): ms_time_api, appl_model_state_get(), appl_model_state_set(), appl_model_states_initialization(), UINT16, UINT8, appl_time_server_cb(), API_RESULT (+7 more)
+### Community 220 - "mesh_lpn/source/bleMesh/dongleKey.c"
+Cohesion: 0.27
+Nodes (11): dongleKey_init(), get_gpioin_index(), gpio_key_timer_handler(), key_idle_handler(), key_press_debonce_handler(), key_press_debonce_timer_handler(), key_press_handler(), key_release_debonce_handler() (+3 more)
 
-### Community 236 - "cli_generic_onoff_client.c"
-Cohesion: 0.37
-Nodes (13): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_generic_onoff_client_cb(), cli_modelc_generic_onoff(), cli_modelc_generic_onoff_get() (+5 more)
+### Community 221 - "accel.c"
+Cohesion: 0.35
+Nodes (12): accel_init(), accel_update(), i2c_delay(), i2c_read_byte(), i2c_read_reg(), i2c_scl_out(), i2c_sda_in(), i2c_sda_out() (+4 more)
 
-### Community 237 - "cli_scheduler_client.c"
-Cohesion: 0.36
-Nodes (14): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_modelc_scheduler(), cli_modelc_scheduler_action_get(), cli_modelc_scheduler_action_set() (+6 more)
+### Community 222 - "appl_scheduler_client.c"
+Cohesion: 0.19
+Nodes (9): appl_input_schedule_register(), appl_scheduler_client_cb(), appl_scheduler_client_get_model_handle(), appl_scheduler_client_set_publish_address(), appl_send_scheduler_action_get(), appl_send_scheduler_action_set(), appl_send_scheduler_action_set_unacknowledged(), appl_send_scheduler_get() (+1 more)
 
-### Community 238 - "powerstate_set"
-Cohesion: 0.17
-Nodes (13): API_RESULT, UI_DATA_ALIGENIE_MODEL_T, UI_DATA_GENERIC_ONOFF_MODEL_T, UINT32, UINT8, init_attr_tbl(), powerstate_set(), UI_HARD_generic_onoff_set() (+5 more)
+### Community 223 - "adcMeasureTask"
+Cohesion: 0.15
+Nodes (10): hal_adc_start(), adc_Compare_Init(), adc_Compare_MeasureTask(), adc_Compare_ProcessEvent(), adc_ProcessOSALMsg(), adc_Init(), adc_ProcessEvent(), adc_ProcessOSALMsg() (+2 more)
 
-### Community 239 - "aliGenie_appl_Vendor_Curtain.c"
-Cohesion: 0.29
-Nodes (13): API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T, UI_DATA_GENERIC_ONOFF_MODEL_T, UINT32, UINT8, curtain_control_set(), curtain_mode_set() (+5 more)
+### Community 224 - "appl_generic_location_client.c"
+Cohesion: 0.19
+Nodes (10): appl_generic_location_client_cb(), appl_generic_location_client_get_model_handle(), appl_generic_location_client_set_publish_address(), appl_send_generic_location_global_get(), appl_send_generic_location_global_set(), appl_send_generic_location_global_set_unacknowledged(), appl_send_generic_location_local_get(), appl_send_generic_location_local_set() (+2 more)
 
-### Community 240 - "UI_light_hsl_server_cb"
-Cohesion: 0.22
-Nodes (14): API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS, UCHAR, UINT16 (+6 more)
+### Community 225 - "SimpleBLEPeripheral_ProcessEvent"
+Cohesion: 0.14
+Nodes (9): SimpleBLEPeripheral_ProcessEvent(), simpleBLEPeripheral_ProcessGAPMsg(), simpleBLEPeripheral_ProcessOSALMsg(), SimpleBLEPeripheral_ProcessEvent(), simpleBLEPeripheral_ProcessOSALMsg(), SimpleBLEPeripheral_ProcessEvent(), simpleBLEPeripheral_ProcessOSALMsg(), LL_ReadCarrSens() (+1 more)
 
-### Community 241 - "mesh_gateway/source/bleMesh/dongleKey.c"
-Cohesion: 0.33
-Nodes (14): GPIO_Pin_e, IO_Wakeup_Pol_e, uint32, uint8, get_gpioin_index(), gpio_key_timer_handler(), key_idle_handler(), key_press_debonce_handler() (+6 more)
+### Community 226 - "gattNotifyEvent"
+Cohesion: 0.14
+Nodes (7): ATT_ParsePacket(), GATT_ProcessEvent(), gattNotifyEvent(), gattProcessOSALMsg(), gattProcessRxData(), gattStartTimer(), gattStopTimer()
 
-### Community 242 - "hal_pwrmgr_unlock"
-Cohesion: 0.13
-Nodes (28): hal_pwrmgr_unlock(), hal_QDEC_IRQHandler(), hal_qdec_timeout_handler(), hal_voice_clear(), GPIO_Pin_e, IO_Wakeup_Pol_e, uint32, uint8 (+20 more)
-
-### Community 243 - "mesh_switch/source/bleMesh/dongleKey.c"
-Cohesion: 0.33
-Nodes (14): GPIO_Pin_e, IO_Wakeup_Pol_e, uint32, uint8, get_gpioin_index(), gpio_key_timer_handler(), key_idle_handler(), key_press_debonce_handler() (+6 more)
-
-### Community 244 - "GATTServApp_ProcessCCCWriteReq"
-Cohesion: 0.16
-Nodes (22): AudioProfileCBs_t, AudioProfile_GetParameter(), AudioProfile_HandleConnStatusCB(), AudioProfile_Notify(), AudioProfile_Read(), AudioProfile_ReadAttrCB(), AudioProfile_RegisterAppCBs(), AudioProfile_SetParameter() (+14 more)
-
-### Community 245 - "ooo_bin.py"
-Cohesion: 0.20
-Nodes (9): intelhex, struct, hexf(), main(), crc16(), hexf(), main(), printhelp() (+1 more)
-
-### Community 246 - "core_cm0.h"
-Cohesion: 0.31
-Nodes (12): system_armcm0, IRQn_Type, __STATIC_INLINE, NVIC_ClearPendingIRQ(), NVIC_DisableIRQ(), NVIC_EnableIRQ(), NVIC_GetPendingIRQ(), NVIC_GetPriority() (+4 more)
-
-### Community 247 - "EM_start_timer"
-Cohesion: 0.09
-Nodes (44): blebrr_gatt_mode_get(), __ATTR_SECTION_XIP__, MS_common_reset(), UINT16, EM_start_timer(), UI_gatt_iface_event_pl_cb(), UI_reinit(), UI_gatt_iface_event_pl_cb() (+36 more)
-
-### Community 248 - "key.c"
-Cohesion: 0.36
-Nodes (13): gpio_pin_e, IO_Wakeup_Pol_e, uint32, uint8, gpio_key_timer_handler(), key_idle_handler(), key_press_debonce_handler(), key_press_debonce_timer_handler() (+5 more)
-
-### Community 249 - "led_light.c"
-Cohesion: 0.20
-Nodes (11): gpio_pin_e, uint8, led_init(), light_blink_porcess_evt(), light_blink_set(), light_init(), light_pwm_init(), light_reflash() (+3 more)
-
-### Community 250 - "cli_core_provision.c"
-Cohesion: 0.44
-Nodes (13): API_RESULT, UCHAR, UINT32, cli_core_provision(), cli_core_provision_bind(), cli_core_provision_delete_all_dev_keys(), cli_core_provision_get_dev_list(), cli_core_provision_get_pkey() (+5 more)
-
-### Community 251 - "cli_generic_default_transition_time_client.c"
-Cohesion: 0.37
-Nodes (13): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_generic_default_transition_time_client_cb(), cli_modelc_generic_default_transition_time(), cli_modelc_generic_default_transition_time_get() (+5 more)
-
-### Community 252 - "cli_generic_power_onoff_client.c"
-Cohesion: 0.37
-Nodes (13): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_generic_power_onoff_client_cb(), cli_modelc_generic_onpowerup_get(), cli_modelc_generic_onpowerup_set() (+5 more)
-
-### Community 253 - "bleMesh_ProcessEvent"
-Cohesion: 0.36
-Nodes (8): app_powerkey_release_report(), bleMesh_gkey_get(), bleMesh_gkey_set(), bleMesh_key_process(), bleMesh_ProcessEvent(), MS_NET_ADDR, uint16, uint8
-
-### Community 254 - "gpio_wakeup_handle"
-Cohesion: 0.17
-Nodes (19): MODULE_e, hal_pwrmgr_clk_gate_config(), hal_pwrmgr_is_lock(), at_at(), at_get_auto_slp_time(), at_get_pw_mode(), at_snv_read_flash(), get_uart_at_mod() (+11 more)
-
-### Community 255 - "sec/aes.c"
+### Community 227 - "gap_simpletask.c"
 Cohesion: 0.21
+Nodes (9): GAP_Init(), GAP_NumActiveConnections(), GAP_ProcessEvent(), GAP_RegisterForHCIMsgs(), gapProcessBLEEvents(), gapProcessHCICmdCompleteEvt(), gapProcessOSALMsg(), gapRegisterCentral() (+1 more)
+
+### Community 228 - "ble_disc_service"
+Cohesion: 0.18
+Nodes (11): Ancs_CCCDConfig(), ble_ancs_attr_add(), ble_ancs_disconnect(), ble_ancs_get_app_attrs(), ble_ancs_handle_gatt_event(), ble_ancs_init(), ble_ancs_process_ds_notify(), ble_ancs_process_ns_notify() (+3 more)
+
+### Community 229 - "bStatus_t"
+Cohesion: 0.16
+Nodes (9): GAPObserverRole_CancelDiscovery(), GAPObserverRole_GetParameter(), GAPObserverRole_Init(), GAPObserverRole_ProcessEvent(), gapObserverRole_ProcessGAPMsg(), gapObserverRole_ProcessOSALMsg(), GAPObserverRole_SetParameter(), GAPObserverRole_StartDevice() (+1 more)
+
+### Community 230 - "gen_aligenie_auth_val"
+Cohesion: 0.33
+Nodes (13): mbedtls_internal_sha256_process(), mbedtls_sha256_clone(), mbedtls_sha256_finish_ret(), mbedtls_sha256_free(), mbedtls_sha256_init(), mbedtls_sha256_process(), mbedtls_sha256_starts(), mbedtls_sha256_starts_ret() (+5 more)
+
+### Community 231 - "spiflash_demo.c"
+Cohesion: 0.20
+Nodes (7): spi_demo_ProcessEvent(), spi_gd25q16_read_test_set_buffer_2(), spi_gd25q16_write_test(), spi_gd25q16_write_test_set_buffer(), spi_test_on_gd25q16(), spi_write_read_test_1(), spi_write_read_test_2()
+
+### Community 232 - "cli_scheduler_client.c"
+Cohesion: 0.36
+Nodes (9): cli_modelc_scheduler(), cli_modelc_scheduler_action_get(), cli_modelc_scheduler_action_set(), cli_modelc_scheduler_action_set_unacknowledged(), cli_modelc_scheduler_get(), cli_modelc_scheduler_get_model_handle(), cli_modelc_scheduler_set_publish_address(), cli_modelc_scheduler_setup() (+1 more)
+
+### Community 233 - "powerstate_set"
+Cohesion: 0.17
+Nodes (4): init_attr_tbl(), powerstate_set(), UI_HARD_generic_onoff_set(), vendor_Aligenie_indication()
+
+### Community 234 - "UI_light_hsl_server_cb"
+Cohesion: 0.22
+Nodes (4): UI_light_hsl_model_state_get(), UI_light_hsl_model_state_set(), UI_light_hsl_server_cb(), UI_light_hsl_set_actual()
+
+### Community 235 - "llEnqueueCtrlPkt"
+Cohesion: 0.22
+Nodes (15): llEnqueueCtrlPkt(), LL_ChanMapUpdate(), LL_ConnActive(), LL_Connection_CTE_Request_Enable0(), LL_ConnUpdate(), LL_Disconnect0(), LL_EncLtkNegReply(), LL_EncLtkReply() (+7 more)
+
+### Community 236 - "sec/aes.c"
+Cohesion: 0.19
 Nodes (7): aes_ccm_phyplus_dec(), getBit(), getByte(), KeyExpansion(), MixColumns(), xor128bit(), xtime()
 
-### Community 256 - "GAPMultiRole_SetParameter"
-Cohesion: 0.19
-Nodes (19): GAPMultiRole_SetParameter(), multiConfigSlaveList(), multiRoleAPP_AdvInit(), multiRoleAPP_ComInit(), multiRoleApp_Init(), multiRoleAPP_ScIn_Init(), at_set_adv_parameters(), multiProfileCBs_t (+11 more)
+### Community 237 - "display/display.c"
+Cohesion: 0.30
+Nodes (13): backlight_turn_on(), display_draw_pixel(), display_fill_screen(), display_init(), display_set_addr_window(), display_set_rotation(), ST7735_Command(), ST7735_Data() (+5 more)
 
-### Community 257 - "linkdb.c"
-Cohesion: 0.24
-Nodes (15): pfnLinkDBCB_t, pfnPerformFuncCB_t, BattNotifyLevel(), linkDBItem_t, uint16, uint8, linkDB_Add(), linkDB_FindFirst() (+7 more)
-
-### Community 258 - "generic_power_onoff_server/appl_model_state_handler.c"
-Cohesion: 0.15
-Nodes (8): UINT8, main_generic_power_onoff_server_operations(), appl_model_power_cycle(), appl_model_states_initialization(), appl_scene_delete_saved_state(), appl_scene_recall_saved_state(), appl_scene_save_current_state(), UINT32
-
-### Community 259 - "appl_generic_default_transition_time_client.c"
-Cohesion: 0.22
-Nodes (12): appl_generic_default_transition_time_client_cb(), appl_generic_default_transition_time_client_get_model_handle(), appl_generic_default_transition_time_client_set_publish_address(), appl_send_generic_default_transition_time_get(), appl_send_generic_default_transition_time_set(), appl_send_generic_default_transition_time_set_unacknowledged(), API_RESULT, MS_ACCESS_MODEL_HANDLE (+4 more)
-
-### Community 260 - "appl_scene_server_cb"
-Cohesion: 0.23
-Nodes (10): appl_model_states_initialization(), appl_scene_delete_saved_state(), appl_scene_recall_saved_state(), appl_scene_save_current_state(), UINT32, appl_scene_server_cb(), MS_ACCESS_MODEL_HANDLE, UINT16 (+2 more)
-
-### Community 261 - "sk_WriteAttrCB"
-Cohesion: 0.36
-Nodes (9): bStatus_t, gattAttribute_t, uint16, uint8, SK_GetParameter(), sk_HandleConnStatusCB(), sk_ReadAttrCB(), SK_SetParameter() (+1 more)
-
-### Community 262 - "aliGenie_appl_Prov.c"
-Cohesion: 0.53
-Nodes (12): API_RESULT, PROV_HANDLE, UCHAR, UINT16, UI_prov_callback(), UI_prov_cb_default(), UI_prov_cb_DEVINPUT_COMPLETE(), UI_prov_cb_OOB_DISPLAY() (+4 more)
-
-### Community 263 - "uint8"
-Cohesion: 0.22
-Nodes (11): bdAddr2Str(), int8, osal_event_hdr_t, uint16, uint8, peripheralStateReadRssiCB(), sbpMulti_PairStateCB(), sbpMulti_PasscodeCB() (+3 more)
-
-### Community 264 - "my_printf.c"
-Cohesion: 0.17
-Nodes (15): std_putc, dbg_printf(), dbg_printf_init(), log_vsprintf(), my_dump_byte(), number(), skip_atoi(), _strnlen() (+7 more)
-
-### Community 265 - "float32_t"
-Cohesion: 0.17
-Nodes (12): arm_bilinear_interp_instance_f32, arm_linear_interp_instance_f32, arm_pid_instance_f32, float32_t, arm_bilinear_interp_f32(), arm_clarke_f32(), arm_inv_clarke_f32(), arm_inv_park_f32() (+4 more)
-
-### Community 266 - "hal_keyboard_matrix.c"
-Cohesion: 0.24
-Nodes (10): kscan, kscan_Evt_t, osal_event_hdr_t, uint16, uint8, hal_keyboard_matrix_task_init(), hal_keyboard_matrix_task_ProcessEvent(), hal_keyboard_matrix_task_ProcessOSALMsg() (+2 more)
-
-### Community 267 - "appl_light_lightness_server.c"
-Cohesion: 0.48
-Nodes (11): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_onoff_server_cb(), appl_light_lightness_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW (+3 more)
-
-### Community 268 - "cli_core_transport.c"
-Cohesion: 0.36
-Nodes (11): API_RESULT, MS_SUBNET_HANDLE, UCHAR, UINT16, UINT32, cli_core_transport(), cli_core_transport_clrreplaycache(), cli_core_transport_ctrlmsg() (+3 more)
-
-### Community 269 - "cli_generic_battery_client.c"
-Cohesion: 0.39
-Nodes (11): API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32, cli_generic_battery_client_cb(), cli_modelc_generic_battery(), cli_modelc_generic_battery_get() (+3 more)
-
-### Community 270 - "EM_debug.c"
-Cohesion: 0.32
-Nodes (10): CHAR, INT32, UCHAR, UINT32, EM_debug_dump_bytes(), EM_debug_dump_decimal(), EM_debug_get_current_timestamp(), EM_debug_printf() (+2 more)
-
-### Community 271 - "simpleProfile_Notify"
-Cohesion: 0.27
-Nodes (11): bStatus_t, gattAttribute_t, simpleProfileCBs_t, uint16, uint8, simpleProfile_HandleConnStatusCB(), simpleProfile_Notify(), simpleProfile_ReadAttrCB() (+3 more)
-
-### Community 272 - "qdec_hw_config"
+### Community 238 - "bleuart_Notify"
 Cohesion: 0.20
-Nodes (15): qdec_Cfg_t, QDEC_CHN_e, QDEC_INC_MODE_e, QDEC_INT_MODE_e, gpio_pin_e, uint16, uint8, hal_qdec_init() (+7 more)
+Nodes (7): bleuart_notify_data(), bleuart_AddService(), bleuart_HandleConnStatusCB(), bleuart_Notify(), bleuart_NotifyIsReady(), bleuart_ReadAttrCB(), bleuart_WriteAttrCB()
 
-### Community 273 - "phy_sec_ext.c"
-Cohesion: 0.23
-Nodes (9): CHIP_ID_STATUS_e, check_chip_id(), check_chip_mAddr(), chip_id_one_bit_hot_convter(), _efuse_chip_version_check(), pplus_LoadMACFromChipMAddr(), read_chip_id(), read_chip_mAddr() (+1 more)
+### Community 239 - "qdec_hw_config"
+Cohesion: 0.22
+Nodes (7): hal_qdec_init(), hal_qdec_set_cha(), hal_qdec_set_chb(), hal_qdec_set_chi(), hal_qdec_set_inc_irq(), hal_qdec_set_qua_irq(), qdec_hw_config()
 
-### Community 274 - "core_cm0plus.h"
-Cohesion: 0.39
-Nodes (11): IRQn_Type, __STATIC_INLINE, NVIC_ClearPendingIRQ(), NVIC_DisableIRQ(), NVIC_EnableIRQ(), NVIC_GetPendingIRQ(), NVIC_GetPriority(), NVIC_SetPendingIRQ() (+3 more)
-
-### Community 275 - "appl_proxy.c"
-Cohesion: 0.35
-Nodes (10): appl_add_or_del_filter_addr(), appl_proxy_adv(), appl_proxy_callback(), appl_proxy_start_net_id_adv(), appl_proxy_start_node_identity_adv(), MS_SUBNET_HANDLE, NETIF_HANDLE, UCHAR (+2 more)
-
-### Community 276 - "appl_dump_bytes"
-Cohesion: 0.13
-Nodes (17): appl_generic_battery_client_cb(), appl_generic_battery_client_get_model_handle(), appl_generic_battery_client_set_publish_address(), appl_send_generic_battery_get(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16 (+9 more)
-
-### Community 277 - "scanParamWriteAttrCB"
+### Community 240 - "core_cm0.h"
 Cohesion: 0.31
-Nodes (10): bStatus_t, gattAttribute_t, uint16, uint8, ScanParam_GetParameter(), ScanParam_HandleConnStatusCB(), ScanParam_RefreshNotify(), ScanParam_SetParameter() (+2 more)
+Nodes (9): NVIC_ClearPendingIRQ(), NVIC_DisableIRQ(), NVIC_EnableIRQ(), NVIC_GetPendingIRQ(), NVIC_GetPriority(), NVIC_SetPendingIRQ(), NVIC_SetPriority(), NVIC_SystemReset() (+1 more)
 
-### Community 278 - "enableSleep"
-Cohesion: 0.18
-Nodes (11): Sleep_Mode, enter_sleep_off_mode2(), Sleep_Mode, enableSleep(), enter_sleep_off_mode0(), getSleepMode(), setSleepMode(), __ATTR_SECTION_XIP__ (+3 more)
-
-### Community 279 - "bleuart_Notify"
-Cohesion: 0.20
-Nodes (14): bleuart_ProfileChangeCB_t, bleuart_notify_data(), bStatus_t, bleuart_AddService(), bleuart_HandleConnStatusCB(), bleuart_Notify(), bleuart_NotifyIsReady(), bleuart_ReadAttrCB() (+6 more)
-
-### Community 280 - "aliGenie_appl_Vendor_fanlight.c"
-Cohesion: 0.38
-Nodes (9): API_RESULT, MS_ACCESS_MODEL_HANDLE, UI_DATA_ALIGENIE_MODEL_T, UINT32, fanlight_backLight_set(), fanlight_mainLight_set(), fanlight_recall_mode_set(), fanlight_recall_mode_set2() (+1 more)
-
-### Community 281 - "aliGenie_appl_Vendor_socket.c"
+### Community 241 - "key.c"
 Cohesion: 0.36
-Nodes (9): API_RESULT, UI_DATA_ALIGENIE_MODEL_T, UI_DATA_GENERIC_ONOFF_MODEL_T, UINT32, UINT8, heater_alipowerstate_set(), heater_powerstate_set(), init_attr_tbl_socket() (+1 more)
+Nodes (9): gpio_key_timer_handler(), key_idle_handler(), key_press_debonce_handler(), key_press_debonce_timer_handler(), key_press_handler(), key_release_debonce_handler(), key_release_debonce_timer_handler(), key_timer_start() (+1 more)
 
-### Community 282 - "appl_generic_power_level_server.c"
-Cohesion: 0.48
-Nodes (11): appl_generic_level_server_cb(), appl_generic_onoff_server_cb(), appl_generic_power_level_server_cb(), appl_generic_power_onoff_server_cb(), API_RESULT, MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW (+3 more)
+### Community 242 - "led_light.c"
+Cohesion: 0.20
+Nodes (9): led_init(), light_blink_porcess_evt(), light_blink_set(), light_init(), light_pwm_deinit(), light_pwm_init(), light_reflash(), light_start_timer() (+1 more)
 
-### Community 283 - "uint8"
-Cohesion: 0.29
-Nodes (10): hciEvt_CmdComplete_t, osal_event_hdr_t, uint16, uint8, SM_ProcessEvent(), smProcessHCIBLEEventCode(), smProcessHCICmdCompleteEvt(), smProcessOSALMsg() (+2 more)
+### Community 243 - "appl_proxy.c"
+Cohesion: 0.24
+Nodes (7): main_register_models(), appl_add_or_del_filter_addr(), appl_proxy_adv(), appl_proxy_callback(), appl_proxy_start_net_id_adv(), appl_proxy_start_node_identity_adv(), main_proxy_operations()
 
-### Community 284 - "EM_platform.c"
-Cohesion: 0.28
-Nodes (7): FILE, EM_enter_sleep_pl(), EM_exit_sleep_pl(), ferror(), fgetc(), fputc(), _ttywrch()
+### Community 244 - "appl_generic_onoff_client.c"
+Cohesion: 0.20
+Nodes (7): appl_generic_onoff_client_cb(), appl_generic_onoff_client_get_model_handle(), appl_generic_onoff_client_set_publish_address(), appl_send_generic_onoff_get(), appl_send_generic_onoff_set(), appl_send_generic_onoff_set_unacknowledged(), main_generic_onoff_client_operations()
 
-### Community 285 - "bStatus_t"
-Cohesion: 0.26
-Nodes (12): bStatus_t, gattAttribute_t, simpleProfileCBs_t, uint16, uint8, SimpleProfile_GetParameter(), simpleProfile_HandleConnStatusCB(), simpleProfile_Notify() (+4 more)
+### Community 245 - "blebrr_gatt.c"
+Cohesion: 0.25
+Nodes (5): blebrr_pl_advertise_end(), blebrr_gatt_send(), blebrr_pl_gatt_connection(), blebrr_pl_gatt_disconnection(), blebrr_pl_recv_gattpacket()
 
-### Community 286 - "cli_ps.c"
-Cohesion: 0.56
-Nodes (8): API_RESULT, UCHAR, UINT32, cli_ps(), cli_ps_get_app_key(), cli_ps_get_device_key(), cli_ps_get_net_key(), cli_ps_get_primary_unicast_addr()
+### Community 246 - "cli_core_provision.c"
+Cohesion: 0.44
+Nodes (10): cli_core_provision(), cli_core_provision_bind(), cli_core_provision_delete_all_dev_keys(), cli_core_provision_get_dev_list(), cli_core_provision_get_pkey(), cli_core_provision_input_auth_val(), cli_core_provision_set_auth_action(), cli_core_provision_set_dev_pkey() (+2 more)
 
-### Community 287 - "hal_system_soft_reset"
+### Community 247 - "cli_generic_default_transition_time_client.c"
+Cohesion: 0.37
+Nodes (8): cli_generic_default_transition_time_client_cb(), cli_modelc_generic_default_transition_time(), cli_modelc_generic_default_transition_time_get(), cli_modelc_generic_default_transition_time_get_model_handle(), cli_modelc_generic_default_transition_time_set(), cli_modelc_generic_default_transition_time_set_publish_address(), cli_modelc_generic_default_transition_time_set_unacknowledged(), cli_modelc_generic_default_transition_time_setup()
+
+### Community 248 - "cli_generic_onoff_client.c"
+Cohesion: 0.37
+Nodes (8): cli_generic_onoff_client_cb(), cli_modelc_generic_onoff(), cli_modelc_generic_onoff_get(), cli_modelc_generic_onoff_get_model_handle(), cli_modelc_generic_onoff_set(), cli_modelc_generic_onoff_set_publish_address(), cli_modelc_generic_onoff_set_unacknowledged(), cli_modelc_generic_onoff_setup()
+
+### Community 249 - "cli_generic_power_onoff_client.c"
+Cohesion: 0.37
+Nodes (8): cli_generic_power_onoff_client_cb(), cli_modelc_generic_onpowerup_get(), cli_modelc_generic_onpowerup_set(), cli_modelc_generic_onpowerup_set_unacknowledged(), cli_modelc_generic_power_onoff(), cli_modelc_generic_power_onoff_get_model_handle(), cli_modelc_generic_power_onoff_set_publish_address(), cli_modelc_generic_power_onoff_setup()
+
+### Community 250 - "GAPRole_SetParameter"
 Cohesion: 0.16
-Nodes (18): hal_system_soft_reset(), attHandleValueNoti_t, bStatus_t, gattAttribute_t, uint16, uint8, handleConnStatusCB(), load_ota_version() (+10 more)
+Nodes (9): GAPRole_GetParameter(), GAPRole_Init(), GAPRole_ProcessEvent(), gapRole_ProcessOSALMsg(), gapRole_SendUpdateParam(), GAPRole_SetParameter(), gapRole_SetupGAP(), GAPRole_StartDevice() (+1 more)
 
-### Community 288 - "bStatus_t"
-Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+### Community 251 - "aliGenie_bleMesh_3KeySwitch/source/appl_hard/aliGenie_led_light.c"
+Cohesion: 0.22
+Nodes (9): light_blink_evt_cfg(), light_blink_porcess_evt(), light_blink_set(), light_ctrl(), light_init(), light_reflash(), light_start_timer(), light_stop_timer() (+1 more)
 
-### Community 289 - "multi_timer.c"
+### Community 252 - "UI_setup_prov"
+Cohesion: 0.47
+Nodes (9): UI_prov_callback(), UI_prov_cb_default(), UI_prov_cb_DEVINPUT_COMPLETE(), UI_prov_cb_OOB_DISPLAY(), UI_prov_cb_OOB_ENTRY(), UI_prov_cb_PROVDATA_INFO(), UI_prov_cb_PROVISIONING_COMPLETE(), UI_prov_cb_PROVISIONING_SETUP() (+1 more)
+
+### Community 253 - "aliGenie_bleMesh_fan/source/appl_hard/aliGenie_led_light.c"
+Cohesion: 0.22
+Nodes (9): light_blink_evt_cfg(), light_blink_porcess_evt(), light_blink_set(), light_ctrl(), light_init(), light_reflash(), light_start_timer(), light_stop_timer() (+1 more)
+
+### Community 254 - "aliGenie_bleMesh_fogger/source/appl_hard/aliGenie_led_light.c"
+Cohesion: 0.22
+Nodes (9): light_blink_evt_cfg(), light_blink_porcess_evt(), light_blink_set(), light_ctrl(), light_init(), light_reflash(), light_start_timer(), light_stop_timer() (+1 more)
+
+### Community 255 - "UI_light_ctl_server_cb"
+Cohesion: 0.30
+Nodes (4): MS_light_ctl_server_state_update_johhn(), UI_light_ctl_model_state_get(), UI_light_ctl_model_state_set(), UI_light_ctl_server_cb()
+
+### Community 256 - "aliGenie_bleMesh_socket/source/appl_hard/aliGenie_led_light.c"
+Cohesion: 0.22
+Nodes (9): light_blink_evt_cfg(), light_blink_porcess_evt(), light_blink_set(), light_ctrl(), light_init(), light_reflash(), light_start_timer(), light_stop_timer() (+1 more)
+
+### Community 257 - "hal_dma_init"
+Cohesion: 0.21
+Nodes (9): hal_dma_init(), hal_dma_init_channel(), at_dma_rx_init(), at_dma_tx_init(), DMA_Demo_Init(), osalInitTasks(), dma_chx_cb(), i2c_dma_rx_config() (+1 more)
+
+### Community 258 - "ooo_bin.py"
+Cohesion: 0.21
+Nodes (6): hexf(), main(), crc16(), hexf(), main(), printhelp()
+
+### Community 259 - "linkdb.c"
+Cohesion: 0.33
+Nodes (8): linkDB_Add(), linkDB_FindFirst(), linkDB_NumActive(), linkDB_Register(), linkDB_Remove(), linkDB_State(), linkDB_Update(), reportStatusChange()
+
+### Community 260 - "ppsp_serv_set_para"
+Cohesion: 0.24
+Nodes (8): ppsp_impl_appl_timr_hdlr(), ppsp_impl_serv_xfer_hdlr(), ppsp_serv_get_attr(), ppsp_serv_get_para(), ppsp_serv_hdlr_conn_stat(), ppsp_serv_reg_appl(), ppsp_serv_set_attr(), ppsp_serv_set_para()
+
+### Community 261 - "appl_generic_default_transition_time_client.c"
+Cohesion: 0.22
+Nodes (7): appl_generic_default_transition_time_client_cb(), appl_generic_default_transition_time_client_get_model_handle(), appl_generic_default_transition_time_client_set_publish_address(), appl_send_generic_default_transition_time_get(), appl_send_generic_default_transition_time_set(), appl_send_generic_default_transition_time_set_unacknowledged(), main_generic_default_transition_time_client_operations()
+
+### Community 262 - "appl_generic_power_onoff_client.c"
+Cohesion: 0.22
+Nodes (7): appl_generic_power_onoff_client_cb(), appl_generic_power_onoff_client_get_model_handle(), appl_generic_power_onoff_client_set_publish_address(), appl_send_generic_onpowerup_get(), appl_send_generic_onpowerup_set(), appl_send_generic_onpowerup_set_unacknowledged(), main_generic_power_onoff_client_operations()
+
+### Community 263 - "appl_scene_server_cb"
 Cohesion: 0.23
-Nodes (8): uint32, multitimer_init(), multitimer_loop(), multitimer_loop_slave(), multitimer_slave_del(), multitimer_stop(), multitimer_stop_slave(), multitimer_ticks()
+Nodes (6): appl_model_states_initialization(), appl_scene_delete_saved_state(), appl_scene_recall_saved_state(), appl_scene_save_current_state(), appl_scene_server_cb(), main_scene_server_operations()
 
-### Community 290 - "bStatus_t"
-Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+### Community 264 - "MultiProfile_Notify"
+Cohesion: 0.28
+Nodes (9): multiRoleProfileChangeCB(), MultiProfile_GetParameter(), multiProfile_HandleConnStatusCB(), MultiProfile_Notify(), multiProfile_ReadAttrCB(), MultiProfile_SetParameter(), multiProfile_WriteAttrCB(), multiRoleProfileChangeCB() (+1 more)
 
-### Community 291 - "bStatus_t"
-Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
-
-### Community 292 - "simpleProfile_Notify"
+### Community 265 - "ll_enc.c"
 Cohesion: 0.29
-Nodes (12): bStatus_t, gattAttribute_t, simpleProfileCBs_t, uint16, uint8, SimpleProfile_GetParameter(), simpleProfile_HandleConnStatusCB(), simpleProfile_Notify() (+4 more)
+Nodes (9): LL_ENC_AES128_Encrypt0(), LL_ENC_Decrypt0(), LL_ENC_Encrypt0(), LL_ENC_GenDeviceIV0(), LL_ENC_GenDeviceSKD0(), LL_ENC_GenerateNonce0(), LL_ENC_GenerateTrueRandNum0(), LL_ENC_LoadKey() (+1 more)
 
-### Community 293 - "blebrr_gatt.c"
-Cohesion: 0.35
-Nodes (10): blebrr_pl_advertise_end(), blebrr_gatt_send(), blebrr_pl_gatt_connection(), blebrr_pl_gatt_disconnection(), blebrr_pl_recv_gattpacket(), API_RESULT, BRR_HANDLE, DECL_STATIC (+2 more)
+### Community 267 - "app.c"
+Cohesion: 0.26
+Nodes (8): app_update(), posedge_callback_wakeup(), start_ball_reset(), update_ball(), update_ball_reset(), update_paddles(), gfx_fill_circle(), osalInitTasks()
 
-### Community 294 - "bStatus_t"
-Cohesion: 0.27
-Nodes (11): bStatus_t, GAPMultiRole_CancelDiscovery(), GAPMultiRole_EstablishLink(), GAPMultiRole_StartDiscovery(), GAPMultiRole_TerminateConnection(), multiGetScanStrategy(), MultiScheduleScan(), at_conn_terminate() (+3 more)
+### Community 268 - "hal_kscan_timeout_handler"
+Cohesion: 0.20
+Nodes (9): get_key_matrix(), hal_kscan_clear_config(), hal_kscan_config_col(), hal_kscan_config_row(), hal_KSCAN_IRQHandler(), hal_kscan_timeout_handler(), kscan_compare_key(), kscan_hw_config() (+1 more)
 
-### Community 295 - "Полная аппаратная спецификация и база знаний: Смарт-часы LP715 / LP719 на SoC PhyPlus PHY6222"
+### Community 269 - "generic_onoff_set_pl"
+Cohesion: 0.23
+Nodes (11): light_ctrl(), generic_onoff_set_pl(), light_ctl_set_pl(), light_lightness_set_pl(), vendor_mode_backlight_onoff_set_pl(), vendor_mode_mainlight_onoff_set_pl(), UI_light_ctl_set_actual(), proxy_dly_generic_onoff() (+3 more)
+
+### Community 270 - "appl_health_server.c"
+Cohesion: 0.32
+Nodes (7): appl_health_self_test_00(), appl_health_self_test_02(), appl_health_self_test_FF(), appl_health_server_cb(), appl_health_server_send_status(), main_health_server_log_fault(), main_health_server_operations()
+
+### Community 271 - "cli_core_transport.c"
+Cohesion: 0.36
+Nodes (6): cli_core_transport(), cli_core_transport_clrreplaycache(), cli_core_transport_ctrlmsg(), cli_core_transport_frndreq(), cli_core_transport_send_packet(), cli_frnd_cb()
+
+### Community 272 - "cli_generic_battery_client.c"
+Cohesion: 0.39
+Nodes (6): cli_generic_battery_client_cb(), cli_modelc_generic_battery(), cli_modelc_generic_battery_get(), cli_modelc_generic_battery_get_model_handle(), cli_modelc_generic_battery_set_publish_address(), cli_modelc_generic_battery_setup()
+
+### Community 273 - "bStatus_t"
+Cohesion: 0.29
+Nodes (7): MultiProfile_GetParameter(), multiProfile_HandleConnStatusCB(), MultiProfile_Notify(), multiProfile_ReadAttrCB(), MultiProfile_RegisterAppCBs(), MultiProfile_SetParameter(), multiProfile_WriteAttrCB()
+
+### Community 274 - "GAPRole_ProcessEvent"
+Cohesion: 0.20
+Nodes (7): GAPRole_GetParameter(), GAPRole_Init(), GAPRole_ProcessEvent(), gapRole_ProcessOSALMsg(), GAPRole_SetParameter(), gapRole_SetupGAP(), GAPRole_StartDevice()
+
+### Community 275 - "bStatus_t"
+Cohesion: 0.26
+Nodes (7): SimpleProfile_GetParameter(), simpleProfile_HandleConnStatusCB(), simpleProfile_Notify(), simpleProfile_ReadAttrCB(), SimpleProfile_RegisterAppCBs(), SimpleProfile_SetParameter(), simpleProfile_WriteAttrCB()
+
+### Community 276 - "at_multi_timer.c"
+Cohesion: 0.23
+Nodes (7): multitimer_init(), multitimer_loop(), multitimer_loop_slave(), multitimer_slave_del(), multitimer_stop(), multitimer_stop_slave(), multitimer_ticks()
+
+### Community 277 - "multi_timer.c"
+Cohesion: 0.23
+Nodes (7): multitimer_init(), multitimer_loop(), multitimer_loop_slave(), multitimer_slave_del(), multitimer_stop(), multitimer_stop_slave(), multitimer_ticks()
+
+### Community 278 - "simpleProfile_Notify"
+Cohesion: 0.26
+Nodes (7): SimpleProfile_GetParameter(), simpleProfile_HandleConnStatusCB(), simpleProfile_Notify(), simpleProfile_ReadAttrCB(), SimpleProfile_RegisterAppCBs(), SimpleProfile_SetParameter(), simpleProfile_WriteAttrCB()
+
+### Community 279 - "simpleProfile_Notify"
+Cohesion: 0.26
+Nodes (7): SimpleProfile_GetParameter(), simpleProfile_HandleConnStatusCB(), simpleProfile_Notify(), simpleProfile_ReadAttrCB(), SimpleProfile_RegisterAppCBs(), SimpleProfile_SetParameter(), simpleProfile_WriteAttrCB()
+
+### Community 280 - "core_cm0plus.h"
+Cohesion: 0.39
+Nodes (9): NVIC_ClearPendingIRQ(), NVIC_DisableIRQ(), NVIC_EnableIRQ(), NVIC_GetPendingIRQ(), NVIC_GetPriority(), NVIC_SetPendingIRQ(), NVIC_SetPriority(), NVIC_SystemReset() (+1 more)
+
+### Community 281 - "hal_adc_value_cal"
+Cohesion: 0.18
+Nodes (7): disable_channel(), hal_adc_value_cal(), set_sampling_resolution(), set_sampling_resolution_auto(), adc_compare_evt(), adc_evt(), adc_Poilling_evt()
+
+### Community 282 - "appl_generic_battery_client_cb"
+Cohesion: 0.24
+Nodes (5): appl_generic_battery_client_cb(), appl_generic_battery_client_get_model_handle(), appl_generic_battery_client_set_publish_address(), appl_send_generic_battery_get(), main_generic_battery_client_operations()
+
+### Community 283 - "cli_brr.c"
+Cohesion: 0.51
+Nodes (7): cli_brr(), cli_config_ntf(), cli_create_gatt_conn(), cli_discover_service(), cli_scan_feature(), cli_scan_rsp_data_set(), cli_terminate_gatt_conn()
+
+### Community 284 - "HeartRate_MeasNotify"
+Cohesion: 0.29
+Nodes (6): HeartRate_GetParameter(), HeartRate_HandleConnStatusCB(), HeartRate_MeasNotify(), heartRate_ReadAttrCB(), HeartRate_SetParameter(), heartRate_WriteAttrCB()
+
+### Community 285 - "enableSleep"
+Cohesion: 0.18
+Nodes (7): enter_sleep_off_mode2(), enableSleep(), enter_sleep_off_mode0(), getSleepMode(), setSleepMode(), enter_sleep_off_mode1(), init_config()
+
+### Community 286 - "Полная аппаратная спецификация и база знаний: Смарт-часы LP715 / LP719 на SoC PhyPlus PHY6222"
 Cohesion: 0.20
 Nodes (9): 1. Общие сведения и идентификация платформы, 2. Микроконтроллер (SoC) — PhyPlus PHY6222QC, 3. Физическая топология контактных площадок (Тестпоинты на плате), 4. Распиновка периферии (GPIO Pinout), 5. Дисплей ST7735S (0.96" TFT 80x160), 6. Карта Flash-памяти (512 КБ / 0x80000 байт), 7. Протокол проводного Bootloader чипа PHY6222 (`cmd>>:`), 8. Заводской дамп и гарантия восстановления (+1 more)
 
-### Community 296 - "bStatus_t"
-Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+### Community 287 - "scanParamWriteAttrCB"
+Cohesion: 0.31
+Nodes (6): ScanParam_GetParameter(), ScanParam_HandleConnStatusCB(), ScanParam_RefreshNotify(), ScanParam_SetParameter(), scanParamReadAttrCB(), scanParamWriteAttrCB()
 
-### Community 297 - "appl_scene_server_cb"
+### Community 288 - "aliGenie_appl_Vendor_fanlight.c"
+Cohesion: 0.38
+Nodes (5): fanlight_backLight_set(), fanlight_mainLight_set(), fanlight_recall_mode_set(), fanlight_recall_mode_set2(), init_attr_tbl_fanlight()
+
+### Community 289 - "aliGenie_appl_Vendor_socket.c"
+Cohesion: 0.36
+Nodes (4): heater_alipowerstate_set(), heater_powerstate_set(), init_attr_tbl_socket(), UI_HARD_generic_onoff_set()
+
+### Community 290 - "UI_phy_model_server_cb"
+Cohesion: 0.44
+Nodes (4): UI_generic_onoff_server_cb(), UI_light_ctl_server_cb(), UI_light_hsl_server_cb(), UI_phy_model_server_cb()
+
+### Community 291 - "UI_phy_model_server_cb"
+Cohesion: 0.44
+Nodes (4): UI_generic_onoff_server_cb(), UI_light_ctl_server_cb(), UI_light_hsl_server_cb(), UI_phy_model_server_cb()
+
+### Community 292 - "uint8"
+Cohesion: 0.29
+Nodes (6): SM_ProcessEvent(), smProcessHCIBLEEventCode(), smProcessHCICmdCompleteEvt(), smProcessOSALMsg(), smState_timerCB(), smTo_timerCB()
+
+### Community 293 - "EM_platform.c"
+Cohesion: 0.28
+Nodes (6): EM_enter_sleep_pl(), EM_exit_sleep_pl(), ferror(), fgetc(), fputc(), _ttywrch()
+
+### Community 294 - "ota_ble_flash.py"
+Cohesion: 0.31
+Nodes (4): calc_phy_crc16(), main(), parse_ota_bin(), uart_monitor()
+
+### Community 295 - "cli_ps.c"
+Cohesion: 0.56
+Nodes (5): cli_ps(), cli_ps_get_app_key(), cli_ps_get_device_key(), cli_ps_get_net_key(), cli_ps_get_primary_unicast_addr()
+
+### Community 296 - "sk_WriteAttrCB"
+Cohesion: 0.36
+Nodes (5): SK_GetParameter(), sk_HandleConnStatusCB(), sk_ReadAttrCB(), SK_SetParameter(), sk_WriteAttrCB()
+
+### Community 297 - "bStatus_t"
 Cohesion: 0.25
-Nodes (9): appl_scene_server_cb(), MS_ACCESS_MODEL_HANDLE, UINT16, UINT8, main_generic_power_level_server_operations(), appl_model_states_initialization(), appl_scene_delete_saved_state(), appl_scene_save_current_state() (+1 more)
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
 ### Community 298 - "bStatus_t"
 Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
-### Community 299 - "cli_core_network.c"
-Cohesion: 0.56
-Nodes (8): API_RESULT, UCHAR, UINT32, cli_core_network(), cli_core_network_get_ivindex(), cli_core_network_send_packet(), cli_core_network_set_pkt_hdr(), cli_core_network_snb()
-
-### Community 300 - "bStatus_t"
+### Community 299 - "bStatus_t"
 Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
-### Community 301 - "ppsp_serv_set_para"
-Cohesion: 0.42
-Nodes (9): bStatus_t, gattAttribute_t, uint16, uint8, ppsp_serv_get_attr(), ppsp_serv_get_para(), ppsp_serv_hdlr_conn_stat(), ppsp_serv_set_attr() (+1 more)
+### Community 300 - "aliGenie_bleMesh_fanlight/source/bleswitch.c"
+Cohesion: 0.33
+Nodes (5): ble_mesh_connect_start_led(), bleswitch_init(), bleswitch_scan_pro(), KSCAN_Init(), KSCAN_ProcessEvent()
 
-### Community 302 - "bStatus_t"
+### Community 301 - "bStatus_t"
 Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
-### Community 303 - "SBP Mulit-Connection Porting Guide"
-Cohesion: 0.22
-Nodes (8): main.c, peripheralMultiConn.c, peripheralMultiConn.h, SBP Mulit-Connection Porting Guide, sbpMulitConn.uvprojx, scatter_load.sct, 关于新增加的api的使用, 连接广播间隔配置
+### Community 302 - "aliGenie_bleMesh_fogger/source/bleswitch.c"
+Cohesion: 0.33
+Nodes (5): ble_mesh_connect_start_led(), bleswitch_init(), bleswitch_scan_pro(), KSCAN_Init(), KSCAN_ProcessEvent()
+
+### Community 303 - "bStatus_t"
+Cohesion: 0.25
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
 ### Community 304 - "bStatus_t"
 Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
-### Community 305 - "bStatus_t"
-Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+### Community 305 - "aliGenie_bleMesh_socket/source/bleswitch.c"
+Cohesion: 0.33
+Nodes (5): ble_mesh_connect_start_led(), bleswitch_init(), bleswitch_scan_pro(), KSCAN_Init(), KSCAN_ProcessEvent()
 
 ### Community 306 - "bStatus_t"
 Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
 ### Community 307 - "bStatus_t"
 Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
 ### Community 308 - "bStatus_t"
 Cohesion: 0.25
-Nodes (9): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process() (+1 more)
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
-### Community 309 - "adcMeasureTask"
-Cohesion: 0.15
-Nodes (16): hal_adc_start(), adc_Compare_Init(), adc_Compare_MeasureTask(), adc_Compare_ProcessEvent(), adc_ProcessOSALMsg(), osal_event_hdr_t, uint16, uint8 (+8 more)
+### Community 309 - "bStatus_t"
+Cohesion: 0.25
+Nodes (8): BLE_gap_connect(), BLE_gap_disconnect(), BLE_gap_set_adv_enable(), BLE_gap_set_adv_params(), BLE_gap_set_advscanrsp_data(), BLE_gap_set_scan_enable(), BLE_gap_set_scan_params(), bleMesh_GAPMsg_Timeout_Process()
 
-### Community 310 - "LL_CreateConn0"
-Cohesion: 0.23
-Nodes (13): extAdvInfo_t, ll_generateExtAdvDid(), ll_isLegacyAdv(), llGenerateCRC(), llGenerateValidAccessAddr(), LL_ENC_GeneratePseudoRandNum(), LL_CreateConn0(), LL_ExtendedCreateConnection() (+5 more)
+### Community 310 - "SBP Mulit-Connection Porting Guide"
+Cohesion: 0.22
+Nodes (8): main.c, peripheralMultiConn.c, peripheralMultiConn.h, SBP Mulit-Connection Porting Guide, sbpMulitConn.uvprojx, scatter_load.sct, 关于新增加的api的使用, 连接广播间隔配置
 
-### Community 311 - "gattNotifyEvent"
-Cohesion: 0.28
-Nodes (9): bStatus_t, gattMsg_t, pfnCbTimer_t, uint16, uint8, GATT_ProcessEvent(), gattNotifyEvent(), gattStartTimer() (+1 more)
-
-### Community 313 - "slboot.c"
+### Community 311 - "led.c"
 Cohesion: 0.32
-Nodes (5): ota_flash, slb, jump2app(), run_application(), slboot_main()
+Nodes (4): get_led(), led_initial(), led_set_status(), set_led()
+
+### Community 312 - "slboot.c"
+Cohesion: 0.32
+Nodes (3): jump2app(), run_application(), slboot_main()
+
+### Community 313 - "sbc_multi_timer.c"
+Cohesion: 0.32
+Nodes (4): multitimer_init(), multitimer_loop(), multitimer_stop(), multitimer_ticks()
 
 ### Community 314 - "API_RESULT"
 Cohesion: 0.32
-Nodes (8): API_RESULT, UCHAR, UINT32, cli_bonding(), cli_set_interval(), cli_set_loop_cnt(), cli_set_mtu_size(), cli_show_loop_satus()
+Nodes (5): cli_bonding(), cli_set_interval(), cli_set_loop_cnt(), cli_set_mtu_size(), cli_show_loop_satus()
 
-### Community 315 - "sbc_multi_timer.c"
-Cohesion: 0.32
-Nodes (5): uint32, multitimer_init(), multitimer_loop(), multitimer_stop(), multitimer_ticks()
-
-### Community 316 - "LL_ConnectionlessIQ_SampleEnable0"
+### Community 315 - "LL_ConnectionlessIQ_SampleEnable0"
 Cohesion: 0.50
 Nodes (8): ll_hw_set_ant_pattern(), ll_hw_set_ant_switch_mode(), ll_hw_set_ant_switch_timing(), ll_hw_set_cte_rxSupp(), LL_ConnectionlessCTE_TransmitEnable0(), LL_ConnectionlessIQ_SampleEnable0(), LL_Set_ConnectionCTE_ReceiveParam0(), LL_Set_ConnectionCTE_TransmitParam0()
 
-### Community 317 - "gap_devmgr.c"
+### Community 318 - "llCheckWhiteListUsage"
+Cohesion: 0.29
+Nodes (5): LL_PLUS_GetLocalPhyMode(), llCheckWhiteListUsage(), LL_AddWhiteListDevice0(), LL_ClearWhiteList0(), LL_RemoveWhiteListDevice0()
+
+### Community 319 - "pulse_measure_callback"
+Cohesion: 0.38
+Nodes (5): hal_ms_intv(), negedge_callback_wakeup(), plus_edge_callback(), posedge_callback_wakeup(), pulse_measure_callback()
+
+### Community 320 - "appl_light_xyl_set_actual"
 Cohesion: 0.43
-Nodes (7): bStatus_t, uint8, GAP_ResolvePrivateAddr(), gapFindADType(), gapIsAdvertising(), gapIsScanning(), gapValidADType()
+Nodes (7): appl_light_xyl_set_actual(), appl_light_xyl_set_range(), appl_light_xyl_set_x(), appl_light_xyl_set_y(), appl_light_xyl_transition_complete_cb(), appl_model_light_xyl_state_set(), appl_model_light_xyl_states_initialization()
 
-### Community 319 - "btypes.h"
-Cohesion: 0.38
-Nodes (3): bt_le_features, bt_os_common, platform
-
-### Community 320 - "LL_PLUS_GetLocalPhyMode"
-Cohesion: 0.67
-Nodes (3): ll_phy_ctrl_t, llStatus_t, LL_PLUS_GetLocalPhyMode()
-
-### Community 321 - "hal_adc_value_cal"
-Cohesion: 0.29
-Nodes (7): hal_adc_value_cal(), adc_compare_evt(), adc_Evt_t, adc_evt(), adc_Evt_t, adc_Poilling_evt(), adc_Evt_t
-
-### Community 322 - "UI_proxy_beacon_callback"
-Cohesion: 0.38
-Nodes (7): PROXY_BCON_STATE_PARAMS, MS_SUBNET_HANDLE, UINT8, UI_check_hash(), UI_check_networkid(), UI_config_proxy_set(), UI_proxy_beacon_callback()
-
-### Community 323 - "appl_generic_power_onoff_client.c"
-Cohesion: 0.22
-Nodes (12): appl_generic_power_onoff_client_cb(), appl_generic_power_onoff_client_get_model_handle(), appl_generic_power_onoff_client_set_publish_address(), appl_send_generic_onpowerup_get(), appl_send_generic_onpowerup_set(), appl_send_generic_onpowerup_set_unacknowledged(), API_RESULT, MS_ACCESS_MODEL_HANDLE (+4 more)
-
-### Community 324 - "UI_generic_onoff_server_cb"
-Cohesion: 0.48
-Nodes (7): MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_MODEL_STATE_PARAMS, UI_generic_onoff_server_cb(), UI_light_lightness_server_cb()
-
-### Community 325 - "bleMesh_ProcessGAPMsg"
-Cohesion: 0.33
-Nodes (7): bleMesh_ProcessGAPMsg(), bleMesh_ProcessGATTMsg(), bleMesh_ProcessL2CAPMsg(), bleMesh_ProcessOSALMsg(), gapEventHdr_t, gattMsgEvent_t, osal_event_hdr_t
-
-### Community 326 - "cli_core.c"
+### Community 321 - "cli_core.c"
 Cohesion: 0.57
-Nodes (6): API_RESULT, UCHAR, UINT32, cli_core(), cli_core_disable_feature(), cli_core_enable_feature()
+Nodes (3): cli_core(), cli_core_disable_feature(), cli_core_enable_feature()
 
-### Community 327 - "bleMesh_ProcessGAPMsg"
+### Community 322 - "Batt_HandleConnStatusCB"
+Cohesion: 0.43
+Nodes (3): Batt_HandleConnStatusCB(), battReadAttrCB(), battWriteAttrCB()
+
+### Community 323 - "adc_Poilling_ProcessEvent"
 Cohesion: 0.33
-Nodes (7): bleMesh_ProcessGAPMsg(), bleMesh_ProcessGATTMsg(), bleMesh_ProcessL2CAPMsg(), bleMesh_ProcessOSALMsg(), gapEventHdr_t, gattMsgEvent_t, osal_event_hdr_t
+Nodes (4): adc_Poilling_Init(), adc_Poilling_ProcessEvent(), adc_Poilling_ProcessOSALMsg(), adcPoilling_MeasureTask()
 
-### Community 328 - "cli_friend_listadd"
-Cohesion: 0.60
-Nodes (6): API_RESULT, UCHAR, UINT32, cli_clear(), cli_friend_listadd(), cli_friend_listremove()
-
-### Community 329 - "Voice_Queue.c"
-Cohesion: 0.53
-Nodes (5): uint8, InQueue(), IsQueueEmpty(), IsQueueFull(), OutQueue()
-
-### Community 330 - "appl_generic_property_client_cb"
-Cohesion: 0.33
-Nodes (6): appl_generic_property_client_cb(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32
-
-### Community 331 - "appl_sensor_client_cb"
-Cohesion: 0.33
-Nodes (6): appl_sensor_client_cb(), API_RESULT, MS_ACCESS_MODEL_HANDLE, UCHAR, UINT16, UINT32
-
-### Community 332 - "BUP_init"
-Cohesion: 0.33
-Nodes (7): at_get_baudrate(), at_get_uart_parity(), at_Init(), at_uart_init(), BUP_init(), get_uart_idx(), set_uart_at_mod()
-
-### Community 333 - "ota_WriteAttrCB"
-Cohesion: 0.53
-Nodes (6): gattAttribute_t, uint16, uint8, handleConnStatusCB(), ota_ReadAttrCB(), ota_WriteAttrCB()
-
-### Community 334 - "vendor_Aligenie_indication"
-Cohesion: 0.33
-Nodes (5): API_RESULT, MS_NET_ADDR, UINT16, UINT32, vendor_Aligenie_indication()
-
-### Community 335 - "bleMesh_ProcessEvent"
-Cohesion: 0.22
-Nodes (10): UI_trn_stop_heartbeat_publication(), UI_vendor_model_set_raw_addr(), bleMesh_check_node_inline(), bleMesh_delete_device_from_list(), bleMesh_ProcessEvent(), key_evt_t, MS_NET_ADDR, uint16 (+2 more)
-
-### Community 336 - "appWristProcEvt"
+### Community 324 - "LL_SetExtAdvParam"
 Cohesion: 0.29
-Nodes (7): appWristProcEvt(), appWristProcOSALMsg(), bdAddr2Str(), osal_event_hdr_t, uint16, uint8, wristCB()
+Nodes (5): LL_ReadAdvChanTxPower0(), LL_ReadRssi0(), LL_ReadTxPowerLevel0(), LL_SetExtAdvParam(), LL_SetTxPowerLevel0()
 
-### Community 337 - "Watchdog_Demo_Init"
-Cohesion: 0.40
-Nodes (6): osalInitTasks(), uint16, uint8, Watchdog_Demo_Init(), Watchdog_Demo_ProcessEvent(), wdg_state_print()
+### Community 328 - "ota_WriteAttrCB"
+Cohesion: 0.53
+Nodes (3): handleConnStatusCB(), ota_ReadAttrCB(), ota_WriteAttrCB()
 
-### Community 338 - "otaProtocol_RunApp"
-Cohesion: 0.50
-Nodes (5): ota_flash_load_fct(), otaProtocol_BootMode(), otaProtocol_RunApp(), run_application(), run_fct()
-
-### Community 339 - "multiRoleApp_ProcessEvent"
-Cohesion: 0.40
-Nodes (5): gattMsgEvent_t, osal_event_hdr_t, multiRoleApp_ProcessEvent(), multiRoleApp_ProcessOSALMsg(), multiRoleAppProcessGATTMsg()
-
-### Community 340 - "appl_utils.c"
-Cohesion: 0.50
-Nodes (3): appl_utils, TimePackge, LocalTime()
-
-### Community 341 - "HidKbd_GetParameter"
-Cohesion: 0.67
-Nodes (4): uint16, uint8, HidKbd_GetParameter(), HidKbd_SetParameter()
-
-### Community 342 - "HidKbd_GetParameter"
-Cohesion: 0.67
-Nodes (4): uint16, uint8, HidKbd_GetParameter(), HidKbd_SetParameter()
-
-### Community 343 - "multiGetSlaveConnList"
-Cohesion: 0.12
-Nodes (26): GAPMultiRoleCentralDev_t, multi_devInLinkList(), multiAddSlaveConnList(), multiDevInConfSlaveList(), multiGetConfigSlaveList(), multiGetSlaveConnList(), GAPMultiRole_State_t, GAPMultiRolScanner_t (+18 more)
-
-### Community 344 - "adc_Poilling_ProcessEvent"
+### Community 329 - "bleMesh_check_node_inline"
 Cohesion: 0.33
-Nodes (7): adc_Poilling_Init(), adc_Poilling_ProcessEvent(), adc_Poilling_ProcessOSALMsg(), adcPoilling_MeasureTask(), osal_event_hdr_t, uint16, uint8
+Nodes (3): bleMesh_check_node_inline(), bleMesh_delete_device_from_list(), key_press_process()
 
-### Community 345 - "led.c"
-Cohesion: 0.47
-Nodes (5): LED_PWR_e, LED_STATUS_e, get_led(), led_set_status(), set_led()
+### Community 330 - "Voice_Queue.c"
+Cohesion: 0.53
+Nodes (4): InQueue(), IsQueueEmpty(), IsQueueFull(), OutQueue()
 
-### Community 346 - "GAP_SendSlaveSecurityRequest"
-Cohesion: 0.50
-Nodes (4): bStatus_t, uint16, uint8, GAP_SendSlaveSecurityRequest()
-
-### Community 347 - "UI_vendor_example_client_cb"
-Cohesion: 0.33
-Nodes (6): MS_ACCESS_MODEL_EXT_PARAMS, MS_ACCESS_MODEL_REQ_MSG_CONTEXT, MS_ACCESS_MODEL_REQ_MSG_RAW, MS_ACCESS_MODEL_REQ_MSG_T, MS_ACCESS_VENDOR_MODEL_STATE_PARAMS, UI_vendor_example_client_cb()
-
-### Community 351 - "simpleBLEGATTDiscoveryEvent"
-Cohesion: 1.00
-Nodes (3): gattMsgEvent_t, simpleBLECentralProcessGATTMsg(), simpleBLEGATTDiscoveryEvent()
-
-### Community 393 - "Проект: Переделка / Реверс-инжиниринг умного браслета (LP715_MB_V1.3)"
+### Community 331 - "Проект: Переделка / Реверс-инжиниринг умного браслета (LP715_MB_V1.3)"
 Cohesion: 0.40
 Nodes (4): 1. Обзор устройства, 2. Статус прошивки и резервной копии (Ground Truth), 3. Главная цель: Полноценная кастомная прошивка смарт-часов (Custom Smartwatch OS), Проект: Переделка / Реверс-инжиниринг умного браслета (LP715_MB_V1.3)
 
-### Community 395 - "ProcessUartData"
-Cohesion: 0.33
-Nodes (4): uart_Evt_t, ProcessUartData(), uart_Evt_t, ProcessUartData()
-
-### Community 403 - "devInfo_ReadAttrCB"
+### Community 332 - "multiRoleApp_ProcessEvent"
 Cohesion: 0.40
-Nodes (5): gattAttribute_t, uint16, uint8, DevInfo_GetParameter(), devInfo_ReadAttrCB()
+Nodes (3): multiRoleApp_ProcessEvent(), multiRoleApp_ProcessOSALMsg(), multiRoleAppProcessGATTMsg()
 
-### Community 405 - "cli_internal_status"
-Cohesion: 0.40
-Nodes (5): API_RESULT, UCHAR, UINT32, cli_internal_status(), UI_set_uuid_octet()
-
-### Community 406 - "cli_internal_status"
-Cohesion: 0.40
-Nodes (5): API_RESULT, UCHAR, UINT32, cli_internal_status(), UI_set_uuid_octet()
-
-### Community 416 - "cli_internal_status"
-Cohesion: 0.40
-Nodes (5): API_RESULT, UCHAR, UINT32, cli_internal_status(), UI_set_uuid_octet()
-
-### Community 428 - "fs_Init"
-Cohesion: 0.40
-Nodes (5): uint16, uint8, fs_Init(), fs_ProcessEvent(), osalInitTasks()
-
-### Community 429 - "at_div"
+### Community 334 - "at_div"
 Cohesion: 0.67
-Nodes (4): AT_BUF_DIV_e, at_div(), at_dma_get_div(), at_dma_set_div()
+Nodes (3): at_div(), at_dma_get_div(), at_dma_set_div()
 
-### Community 430 - "GATT_InitClient"
+### Community 335 - "🕹️ phy6222_smartwatch"
 Cohesion: 0.50
-Nodes (4): gattProcessMsg_t, GATT_InitClient(), gattRegisterClient(), gattRegisterServer()
-
-### Community 431 - "LL_SetAdvParam0"
-Cohesion: 0.67
-Nodes (4): ll_readLocalIRK(), ll_readPeerIRK(), LL_ProcessEvent0(), LL_SetAdvParam0()
-
-### Community 432 - "console_init"
-Cohesion: 0.67
-Nodes (3): cons_callback_t, cons_cmd_t, console_init()
-
-### Community 433 - "hal_pwrmgr_poweroff"
-Cohesion: 0.67
-Nodes (3): pwroff_cfg_t, hal_pwrmgr_poweroff(), at_enter_sleep_mode()
-
-### Community 434 - "HidDev_Register"
-Cohesion: 0.67
-Nodes (3): hidDevCB_t, hidDevCfg_t, HidDev_Register()
-
-### Community 435 - "at_pcnt"
-Cohesion: 0.67
-Nodes (3): at_pcnt(), at_dma_set_buf_len(), at_get_count()
-
-### Community 436 - "ProcessUartData"
-Cohesion: 0.67
-Nodes (3): __ATTR_SECTION_SRAM__, uart_Evt_t, ProcessUartData()
-
-### Community 437 - "pin_event_handler"
-Cohesion: 0.67
-Nodes (3): GPIO_Pin_e, IO_Wakeup_Pol_e, pin_event_handler()
+Nodes (3): 🔌 Connection Images, 🛠️ How to Build, 🕹️ phy6222_smartwatch
 
 ## Knowledge Gaps
-- **19 isolated node(s):** `1. Общие сведения и идентификация платформы`, `3. Физическая топология контактных площадок (Тестпоинты на плате)`, `4. Распиновка периферии (GPIO Pinout)`, `5. Дисплей ST7735S (0.96" TFT 80x160)`, `6. Карта Flash-памяти (512 КБ / 0x80000 байт)` (+14 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1748 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **83 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **70 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `appl_dump_bytes()` connect `appl_dump_bytes` to `appl_sample_example_1.c`, `appl_generic_default_transition_time_client.c`, `cli_light_hsl_client.c`, `aliGenie_appl_Prov.c`, `cli_generic_battery_client.c`, `appl_generic_onoff_client.c`, `mesh_light/source/bleMesh/appl_sample_example_phylight.c`, `appl_sample_example_phylpn.c`, `appl_sample_example_phyfriend.c`, `mesh_multiconn/source/bleMesh/appl_sample_example_phylight.c`, `cli_generic_property_client.c`, `cli_light_lightness_client.c`, `appl_sample_mesh_switch.c`, `appl_model_server_state_handler.c`, `appl_light_lightness_client.c`, `cli_light_ctl_client.c`, `cli_light_lc_client.c`, `CLI_strtoarray`, `CLI_strtoi`, `appl_config_client.c`, `appl_light_ctl_client.c`, `appl_light_lc_client.c`, `cli_health_client.c`, `cli_generic_power_level_client.c`, `cli_light_xyl_client.c`, `cli_time_client.c`, `appl_sample_example_7.c`, `appl_sample_mesh_gateway.c`, `appl_light_hsl_client.c`, `appl_light_xyl_client.c`, `aliGenie_appl_common.c`, `cli_scene_client.c`, `appl_generic_power_onoff_client.c`, `appl_sample_example_10a.c`, `UI_proxy_beacon_callback`, `appl_sample_example_11.c`, `appl_generic_property_client_cb`, `appl_scene_client.c`, `appl_sensor_client_cb`, `appl_time_client.c`, `cli_generic_level_client.c`, `appl_sample_example_6.c`, `find_model_private_data`, `appl_sample_example_8.c`, `appl_generic_level_client.c`, `blebrr_pl.c`, `cli_generic_location_client.c`, `appl_sample_example_5.c`, `UI_light_lightness_server_cb`, `appl_scheduler_client.c`, `appl_generic_location_client.c`, `EM_alloc_mem`, `UI_light_ctl_server_cb`, `init_attr`, `appl_prov.c`, `UI_generic_onoff_model_server_cb`, `appl_health_client.c`, `cli_generic_onoff_client.c`, `cli_scheduler_client.c`, `appl_sample_example_10.c`, `aliGenie_bleMesh_heater/source/aliGenie_appl.c`, `UI_light_hsl_server_cb`, `appl_sample_example_9.c`, `aliGenie_bleMesh_curtain/source/aliGenie_appl.c`, `aliGenie_bleMesh_fan/source/aliGenie_appl.c`, `aliGenie_bleMesh_fanlight/source/aliGenie_appl.c`, `aliGenie_bleMesh_fogger/source/aliGenie_appl.c`, `aliGenie_bleMesh_3KeySwitch/source/aliGenie_appl.c`, `cli_generic_default_transition_time_client.c`, `cli_generic_power_onoff_client.c`, `aliGenie_bleMesh_light/source/aliGenie_appl.c`, `aliGenie_bleMesh_socket/source/aliGenie_appl.c`?**
-  _High betweenness centrality (0.117) - this node is a cross-community bridge._
-- **Why does `EM_start_timer()` connect `EM_start_timer` to `aligenie_appl`, `aliGenie_appl_Prov.c`, `mesh_light/source/bleMesh/appl_sample_example_phylight.c`, `appl_sample_example_phylpn.c`, `appl_sample_example_phyfriend.c`, `mesh_multiconn/source/bleMesh/appl_sample_example_phylight.c`, `appl_sample_mesh_switch.c`, `appl_sample_mesh_gateway.c`, `aliGenie_appl_common.c`, `climodel/cli_model.c`, `appl_sample_example_10a.c`, `aliGenie_blebrr.c`, `appl_sample_example_11.c`, `appl_sample_example_8.c`, `blebrr.c`, `UI_generic_onoff_model_server_cb`, `appl_sample_example_9.c`, `aliGenie_bleMesh_curtain/source/aliGenie_appl.c`, `aliGenie_bleMesh_fan/source/aliGenie_appl.c`, `aliGenie_bleMesh_fanlight/source/aliGenie_appl.c`, `aliGenie_bleMesh_fogger/source/aliGenie_appl.c`, `aliGenie_bleMesh_3KeySwitch/source/aliGenie_appl.c`, `aliGenie_bleMesh_heater/source/aliGenie_appl.c`, `aliGenie_bleMesh_light/source/aliGenie_appl.c`, `aliGenie_bleMesh_socket/source/aliGenie_appl.c`, `EM_timer.c`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
-- **Why does `CLI_strtoi()` connect `CLI_strtoi` to `cli_cmd_stack_push`, `cli_light_hsl_client.c`, `cli_core_transport.c`, `cli_generic_battery_client.c`, `cli_generic_property_client.c`, `cli_light_lightness_client.c`, `cli_brr.c`, `cli_light_ctl_client.c`, `cli_light_lc_client.c`, `cli_ps.c`, `CLI_strtoarray`, `cli_health_client.c`, `cli_generic_power_level_client.c`, `cli_core_network.c`, `cli_light_xyl_client.c`, `cli_time_client.c`, `cli_scene_client.c`, `climodel/cli_model.c`, `cli_generic_level_client.c`, `cli_core_proxy.c`, `cli_generic_location_client.c`, `cli_generic_onoff_client.c`, `cli_scheduler_client.c`, `cli_core_provision.c`, `cli_generic_default_transition_time_client.c`, `cli_generic_power_onoff_client.c`?**
-  _High betweenness centrality (0.026) - this node is a cross-community bridge._
+- **Why does `appl_dump_bytes()` connect `appl_dump_bytes` to `appl_sample_example_1.c`, `aliGenie_bleMesh_fan/source/aliGenie_appl.c`, `aliGenie_bleMesh_heater/source/aliGenie_appl.c`, `aliGenie_bleMesh_light/source/aliGenie_appl.c`, `appl_generic_default_transition_time_client.c`, `appl_generic_power_onoff_client.c`, `aliGenie_bleMesh_socket/source/aliGenie_appl.c`, `cli_light_hsl_client.c`, `generic_onoff_set_pl`, `appl_light_hsl_client.c`, `cli_generic_battery_client.c`, `cli_generic_property_client.c`, `cli_light_lightness_client.c`, `appl_generic_battery_client_cb`, `appl_model_server_state_handler.c`, `mesh_multiconn/source/bleMesh/appl_sample_example_phylight.c`, `appl_light_lightness_client.c`, `CLI_strtoi`, `cli_light_ctl_client.c`, `cli_light_lc_client.c`, `appl_config_client.c`, `CLI_strtoarray`, `appl_light_ctl_client.c`, `cli_health_client.c`, `appl_sample_mesh_gateway.c`, `appl_sample_example_5.c`, `appl_health_client.c`, `cli_generic_power_level_client.c`, `cli_light_xyl_client.c`, `cli_time_client.c`, `appl_sample_example_7.c`, `UI_generic_onoff_model_server_cb`, `appl_generic_power_level_client.c`, `appl_light_xyl_client.c`, `aliGenie_appl_common.c`, `appl_generic_property_client_cb`, `appl_light_lc_client_cb`, `appl_sensor_client_cb`, `appl_sample_example_10a.c`, `cli_scene_client.c`, `appl_sample_example_11.c`, `find_model_private_data`, `appl_sample_example_6.c`, `appl_scene_client.c`, `appl_time_client.c`, `cli_generic_level_client.c`, `appl_generic_level_client.c`, `appl_sample_example_8.c`, `EM_start_timer`, `init_attr`, `cli_generic_location_client.c`, `appl_scheduler_client.c`, `appl_generic_location_client.c`, `cli_scheduler_client.c`, `UI_light_hsl_server_cb`, `appl_prov.c`, `appl_sample_example_10.c`, `aliGenie_bleMesh_fogger/source/aliGenie_appl.c`, `appl_sample_example_9.c`, `appl_generic_onoff_client.c`, `UI_setup_prov`, `aliGenie_bleMesh_curtain/source/aliGenie_appl.c`, `cli_generic_default_transition_time_client.c`, `cli_generic_onoff_client.c`, `cli_generic_power_onoff_client.c`, `blebrr_pl.c`, `aliGenie_bleMesh_fanlight/source/aliGenie_appl.c`, `aliGenie_bleMesh_3KeySwitch/source/aliGenie_appl.c`, `UI_light_ctl_server_cb`?**
+  _High betweenness centrality (0.065) - this node is a cross-community bridge._
 - **Are the 191 inferred relationships involving `CLI_strtoi()` (e.g. with `cli_config_ntf()` and `cli_create_gatt_conn()`) actually correct?**
   _`CLI_strtoi()` has 191 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 107 inferred relationships involving `EM_start_timer()` (e.g. with `blebrr_lp_mode()` and `blebrr_lp_start()`) actually correct?**
-  _`EM_start_timer()` has 107 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 106 inferred relationships involving `hal_gpio_pull_set()` (e.g. with `button_init()` and `hal_low_power_io_init()`) actually correct?**
-  _`hal_gpio_pull_set()` has 106 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `1. Общие сведения и идентификация платформы`, `3. Физическая топология контактных площадок (Тестпоинты на плате)`, `4. Распиновка периферии (GPIO Pinout)` to the rest of the system?**
-  _19 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `bus_dev.h` be split into smaller, more focused modules?**
+  _Cohesion score 0.020435818416278714 - nodes in this community are weakly interconnected._
+- **Why does `CLI_strtoi()` connect `CLI_strtoi` to `cli_model_server.c`, `cli_light_hsl_client.c`, `cli_core_transport.c`, `cli_generic_battery_client.c`, `cli_generic_property_client.c`, `cli_light_lightness_client.c`, `cli_brr.c`, `cli_light_ctl_client.c`, `cli_light_lc_client.c`, `CLI_strtoarray`, `cli_ps.c`, `cli_health_client.c`, `cli_generic_power_level_client.c`, `cli_light_xyl_client.c`, `cli_time_client.c`, `climodel/cli_model.c`, `cli_scene_client.c`, `cli_generic_level_client.c`, `cli_cmd_stack_push`, `cli_generic_location_client.c`, `cli_scheduler_client.c`, `cli_core_provision.c`, `cli_generic_default_transition_time_client.c`, `cli_generic_onoff_client.c`, `cli_generic_power_onoff_client.c`?**
+  _High betweenness centrality (0.026) - this node is a cross-community bridge._
+- **Are the 109 inferred relationships involving `hal_gpio_pull_set()` (e.g. with `i2c_scl_out()` and `i2c_sda_in()`) actually correct?**
+  _`hal_gpio_pull_set()` has 109 INFERRED edges - model-reasoned connections that need verification._
+- **Should `OSAL.h` be split into smaller, more focused modules?**
+  _Cohesion score 0.031979054654261534 - nodes in this community are weakly interconnected._
+- **Why does `EM_alloc_mem()` connect `EM_alloc_mem` to `UI_generic_onoff_model_server_create`, `appl_sample_example_phylpn.c`, `aliGenie_appl_Vendor_fogger.c`, `cli_generic_property_client.c`, `appl_model_server_state_handler.c`, `EM_os.c`, `cli_light_lc_client.c`, `cry.c`, `CLI_strtoarray`, `aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_fan.c`, `aliGenie_appl_Vendor_fanlight.c`, `aliGenie_appl_Vendor_socket.c`, `aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_light.c`, `aliGenie_bleMesh_light/source/model_vendor/aliGenie_appl_Vendor_light.c`, `aliGenie_bleMesh_fogger/source/model_vendor/aliGenie_appl_Vendor_light.c`, `vendormodel_client_cb`, `appl_generic_admin_property_server_cb`, `aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_light.c`, `aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_fan.c`, `aliGenie_blebrr.c`, `blebrr.c`, `find_model_private_data`, `init_attr`, `aliGenie_bleMesh_curtain/source/model_vendor/aliGenie_appl_Vendor_light.c`, `UINT16`, `light_lc_server/appl_model_state_handler.c`, `powerstate_set`, `aliGenie_appl_Vendor_heater.c`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._

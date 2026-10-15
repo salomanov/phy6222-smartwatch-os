@@ -117,7 +117,7 @@ async def main():
 
         print(f"[+] Found {device.name} ({device.address}), attempting connection...")
         try:
-            client = BleakClient(device, timeout=20.0)
+            client = BleakClient(device.address, timeout=15.0)
             await client.connect()
             if client.is_connected:
                 print(f"[+] Connected successfully! MTU = {client.mtu_size}")

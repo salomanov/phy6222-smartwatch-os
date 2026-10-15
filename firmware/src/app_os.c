@@ -157,11 +157,11 @@ void app_os_set_time(uint8_t h, uint8_t m, uint8_t s) {
 }
 
 void app_os_init(void) {
+    accel_init();
     display_init(0); // Portrait 80x160
     button_init();
     vibrator_init();
     battery_init();
-    accel_init();
     uart_cli_init();
     
     // No buzz on startup (safe and quiet)
@@ -187,9 +187,6 @@ void app_os_update(void) {
             }
         }
         // Accelerometer update and telemetry
-        if (!accel_is_detected() && (s_uptime_seconds % 5 == 0)) {
-            accel_init();
-        }
         accel_update();
         int16_t ax = 0, ay = 0, az = 0;
         accel_get_xyz(&ax, &ay, &az);
@@ -220,9 +217,6 @@ void app_os_update(void) {
         if (s_current_mode == MODE_WATCHFACE) {
             // Tactile 80ms haptic tap feedback
             vibrator_pulse(80);
-            if (!accel_is_detected()) {
-                accel_init();
-            }
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
             vibrator_next_test_pin();
             vibrator_test_fire();
