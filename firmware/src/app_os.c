@@ -31,7 +31,7 @@ static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
 static bool s_diag_first_draw = true;
 
-#define FW_VERSION_STR "v1.4.0-OTA"
+#define FW_VERSION_STR "v1.4.1"
 
 static void render_watchface(void) {
     if (s_diag_first_draw) {
@@ -39,57 +39,61 @@ static void render_watchface(void) {
         display_fill_screen(COLOR_BLACK);
         
         // Header (Navy Blue Bar)
-        gfx_fill_rect(0, 0, 80, 16, COLOR_NAVY);
-        gfx_draw_string(4, 4, "LP715 CUSTOM", COLOR_CYAN, COLOR_NAVY, 1);
+        gfx_fill_rect(0, 0, 80, 15, COLOR_NAVY);
+        gfx_draw_string(4, 4, "LP715 OS", COLOR_CYAN, COLOR_NAVY, 1);
         
-        gfx_draw_fast_h_line(2, 18, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 17, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 20, "FW: " FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
         
-        // Firmware Version
-        gfx_draw_string(4, 22, "FW: " FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 30, 76, COLOR_DARKGREY);
         
-        gfx_draw_fast_h_line(2, 33, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 36, "ACCEL SENSOR:", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 88, 76, COLOR_DARKGREY);
         
-        gfx_draw_fast_h_line(2, 84, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 88, "UPTIME:", COLOR_YELLOW, COLOR_BLACK, 1);
-        
-        gfx_draw_fast_h_line(2, 114, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 144, "HOLD: AIR FLASH", COLOR_CYAN, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 138, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 144, "HOLD: FLASH", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
-    char buf[24];
+    char buf[20];
 
     // 1. Live Accelerometer Telemetry
     int16_t ax = 0, ay = 0, az = 0;
     accel_get_xyz(&ax, &ay, &az);
 
-    snprintf(buf, sizeof(buf), "%-7s %-5s", accel_get_name(), accel_get_pins());
-    gfx_draw_string(4, 48, buf, accel_is_detected() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
+    snprintf(buf, sizeof(buf), "%-7s", accel_get_name());
+    gfx_draw_string(4, 34, buf, accel_is_detected() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
+    snprintf(buf, sizeof(buf), "%-5s", accel_get_pins());
+    gfx_draw_string(46, 34, buf, COLOR_YELLOW, COLOR_BLACK, 1);
 
-    snprintf(buf, sizeof(buf), "X:%+4d Y:%+4d", (int)ax, (int)ay);
-    gfx_draw_string(4, 60, buf, COLOR_CYAN, COLOR_BLACK, 1);
+    snprintf(buf, sizeof(buf), "X: %+5d", (int)ax);
+    gfx_draw_string(4, 46, buf, COLOR_CYAN, COLOR_BLACK, 1);
 
-    snprintf(buf, sizeof(buf), "Z:%+4d ID:%02X", (int)az, (unsigned int)accel_get_chip_id());
-    gfx_draw_string(4, 72, buf, COLOR_CYAN, COLOR_BLACK, 1);
+    snprintf(buf, sizeof(buf), "Y: %+5d", (int)ay);
+    gfx_draw_string(4, 56, buf, COLOR_CYAN, COLOR_BLACK, 1);
+
+    snprintf(buf, sizeof(buf), "Z: %+5d", (int)az);
+    gfx_draw_string(4, 66, buf, COLOR_CYAN, COLOR_BLACK, 1);
+
+    snprintf(buf, sizeof(buf), "ID: 0x%02X", (unsigned int)accel_get_chip_id());
+    gfx_draw_string(4, 76, buf, COLOR_CYAN, COLOR_BLACK, 1);
 
     // 2. Dynamic ticking Uptime: HH:MM:SS
     uint32_t sec = s_uptime_seconds;
     uint32_t h = sec / 3600;
     uint32_t m = (sec % 3600) / 60;
     uint32_t s = sec % 60;
-    snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu (%lus)", (unsigned long)h, (unsigned long)m, (unsigned long)s, (unsigned long)sec);
-    gfx_draw_string(4, 100, buf, COLOR_WHITE, COLOR_BLACK, 1);
+    snprintf(buf, sizeof(buf), "UP %02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s);
+    gfx_draw_string(4, 94, buf, COLOR_WHITE, COLOR_BLACK, 1);
 
     // 3. Battery status
     uint8_t bat_pct = battery_get_percent();
-    snprintf(buf, sizeof(buf), "BAT: %d%% (%s)", bat_pct, battery_is_charging() ? "CHG" : "OK");
-    gfx_draw_string(4, 118, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
+    snprintf(buf, sizeof(buf), "BAT: %d%% %s", bat_pct, battery_is_charging() ? "CHG" : "");
+    gfx_draw_string(4, 108, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
 
     // 4. BLE status
     if (ble_is_connected()) {
-        gfx_draw_string(4, 130, "BLE: CONNECTED ", COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 122, "BLE: ONLINE ", COLOR_GREEN, COLOR_BLACK, 1);
     } else {
-        gfx_draw_string(4, 130, "BLE: ADV CHASY ", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_string(4, 122, "BLE: ADV... ", COLOR_YELLOW, COLOR_BLACK, 1);
     }
 }
 

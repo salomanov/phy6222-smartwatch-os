@@ -253,40 +253,58 @@ static int get_utf8_word_chars(const uint8_t *p) {
 void gfx_draw_string(int16_t x, int16_t y, const char *str, uint16_t color, uint16_t bg, uint8_t size) {
     int16_t cur_x = x;
     int16_t cur_y = y;
+    int line_height = 8 * size + 2;
+    int char_width = 6 * size;
+    bool at_word_start = true;
+
     while (*str) {
         char c = *str;
 
         if (c == '\n') {
             str++;
             cur_x = x;
-            cur_y += 8 * size + 2;
+            cur_y += line_height;
+            at_word_start = true;
             continue;
         } else if (c == '\r') {
             str++;
             continue;
         }
 
-        // Word-wrap on space: if the upcoming word will exceed screen width, wrap to new line first
         if (c == ' ') {
-            int next_word_pixels = (1 + get_word_len(str + 1)) * 6 * size;
-            if (cur_x + next_word_pixels > display_get_width()) {
-                str++; // consume space and wrap to next line
-                cur_x = x;
-                cur_y += 8 * size + 2;
+            // Drop leading space if we just wrapped to line start
+            if (cur_x == x) {
+                str++;
                 continue;
+            }
+            int next_word_px = get_word_len(str + 1) * char_width;
+            if (cur_x + char_width + next_word_px > display_get_width()) {
+                str++; // Wrap before next word
+                cur_x = x;
+                cur_y += line_height;
+                at_word_start = true;
+                continue;
+            }
+            at_word_start = true;
+        } else if (at_word_start) {
+            at_word_start = false;
+            int word_px = get_word_len(str) * char_width;
+            if (cur_x > x && cur_x + word_px > display_get_width() && word_px <= (display_get_width() - x)) {
+                cur_x = x;
+                cur_y += line_height;
             }
         }
 
-        // Character-wrap if single word is longer than line width
-        if (cur_x + 6 * size > display_get_width()) {
+        // Hard wrap if character still exceeds screen width
+        if (cur_x + char_width > display_get_width()) {
             cur_x = x;
-            cur_y += 8 * size + 2;
+            cur_y += line_height;
         }
 
         if (cur_y + 8 * size <= display_get_height()) {
             gfx_draw_char(cur_x, cur_y, (uint8_t)c, color, bg, size);
         }
-        cur_x += 6 * size;
+        cur_x += char_width;
         str++;
     }
 }
@@ -295,30 +313,51 @@ void gfx_draw_string(int16_t x, int16_t y, const char *str, uint16_t color, uint
 void gfx_draw_string_utf8(int16_t x, int16_t y, const char *utf8_str, uint16_t color, uint16_t bg, uint8_t size) {
     int16_t cur_x = x;
     int16_t cur_y = y;
+    int line_height = 8 * size + 2;
+    int char_width = 6 * size;
     const uint8_t *p = (const uint8_t*)utf8_str;
+    bool at_word_start = true;
 
     while (*p) {
-        // Check for word-wrap on space before consuming next word
-        if (*p == ' ') {
-            int next_word_pixels = (1 + get_utf8_word_chars(p + 1)) * 6 * size;
-            if (cur_x + next_word_pixels > display_get_width()) {
-                p++; // consume space and wrap
-                cur_x = x;
-                cur_y += 8 * size + 2;
+        uint8_t c = *p;
+
+        if (c == '\n') {
+            p++;
+            cur_x = x;
+            cur_y += line_height;
+            at_word_start = true;
+            continue;
+        } else if (c == '\r') {
+            p++;
+            continue;
+        }
+
+        if (c == ' ') {
+            // Drop leading space if we just wrapped to line start
+            if (cur_x == x) {
+                p++;
                 continue;
+            }
+            int next_word_px = get_utf8_word_chars(p + 1) * char_width;
+            if (cur_x + char_width + next_word_px > display_get_width()) {
+                p++; // Wrap before next word
+                cur_x = x;
+                cur_y += line_height;
+                at_word_start = true;
+                continue;
+            }
+            at_word_start = true;
+        } else if (at_word_start) {
+            at_word_start = false;
+            int word_px = get_utf8_word_chars(p) * char_width;
+            if (cur_x > x && cur_x + word_px > display_get_width() && word_px <= (display_get_width() - x)) {
+                cur_x = x;
+                cur_y += line_height;
             }
         }
 
-        uint8_t c = *p++;
+        p++;
         uint8_t cp1251 = 0;
-
-        if (c == '\n') {
-            cur_x = x;
-            cur_y += 8 * size + 2;
-            continue;
-        } else if (c == '\r') {
-            continue;
-        }
 
         if (c < 0x80) {
             // Standard ASCII
@@ -338,15 +377,15 @@ void gfx_draw_string_utf8(int16_t x, int16_t y, const char *utf8_str, uint16_t c
             continue;
         }
 
-        // Auto-wrap to next line if character exceeds screen width
-        if (cur_x + 6 * size > display_get_width()) {
+        // Hard wrap if character still exceeds screen width
+        if (cur_x + char_width > display_get_width()) {
             cur_x = x;
-            cur_y += 8 * size + 2;
+            cur_y += line_height;
         }
         if (cur_y + 8 * size <= display_get_height()) {
             gfx_draw_char(cur_x, cur_y, cp1251, color, bg, size);
         }
-        cur_x += 6 * size;
+        cur_x += char_width;
     }
 }
 
