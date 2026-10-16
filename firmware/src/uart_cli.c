@@ -132,6 +132,8 @@ static void on_uart_evt(uart_Evt_t *pev) {
 }
 
 void uart_cli_init(void) {
+    hal_uart_deinit(UART0);
+
     uart_Cfg_t cfg = {
         .tx_pin = P9,
         .rx_pin = P10,
