@@ -31,88 +31,110 @@ static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
 static bool s_diag_first_draw = true;
 
-#define FW_VERSION_STR "v1.3.0-OTA"
+#define FW_VERSION_STR "v1.4.0"
 
 static void render_watchface(void) {
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
         display_fill_screen(COLOR_BLACK);
         
-        // Header
-        gfx_draw_rect(0, 0, 80, 16, COLOR_NAVY);
-        gfx_draw_string(6, 4, "LP715 OTA TEST", COLOR_CYAN, COLOR_NAVY, 1);
+        // Header (Navy Blue Bar)
+        gfx_fill_rect(0, 0, 80, 15, COLOR_NAVY);
+        gfx_draw_string(7, 4, "LP715 WATCH", COLOR_CYAN, COLOR_NAVY, 1);
         
-        gfx_draw_fast_h_line(2, 20, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 18, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 22, "FW: " FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
         
-        // Firmware Version & Build Date
-        gfx_draw_string(4, 26, "FW VER:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_string(4, 38, FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 32, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 80, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 84, "UPTIME:", COLOR_YELLOW, COLOR_BLACK, 1);
         
-        gfx_draw_string(4, 52, "BUILD DATE:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_string(4, 64, __DATE__, COLOR_WHITE, COLOR_BLACK, 1);
-        gfx_draw_string(4, 76, __TIME__, COLOR_CYAN, COLOR_BLACK, 1);
-        
-        gfx_draw_fast_h_line(2, 90, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 96, "DEVICE UP TIME:", COLOR_YELLOW, COLOR_BLACK, 1);
-        
-        gfx_draw_fast_h_line(2, 130, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 136, "BLE: AIR OTA OK", COLOR_GREEN, COLOR_BLACK, 1);
-        gfx_draw_string(4, 148, "READY FOR FLASH", COLOR_CYAN, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 106, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 138, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 144, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
-    // Dynamic ticking Uptime: HH:MM:SS
-    char buf[24];
+    char buf[20];
+
+    // 1. Live Accelerometer Telemetry
+    int16_t ax = 0, ay = 0, az = 0;
+    accel_get_xyz(&ax, &ay, &az);
+
+    snprintf(buf, sizeof(buf), "%-11s", accel_get_name());
+    gfx_draw_string(4, 36, buf, accel_is_detected() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
+
+    snprintf(buf, sizeof(buf), "X:%+5d     ", (int)ax);
+    gfx_draw_string(4, 48, buf, COLOR_CYAN, COLOR_BLACK, 1);
+
+    snprintf(buf, sizeof(buf), "Y:%+5d     ", (int)ay);
+    gfx_draw_string(4, 58, buf, COLOR_CYAN, COLOR_BLACK, 1);
+
+    snprintf(buf, sizeof(buf), "Z:%+5d     ", (int)az);
+    gfx_draw_string(4, 68, buf, COLOR_CYAN, COLOR_BLACK, 1);
+
+    // 2. Dynamic ticking Uptime: HH:MM:SS
     uint32_t sec = s_uptime_seconds;
     uint32_t h = sec / 3600;
     uint32_t m = (sec % 3600) / 60;
     uint32_t s = sec % 60;
-    snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu (%lus)", (unsigned long)h, (unsigned long)m, (unsigned long)s, (unsigned long)sec);
-    gfx_draw_string(4, 110, buf, COLOR_WHITE, COLOR_BLACK, 1);
-}
+    snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s);
+    gfx_draw_string(4, 94, buf, COLOR_WHITE, COLOR_BLACK, 1);
 
+    // 3. Battery status
+    uint8_t bat_pct = battery_get_percent();
+    snprintf(buf, sizeof(buf), "BAT: %3d%% %s", bat_pct, battery_is_charging() ? "CHG" : "   ");
+    gfx_draw_string(4, 112, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
+
+    // 4. BLE status
+    if (ble_is_connected()) {
+        gfx_draw_string(4, 124, "BLE: ONLINE", COLOR_GREEN, COLOR_BLACK, 1);
+    } else {
+        gfx_draw_string(4, 124, "BLE: ADV...", COLOR_YELLOW, COLOR_BLACK, 1);
+    }
+}
 
 static void render_vibrator_test(void) {
     display_fill_screen(COLOR_BLACK);
-    gfx_draw_rect(0, 0, 80, 14, COLOR_NAVY);
-    gfx_draw_string(4, 3, "VIB SCANNER", COLOR_YELLOW, COLOR_NAVY, 1);
+    gfx_fill_rect(0, 0, 80, 15, COLOR_NAVY);
+    gfx_draw_string(4, 4, "VIB SCANNER", COLOR_YELLOW, COLOR_NAVY, 1);
 
-    gfx_draw_fast_h_line(2, 20, 76, COLOR_DARKGREY);
-    gfx_draw_string(4, 26, "TEST PIN:", COLOR_WHITE, COLOR_BLACK, 1);
+    gfx_draw_fast_h_line(2, 18, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 24, "TEST PIN:", COLOR_WHITE, COLOR_BLACK, 1);
 
     char p_buf[20];
     snprintf(p_buf, sizeof(p_buf), "%s", vibrator_get_test_pin_name());
-    gfx_draw_string(8, 40, p_buf, COLOR_CYAN, COLOR_BLACK, 2);
+    gfx_draw_string(8, 38, p_buf, COLOR_CYAN, COLOR_BLACK, 2);
 
-    snprintf(p_buf, sizeof(p_buf), "POL: %s", vibrator_get_active_level() ? "HIGH (1)" : "LOW (0)");
-    gfx_draw_string(4, 62, p_buf, vibrator_get_active_level() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
+    snprintf(p_buf, sizeof(p_buf), "POL: %s", vibrator_get_active_level() ? "HIGH (1)" : "LOW (0) ");
+    gfx_draw_string(4, 58, p_buf, vibrator_get_active_level() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
 
-    gfx_draw_fast_h_line(2, 78, 76, COLOR_DARKGREY);
-    gfx_draw_string(4, 84, "Click: Next Pin", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-    gfx_draw_string(4, 98, "2Click: Polarity", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-    gfx_draw_string(4, 112, "Hold: Return Home", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_fast_h_line(2, 72, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 78, "Click: Next", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 92, "Dbl: Polar ", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 106, "Hold: Exit ", COLOR_LIGHTGREY, COLOR_BLACK, 1);
 
-    gfx_draw_fast_h_line(2, 128, 76, COLOR_DARKGREY);
-    gfx_draw_string(4, 134, "STATUS: PULSING", COLOR_YELLOW, COLOR_BLACK, 1);
-    gfx_draw_string(4, 146, "Impulse 350ms", COLOR_WHITE, COLOR_BLACK, 1);
+    gfx_draw_fast_h_line(2, 120, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 126, "ST: PULSING", COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_string(4, 138, "Pulse 350ms", COLOR_WHITE, COLOR_BLACK, 1);
 }
 
 static void render_ota_update(void) {
     display_fill_screen(COLOR_BLACK);
-    gfx_draw_rect(0, 0, 80, 14, COLOR_NAVY);
-    gfx_draw_string(6, 3, "OTA UPDATE", COLOR_CYAN, COLOR_NAVY, 1);
+    gfx_fill_rect(0, 0, 80, 15, COLOR_NAVY);
+    gfx_draw_string(7, 4, "OTA UPDATE", COLOR_CYAN, COLOR_NAVY, 1);
 
-    gfx_draw_fast_h_line(2, 24, 76, COLOR_DARKGREY);
-    gfx_draw_string(8, 30, "WIRELESS", COLOR_YELLOW, COLOR_BLACK, 1);
-    gfx_draw_string(8, 42, "FLASH MODE", COLOR_YELLOW, COLOR_BLACK, 1);
-    gfx_draw_fast_h_line(2, 56, 76, COLOR_DARKGREY);
+    gfx_draw_fast_h_line(2, 20, 76, COLOR_DARKGREY);
+    gfx_draw_string(8, 28, "WIRELESS", COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_string(8, 40, "FLASH MODE", COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_fast_h_line(2, 54, 76, COLOR_DARKGREY);
 
-    gfx_draw_string(4, 66, "Hold sensor", COLOR_WHITE, COLOR_BLACK, 1);
-    gfx_draw_string(4, 78, "to reboot into", COLOR_WHITE, COLOR_BLACK, 1);
-    gfx_draw_string(4, 90, "PPlusOTA boot", COLOR_GREEN, COLOR_BLACK, 1);
+    gfx_draw_string(4, 62, "Hold sensor", COLOR_WHITE, COLOR_BLACK, 1);
+    gfx_draw_string(4, 74, "to reboot  ", COLOR_WHITE, COLOR_BLACK, 1);
+    gfx_draw_string(4, 86, "OTA loader ", COLOR_GREEN, COLOR_BLACK, 1);
 
-    gfx_draw_fast_h_line(2, 114, 76, COLOR_DARKGREY);
-    gfx_draw_string(4, 122, "Click: Return", COLOR_LIGHTGREY, COLOR_BLACK, 1);
-    gfx_draw_string(4, 136, "HOLD: FLASH", COLOR_CYAN, COLOR_BLACK, 1);
+    gfx_draw_fast_h_line(2, 108, 76, COLOR_DARKGREY);
+    gfx_draw_string(4, 118, "Click: Back", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    gfx_draw_string(4, 134, "HOLD: FLASH", COLOR_CYAN, COLOR_BLACK, 1);
 }
 
 void app_os_panic(void) {
@@ -164,6 +186,12 @@ void app_os_update(void) {
             ble_try_start_device();
         }
 
+        // Accelerometer update and telemetry
+        accel_update();
+        int16_t ax = 0, ay = 0, az = 0;
+        accel_get_xyz(&ax, &ay, &az);
+        LOG("[ACCEL] %s: X=%+d Y=%+d Z=%+d\n", accel_get_name(), (int)ax, (int)ay, (int)az);
+
         if (s_current_mode == MODE_WATCHFACE) {
             s_needs_redraw = true;
         }
@@ -179,6 +207,9 @@ void app_os_update(void) {
         if (s_current_mode == MODE_WATCHFACE) {
             // Tactile 80ms haptic tap feedback
             vibrator_pulse(80);
+            if (!accel_is_detected()) {
+                accel_init();
+            }
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
             vibrator_next_test_pin();
             vibrator_test_fire();

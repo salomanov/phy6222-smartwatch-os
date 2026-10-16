@@ -33,12 +33,10 @@ static inline void ST7735_WriteDataMultiple(uint8_t* data, uint8_t size) {
     ST7735_Data(data, size);
 }
 
-static void display_delay_ms(uint32_t ms) {
-    while (ms--) {
-        for (volatile uint32_t i = 0; i < 2000; i++) {
-            __asm__ volatile ("nop");
-        }
-    }
+#include "clock.h"
+
+static inline void display_delay_ms(uint32_t ms) {
+    WaitMs(ms);
 }
 
 static void ST7735_ExecuteCommandList(const uint8_t *addr) {

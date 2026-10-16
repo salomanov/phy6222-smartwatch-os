@@ -1,29 +1,16 @@
 #include "accel.h"
 #include "gpio.h"
 #include "clock.h"
+#include "log.h"
+#include "mcu.h"
 #include <string.h>
 
 // Accelerometer auto-detection driver (Bit-Bang I2C)
-// Common candidate pin pairs for LP715/D20 boards
-typedef struct {
-    gpio_pin_e scl;
-    gpio_pin_e sda;
-    const char *desc;
-} i2c_pin_pair_t;
-
-static const i2c_pin_pair_t s_pairs[] = {
-    { GPIO_P16, GPIO_P17, "P16/P17" }
-};
-#define NUM_PAIRS (sizeof(s_pairs) / sizeof(s_pairs[0]))
-
-// Common 7-bit I2C addresses for G-Sensors (SC7A20/LIS3DH, HK01BS, DA280, BMA250)
-static const uint8_t s_addrs[] = { 0x18, 0x19, 0x38, 0x26, 0x27, 0x68 };
-#define NUM_ADDRS (sizeof(s_addrs) / sizeof(s_addrs[0]))
-
+// Dedicated hardware pins for LP715_MB_V1.3: P16 (SCL) and P17 (SDA)
 static bool s_detected = false;
-static gpio_pin_e s_scl = GPIO_P16;
-static gpio_pin_e s_sda = GPIO_P17;
-static uint8_t s_i2c_addr = 0x18;
+static const gpio_pin_e s_scl = GPIO_P16;
+static const gpio_pin_e s_sda = GPIO_P17;
+static uint8_t s_i2c_addr = 0x19;
 static char s_sensor_name[16] = "NONE";
 
 static int16_t s_acc_x = 0;
@@ -31,7 +18,7 @@ static int16_t s_acc_y = 0;
 static int16_t s_acc_z = 0;
 
 static void i2c_delay(void) {
-    for (volatile int i = 0; i < 20; i++) {
+    for (volatile int i = 0; i < 40; i++) {
         __asm__ volatile ("nop");
     }
 }
@@ -39,7 +26,7 @@ static void i2c_delay(void) {
 static void i2c_sda_out(bool hi) {
     if (hi) {
         hal_gpio_pin_init(s_sda, GPIO_INPUT);
-        hal_gpio_pull_set(s_sda, GPIO_PULL_UP);
+        hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
     } else {
         hal_gpio_pin_init(s_sda, GPIO_OUTPUT);
         hal_gpio_write(s_sda, 0);
@@ -48,14 +35,14 @@ static void i2c_sda_out(bool hi) {
 
 static bool i2c_sda_in(void) {
     hal_gpio_pin_init(s_sda, GPIO_INPUT);
-    hal_gpio_pull_set(s_sda, GPIO_PULL_UP);
+    hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
     return hal_gpio_read(s_sda);
 }
 
 static void i2c_scl_out(bool hi) {
     if (hi) {
         hal_gpio_pin_init(s_scl, GPIO_INPUT);
-        hal_gpio_pull_set(s_scl, GPIO_PULL_UP);
+        hal_gpio_pull_set(s_scl, GPIO_PULL_UP_S);
     } else {
         hal_gpio_pin_init(s_scl, GPIO_OUTPUT);
         hal_gpio_write(s_scl, 0);
@@ -145,61 +132,111 @@ void accel_init(void) {
     s_detected = false;
     strcpy(s_sensor_name, "SEARCH..");
 
-    // Scan pin pairs and addresses
-    for (size_t p = 0; p < NUM_PAIRS; p++) {
-        s_scl = s_pairs[p].scl;
-        s_sda = s_pairs[p].sda;
+    // 1. Switch P16/P17 from 32K analog crystal mode to digital GPIO mode
+    subWriteReg(&(AP_AON->PMCTL2_0), 6, 6, 0x01);
+    WaitMs(5);
 
-        for (size_t a = 0; a < NUM_ADDRS; a++) {
-            uint8_t dev_addr = s_addrs[a];
-            uint8_t id = 0;
+    // 2. Configure P16 (SCL) and P17 (SDA) as inputs with strong pull-up
+    hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
+    hal_gpio_pin_init(s_scl, GPIO_INPUT);
+    hal_gpio_pull_set(s_scl, GPIO_PULL_UP_S);
 
-            // Try reading WHO_AM_I (0x0F for SC7A20/LIS3DH, 0x00 for HK01/BMA)
-            if (i2c_read_reg(dev_addr, 0x0F, &id) || i2c_read_reg(dev_addr, 0x00, &id)) {
-                if (id != 0x00 && id != 0xFF) {
-                    s_detected = true;
-                    s_i2c_addr = dev_addr;
+    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
+    hal_gpio_pin_init(s_sda, GPIO_INPUT);
+    hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
+    WaitMs(5);
 
-                    // Configure normal mode 50Hz, XYZ enable (CTRL_REG1: 0x57)
-                    i2c_write_reg(dev_addr, 0x20, 0x57);
+    int sda_st = hal_gpio_read(s_sda);
+    LOG("[ACCEL] Hardware pins P16/P17 initialized, SDA state: %d\n", sda_st);
 
-                    if (id == 0x11 || id == 0x33) {
-                        strcpy(s_sensor_name, "SC7A20");
-                    } else if (id == 0x38 || id == 0x03) {
-                        strcpy(s_sensor_name, "HK01BS");
-                    } else {
-                        strcpy(s_sensor_name, "G-SENS");
-                    }
-                    return;
-                }
+    // Common G-sensor addresses: 0x19 (SC7A20 factory 0x32), 0x18, 0x12 (QMA6100), 0x13, 0x38 (HK01BS)
+    static const uint8_t candidate_addrs[] = { 0x19, 0x18, 0x12, 0x13, 0x38, 0x26, 0x68 };
+    for (size_t i = 0; i < sizeof(candidate_addrs); i++) {
+        uint8_t a = candidate_addrs[i];
+        i2c_start();
+        bool ack = i2c_write_byte((a << 1) | 0);
+        i2c_stop();
+
+        if (ack) {
+            uint8_t id0 = 0, idf = 0;
+            i2c_read_reg(a, 0x00, &id0);
+            i2c_read_reg(a, 0x0F, &idf);
+            LOG("[I2C-ACK] Device at 0x%02X! reg0=0x%02X regF=0x%02X\n", a, id0, idf);
+
+            if (idf == 0x11 || idf == 0x26 || idf == 0x33 || a == 0x18 || a == 0x19) {
+                s_detected = true;
+                s_i2c_addr = a;
+                strcpy(s_sensor_name, "SC7A20");
+                i2c_write_reg(a, 0x20, 0x57); // 50Hz, XYZ enable
+                i2c_write_reg(a, 0x23, 0x88); // High-Res, BDU
+                LOG("[ACCEL] SC7A20 configured on P16/P17\n");
+                return;
             }
+
+            if ((id0 >= 0x90 && id0 <= 0xB9) || a == 0x12) {
+                s_detected = true;
+                s_i2c_addr = a;
+                strcpy(s_sensor_name, "QMA6100");
+                i2c_write_reg(a, 0x0F, 0x01);
+                i2c_write_reg(a, 0x10, 0x08);
+                i2c_write_reg(a, 0x11, 0x80);
+                LOG("[ACCEL] QMA6100 configured on P16/P17\n");
+                return;
+            }
+
+            s_detected = true;
+            s_i2c_addr = a;
+            strcpy(s_sensor_name, "G-SENS");
+            return;
         }
     }
 
-    strcpy(s_sensor_name, "IDLE");
+    strcpy(s_sensor_name, "NO ACK");
+    LOG("[ACCEL] P16/P17 scan complete: no ACK received\n");
 }
 
 void accel_update(void) {
     if (!s_detected) return;
 
-    // Read 6 bytes of acceleration: OUT_X_L (0x28 | 0x80 auto-increment)
-    i2c_start();
-    if (!i2c_write_byte((s_i2c_addr << 1) | 0)) { i2c_stop(); return; }
-    if (!i2c_write_byte(0x28 | 0x80)) { i2c_stop(); return; }
-    i2c_start();
-    if (!i2c_write_byte((s_i2c_addr << 1) | 1)) { i2c_stop(); return; }
+    if (s_i2c_addr == 0x12 || s_i2c_addr == 0x13) {
+        // QMA6100 / QMA7981
+        i2c_start();
+        if (!i2c_write_byte((s_i2c_addr << 1) | 0)) { i2c_stop(); return; }
+        if (!i2c_write_byte(0x01)) { i2c_stop(); return; }
+        i2c_start();
+        if (!i2c_write_byte((s_i2c_addr << 1) | 1)) { i2c_stop(); return; }
 
-    uint8_t xl = i2c_read_byte(true);
-    uint8_t xh = i2c_read_byte(true);
-    uint8_t yl = i2c_read_byte(true);
-    uint8_t yh = i2c_read_byte(true);
-    uint8_t zl = i2c_read_byte(true);
-    uint8_t zh = i2c_read_byte(false);
-    i2c_stop();
+        uint8_t xl = i2c_read_byte(true);
+        uint8_t xh = i2c_read_byte(true);
+        uint8_t yl = i2c_read_byte(true);
+        uint8_t yh = i2c_read_byte(true);
+        uint8_t zl = i2c_read_byte(true);
+        uint8_t zh = i2c_read_byte(false);
+        i2c_stop();
 
-    s_acc_x = (int16_t)((xh << 8) | xl) / 64;
-    s_acc_y = (int16_t)((yh << 8) | yl) / 64;
-    s_acc_z = (int16_t)((zh << 8) | zl) / 64;
+        s_acc_x = (int16_t)((xh << 8) | xl) / 64;
+        s_acc_y = (int16_t)((yh << 8) | yl) / 64;
+        s_acc_z = (int16_t)((zh << 8) | zl) / 64;
+    } else {
+        // SC7A20 / HK01BS
+        i2c_start();
+        if (!i2c_write_byte((s_i2c_addr << 1) | 0)) { i2c_stop(); return; }
+        if (!i2c_write_byte(0x28 | 0x80)) { i2c_stop(); return; }
+        i2c_start();
+        if (!i2c_write_byte((s_i2c_addr << 1) | 1)) { i2c_stop(); return; }
+
+        uint8_t xl = i2c_read_byte(true);
+        uint8_t xh = i2c_read_byte(true);
+        uint8_t yl = i2c_read_byte(true);
+        uint8_t yh = i2c_read_byte(true);
+        uint8_t zl = i2c_read_byte(true);
+        uint8_t zh = i2c_read_byte(false);
+        i2c_stop();
+
+        s_acc_x = (int16_t)((xh << 8) | xl) / 64;
+        s_acc_y = (int16_t)((yh << 8) | yl) / 64;
+        s_acc_z = (int16_t)((zh << 8) | zl) / 64;
+    }
 }
 
 bool accel_is_detected(void) {

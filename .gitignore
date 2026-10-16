@@ -9,3 +9,7 @@ __pycache__/
 
 # Ignore temporary backups
 .backups/
+cam_*.jpg
+temp_*.bin
+disasm_*.txt
+

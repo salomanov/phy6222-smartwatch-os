@@ -42,10 +42,10 @@
     "semantic_hash": "424af22d80620eafd7605feb74283c09"
   },
   "firmware/src/app_os.c": {
-    "mtime": 1792095743.8731775,
-    "seen": 1792123116.567803,
-    "ast_hash": "1e8d7b13c7deb23f2b83d55d8f2eabc7",
-    "semantic_hash": "1e8d7b13c7deb23f2b83d55d8f2eabc7"
+    "mtime": 1792125591.6097507,
+    "seen": 1792129777.3827257,
+    "ast_hash": "0bde6faeaefb1cb709025a4d5ebf1bfb",
+    "semantic_hash": "0bde6faeaefb1cb709025a4d5ebf1bfb"
   },
   "firmware/src/app_os.h": {
     "mtime": 1791738611.3469017,
@@ -84,10 +84,10 @@
     "semantic_hash": "94b05a1d6034e9756c6f2ea7a2533b8e"
   },
   "firmware/src/display.c": {
-    "mtime": 1791632542.4913757,
-    "seen": 1791705973.0382373,
-    "ast_hash": "7295fd43a2a746f504a74b43bdb21031",
-    "semantic_hash": "7295fd43a2a746f504a74b43bdb21031"
+    "mtime": 1792128892.9407415,
+    "seen": 1792129777.3850193,
+    "ast_hash": "8d3307c5240b35ab0d9d79b315428a5a",
+    "semantic_hash": "8d3307c5240b35ab0d9d79b315428a5a"
   },
   "firmware/src/display.h": {
     "mtime": 1791622249.4730735,
@@ -7110,10 +7110,10 @@
     "semantic_hash": "053971eb7ed1f6cdc55463cb93368a67"
   },
   "firmware/src/accel.c": {
-    "mtime": 1792095969.8831553,
-    "seen": 1792123116.567796,
-    "ast_hash": "2cf0cea81de39143ef01b0391cd4360b",
-    "semantic_hash": "2cf0cea81de39143ef01b0391cd4360b"
+    "mtime": 1792127958.2419763,
+    "seen": 1792129777.3824093,
+    "ast_hash": "3fb60de8b489ed52746ab30a9e621903",
+    "semantic_hash": "3fb60de8b489ed52746ab30a9e621903"
   },
   "firmware/src/accel.h": {
     "mtime": 1792095743.8731775,
@@ -7146,10 +7146,10 @@
     "semantic_hash": "2721d057c19e2bafacc7ed280651061b"
   },
   "firmware/src/uart_cli.c": {
-    "mtime": 1791710168.5560632,
-    "seen": 1792010844.0603538,
-    "ast_hash": "1b9cfd4da6766411dccc8e303a0ffb6b",
-    "semantic_hash": "1b9cfd4da6766411dccc8e303a0ffb6b"
+    "mtime": 1792128981.9942272,
+    "seen": 1792129777.38722,
+    "ast_hash": "92545721651a8042b2f6ad08775d5af3",
+    "semantic_hash": "92545721651a8042b2f6ad08775d5af3"
   },
   "firmware/src/uart_cli.h": {
     "mtime": 1791710143.7158964,
