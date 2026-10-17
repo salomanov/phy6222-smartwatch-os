@@ -12123,7 +12123,7 @@
     {
       "type": "bridge_node",
       "question": "Why does `EM_start_timer()` connect `EM_start_timer` to `aliGenie_bleMesh_socket/source/aliGenie_appl.c`, `EM_timer.c`, `UI_setup_prov`, `appl_sample_example_phylpn.c`, `mesh_light/source/bleMesh/appl_sample_example_phylight.c`, `appl_dump_bytes`, `appl_sample_example_phyfriend.c`, `mesh_multiconn/source/bleMesh/appl_sample_example_phylight.c`, `appl_sample_mesh_gateway.c`, `climodel/cli_model.c`, `UI_phy_model_server_cb`, `UI_phy_model_server_cb`, `UI_generic_onoff_model_server_create`, `UI_generic_onoff_model_server_cb`, `aliGenie_appl_common.c`, `appl_sample_example_10a.c`, `appl_sample_example_11.c`, `blebrr.c`, `appl_sample_example_8.c`, `aliGenie_blebrr.c`, `appl_sample_example_9.c`, `aliGenie_bleMesh_curtain/source/aliGenie_appl.c`, `aliGenie_bleMesh_fanlight/source/aliGenie_appl.c`, `aliGenie_bleMesh_fogger/source/aliGenie_appl.c`, `aliGenie_bleMesh_3KeySwitch/source/aliGenie_appl.c`, `aliGenie_bleMesh_fan/source/aliGenie_appl.c`, `aliGenie_bleMesh_heater/source/aliGenie_appl.c`, `aliGenie_bleMesh_light/source/aliGenie_appl.c`?",
-      "why": "High betweenness centrality (0.015) - this node is a cross-community bridge."
+      "why": "High betweenness centrality (0.016) - this node is a cross-community bridge."
     }
   ]
 }
