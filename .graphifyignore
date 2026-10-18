@@ -1,0 +1,10 @@
+.backups/
+dumps/
+firmware/build/
+build/
+*.bin
+*.hex
+*.elf
+*.map
+graphify-out/
+media/*.jpg

@@ -3,16 +3,14 @@
 #include "gpio.h"
 #include "clock.h"
 
-// Safe cycle-based microsecond delay for Cortex-M0 at 16MHz
-static void safe_delay_ms(uint32_t ms) {
-    while (ms--) {
-        for (volatile uint32_t i = 0; i < 2000; i++) {
-            __asm__ volatile ("nop");
-        }
-    }
+// Strictly protected hardware pins:
+// - GPIO_P07: Hardware TM (Test Mode) programming pin. Driving HIGH causes ROM bootloader entry.
+// - GPIO_P33: ST7735 display line. Driving it causes screen blackout/bus collision.
+static inline bool is_unsafe_pin(gpio_pin_e pin) {
+    return (pin == GPIO_P07 || pin == GPIO_P33);
 }
 
-// Candidates for LP715 / PHY6222 board
+// Candidates for LP715 / PHY6222 board (P07 and P33 are strictly excluded)
 typedef struct {
     gpio_pin_e pin;
     const char *name;
@@ -23,7 +21,6 @@ static const test_pin_entry_t s_test_pins[] = {
     { GPIO_P00, "P00 (Led)"  },
     { GPIO_P14, "P14"        },
     { GPIO_P02, "P02 (Ana)"  },
-    { GPIO_P07, "P07"        },
     { GPIO_P15, "P15"        },
     { GPIO_P18, "P18"        },
     { GPIO_P20, "P20"        },
@@ -36,7 +33,13 @@ static uint8_t s_curr_idx = 0; // P03 by default
 static uint8_t s_active_level = VIBRATOR_ACTIVE_LEVEL; // 0 = Active LOW (0 turns on vib)
 static gpio_pin_e s_selected_pin = GPIO_VIBRATOR;      // GPIO_P03
 
+static uint16_t s_vib_remaining_ms = 0;
+static bool s_vib_active = false;
+
 static void setup_pin(gpio_pin_e pin) {
+    if (is_unsafe_pin(pin)) {
+        return; // Guard: NEVER configure or drive unsafe pins as OUTPUT!
+    }
     hal_gpioretention_register(pin);
     hal_gpio_pin_init(pin, GPIO_OUTPUT);
     if (pin == GPIO_P02 || pin == GPIO_P03) {
@@ -47,19 +50,26 @@ static void setup_pin(gpio_pin_e pin) {
     hal_gpio_write(pin, s_active_level ? 0 : 1);
 }
 
-// LED Status (GPIO_P00, Active LOW: 0 = ON, 1 = OFF)
+// Green Optical LED Status (HR_PWR_PIN active LOW, HR_LED_PIN active HIGH)
 static uint8_t s_led_state = 0;
 
 void led_init(void) {
-    hal_gpioretention_register(GPIO_LED);
-    hal_gpio_pin_init(GPIO_LED, GPIO_OUTPUT);
-    led_set(0); // Off by default (writes 1 to pin)
+    hal_gpio_cfg_analog_io(HR_PWR_PIN, Bit_DISABLE);
+    hal_gpio_pin_init(HR_PWR_PIN, GPIO_OUTPUT);
+    hal_gpio_cfg_analog_io(HR_LED_PIN, Bit_DISABLE);
+    hal_gpio_pin_init(HR_LED_PIN, GPIO_OUTPUT);
+    led_set(0); // Off by default
 }
 
 void led_set(uint8_t on) {
     s_led_state = on ? 1 : 0;
-    // Active LOW: 0 = LED ON, 1 = LED OFF
-    hal_gpio_write(GPIO_LED, s_led_state ? 0 : 1);
+    if (s_led_state) {
+        hal_gpio_write(HR_PWR_PIN, 0); // Power ON optical circuit (P00 active LOW)
+        hal_gpio_write(HR_LED_PIN, 1); // Gate ON green LED (P14 active HIGH)
+    } else {
+        hal_gpio_write(HR_LED_PIN, 0); // Gate OFF green LED
+        hal_gpio_write(HR_PWR_PIN, 1); // Power OFF optical circuit
+    }
 }
 
 void led_toggle(void) {
@@ -69,29 +79,56 @@ void led_toggle(void) {
 void vibrator_init(void) {
     s_selected_pin = GPIO_VIBRATOR;
     s_active_level = VIBRATOR_ACTIVE_LEVEL;
+    s_vib_remaining_ms = 0;
+    s_vib_active = false;
     setup_pin(s_selected_pin);
     led_init();
 }
 
+void vibrator_update(uint16_t elapsed_ms) {
+    if (!s_vib_active) {
+        return;
+    }
+    if (s_vib_remaining_ms <= elapsed_ms) {
+        s_vib_remaining_ms = 0;
+        s_vib_active = false;
+        if (!is_unsafe_pin(s_selected_pin)) {
+            hal_gpio_write(s_selected_pin, s_active_level ? 0 : 1);
+        }
+        led_set(0);
+    } else {
+        s_vib_remaining_ms -= elapsed_ms;
+    }
+}
+
 void vibrator_pulse(uint16_t duration_ms) {
+    if (is_unsafe_pin(s_selected_pin)) {
+        return;
+    }
     if (duration_ms < 80) duration_ms = 80;   // Minimum 80ms for physical ERM rotor acceleration
-    if (duration_ms > 250) duration_ms = 250; // Safety ceiling
+    if (duration_ms > 350) duration_ms = 350; // Safety ceiling
     setup_pin(s_selected_pin);
     led_set(1);
     hal_gpio_write(s_selected_pin, s_active_level ? 1 : 0);
-    safe_delay_ms(duration_ms);
-    hal_gpio_write(s_selected_pin, s_active_level ? 0 : 1);
-    led_set(0);
+    s_vib_remaining_ms = duration_ms;
+    s_vib_active = true;
 }
 
 void vibrator_double_pulse(void) {
-    vibrator_pulse(60);
-    safe_delay_ms(60);
-    vibrator_pulse(60);
+    vibrator_pulse(150);
 }
 
 void vibrator_long_buzz(void) {
-    vibrator_pulse(200);
+    vibrator_pulse(250);
+}
+
+void vibrator_stop(void) {
+    s_vib_remaining_ms = 0;
+    s_vib_active = false;
+    if (!is_unsafe_pin(s_selected_pin)) {
+        hal_gpio_write(s_selected_pin, s_active_level ? 0 : 1);
+    }
+    led_set(0);
 }
 
 uint8_t vibrator_get_test_pin(void) {
@@ -131,11 +168,15 @@ void vibrator_select_current_pin(void) {
 
 void vibrator_test_fire(void) {
     gpio_pin_e pin = s_test_pins[s_curr_idx].pin;
-    setup_pin(pin);
+    if (is_unsafe_pin(pin)) {
+        return;
+    }
+    s_selected_pin = pin;
+    setup_pin(s_selected_pin);
     led_set(1);
-    // Fire strong 350ms pulse
-    hal_gpio_write(pin, s_active_level ? 1 : 0);
-    safe_delay_ms(350);
-    hal_gpio_write(pin, s_active_level ? 0 : 1);
-    led_set(0);
+    // Non-blocking 350ms pulse
+    hal_gpio_write(s_selected_pin, s_active_level ? 1 : 0);
+    s_vib_remaining_ms = 350;
+    s_vib_active = true;
 }
+

@@ -2,11 +2,14 @@
 #define VIBRATOR_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 void vibrator_init(void);
+void vibrator_update(uint16_t elapsed_ms);
 void vibrator_pulse(uint16_t duration_ms);
 void vibrator_double_pulse(void);
 void vibrator_long_buzz(void);
+void vibrator_stop(void);
 
 // Status Green LED functions (GPIO_P00)
 void led_init(void);
@@ -24,3 +27,4 @@ void vibrator_toggle_active_level(void);
 void vibrator_select_current_pin(void);
 
 #endif // VIBRATOR_H
+

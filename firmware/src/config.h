@@ -16,8 +16,15 @@
 #define BUTTON_PIN            GPIO_P11    // Capacitive touch sensor
 #define GPIO_VIBRATOR         GPIO_P03    // Vibration motor (Active HIGH: 1 = ON, 0 = OFF)
 #define VIBRATOR_ACTIVE_LEVEL 1           // 1 = Active HIGH
-#define GPIO_LED              GPIO_P00    // Green status LED (Active LOW: 0 = ON, 1 = OFF)
-#define LED_ACTIVE_LEVEL      0           // 0 = Active LOW
+
+// Accelerometer / Motion Sensor (I2C on P16/P17, Power on P15)
+#define ACCEL_SCL_PIN         GPIO_P16    // I2C Clock (XTALI pin in digital mode)
+#define ACCEL_SDA_PIN         GPIO_P17    // I2C Data (XTALO pin in digital mode)
+#define ACCEL_PWR_PIN         GPIO_P15    // Power Enable / Reset
+
+// Optical Heart Rate Sensor (PPG on back cover)
+#define HR_PWR_PIN            GPIO_P00    // Optical sensor power switch (Active LOW: 0 = ON)
+#define HR_LED_PIN            GPIO_P14    // Green optical LED gate (Active HIGH: 1 = ON)
 
 // UART
 #define UART_TX_PIN   GPIO_P09    // UART TX -> CH340 RX

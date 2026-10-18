@@ -31,7 +31,7 @@ static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
 static bool s_diag_first_draw = true;
 
-#define FW_VERSION_STR "v1.4.0"
+#define FW_VERSION_STR "v1.5.3-OTA"
 
 static void render_watchface(void) {
     if (s_diag_first_draw) {
@@ -43,7 +43,7 @@ static void render_watchface(void) {
         gfx_draw_string(7, 4, "LP715 WATCH", COLOR_CYAN, COLOR_NAVY, 1);
         
         gfx_draw_fast_h_line(2, 18, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 22, "FW: " FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_string(7, 22, FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
         
         gfx_draw_fast_h_line(2, 32, 76, COLOR_DARKGREY);
         gfx_draw_fast_h_line(2, 80, 76, COLOR_DARKGREY);
@@ -54,23 +54,11 @@ static void render_watchface(void) {
         gfx_draw_string(4, 144, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
-    char buf[20];
+    char buf[24];
 
-    // 1. Live Accelerometer Telemetry
-    int16_t ax = 0, ay = 0, az = 0;
-    accel_get_xyz(&ax, &ay, &az);
-
-    snprintf(buf, sizeof(buf), "%-11s", accel_get_name());
-    gfx_draw_string(4, 36, buf, accel_is_detected() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);
-
-    snprintf(buf, sizeof(buf), "X:%+5d     ", (int)ax);
-    gfx_draw_string(4, 48, buf, COLOR_CYAN, COLOR_BLACK, 1);
-
-    snprintf(buf, sizeof(buf), "Y:%+5d     ", (int)ay);
-    gfx_draw_string(4, 58, buf, COLOR_CYAN, COLOR_BLACK, 1);
-
-    snprintf(buf, sizeof(buf), "Z:%+5d     ", (int)az);
-    gfx_draw_string(4, 68, buf, COLOR_CYAN, COLOR_BLACK, 1);
+    // 1. Dynamic Clock / Time
+    snprintf(buf, sizeof(buf), "%02d:%02d:%02d", s_hours, s_minutes, s_seconds);
+    gfx_draw_string(4, 46, buf, COLOR_CYAN, COLOR_BLACK, 2);
 
     // 2. Dynamic ticking Uptime: HH:MM:SS
     uint32_t sec = s_uptime_seconds;
@@ -82,7 +70,8 @@ static void render_watchface(void) {
 
     // 3. Battery status
     uint8_t bat_pct = battery_get_percent();
-    snprintf(buf, sizeof(buf), "BAT: %3d%% %s", bat_pct, battery_is_charging() ? "CHG" : "   ");
+    uint16_t bat_mv = battery_read_mv();
+    snprintf(buf, sizeof(buf), "BAT: %d%% %dmV", bat_pct, bat_mv);
     gfx_draw_string(4, 112, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
 
     // 4. BLE status
@@ -151,12 +140,31 @@ void app_os_set_time(uint8_t h, uint8_t m, uint8_t s) {
     s_needs_redraw = true;
 }
 
+void app_os_force_redraw(void) {
+    s_diag_first_draw = true;
+    s_needs_redraw = false;
+    render_watchface();
+}
+
 void app_os_init(void) {
     display_init(0); // Portrait 80x160
     button_init();
     vibrator_init();
     battery_init();
-    accel_init();
+    
+    // Hardware sensors power lines (from factory ROM reverse engineering)
+    hal_gpio_cfg_analog_io(ACCEL_PWR_PIN, Bit_DISABLE);
+    hal_gpio_pin_init(ACCEL_PWR_PIN, GPIO_OUTPUT);
+    hal_gpio_write(ACCEL_PWR_PIN, 1); // Power ON accelerometer (P15)
+
+    hal_gpio_cfg_analog_io(HR_PWR_PIN, Bit_DISABLE);
+    hal_gpio_pin_init(HR_PWR_PIN, GPIO_OUTPUT);
+    hal_gpio_write(HR_PWR_PIN, 1); // Power OFF optical HR sensor (P00 active LOW)
+
+    hal_gpio_cfg_analog_io(HR_LED_PIN, Bit_DISABLE);
+    hal_gpio_pin_init(HR_LED_PIN, GPIO_OUTPUT);
+    hal_gpio_write(HR_LED_PIN, 0); // Green LED OFF (P14 active HIGH)
+
     uart_cli_init();
     
     // No buzz on startup (safe and quiet)
@@ -165,7 +173,14 @@ void app_os_init(void) {
 }
 
 void app_os_update(void) {
+    if (ota_inapp_is_active()) {
+        vibrator_stop();
+        uart_cli_update();
+        return;
+    }
+
     s_ms_counter += 50; // Called every 50ms by OSAL timer (WATCH_TICK_EVT)
+    vibrator_update(50); // Non-blocking vibrator timer (P2-2: prevents blocking OSAL tick)
     uart_cli_update();
 
     // 1-second system timer
@@ -186,12 +201,6 @@ void app_os_update(void) {
             ble_try_start_device();
         }
 
-        // Accelerometer update and telemetry
-        accel_update();
-        int16_t ax = 0, ay = 0, az = 0;
-        accel_get_xyz(&ax, &ay, &az);
-        LOG("[ACCEL] %s: X=%+d Y=%+d Z=%+d\n", accel_get_name(), (int)ax, (int)ay, (int)az);
-
         if (s_current_mode == MODE_WATCHFACE) {
             s_needs_redraw = true;
         }
@@ -205,11 +214,9 @@ void app_os_update(void) {
         s_vib_count++;
 
         if (s_current_mode == MODE_WATCHFACE) {
-            // Tactile 80ms haptic tap feedback
+            // Tactile 80ms haptic tap feedback (non-blocking)
             vibrator_pulse(80);
-            if (!accel_is_detected()) {
-                accel_init();
-            }
+            // Note: repeated accel_init() on button click is removed (P2-3, ERRORS_AND_FAILURES 1.6: avoids SPI display bus collisions)
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
             vibrator_next_test_pin();
             vibrator_test_fire();

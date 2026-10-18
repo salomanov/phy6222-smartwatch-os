@@ -47,7 +47,8 @@ volatile sysclk_t g_spif_clk_config;
 
 static void hal_low_power_io_init(void) {
     const ioinit_cfg_t ioInit[] = {
-        {GPIO_LED,      GPIO_PULL_UP},   // LED active LOW (off default high)
+        {HR_LED_PIN,    GPIO_PULL_DOWN}, // Green optical LED gate (P14 off default low)
+        {HR_PWR_PIN,    GPIO_PULL_UP},   // Optical sensor power switch (P00 off default high)
         {BKL_PIN,       GPIO_PULL_UP},   // Backlight off default (high)
         {GPIO_VIBRATOR, GPIO_FLOATING},  // Motor active HIGH (off default low)
         {UART_TX_PIN,   GPIO_PULL_UP},   // TX

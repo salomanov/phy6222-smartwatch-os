@@ -31,6 +31,7 @@ static uint32_t s_total_fw_size = 0;
 static uint32_t s_total_received = 0;
 static uint32_t s_burst_accum = 0;
 static uint16_t s_running_crc = 0;
+static bool s_all_crc_ok = true; // P2-4: tracks if all partition CRCs match
 
 static ota_inapp_part_t s_parts[MAX_OTA_SECTORS];
 
@@ -101,6 +102,7 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             s_sector_offset = 0;
             s_total_received = 0;
             s_burst_accum = 0;
+            s_all_crc_ok = true;
             
             if (pev->size >= 7) {
                 s_total_fw_size = pev->data[3] | (pev->data[4]<<8) | (pev->data[5]<<16) | (pev->data[6]<<24);
@@ -111,7 +113,7 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             // Clean staging area in Flash
             LOG("[OTA-INAPP] Erasing Flash staging area (0x%08X), total size=%d...\n", OTA_TEMP_BASE, s_total_fw_size);
             draw_ota_progress(0);
-            vibrator_pulse(100);
+            vibrator_stop();
             
             // Erase 160KB for incoming firmware
             for (uint32_t a = OTA_TEMP_BASE; a < OTA_TEMP_BASE + 0x28000; a += 0x1000) {
@@ -156,7 +158,7 @@ static void on_ota_service_event(ota_Evt_t *pev) {
         else if (cmd == 0x04) { // OTA_CMD_REBOOT
             LOG("[OTA-INAPP] Reboot requested. Finalizing and installing firmware...\n");
             draw_ota_progress(100);
-            vibrator_pulse(200);
+            vibrator_stop();
             send_response(0x8A, 0x00); // OTA_RSP_REBOOT, SUCCESS
             WaitMs(150);
             ota_install_firmware_and_reboot();
@@ -183,7 +185,7 @@ static void on_ota_service_event(ota_Evt_t *pev) {
         if (s_total_fw_size > 0) {
             uint8_t new_pct = (s_total_received * 100) / s_total_fw_size;
             if (new_pct > 100) new_pct = 100;
-            if (new_pct != s_ota_progress) {
+            if (new_pct >= s_ota_progress + 5 || new_pct == 100) {
                 s_ota_progress = new_pct;
                 draw_ota_progress(s_ota_progress);
             }
@@ -200,18 +202,32 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             LOG("[OTA-INAPP] Part %d complete! CRC cal=0x%04X exp=0x%04X\n",
                 s_current_sector, s_running_crc, p->checksum);
             
+            // P2-4: Verify CRC matches expected checksum from partition header
+            if (s_running_crc != p->checksum) {
+                LOG("[OTA-INAPP] *** CRC MISMATCH on Part %d! Will NOT install. ***\n",
+                    s_current_sector);
+                s_all_crc_ok = false;
+            }
+            
             if (s_current_sector + 1 >= s_sector_count) {
                 LOG("[OTA-INAPP] ALL SECTORS RECEIVED! Final size=%d\n", s_total_received);
-                send_response(0x83, 0x00); // OTA_RSP_OTA_COMPLETE
+                if (!s_all_crc_ok) {
+                    LOG("[OTA-INAPP] *** ABORTING: CRC mismatch detected. Boot tables NOT written. ***\n");
+                    send_response(0x83, 0x04); // OTA_RSP_OTA_COMPLETE with CRC error status
+                } else {
+                    send_response(0x83, 0x00); // OTA_RSP_OTA_COMPLETE success
+                }
             } else {
                 send_response(0x85, 0x00); // OTA_RSP_PARTITION_COMPLETE
             }
         }
     }
     else if (pev->ev == OTA_EVT_DISCONNECTED) {
-        if (s_ota_active && s_ota_progress >= 99) {
-            LOG("[OTA-INAPP] Disconnected after finish. Installing firmware and reset!\n");
+        if (s_ota_active && s_ota_progress >= 99 && s_all_crc_ok) {
+            LOG("[OTA-INAPP] Disconnected after finish. CRC OK. Installing firmware and reset!\n");
             ota_install_firmware_and_reboot();
+        } else if (s_ota_active && s_ota_progress >= 99 && !s_all_crc_ok) {
+            LOG("[OTA-INAPP] Disconnected but CRC failed. Staying on current firmware.\n");
         }
         s_ota_active = false;
     }

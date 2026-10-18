@@ -1,4 +1,5 @@
 #include "accel.h"
+#include "config.h"
 #include "gpio.h"
 #include "clock.h"
 #include "log.h"
@@ -6,11 +7,12 @@
 #include <string.h>
 
 // Accelerometer auto-detection driver (Bit-Bang I2C)
-// Dedicated hardware pins for LP715_MB_V1.3: P16 (SCL) and P17 (SDA)
+// Hardware pins for LP715_MB_V1.3: P16 (SCL), P19 (SDA), P15 (PWR)
 static bool s_detected = false;
-static const gpio_pin_e s_scl = GPIO_P16;
-static const gpio_pin_e s_sda = GPIO_P17;
-static uint8_t s_i2c_addr = 0x19;
+static const gpio_pin_e s_scl = ACCEL_SCL_PIN;
+static const gpio_pin_e s_sda = ACCEL_SDA_PIN;
+static const gpio_pin_e s_pwr = ACCEL_PWR_PIN;
+static uint8_t s_i2c_addr = 0x12;
 static char s_sensor_name[16] = "NONE";
 
 static int16_t s_acc_x = 0;
@@ -132,25 +134,40 @@ void accel_init(void) {
     s_detected = false;
     strcpy(s_sensor_name, "SEARCH..");
 
-    // 1. Switch P16/P17 from 32K analog crystal mode to digital GPIO mode
-    subWriteReg(&(AP_AON->PMCTL2_0), 6, 6, 0x01);
+    // 1. Power ON / Reset sensor via P15 (Active HIGH)
+    hal_gpio_cfg_analog_io(s_pwr, Bit_DISABLE);
+    hal_gpio_pin_init(s_pwr, GPIO_OUTPUT);
+    hal_gpio_write(s_pwr, 0);
+    WaitMs(20);
+    hal_gpio_write(s_pwr, 1);
+    WaitMs(50);
+
+    // 2. Power down 32K XTAL analog oscillator so P16/P17 (XTALI/XTALO) become standard digital GPIOs
+    subWriteReg(0x4000f01c, 16, 7, 0x3fb);   // software control 32k_clk: power down crystal
+    subWriteReg(0x4000f01c, 6, 6, 0x01);     // enable software control
+    hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
+    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
     WaitMs(5);
 
-    // 2. Configure P16 (SCL) and P17 (SDA) as inputs with strong pull-up
-    hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
+    // 3. Configure P16 (SCL) and P17 (SDA) as inputs with strong pull-up
     hal_gpio_pin_init(s_scl, GPIO_INPUT);
     hal_gpio_pull_set(s_scl, GPIO_PULL_UP_S);
 
-    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
     hal_gpio_pin_init(s_sda, GPIO_INPUT);
     hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
-    WaitMs(5);
+    WaitMs(10);
 
     int sda_st = hal_gpio_read(s_sda);
     LOG("[ACCEL] Hardware pins P16/P17 initialized, SDA state: %d\n", sda_st);
 
-    // Common G-sensor addresses: 0x19 (SC7A20 factory 0x32), 0x18, 0x12 (QMA6100), 0x13, 0x38 (HK01BS)
-    static const uint8_t candidate_addrs[] = { 0x19, 0x18, 0x12, 0x13, 0x38, 0x26, 0x68 };
+    if (!sda_st) {
+        strcpy(s_sensor_name, "BUS LOW");
+        LOG("[ACCEL] Error: P17 SDA is LOW! Missing pull-up or bus fault.\n");
+        return;
+    }
+
+    // Common G-sensor addresses: 0x12 (QMA6100), 0x18/0x19 (SC7A20), 0x13 (QMA7981)
+    static const uint8_t candidate_addrs[] = { 0x12, 0x18, 0x19, 0x13, 0x38, 0x26, 0x68 };
     for (size_t i = 0; i < sizeof(candidate_addrs); i++) {
         uint8_t a = candidate_addrs[i];
         i2c_start();
@@ -163,16 +180,6 @@ void accel_init(void) {
             i2c_read_reg(a, 0x0F, &idf);
             LOG("[I2C-ACK] Device at 0x%02X! reg0=0x%02X regF=0x%02X\n", a, id0, idf);
 
-            if (idf == 0x11 || idf == 0x26 || idf == 0x33 || a == 0x18 || a == 0x19) {
-                s_detected = true;
-                s_i2c_addr = a;
-                strcpy(s_sensor_name, "SC7A20");
-                i2c_write_reg(a, 0x20, 0x57); // 50Hz, XYZ enable
-                i2c_write_reg(a, 0x23, 0x88); // High-Res, BDU
-                LOG("[ACCEL] SC7A20 configured on P16/P17\n");
-                return;
-            }
-
             if ((id0 >= 0x90 && id0 <= 0xB9) || a == 0x12) {
                 s_detected = true;
                 s_i2c_addr = a;
@@ -184,6 +191,16 @@ void accel_init(void) {
                 return;
             }
 
+            if (idf == 0x11 || idf == 0x26 || idf == 0x33 || a == 0x18 || a == 0x19) {
+                s_detected = true;
+                s_i2c_addr = a;
+                strcpy(s_sensor_name, "SC7A20");
+                i2c_write_reg(a, 0x20, 0x57); // 50Hz, XYZ enable
+                i2c_write_reg(a, 0x23, 0x88); // High-Res, BDU
+                LOG("[ACCEL] SC7A20 configured on P16/P17\n");
+                return;
+            }
+
             s_detected = true;
             s_i2c_addr = a;
             strcpy(s_sensor_name, "G-SENS");
@@ -192,7 +209,7 @@ void accel_init(void) {
     }
 
     strcpy(s_sensor_name, "NO ACK");
-    LOG("[ACCEL] P16/P17 scan complete: no ACK received\n");
+    LOG("[ACCEL] P16/P19 scan complete: no ACK received\n");
 }
 
 void accel_update(void) {

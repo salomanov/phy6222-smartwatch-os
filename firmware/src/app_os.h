@@ -15,5 +15,6 @@ void app_os_init(void);
 void app_os_update(void);
 void app_os_panic(void);
 void app_os_set_time(uint8_t h, uint8_t m, uint8_t s);
+void app_os_force_redraw(void);
 
 #endif // APP_OS_H

@@ -25,7 +25,7 @@ static void uart_send_str(const char *str) {
     hal_uart_send_buff(UART0, (uint8_t *)str, strlen(str));
 }
 
-// Low-level Bit-Bang I2C helper for CLI commands on P16/P17
+// Low-level Bit-Bang I2C helper for CLI commands on P16/P17 (ACCEL)
 static void cli_i2c_delay(void) {
     for (volatile int i = 0; i < 40; i++) {
         __asm__ volatile ("nop");
@@ -173,9 +173,9 @@ void uart_cli_update(void) {
                       "  pin <p> <0|1>       - Set GPIO pin level\r\n"
                       "  read <p>            - Read GPIO pin input level\r\n"
                       "  bkl <1|0>           - Backlight ON (1) or OFF (0)\r\n"
-                      "  disp                - Re-initialize display\r\n"
+                      "  disp                - Re-initialize display and redraw\r\n"
                       "  vib [ms]            - Trigger vibrator (default 80ms)\r\n"
-                      "  i2c scan            - Scan I2C addresses on P16/P17\r\n"
+                      "  i2c scan            - Scan I2C addresses on P16/P17 (P15 PWR ON)\r\n"
                       "  i2c r <hex_a> <reg> - Read I2C register (e.g. i2c r 19 0f)\r\n"
                       "  i2c w <a> <r> <val> - Write I2C register\r\n"
                       "  status              - Show BLE, battery, sensor status\r\n"
@@ -185,8 +185,10 @@ void uart_cli_update(void) {
     } else if (strncmp(cmd, "pin ", 4) == 0) {
         int pin = -1, val = -1;
         if (sscanf(cmd + 4, "%d %d", &pin, &val) == 2 && pin >= 0 && pin <= 34) {
-            // Guard against P33 or display pins
-            if (pin == 33 || pin == 24 || pin == 25 || pin == 31 || pin == 32 || pin == 34) {
+            // Guard against P07 (TM bootloader pin), P33, or display pins
+            if (pin == 7) {
+                snprintf(resp, sizeof(resp), "[ERR] Pin P07 is hardware TM input! Driving OUTPUT is forbidden.\r\n");
+            } else if (pin == 33 || pin == 24 || pin == 25 || pin == 31 || pin == 32 || pin == 34) {
                 snprintf(resp, sizeof(resp), "[WARN] Pin P%d is reserved for ST7735 display! Skipped.\r\n", pin);
             } else {
                 hal_gpio_cfg_analog_io((gpio_pin_e)pin, Bit_DISABLE);
@@ -224,6 +226,7 @@ void uart_cli_update(void) {
         }
     } else if (strcmp(cmd, "disp") == 0) {
         display_init(0);
+        app_os_force_redraw();
         uart_send_str("[OK] Display re-initialized.\r\n");
     } else if (strncmp(cmd, "vib", 3) == 0) {
         int ms = 80;
@@ -233,11 +236,30 @@ void uart_cli_update(void) {
         snprintf(resp, sizeof(resp), "[OK] Vibration pulse %d ms\r\n", ms);
         uart_send_str(resp);
     } else if (strcmp(cmd, "i2c scan") == 0) {
-        uart_send_str("Scanning I2C bus on P16 (SCL) / P17 (SDA)...\r\n");
-        subWriteReg(&(AP_AON->PMCTL2_0), 6, 6, 0x01);
+        uart_send_str("Powering up sensors (P15=1) & scanning I2C on P16 (SCL) / P17 (SDA)...\r\n");
+        
+        // Power ON accelerometer / sensors via P15
+        hal_gpio_cfg_analog_io(GPIO_P15, Bit_DISABLE);
+        hal_gpio_pin_init(GPIO_P15, GPIO_OUTPUT);
+        hal_gpio_write(GPIO_P15, 1);
+        WaitMs(50);
+
+        // Power down 32K XTAL analog oscillator so P16/P17 become standard digital GPIOs
+        subWriteReg(0x4000f01c, 16, 7, 0x3fb);
+        subWriteReg(0x4000f01c, 6, 6, 0x01);
+        hal_gpio_cfg_analog_io(GPIO_P16, Bit_DISABLE);
+        hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
+        WaitMs(5);
+
         cli_i2c_scl(true);
         cli_i2c_sda(true);
-        WaitMs(5);
+        WaitMs(10);
+
+        // Verify bus idle condition (SDA must be HIGH due to pull-up)
+        if (!cli_i2c_sda_in()) {
+            uart_send_str("[ERR] I2C SDA (P17) is stuck LOW! Missing pull-up or bus shorted.\r\n");
+            return;
+        }
 
         int count = 0;
         for (uint8_t a = 0x08; a <= 0x77; a++) {
@@ -293,11 +315,8 @@ void uart_cli_update(void) {
             uart_send_str("Usage: i2c w <hex_addr> <hex_reg> <hex_val>\r\n");
         }
     } else if (strcmp(cmd, "status") == 0) {
-        int16_t ax = 0, ay = 0, az = 0;
-        accel_get_xyz(&ax, &ay, &az);
-        snprintf(resp, sizeof(resp), "BLE: %s, Sensor: %s (X=%d Y=%d Z=%d), Bat: %d%% (%s)\r\n",
+        snprintf(resp, sizeof(resp), "FW: v1.5.3-OTA, BLE: %s, Bat: %d%% (%s)\r\n",
                  ble_is_connected() ? "CONN" : "ADV",
-                 accel_get_name(), (int)ax, (int)ay, (int)az,
                  battery_get_percent(), battery_is_charging() ? "CHG" : "DISCHG");
         uart_send_str(resp);
     } else if (strncmp(cmd, "time ", 5) == 0) {

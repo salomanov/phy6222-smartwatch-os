@@ -17,6 +17,11 @@ CC = os.path.join(GCC_BIN, "arm-none-eabi-gcc.exe")
 OBJCOPY = os.path.join(GCC_BIN, "arm-none-eabi-objcopy.exe")
 SIZE = os.path.join(GCC_BIN, "arm-none-eabi-size.exe")
 
+if not os.path.exists(SDK_DIR):
+    print(f"[!] ERROR: Vendor SDK directory not found at: {SDK_DIR}")
+    print("[!] Clean clone requires the SDK submodule/files. See docs/SDK_SETUP.md for instructions.")
+    sys.exit(1)
+
 if not os.path.exists(CC):
     print(f"[!] ERROR: Compiler not found at: {CC}")
     sys.exit(1)
@@ -213,12 +218,16 @@ def build():
         print("[!] OBJCOPY ERROR:\n", res.stderr)
         return False
 
+    # Note: Flat binary (.bin) generation via objcopy is intentionally omitted.
+    # PHY6222 memory layout has discontinuous address spaces (XIP Flash 0x11010100 and SRAM 0x1FFF0000).
+    # Generating a single flat binary causes objcopy to fill the gap with zeros, producing a useless 240 MB file.
+    # Flashing tools use custom_firmware.hex or custom_firmware_ota.bin directly.
     bin_f = os.path.join(BUILD_DIR, "custom_firmware.bin")
-    print("[OBJCOPY] Generating custom_firmware.bin...")
-    res = subprocess.run([OBJCOPY, "-O", "binary", elf, bin_f], capture_output=True, text=True)
-    if res.returncode != 0:
-        print("[!] OBJCOPY BIN ERROR:\n", res.stderr)
-        return False
+    if os.path.exists(bin_f):
+        try:
+            os.remove(bin_f)
+        except OSError:
+            pass
 
     ota_bin = os.path.join(BUILD_DIR, "custom_firmware_ota.bin")
     ota_script = os.path.join(REF_DIR, "phy62x2_ota.py")
@@ -235,7 +244,6 @@ def build():
     dt = time.time() - t0
     print(f"[+] BUILD SUCCESS! in {dt:.2f}s")
     print(f"[+] Output HEX: {hex_f}")
-    print(f"[+] Output BIN: {bin_f}")
     if os.path.exists(ota_bin):
         print(f"[+] Output OTA: {ota_bin}")
     return True
@@ -243,3 +251,4 @@ def build():
 if __name__ == "__main__":
     success = build()
     sys.exit(0 if success else 1)
+
