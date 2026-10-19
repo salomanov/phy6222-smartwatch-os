@@ -3,6 +3,7 @@ import struct
 import time
 import threading
 import sys
+import os
 import serial
 from bleak import BleakScanner, BleakClient
 
@@ -124,7 +125,8 @@ async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=60.0):
 async def main():
     global stop_uart
 
-    bin_path = 'firmware/build/custom_firmware_ota.bin'
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    bin_path = os.path.join(base_dir, 'firmware', 'build', 'custom_firmware_ota.bin')
     print(f"[*] Loading OTA binary: {bin_path}...")
     partitions = parse_ota_bin(bin_path)
     total_bytes = sum(p['size'] for p in partitions)
@@ -151,7 +153,7 @@ async def main():
         print("\n[!] Watch not detected in air or could not connect.")
         print("[!] Note: If watch battery is low, connect watch to USB charging or tap touch button to wake.")
         stop_uart = True
-        return
+        sys.exit(1)
 
     print(f"[+] Connected successfully! MTU = {client.mtu_size}")
 
@@ -187,7 +189,7 @@ async def main():
         if not rsp or rsp[0] != 0:
             print(f"[!] Start OTA rejected: {rsp}")
             stop_uart = True
-            return
+            sys.exit(1)
         print("[+] OTA Session started successfully! Display shows progress bar.")
 
         # Instantly silence the vibrator (P03=0) and LED (P00=1) via UART CLI to prevent power sag and RF noise
@@ -219,7 +221,7 @@ async def main():
             if not rsp or rsp[0] != 0:
                 print(f"[!] Partition {idx} info rejected: {rsp}")
                 stop_uart = True
-                return
+                sys.exit(1)
 
             print(f"[+] Streaming data for Part {idx} (Write with response for 100% reliability)...")
             p_data = part['data']
@@ -261,7 +263,7 @@ async def main():
             if not rsp or rsp[0] != 0:
                 print(f"[!] Error on partition {idx} completion: {rsp}")
                 stop_uart = True
-                return
+                sys.exit(1)
             print(f"[+] Part {idx} verified & written successfully!")
             await asyncio.sleep(0.1)
 
