@@ -235,6 +235,13 @@ static void on_ota_service_event(ota_Evt_t *pev) {
 
 __attribute__((section("_section_sram_code_"), noinline))
 static void ota_install_firmware_and_reboot(void) {
+    // 0. Disable SysTick and all NVIC interrupt channels so NO ISR can fire
+    // even when vendor hal_flash driver executes drv_enable_irq() (cpsie i)
+    SysTick->CTRL = 0;
+    SysTick->LOAD = 0;
+    SysTick->VAL  = 0;
+    NVIC->ICER[0] = 0xFFFFFFFF;
+    NVIC->ICPR[0] = 0xFFFFFFFF;
     __disable_irq();
 
     // 1. Erase Bootloader Header sector (0x11002000)
@@ -286,8 +293,8 @@ static void ota_install_firmware_and_reboot(void) {
     }
 
     // 6. Write Bootloader Header at 0x11002000 (exact wire format for PHY6222 ROM loader)
-    // Clear buffer in SRAM loop (avoid calling libc memset which lives in erased Flash!)
-    uint32_t *p32 = (uint32_t *)buf;
+    // Clear buffer in SRAM loop with volatile pointer to prevent GCC calling libc memset
+    volatile uint32_t *p32 = (volatile uint32_t *)buf;
     for (int k = 0; k < 64; k++) {
         p32[k] = 0xFFFFFFFF;
     }

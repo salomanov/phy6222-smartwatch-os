@@ -267,21 +267,22 @@ async def main():
             print(f"[+] Part {idx} verified & written successfully!")
             await asyncio.sleep(0.1)
 
-        # 3. Finalize & Reboot
-        print("\n[+] All partitions transmitted! Sending REBOOT command...")
+        # 3. Finalize: send REBOOT command and IMMEDIATELY disconnect to terminate BLE connection events
+        print("\n[+] All partitions transmitted! Sending REBOOT and disconnecting immediately...")
         reboot_cmd = bytes([0x04, 0x01])
         try:
             await client.write_gatt_char(OTA_CMD_UUID, reboot_cmd, response=False)
-            print("[+] Reboot command sent! Watch restarting into new firmware...")
         except Exception as e:
-            print(f"[!] Reboot notification note: {e}")
-        await asyncio.sleep(2)
+            print(f"[!] Reboot send note: {e}")
 
-    finally:
+        # Immediately terminate BLE connection so Link Layer stops firing connection-event interrupts
         try:
             await client.disconnect()
-        except Exception:
-            pass
+            print("[+] BLE disconnected cleanly! Watch is installing firmware and rebooting...")
+        except Exception as e:
+            print(f"[!] Disconnect note: {e}")
+
+    finally:
         stop_uart = True
 
     print("\n[SUCCESS] OTA FLASH PROCEDURE COMPLETED 100%!")

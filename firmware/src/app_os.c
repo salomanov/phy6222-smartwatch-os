@@ -31,7 +31,7 @@ static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
 static bool s_diag_first_draw = true;
 
-#define FW_VERSION_STR "v1.5.3-OTA"
+#define FW_VERSION_STR "v1.5.4-OTA"
 
 static void render_watchface(void) {
     if (s_diag_first_draw) {

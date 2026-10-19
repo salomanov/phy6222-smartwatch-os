@@ -315,7 +315,7 @@ void uart_cli_update(void) {
             uart_send_str("Usage: i2c w <hex_addr> <hex_reg> <hex_val>\r\n");
         }
     } else if (strcmp(cmd, "status") == 0) {
-        snprintf(resp, sizeof(resp), "FW: v1.5.3-OTA, BLE: %s, Bat: %d%% (%s)\r\n",
+        snprintf(resp, sizeof(resp), "FW: v1.5.4-OTA, BLE: %s, Bat: %d%% (%s)\r\n",
                  ble_is_connected() ? "CONN" : "ADV",
                  battery_get_percent(), battery_is_charging() ? "CHG" : "DISCHG");
         uart_send_str(resp);
