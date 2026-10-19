@@ -244,3 +244,17 @@
 - **Решение**:
   В `config.h`, `accel.c` и `uart_cli.c` зафиксированы канонические пины `GPIO_P16` (SCL) и `GPIO_P17` (SDA) с правильной процедурой выключения 32кГц кварца.
 
+### Ошибка 6.8: Сбой стека Windows 11 WinRT `RO_E_CLOSED (0x8000000E)` / `Watcher status: STOPPED: 3` при циклическом BLE OTA сканировании
+- **Что делалось**: В `scripts/flash/ota_ble_flash.py` в цикле повторных попыток подключения (до 15 раз) каждый раз вызывался `BleakScanner.find_device_by_filter(...)` с коротким таймаутом (4-8 с).
+- **Симптом и ущерб**: На Windows 11 после 1-2 итераций сканирование аварийно падало:
+  `OSError: [WinError -2147483634] The application called an interface that was marshalled for a different thread.` или `RO_E_CLOSED: The object has been closed (Watcher status: STOPPED: 3)`. Скрипт прошивки прекращал работу, не дождавшись выхода часов в эфир.
+- **Причина (Root Cause)**:
+  1. В библиотеке Bleak на бэкенде Windows WinRT класс `BluetoothLEAdvertisementWatcher` при каждом старте и остановке создает и уничтожает внутренние COM/WinRT-делегаты.
+  2. При частых циклах создания/уничтожения без откачки очереди сообщений ОС закрывает хэндл COM-объекта раньше, чем завершается фоновый асинхронный поток (`RO_E_CLOSED`).
+  3. Дешевые USB Bluetooth-донглы (Barrot / Actions `VID_368B&PID_8D81`) не поддерживают аппаратную фильтрацию рекламы (`is_advertisement_offload_supported = False`), из-за чего драйвер `bthport.sys` при частых сбросах перестает доставлять пакеты пользовательскому процессу.
+- **Решение**:
+  1. Переход на одиночный долгоживущий экземпляр `BleakScanner` с асинхронным `detection_callback` и событием `asyncio.Event`. Сканер запускается один раз на весь период ожидания (45-60 с) и останавливается строго один раз после обнаружения целевого MAC `62:62:15:07:07:15`.
+  2. Внедрен автоматический программный перезапуск радиомодуля Bluetooth через WinRT API (`winrt.windows.devices.radios.Radio`) при обнаружении зависания HCI-сканера.
+  3. Процесс прошивки встроен в графический интерфейс `watch_studio.py` с отдельным потоком `OtaFlashWorker` и автопаузой UART порта COM5.
+
+

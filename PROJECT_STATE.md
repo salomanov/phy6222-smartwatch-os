@@ -426,4 +426,16 @@
 - **Подготовлена и собрана прошивка v1.5.3-OTA**:
   - Собраны `custom_firmware.hex` и `custom_firmware_ota.bin` (146 852 байт).
 
+## 19. Этап 23: Устранение сбоя Windows WinRT BLE Scanner, интеграция 1-кликовой прошивки в Watch Studio и готовность к v1.5.3-OTA
+- **Устранена ошибка Windows 11 WinRT `RO_E_CLOSED (0x8000000E)` / `Watcher status: STOPPED: 3`**:
+  - При частых повторных вызовах `BleakScanner.find_device_by_filter()` в цикле ОС Windows 11 уничтожает COM-объект `BluetoothLEAdvertisementWatcher`.
+  - Скрипт `scripts/flash/ota_ble_flash.py` переписан на единый непрерывный экземпляр `BleakScanner` с асинхронным `detection_callback` и автоматическим сбросом Bluetooth-адаптера через `winrt.windows.devices.radios.Radio`.
+  - Тест подтвердил: сканер работает стабильно без сбоев стека.
+- **Интеграция кнопки "⚡ Прошить часы по воздуху (BLE OTA)" в Watch Studio (`watch_studio.py`)**:
+  - Добавлен поток `OtaFlashWorker(QThread)` с трансляцией прогресса и вывода `ota_ble_flash.py` в окно терминала.
+  - Внедрен механизм `pause_port()` / `resume_port()` в `WatchSerialWorker`: при нажатии кнопки порт COM5 временно закрывается, исключая ошибку `PermissionError(13)`, а по завершении OTA связь восстанавливается автоматически.
+- **Анализ питания**:
+  - В `v1.5.2-OTA` экран работал без гашения (25 мА), что при емкости АКБ 90 мАч разрядило батарею за ~2.5–3 часа. Для прошивки требуется подключить часы к зарядке USB 5V (или коснуться сенсора, если они уснули).
+- **Готовность**: Прошивка `v1.5.3-OTA` собрана и готова к отправке по воздуху в 1 клик.
+
 

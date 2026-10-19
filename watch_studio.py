@@ -10,6 +10,7 @@ import sys
 import os
 import time
 import queue
+import subprocess
 import serial
 import serial.tools.list_ports
 import cv2
@@ -32,6 +33,47 @@ from PyQt6.QtGui import QFont, QColor, QImage, QPixmap
 
 
 # ==============================================================================
+# BLE OTA FLASH WORKER THREAD
+# ==============================================================================
+class OtaFlashWorker(QThread):
+    log_line = pyqtSignal(str)
+    progress = pyqtSignal(int)
+    completed = pyqtSignal(bool, str)
+
+    def run(self):
+        script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts', 'flash', 'ota_ble_flash.py')
+        cmd = [sys.executable, script_path]
+        self.log_line.emit(f"[*] Запуск процесса BLE OTA: {sys.executable} {script_path}")
+        try:
+            p = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                bufsize=1,
+                encoding='utf-8',
+                errors='replace'
+            )
+            for line in p.stdout:
+                clean = line.strip()
+                if clean:
+                    self.log_line.emit(clean)
+                    if "[PROGRESS]" in clean:
+                        try:
+                            pct_str = clean.split("[PROGRESS]")[1].split("%")[0].strip()
+                            self.progress.emit(int(pct_str))
+                        except Exception:
+                            pass
+            p.wait()
+            if p.returncode == 0:
+                self.completed.emit(True, "Прошивка по воздуху успешно завершена на 100%! Часы перезагружаются.")
+            else:
+                self.completed.emit(False, f"Процесс завершился с кодом {p.returncode}")
+        except Exception as e:
+            self.completed.emit(False, f"Исключение при запуске OTA: {e}")
+
+
+# ==============================================================================
 # SERIAL WORKER THREAD
 # ==============================================================================
 class WatchSerialWorker(QThread):
@@ -46,10 +88,23 @@ class WatchSerialWorker(QThread):
         self.port = port
         self.baudrate = baudrate
         self.running = True
+        self.paused = False
         self.cmd_queue = queue.Queue()
         self.ser = None
         self.poll_button_active = False
         self.last_user_cmd = 0
+
+    def pause_port(self):
+        self.paused = True
+        if self.ser and self.ser.is_open:
+            try:
+                self.ser.close()
+            except Exception:
+                pass
+            self.ser = None
+
+    def resume_port(self):
+        self.paused = False
 
     def send_command(self, cmd_str):
         self.last_user_cmd = time.time()
@@ -67,6 +122,10 @@ class WatchSerialWorker(QThread):
         last_button_poll = time.time()
 
         while self.running:
+            if self.paused:
+                time.sleep(0.3)
+                continue
+
             # 1. Connection check
             if self.ser is None or not self.ser.is_open:
                 try:
@@ -207,7 +266,7 @@ class WatchStudioWindow(QMainWindow):
         self.lbl_conn = QLabel("[*] Поиск часов на COM5...")
         self.lbl_conn.setStyleSheet("color: #f59e0b; font-weight: bold; font-size: 14px;")
 
-        self.lbl_fw = QLabel("ПРОШИВКА: v1.5.2-OTA")
+        self.lbl_fw = QLabel("ПРОШИВКА: v1.5.3-OTA")
         self.lbl_fw.setStyleSheet("color: #10b981; font-weight: bold; font-size: 14px;")
 
         self.lbl_ble = QLabel("BLE: ADV")
@@ -407,6 +466,33 @@ class WatchStudioWindow(QMainWindow):
         ct_layout.addLayout(row_i2c)
 
         col_ctrl.addWidget(card_touch)
+
+        # Card: BLE OTA Wireless Firmware Update
+        card_ota = QFrame()
+        card_ota.setObjectName("card")
+        cota_layout = QVBoxLayout(card_ota)
+        cota_title = QLabel("ПРОШИВКА ПО ВОЗДУХУ (BLE IN-APP OTA)")
+        cota_title.setObjectName("cardTitle")
+        cota_layout.addWidget(cota_title)
+
+        lbl_ota_info = QLabel("Файл: firmware/build/custom_firmware_ota.bin (v1.5.3-OTA, 146 KB)")
+        lbl_ota_info.setStyleSheet("color: #94a3b8; font-size: 11px;")
+        cota_layout.addWidget(lbl_ota_info)
+
+        self.btn_flash_ota = QPushButton("⚡ Прошить часы по воздуху (BLE OTA)")
+        self.btn_flash_ota.setStyleSheet("background-color: #0284c7; color: white; font-weight: bold; padding: 8px; border-radius: 6px;")
+        self.btn_flash_ota.clicked.connect(self.start_ble_ota)
+        cota_layout.addWidget(self.btn_flash_ota)
+
+        self.progress_ota = QProgressBar()
+        self.progress_ota.setRange(0, 100)
+        self.progress_ota.setValue(0)
+        self.progress_ota.setTextVisible(True)
+        self.progress_ota.setStyleSheet("QProgressBar { border: 1px solid #334155; border-radius: 4px; text-align: center; background: #0f172a; color: white; font-weight: bold; } QProgressBar::chunk { background-color: #10b981; }")
+        self.progress_ota.setVisible(False)
+        cota_layout.addWidget(self.progress_ota)
+
+        col_ctrl.addWidget(card_ota)
         body_layout.addLayout(col_ctrl, 4)
 
         # ======================================================================
@@ -516,7 +602,7 @@ class WatchStudioWindow(QMainWindow):
         p.setPen(QColor(60, 60, 60))
         p.drawLine(2, 18, 78, 18)
         p.setPen(QColor(0, 230, 118))
-        p.drawText(6, 28, "v1.5.2-OTA")
+        p.drawText(6, 28, "v1.5.3-OTA")
 
         # Dividers
         p.setPen(QColor(60, 60, 60))
@@ -681,6 +767,48 @@ class WatchStudioWindow(QMainWindow):
         self.txt_term.append(text)
         # Auto-scroll
         self.txt_term.verticalScrollBar().setValue(self.txt_term.verticalScrollBar().maximum())
+
+    # --------------------------------------------------------------------------
+    # BLE OTA WIRELESS FLASHING
+    # --------------------------------------------------------------------------
+    def start_ble_ota(self):
+        reply = QMessageBox.question(
+            self,
+            "Прошивка по воздуху",
+            "Запустить беспроводную прошивку часов через BLE In-App OTA?\n\n"
+            "Порт COM5 будет временно освобождён для предотвращения конфликтов.\n"
+            "Убедитесь, что часы не выключены и находятся рядом с ПК.",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if reply != QMessageBox.StandardButton.Yes:
+            return
+
+        self.btn_flash_ota.setEnabled(False)
+        self.progress_ota.setVisible(True)
+        self.progress_ota.setValue(0)
+        self.worker.pause_port()
+        self.on_log_received("[*] Порт COM5 временно освобождён для BLE OTA.")
+
+        self.ota_worker = OtaFlashWorker()
+        self.ota_worker.log_line.connect(self.on_log_received)
+        self.ota_worker.progress.connect(self.on_ota_progress)
+        self.ota_worker.completed.connect(self.on_ota_completed)
+        self.ota_worker.start()
+
+    def on_ota_progress(self, val):
+        self.progress_ota.setValue(val)
+
+    def on_ota_completed(self, success, msg):
+        self.btn_flash_ota.setEnabled(True)
+        self.worker.resume_port()
+        self.on_log_received(f"[*] BLE OTA завершена: {msg}")
+        self.on_log_received("[*] Порт COM5 возобновлён.")
+        if success:
+            self.cb_ota.setChecked(True)
+            self.lbl_fw.setText("ПРОШИВКА: v1.5.3-OTA")
+            QMessageBox.information(self, "Успех BLE OTA", msg)
+        else:
+            QMessageBox.warning(self, "BLE OTA", msg)
 
     # --------------------------------------------------------------------------
     # REPORT GENERATOR

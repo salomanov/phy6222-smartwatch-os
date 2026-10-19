@@ -80,22 +80,49 @@ def parse_ota_bin(filepath):
         })
     return partitions
 
-async def find_watch():
-    print("[*] Finding CHASY-STEALTH...")
-    for attempt in range(1, 10):
-        device = await BleakScanner.find_device_by_filter(
-            lambda d, adv: d.address.upper() == '62:62:15:07:07:15' or (d.name and any(k in d.name.upper() for k in ['CHASY', 'OTA', 'PPLUS'])),
-            timeout=4.0
-        )
-        if device:
-            return device
-        print(f"  Attempt {attempt} failed, retrying scan...")
-        await asyncio.sleep(0.5)
+async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=60.0):
+    found_event = asyncio.Event()
+    target_device = [None]
+
+    def detection_cb(dev, adv):
+        addr_match = dev.address.upper() == target_addr.upper()
+        name_match = bool(dev.name and any(k in dev.name.upper() for k in ['CHASY', 'OTA', 'PPLUS']))
+        if addr_match or name_match:
+            print(f"\n[+] Discovered watch in air: {dev.name or 'Unknown'} ({dev.address}), RSSI: {adv.rssi} dBm")
+            target_device[0] = dev
+            found_event.set()
+
+    scanner = BleakScanner(detection_callback=detection_cb)
+    print(f"[*] Starting continuous BLE scanner (waiting up to {int(timeout)}s for watch {target_addr})...")
+    await scanner.start()
+    try:
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            try:
+                await asyncio.wait_for(found_event.wait(), timeout=2.5)
+                break
+            except asyncio.TimeoutError:
+                # Poke COM5 if available to wake watch or request status
+                try:
+                    s_wake = serial.Serial('COM5', 115200, timeout=0.05)
+                    s_wake.write(b'\r\nstatus\r\n')
+                    s_wake.close()
+                except Exception:
+                    pass
+                elapsed = int(time.time() - start_time)
+                print(f"  ...listening for BLE advertisement ({elapsed}s/{int(timeout)}s)...", flush=True)
+    finally:
+        await scanner.stop()
+
+    if target_device[0] is not None:
+        client = BleakClient(target_device[0], timeout=25.0, winrt={'use_cached_services': False})
+        print(f"[+] Connecting to {target_device[0].address}...")
+        await client.connect()
+        return client
     return None
 
 async def main():
     global stop_uart
-    # COM5 monitor disabled during OTA to eliminate Python GIL contention with Bleak/WinRT
 
     bin_path = 'firmware/build/custom_firmware_ota.bin'
     print(f"[*] Loading OTA binary: {bin_path}...")
@@ -115,39 +142,18 @@ async def main():
         pass
 
     client = None
-    for conn_try in range(1, 15):
-        print(f"\n[*] Scan & Connect attempt {conn_try}/14...")
-        device = await BleakScanner.find_device_by_filter(
-            lambda d, adv: d.address.upper() == '62:62:15:07:07:15' or (d.name and 'CHASY' in d.name),
-            timeout=8.0
-        )
-        if not device:
-            print(f"  Attempt {conn_try}: watch not seen in air yet, waking via UART...")
-            try:
-                s_wake = serial.Serial('COM5', 115200, timeout=0.1)
-                s_wake.write(b'\r\nstatus\r\n')
-                time.sleep(0.05)
-                s_wake.close()
-            except Exception:
-                pass
-            await asyncio.sleep(1.0)
-            continue
-
-        print(f"[+] Found {device.name} ({device.address}), attempting connection...")
-        try:
-            client = BleakClient(device, timeout=25.0, winrt={'use_cached_services': False})
-            await client.connect()
-            if client.is_connected:
-                print(f"[+] Connected successfully! MTU = {client.mtu_size}")
-                break
-        except Exception as e:
-            print(f"  Connection attempt {conn_try} failed: {e}")
-            await asyncio.sleep(1.5)
+    try:
+        client = await find_and_connect(target_addr='62:62:15:07:07:15', timeout=45.0)
+    except Exception as e:
+        print(f"[!] Connect error: {e}")
 
     if not client or not client.is_connected:
-        print("[!] Failed to establish BLE connection after all retries.")
+        print("\n[!] Watch not detected in air or could not connect.")
+        print("[!] Note: If watch battery is low, connect watch to USB charging or tap touch button to wake.")
         stop_uart = True
         return
+
+    print(f"[+] Connected successfully! MTU = {client.mtu_size}")
 
     try:
         rsp_queue = []
