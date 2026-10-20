@@ -166,7 +166,7 @@ async def main():
             cmd = raw[1] if len(raw) > 1 else -1
             if cmd != 0x87:
                 print(f"  << [BLE NOTIF] status=0x{status:02X}, cmd=0x{cmd:02X}")
-                rsp_queue.append(raw)
+            rsp_queue.append(raw)
 
         await client.start_notify(OTA_RSP_UUID, on_notification)
         await asyncio.sleep(0.5)
@@ -205,6 +205,7 @@ async def main():
         # 2. Iterate partitions
         total_sent = 0
         chunk_size = 230  # Max ATT payload (MTU 240 - 3 byte ATT header = 237 max, 230 is safe)
+        burst_accum = 0
 
         for part in partitions:
             idx = part['index']
@@ -223,7 +224,7 @@ async def main():
                 stop_uart = True
                 sys.exit(1)
 
-            print(f"[+] Streaming data for Part {idx} (Write with response for 100% reliability)...")
+            print(f"[+] Streaming data for Part {idx} (Write without response + burst flow-control)...")
             p_data = part['data']
             offset = 0
 
@@ -231,17 +232,18 @@ async def main():
                 chunk = p_data[offset:offset+chunk_size]
                 offset += len(chunk)
                 total_sent += len(chunk)
+                burst_accum += len(chunk)
 
                 # Send chunk with retry on transient WinRT BLE stack error
                 written = False
                 for w_try in range(8):
                     try:
-                        await client.write_gatt_char(OTA_DATA_UUID, chunk, response=True)
+                        await client.write_gatt_char(OTA_DATA_UUID, chunk, response=False)
                         written = True
                         break
                     except Exception as e:
                         print(f"  [WARN] Write error on offset {offset}: {e}, retrying {w_try+1}/8...")
-                        await asyncio.sleep(0.1)
+                        await asyncio.sleep(0.05)
 
                 if not written:
                     raise RuntimeError(f"Failed to write chunk at offset {offset}")
@@ -250,11 +252,19 @@ async def main():
                 if offset % 4600 < chunk_size or offset >= len(p_data):
                     print(f"  [PROGRESS] {pct}% ({total_sent}/{total_bytes} bytes sent, part {idx}: {offset}/{len(p_data)})")
 
-                # Small delay to give PHY6222 Flash controller time to write (exact timing from successful release a1f5f7a)
+                # Pacing between chunks
                 await asyncio.sleep(0.012)
 
+                # PhyPlus In-App OTA burst synchronization:
+                # Every 3840 bytes (240 * 16), the watch writes to Flash and sends OTA_RSP_BLOCK_BURST (0x87)
+                if burst_accum >= 3840 and total_sent < total_bytes:
+                    burst_accum -= 3840
+                    rsp = await wait_for_cmd(0x87, timeout=6.0)
+                    if not rsp or rsp[0] != 0:
+                        print(f"  [WARN] Burst ACK 0x87 not received in time (rsp: {rsp}), continuing safely...")
+
             # Allow BLE stack to process the final packet and calculate CRC
-            await asyncio.sleep(0.2)
+            await asyncio.sleep(0.15)
 
             # End of partition check: 0x83 for last partition, 0x85 for others
             exp_done = 0x83 if (idx + 1 == len(partitions)) else 0x85
@@ -263,6 +273,9 @@ async def main():
             if not rsp or rsp[0] != 0:
                 print(f"[!] Error on partition {idx} completion: {rsp}")
                 stop_uart = True
+                sys.exit(1)
+            print(f"[+] Part {idx} verified & written successfully!")
+            await asyncio.sleep(0.05)
                 sys.exit(1)
             print(f"[+] Part {idx} verified & written successfully!")
             await asyncio.sleep(0.1)
