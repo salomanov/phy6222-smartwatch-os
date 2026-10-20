@@ -1,5 +1,8 @@
 # Код-ревью и план исправлений — `E:\Projects\Watch`
 
+> **Передача другому агенту:** см. [AGENT_HANDOFF.md](AGENT_HANDOFF.md) — что сделано, что не проверено,
+> что заморожено и с чего начинать.
+
 **Дата ревью:** 2026-10-20
 **Проверенный коммит:** `6580995` (HEAD), прошивка `FW_VERSION_STR "v1.5.4-OTA"` (`firmware/src/app_os.c:34`)
 **Как проверялось:** чтение кода (`firmware/src/*.c|h`, `scripts/flash/ota_ble_flash.py`, `firmware/build.py`, SDK `tools/smartwatch_ref/sdk/...`), контрольная сборка в отдельный каталог, прогон собственного скрипта проекта `scripts/tools/verify_audit.py`, `git log/status/ls-files`.
