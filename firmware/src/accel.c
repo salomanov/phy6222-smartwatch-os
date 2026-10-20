@@ -20,9 +20,7 @@ static int16_t s_acc_y = 0;
 static int16_t s_acc_z = 0;
 
 static void i2c_delay(void) {
-    for (volatile int i = 0; i < 40; i++) {
-        __asm__ volatile ("nop");
-    }
+    WaitUs(5);
 }
 
 static void i2c_sda_out(bool hi) {

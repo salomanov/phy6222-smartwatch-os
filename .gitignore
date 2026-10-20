@@ -1,5 +1,6 @@
 # Ignore build artifacts
 firmware/build/
+firmware/build_ble_test/
 build/
 *.map
 *.pyc

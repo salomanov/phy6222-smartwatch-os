@@ -1,4 +1,5 @@
 #include "ble_manager.h"
+#include "config.h"
 #include "bcomdef.h"
 #include "OSAL.h"
 #include "OSAL_Tasks.h"
@@ -205,7 +206,7 @@ void WatchBLE_Init(uint8_t task_id) {
     DevInfo_AddService();
     uint8_t manu_name[] = "PhyPlus";
     uint8_t model_num[] = "LP715";
-    uint8_t fw_rev[] = "v1.0.0";
+    uint8_t fw_rev[] = FW_VERSION_STR;
     DevInfo_SetParameter(DEVINFO_MANUFACTURER_NAME, sizeof(manu_name) - 1, manu_name);
     DevInfo_SetParameter(DEVINFO_MODEL_NUMBER, sizeof(model_num) - 1, model_num);
     DevInfo_SetParameter(DEVINFO_FIRMWARE_REV, sizeof(fw_rev) - 1, fw_rev);

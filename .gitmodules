@@ -1,0 +1,3 @@
+[submodule "tools/smartwatch_ref"]
+	path = tools/smartwatch_ref
+	url = https://github.com/amir1387aht/phy6222_smartwatch.git

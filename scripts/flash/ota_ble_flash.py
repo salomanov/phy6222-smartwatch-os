@@ -275,9 +275,6 @@ async def main():
                 stop_uart = True
                 sys.exit(1)
             print(f"[+] Part {idx} verified & written successfully!")
-            await asyncio.sleep(0.05)
-                sys.exit(1)
-            print(f"[+] Part {idx} verified & written successfully!")
             await asyncio.sleep(0.1)
 
         # 3. Finalize: send REBOOT command and IMMEDIATELY disconnect to terminate BLE connection events

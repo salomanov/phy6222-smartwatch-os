@@ -36,4 +36,7 @@
 #define ST7735_COLSTART 26
 #define ST7735_ROWSTART 1
 
+// Firmware Version
+#define FW_VERSION_STR "v1.5.4-OTA"
+
 #endif // CONFIG_H

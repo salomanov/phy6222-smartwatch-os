@@ -27,9 +27,7 @@ static void uart_send_str(const char *str) {
 
 // Low-level Bit-Bang I2C helper for CLI commands on P16/P17 (ACCEL)
 static void cli_i2c_delay(void) {
-    for (volatile int i = 0; i < 40; i++) {
-        __asm__ volatile ("nop");
-    }
+    WaitUs(5);
 }
 
 static void cli_i2c_sda(bool hi) {
@@ -185,9 +183,11 @@ void uart_cli_update(void) {
     } else if (strncmp(cmd, "pin ", 4) == 0) {
         int pin = -1, val = -1;
         if (sscanf(cmd + 4, "%d %d", &pin, &val) == 2 && pin >= 0 && pin <= 34) {
-            // Guard against P07 (TM bootloader pin), P33, or display pins
+            // Guard against P07 (TM bootloader pin), P20 (ADC battery), P33, or display pins
             if (pin == 7) {
                 snprintf(resp, sizeof(resp), "[ERR] Pin P07 is hardware TM input! Driving OUTPUT is forbidden.\r\n");
+            } else if (pin == 20) {
+                snprintf(resp, sizeof(resp), "[ERR] Pin P20 is battery ADC input! Driving OUTPUT is forbidden.\r\n");
             } else if (pin == 33 || pin == 24 || pin == 25 || pin == 31 || pin == 32 || pin == 34) {
                 snprintf(resp, sizeof(resp), "[WARN] Pin P%d is reserved for ST7735 display! Skipped.\r\n", pin);
             } else {
@@ -203,13 +203,18 @@ void uart_cli_update(void) {
     } else if (strncmp(cmd, "read ", 5) == 0) {
         int pin = -1;
         if (sscanf(cmd + 5, "%d", &pin) == 1 && pin >= 0 && pin <= 34) {
-            hal_gpio_cfg_analog_io((gpio_pin_e)pin, Bit_DISABLE);
-            hal_gpio_pin_init((gpio_pin_e)pin, GPIO_INPUT);
-            hal_gpio_pull_set((gpio_pin_e)pin, GPIO_PULL_UP_S);
-            WaitUs(50);
-            int level = hal_gpio_read((gpio_pin_e)pin);
-            snprintf(resp, sizeof(resp), "[OK] Pin P%d = %d\r\n", pin, level);
-            uart_send_str(resp);
+            if (pin == 20) {
+                snprintf(resp, sizeof(resp), "[WARN] Pin P20 is analog battery ADC input (use 'status' for bat).\r\n");
+                uart_send_str(resp);
+            } else {
+                hal_gpio_cfg_analog_io((gpio_pin_e)pin, Bit_DISABLE);
+                hal_gpio_pin_init((gpio_pin_e)pin, GPIO_INPUT);
+                hal_gpio_pull_set((gpio_pin_e)pin, GPIO_PULL_UP_S);
+                WaitUs(50);
+                int level = hal_gpio_read((gpio_pin_e)pin);
+                snprintf(resp, sizeof(resp), "[OK] Pin P%d = %d\r\n", pin, level);
+                uart_send_str(resp);
+            }
         } else {
             uart_send_str("Usage: read <pin_num>\r\n");
         }

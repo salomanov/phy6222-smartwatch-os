@@ -6,11 +6,12 @@
 // Strictly protected hardware pins:
 // - GPIO_P07: Hardware TM (Test Mode) programming pin. Driving HIGH causes ROM bootloader entry.
 // - GPIO_P33: ST7735 display line. Driving it causes screen blackout/bus collision.
+// - GPIO_P20: Battery ADC input line (AIO9). Driving it as OUTPUT/HIGH risks hardware damage.
 static inline bool is_unsafe_pin(gpio_pin_e pin) {
-    return (pin == GPIO_P07 || pin == GPIO_P33);
+    return (pin == GPIO_P07 || pin == GPIO_P33 || pin == GPIO_P20);
 }
 
-// Candidates for LP715 / PHY6222 board (P07 and P33 are strictly excluded)
+// Candidates for LP715 / PHY6222 board (P07, P33, P20 are strictly excluded)
 // name: short label drawn at scale 2 (max 3 chars -> 36 px, fits the 80 px screen)
 // tag:  scale-1 role hint drawn beside it (max 5 chars -> 30 px), "" = none
 typedef struct {
@@ -26,7 +27,6 @@ static const test_pin_entry_t s_test_pins[] = {
     { GPIO_P02, "P02", "Ana" },
     { GPIO_P15, "P15", ""    },
     { GPIO_P18, "P18", ""    },
-    { GPIO_P20, "P20", ""    },
     { GPIO_P23, "P23", ""    },
     { GPIO_P26, "P26", ""    },
 };
@@ -98,7 +98,6 @@ void vibrator_update(uint16_t elapsed_ms) {
         if (!is_unsafe_pin(s_selected_pin)) {
             hal_gpio_write(s_selected_pin, s_active_level ? 0 : 1);
         }
-        led_set(0);
     } else {
         s_vib_remaining_ms -= elapsed_ms;
     }
@@ -111,7 +110,6 @@ void vibrator_pulse(uint16_t duration_ms) {
     if (duration_ms < 80) duration_ms = 80;   // Minimum 80ms for physical ERM rotor acceleration
     if (duration_ms > 350) duration_ms = 350; // Safety ceiling
     setup_pin(s_selected_pin);
-    led_set(1);
     hal_gpio_write(s_selected_pin, s_active_level ? 1 : 0);
     s_vib_remaining_ms = duration_ms;
     s_vib_active = true;
@@ -131,7 +129,6 @@ void vibrator_stop(void) {
     if (!is_unsafe_pin(s_selected_pin)) {
         hal_gpio_write(s_selected_pin, s_active_level ? 0 : 1);
     }
-    led_set(0);
 }
 
 uint8_t vibrator_get_test_pin(void) {
@@ -180,7 +177,6 @@ void vibrator_test_fire(void) {
     }
     s_selected_pin = pin;
     setup_pin(s_selected_pin);
-    led_set(1);
     // Non-blocking 350ms pulse
     hal_gpio_write(s_selected_pin, s_active_level ? 1 : 0);
     s_vib_remaining_ms = 350;
