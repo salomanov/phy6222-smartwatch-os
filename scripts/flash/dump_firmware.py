@@ -17,7 +17,8 @@ def main():
     port = sys.argv[1] if len(sys.argv) > 1 else find_serial_port()
     baud = sys.argv[2] if len(sys.argv) > 2 else "115200"
     
-    backup_dir = os.path.join(os.path.dirname(__file__), ".backups")
+    ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    backup_dir = os.path.join(ROOT_DIR, ".backups")
     os.makedirs(backup_dir, exist_ok=True)
     
     timestamp = time.strftime("%Y%m%d_%H%M%S")
@@ -36,7 +37,7 @@ def main():
     print("    Сделайте сброс тем же способом (передёрните питание или чиркните ножку сброса)!")
     print("=" * 68 + "\n")
     
-    script_path = os.path.join(os.path.dirname(__file__), "tools", "rdwr_phy62x2.py")
+    script_path = os.path.join(ROOT_DIR, "tools", "rdwr_phy62x2.py")
     cmd = [sys.executable, script_path, "-p", port, "-b", baud, "-t", "rf", dump_path]
     res = subprocess.run(cmd)
     
