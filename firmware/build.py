@@ -236,6 +236,18 @@ def build():
         res = subprocess.run([sys.executable, ota_script, hex_f, "-o", ota_bin], capture_output=True, text=True)
         if res.returncode == 0:
             print(f"[+] OTA Image: {ota_bin} ({os.path.getsize(ota_bin)} bytes)")
+
+            # The in-app OTA staging area is fixed at 160 KB (OTA_TEMP_BASE + 0x28000 in
+            # ota_inapp.c). An image that does not fit would be written past the erased
+            # region, so refuse to produce a firmware that cannot be installed safely.
+            OTA_STAGING_BYTES = 0x28000
+            OTA_STAGING_MARGIN = 0x1000  # keep at least one spare 4 KB sector
+            ota_size = os.path.getsize(ota_bin)
+            if ota_size > OTA_STAGING_BYTES - OTA_STAGING_MARGIN:
+                print(f"[!] OTA IMAGE TOO LARGE: {ota_size} bytes, staging limit is "
+                      f"{OTA_STAGING_BYTES} bytes (margin {OTA_STAGING_MARGIN}). "
+                      f"In-App OTA would write past the staging area. Build aborted.")
+                return False
         else:
             print("[!] OTA Pack warning:\n", res.stdout, res.stderr)
 

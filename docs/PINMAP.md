@@ -20,8 +20,8 @@
 | **P14** | **Зеленый светодиод пульсометра (Green LED)**| Output, Active HIGH (1 = горит) | Factory Dump `0x11028048`, `0x110281E6` | **Подтверждено дизассемблером factory_dump.bin** |
 | **P15** | **Питание/сброс сенсоров (Sensor Power/RST)**| Output, Active HIGH (1 = включен) | Factory Dump `0x11020FFC`, `0x11021008` | **Подтверждено дизассемблером factory_dump.bin** |
 | **P16** | **Акселерометр I2C SCL (Clock)** | Open-Drain / Strong Pull-Up | Factory Dump `0x11037FA0`, `0x1103137C` | **Подтверждено дизассемблером factory_dump.bin** |
-| **P17** | Не задействован (Кварцевый аналоговый вывод) | Floating / Disabled | - | Не подключен к I2C шине |
-| **P19** | **Акселерометр I2C SDA (Data)** | Open-Drain / Strong Pull-Up | Factory Dump `0x11037FA8`, `0x11031384` | **Подтверждено дизассемблером factory_dump.bin** |
+| **P17** | **Акселерометр I2C SDA (Data)** — фактически используется кодом | Open-Drain / Strong Pull-Up | `firmware/src/config.h` (`ACCEL_SDA_PIN = GPIO_P17`), `firmware/src/accel.c:10,152` | **Не подтверждено на железе**: ROM-анализ указывает на P19, код использует P17. Требуется проверка `i2c scan` |
+| **P19** | Кандидат I2C SDA по ROM-анализу (в коде не используется) | — | Factory Dump `0x11037FA8`, `0x11031384` | **Требует проверки** на железе |
 | **P23** | Кандидат GPIO | Output | `firmware/src/vibrator.c:29` | Тестовый кандидат |
 | **P24** | ST7735S Display RST | Output (Reset) | `firmware/src/config.h:9`, `firmware/src/display.c:19` | **Подтверждено** (экран инициализируется) |
 | **P25** | ST7735S Display DC | Output (Data/Command) | `firmware/src/config.h:8`, `firmware/src/display.c:18` | **Подтверждено** (экран инициализируется) |

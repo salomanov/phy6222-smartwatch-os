@@ -7,7 +7,7 @@
 #include <string.h>
 
 // Accelerometer auto-detection driver (Bit-Bang I2C)
-// Hardware pins for LP715_MB_V1.3: P16 (SCL), P19 (SDA), P15 (PWR)
+// Hardware pins for LP715_MB_V1.3: P16 (SCL), P17 (SDA), P15 (PWR)
 static bool s_detected = false;
 static const gpio_pin_e s_scl = ACCEL_SCL_PIN;
 static const gpio_pin_e s_sda = ACCEL_SDA_PIN;
@@ -209,7 +209,7 @@ void accel_init(void) {
     }
 
     strcpy(s_sensor_name, "NO ACK");
-    LOG("[ACCEL] P16/P19 scan complete: no ACK received\n");
+    LOG("[ACCEL] P16/P17 scan complete: no ACK received\n");
 }
 
 void accel_update(void) {

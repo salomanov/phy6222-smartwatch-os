@@ -32,6 +32,11 @@ static uint32_t s_total_received = 0;
 static uint32_t s_burst_accum = 0;
 static uint16_t s_running_crc = 0;
 static bool s_all_crc_ok = true; // P2-4: tracks if all partition CRCs match
+// P0-A: set to true ONLY when the LAST partition's CRC was verified.
+// s_ota_progress alone must never authorize installation: 99% can be reached
+// before the final chunks arrive, and s_all_crc_ok stays true because the
+// final CRC check simply has not run yet.
+static bool s_final_crc_verified = false;
 
 static ota_inapp_part_t s_parts[MAX_OTA_SECTORS];
 
@@ -103,6 +108,7 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             s_total_received = 0;
             s_burst_accum = 0;
             s_all_crc_ok = true;
+            s_final_crc_verified = false; // P0-A: installation is forbidden until the last CRC matches
             
             if (pev->size >= 7) {
                 s_total_fw_size = pev->data[3] | (pev->data[4]<<8) | (pev->data[5]<<16) | (pev->data[6]<<24);
@@ -156,6 +162,13 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             send_response(0x84, 0x00); // OTA_RSP_PARTITION_INFO, SUCCESS
         }
         else if (cmd == 0x04) { // OTA_CMD_REBOOT
+            // P0-A: refuse to install unless the complete image was verified by CRC.
+            if (!s_final_crc_verified || !s_all_crc_ok) {
+                LOG("[OTA-INAPP] *** REBOOT/INSTALL REFUSED: final CRC not verified (progress=%d%%). ***\n",
+                    s_ota_progress);
+                send_response(0x8A, 0x04); // refuse: incomplete/unverified image
+                return;
+            }
             LOG("[OTA-INAPP] Reboot requested. Finalizing and installing firmware...\n");
             draw_ota_progress(100);
             vibrator_stop();
@@ -196,7 +209,7 @@ static void on_ota_service_event(ota_Evt_t *pev) {
             s_burst_accum = 0;
             send_response(0x87, 0x00); // OTA_RSP_BLOCK_BURST
         }
-        
+
         // End of this sector?
         if (s_sector_offset >= p->size) {
             LOG("[OTA-INAPP] Part %d complete! CRC cal=0x%04X exp=0x%04X\n",
@@ -215,6 +228,8 @@ static void on_ota_service_event(ota_Evt_t *pev) {
                     LOG("[OTA-INAPP] *** ABORTING: CRC mismatch detected. Boot tables NOT written. ***\n");
                     send_response(0x83, 0x04); // OTA_RSP_OTA_COMPLETE with CRC error status
                 } else {
+                    // P0-A: the whole image is on the watch AND the last partition CRC matched.
+                    s_final_crc_verified = true;
                     send_response(0x83, 0x00); // OTA_RSP_OTA_COMPLETE success
                 }
             } else {
@@ -223,10 +238,15 @@ static void on_ota_service_event(ota_Evt_t *pev) {
         }
     }
     else if (pev->ev == OTA_EVT_DISCONNECTED) {
-        if (s_ota_active && s_ota_progress >= 99 && s_all_crc_ok) {
+        // P0-A: NEVER install on a bare "99%" progress reading. The only proof that the
+        // image is complete is s_final_crc_verified, set when the last partition's CRC matched.
+        if (s_ota_active && s_final_crc_verified && s_all_crc_ok) {
             LOG("[OTA-INAPP] Disconnected after finish. CRC OK. Installing firmware and reset!\n");
             ota_install_firmware_and_reboot();
-        } else if (s_ota_active && s_ota_progress >= 99 && !s_all_crc_ok) {
+        } else if (s_ota_active && s_ota_progress >= 99 && !s_final_crc_verified) {
+            LOG("[OTA-INAPP] Disconnected at %d%% but final CRC NOT verified. Staying on current firmware.\n",
+                s_ota_progress);
+        } else if (s_ota_active && !s_all_crc_ok) {
             LOG("[OTA-INAPP] Disconnected but CRC failed. Staying on current firmware.\n");
         }
         s_ota_active = false;

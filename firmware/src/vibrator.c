@@ -11,21 +11,24 @@ static inline bool is_unsafe_pin(gpio_pin_e pin) {
 }
 
 // Candidates for LP715 / PHY6222 board (P07 and P33 are strictly excluded)
+// name: short label drawn at scale 2 (max 3 chars -> 36 px, fits the 80 px screen)
+// tag:  scale-1 role hint drawn beside it (max 5 chars -> 30 px), "" = none
 typedef struct {
     gpio_pin_e pin;
     const char *name;
+    const char *tag;
 } test_pin_entry_t;
 
 static const test_pin_entry_t s_test_pins[] = {
-    { GPIO_P03, "P03 (Vib)"  },
-    { GPIO_P00, "P00 (Led)"  },
-    { GPIO_P14, "P14"        },
-    { GPIO_P02, "P02 (Ana)"  },
-    { GPIO_P15, "P15"        },
-    { GPIO_P18, "P18"        },
-    { GPIO_P20, "P20"        },
-    { GPIO_P23, "P23"        },
-    { GPIO_P26, "P26"        },
+    { GPIO_P03, "P03", "Vib" },
+    { GPIO_P00, "P00", "Led" },
+    { GPIO_P14, "P14", ""    },
+    { GPIO_P02, "P02", "Ana" },
+    { GPIO_P15, "P15", ""    },
+    { GPIO_P18, "P18", ""    },
+    { GPIO_P20, "P20", ""    },
+    { GPIO_P23, "P23", ""    },
+    { GPIO_P26, "P26", ""    },
 };
 
 #define TEST_PINS_COUNT (sizeof(s_test_pins) / sizeof(s_test_pins[0]))
@@ -137,6 +140,10 @@ uint8_t vibrator_get_test_pin(void) {
 
 const char *vibrator_get_test_pin_name(void) {
     return s_test_pins[s_curr_idx].name;
+}
+
+const char *vibrator_get_test_pin_tag(void) {
+    return s_test_pins[s_curr_idx].tag;
 }
 
 void vibrator_next_test_pin(void) {

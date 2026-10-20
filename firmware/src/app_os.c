@@ -56,9 +56,15 @@ static void render_watchface(void) {
 
     char buf[24];
 
-    // 1. Dynamic Clock / Time
-    snprintf(buf, sizeof(buf), "%02d:%02d:%02d", s_hours, s_minutes, s_seconds);
-    gfx_draw_string(4, 46, buf, COLOR_CYAN, COLOR_BLACK, 2);
+    // 1. Dynamic Clock / Time.
+    // ERRORS_AND_FAILURES 3.1: at scale 2 exactly 6 chars fit into 80 px (6 * 12 px = 72 px).
+    // The old "%02d:%02d:%02d" was 96 px wide and hard-wrapped "00" onto the next line.
+    snprintf(buf, sizeof(buf), "%02d:%02d", s_hours, s_minutes);
+    gfx_draw_string(10, 46, buf, COLOR_CYAN, COLOR_BLACK, 2); // 5 chars * 12 px = 60 px
+
+    // Seconds are a separate scale-1 field so the clock line can never wrap.
+    snprintf(buf, sizeof(buf), "%02d", s_seconds);
+    gfx_draw_string(68, 64, buf, COLOR_CYAN, COLOR_BLACK, 1);
 
     // 2. Dynamic ticking Uptime: HH:MM:SS
     uint32_t sec = s_uptime_seconds;
@@ -68,17 +74,22 @@ static void render_watchface(void) {
     snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s);
     gfx_draw_string(4, 94, buf, COLOR_WHITE, COLOR_BLACK, 1);
 
-    // 3. Battery status
+    // 3. Battery status.
+    // ERRORS_AND_FAILURES 3.1: max 12 chars per scale-1 line. "%d%%" + "%dmV" on one line
+    // was 16-17 chars and word-wrapped onto the BLE line.
     uint8_t bat_pct = battery_get_percent();
     uint16_t bat_mv = battery_read_mv();
-    snprintf(buf, sizeof(buf), "BAT: %d%% %dmV", bat_pct, bat_mv);
-    gfx_draw_string(4, 112, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
+    snprintf(buf, sizeof(buf), "BAT %3d%%", bat_pct); // max 8 chars * 6 px = 48 px
+    gfx_draw_string(4, 110, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
 
-    // 4. BLE status
+    snprintf(buf, sizeof(buf), "%dmV", bat_mv);       // max 6 chars * 6 px = 36 px
+    gfx_draw_string(4, 120, buf, COLOR_WHITE, COLOR_BLACK, 1);
+
+    // 4. BLE status (max 11 chars * 6 px = 66 px)
     if (ble_is_connected()) {
-        gfx_draw_string(4, 124, "BLE: ONLINE", COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 130, "BLE: ONLINE", COLOR_GREEN, COLOR_BLACK, 1);
     } else {
-        gfx_draw_string(4, 124, "BLE: ADV...", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_string(4, 130, "BLE: ADV...", COLOR_YELLOW, COLOR_BLACK, 1);
     }
 }
 
@@ -92,7 +103,13 @@ static void render_vibrator_test(void) {
 
     char p_buf[20];
     snprintf(p_buf, sizeof(p_buf), "%s", vibrator_get_test_pin_name());
-    gfx_draw_string(8, 38, p_buf, COLOR_CYAN, COLOR_BLACK, 2);
+    gfx_draw_string(8, 38, p_buf, COLOR_CYAN, COLOR_BLACK, 2); // max 3 chars * 12 px = 36 px
+
+    // Role hint at scale 1 (the old "P03 (Vib)" name was 9 chars * 12 px = 108 px and wrapped)
+    const char *p_tag = vibrator_get_test_pin_tag();
+    if (p_tag[0]) {
+        gfx_draw_string(52, 44, p_tag, COLOR_LIGHTGREY, COLOR_BLACK, 1);
+    }
 
     snprintf(p_buf, sizeof(p_buf), "POL: %s", vibrator_get_active_level() ? "HIGH (1)" : "LOW (0) ");
     gfx_draw_string(4, 58, p_buf, vibrator_get_active_level() ? COLOR_GREEN : COLOR_ORANGE, COLOR_BLACK, 1);

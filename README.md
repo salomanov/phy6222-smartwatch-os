@@ -16,15 +16,16 @@
 
 Прошивка содержит стабильное, верифицированное ядро с 3 экранами UI, интерактивной UART-консолью и BLE-стеком:
 
-1. **Главный циферблат (`MODE_WATCHFACE`)** (`firmware/src/app_os.c:26-105`):
-   - Системное время и аптайм (`ЧЧ:ММ:СС`).
-   - Статус Bluetooth Low Energy (ADV / CONN).
-   - Заряд аккумулятора в процентах (через АЦП AIO9 на `P20`).
-   - Телеметрия акселерометра SC7A20 в реальном времени (оси X / Y / Z).
-   - Счетчики кликов сенсора и срабатываний вибро.
+1. **Главный циферблат (`MODE_WATCHFACE`)** (`firmware/src/app_os.c`):
+   - Системное время (`ЧЧ:ММ` крупно + секунды отдельным полем) и аптайм (`ЧЧ:ММ:СС`).
+   - Статус Bluetooth Low Energy (ADV / ONLINE).
+   - Заряд аккумулятора: проценты и напряжение в мВ (АЦП AIO9 на `P20`).
+   - Драйвер акселерометра `accel.c` присутствует, но в текущей UI-сборке не инициализируется
+     (открытый вопрос P1-G в [CODE_REVIEW_RECOMMENDATIONS.md](CODE_REVIEW_RECOMMENDATIONS.md)).
 
 2. **Сканер вибромотора (`MODE_VIBRATOR_TEST`)** (`firmware/src/app_os.c:107-133`, `firmware/src/vibrator.c`):
    - Интерактивный перебор пинов-кандидатов (P03, P00, P14, P02, P15, P18, P20, P23, P26).
+     Внимание: `P20` одновременно является входом АЦП батареи — не удерживайте на нём HIGH.
    - Переключение полярности ключа (Active HIGH / Active LOW).
    - Аппаратная защита: выводы `P07` (TM) и `P33` (шлейф ST7735) исключены из сканера на уровне ядра.
 
@@ -44,7 +45,8 @@
 
 6. **Bluetooth Low Energy 5.2**:
    - Имя устройства: `CHASY-STEALTH`.
-   - Сервисы: Device Information Service (`0x180A`), Simple Profile (`0xFFF0`), In-App OTA Service (`0xFF01`/`0xFF02`).
+   - Сервисы: Device Information Service (`0x180A`), Simple Profile (`0xFFF0`), In-App OTA Service
+     (`5833ff01-9b8b-5191-6142-22a4536ef123`: Command `…ff02…`, Response `…ff03…`, Data `…ff04…`).
 
 ---
 
@@ -89,15 +91,19 @@ python firmware/build.py
 ```
 Скрипт генерирует:
 - `firmware/build/custom_firmware.hex` — образ со всеми секциями (Flash XIP + SRAM) для проводной прошивки через UART.
-- `firmware/build/custom_firmware_ota.bin` (~148 КБ) — упакованный образ для безопасной беспроводной прошивки по BLE.
+- `firmware/build/custom_firmware_ota.bin` (146 916 байт) — упакованный образ для беспроводной прошивки по BLE.
+  Сборка завершается ошибкой, если образ не влезает в 160 КБ staging-области OTA.
 
 *(Генерация 240 МБ плоского `.bin` исключена из-за разрыва адресов XIP Flash и SRAM).*
 
 ### Беспроводная прошивка (In-App BLE OTA):
 ```bash
-python ota_ble_flash.py
+python scripts/flash/ota_ble_flash.py
 ```
-Прошивальщик автоматически находит часы `CHASY-STEALTH`, согласует MTU (247 байт), пакетный размер (240 байт) и заливает образ по воздуху за ~35 секунд.
+Прошивальщик находит часы `CHASY-STEALTH`, пишет данные через Write Without Response
+(характеристика `…ff04`, свойство `GATT_PROP_WRITE_NO_RSP`), чанками по 230 байт с flow-control
+по burst-ACK (`0x87`). Установка прошивки начинается только после того, как часы подтвердили
+CRC последнего раздела.
 
 ---
 

@@ -19,6 +19,7 @@ void led_toggle(void);
 // Pin test / scanner functions
 uint8_t vibrator_get_test_pin(void);
 const char *vibrator_get_test_pin_name(void);
+const char *vibrator_get_test_pin_tag(void);
 void vibrator_next_test_pin(void);
 void vibrator_prev_test_pin(void);
 void vibrator_test_fire(void);
