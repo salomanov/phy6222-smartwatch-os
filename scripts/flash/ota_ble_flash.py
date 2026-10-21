@@ -109,14 +109,10 @@ async def main():
     for p in partitions:
         print(f"  Part {p['index']}: Flash=0x{p['flash_addr']:06X} Run=0x{p['run_addr']:08X} Size={p['size']} CRC=0x{p['checksum']:04X}")
 
-    # Pre-emptively reboot MCU via COM5 to ensure 100% clean BLE advertising state
+    # Optional: ensure COM5 is free before BLE OTA connection
     try:
         s_pre = serial.Serial('COM5', 115200, timeout=0.2)
-        s_pre.write(b'\r\nreboot\r\n')
-        time.sleep(0.1)
         s_pre.close()
-        print('[+] Rebooted watch via COM5. Waiting 2.0s for clean advertising...', flush=True)
-        await asyncio.sleep(2.0)
     except Exception:
         pass
 

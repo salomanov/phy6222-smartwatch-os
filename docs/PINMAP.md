@@ -18,10 +18,10 @@
 | **P10** | UART RX (отладка/прошивка) | Input (115200 8N1) <- TX CH340 | `firmware/src/config.h:24`, `firmware/src/uart_cli.c:32` | **Подтверждено** (CLI работает) |
 | **P11** | Сенсорная кнопка (Touch) | Input, pull-down (1 = касание) | `firmware/src/config.h:16`, `firmware/src/button.c:7` | **Подтверждено физически пользователем** |
 | **P14** | **Зеленый светодиод пульсометра (Green LED)**| Output, Active HIGH (1 = горит) | Factory Dump `0x11028048`, `0x110281E6` | **Подтверждено дизассемблером factory_dump.bin** |
-| **P15** | **Питание/сброс сенсоров (Sensor Power/RST)**| Output, Active HIGH (1 = включен) | Factory Dump `0x11020FFC`, `0x11021008` | **Подтверждено дизассемблером factory_dump.bin** |
-| **P16** | **Акселерометр I2C SCL (Clock)** | Open-Drain / Strong Pull-Up | Factory Dump `0x11037FA0`, `0x1103137C` | **Подтверждено дизассемблером factory_dump.bin** |
-| **P17** | **Акселерометр I2C SDA (Data)** — фактически используется кодом | Open-Drain / Strong Pull-Up | `firmware/src/config.h` (`ACCEL_SDA_PIN = GPIO_P17`), `firmware/src/accel.c:10,152` | **Не подтверждено на железе**: ROM-анализ указывает на P19, код использует P17. Требуется проверка `i2c scan` |
-| **P19** | Кандидат I2C SDA по ROM-анализу (в коде не используется) | — | Factory Dump `0x11037FA8`, `0x11031384` | **Требует проверки** на железе |
+| **P15** | **Питание/сброс сенсоров (Sensor Power/RST)**| Output, Active HIGH (1 = включен, 0 = сброс) | Factory Dump `0x11020FFC`, `0x11021008` | **Подтверждено дизассемблером factory_dump.bin** |
+| **P16** | **Акселерометр I2C SCL (Clock)** | Open-Drain / Strong Pull-Up (enum 10) | Factory Dump `0x11020AA0`, `0x11026398` | **Подтверждено дизассемблером factory_dump.bin** |
+| **P17** | **Акселерометр I2C SDA (Data)** | Open-Drain / Strong Pull-Up (enum 11) | Factory Dump `0x11020AA0`, `0x110263C2` | **Подтверждено дизассемблером factory_dump.bin** (SC7A20 addr 0x19) |
+| **P18** | **Прерывание акселерометра (Sensor INT1)** | Input, pull-down / interrupt (enum 12) | Factory Dump `0x11012720`, `0x11012738` | **Подтверждено дизассемблером factory_dump.bin** |
 | **P23** | Кандидат GPIO | Output | `firmware/src/vibrator.c:29` | Тестовый кандидат |
 | **P24** | ST7735S Display RST | Output (Reset) | `firmware/src/config.h:9`, `firmware/src/display.c:19` | **Подтверждено** (экран инициализируется) |
 | **P25** | ST7735S Display DC | Output (Data/Command) | `firmware/src/config.h:8`, `firmware/src/display.c:18` | **Подтверждено** (экран инициализируется) |
