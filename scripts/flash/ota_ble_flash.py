@@ -1,7 +1,6 @@
 import asyncio
 import struct
 import time
-import threading
 import sys
 import os
 import serial
@@ -15,26 +14,6 @@ OTA_SERVICE_UUID = '5833ff01-9b8b-5191-6142-22a4536ef123'
 OTA_CMD_UUID     = '5833ff02-9b8b-5191-6142-22a4536ef123'
 OTA_RSP_UUID     = '5833ff03-9b8b-5191-6142-22a4536ef123'
 OTA_DATA_UUID    = '5833ff04-9b8b-5191-6142-22a4536ef123'
-
-stop_uart = False
-
-def uart_monitor():
-    global stop_uart
-    try:
-        ser = serial.Serial('COM5', 115200, timeout=0.1)
-        print("[UART] Connected to COM5 monitor.")
-        while not stop_uart:
-            try:
-                line = ser.readline()
-                if line:
-                    decoded = line.decode('utf-8', errors='replace').strip()
-                    if decoded:
-                        print(f"  [CHIP UART] {decoded}")
-            except Exception:
-                pass
-        ser.close()
-    except Exception as e:
-        print(f"[UART] Warning: Could not open COM5 ({e})")
 
 # Phyplus CRC16 calculation
 CRC16_TABLE = [
@@ -89,12 +68,12 @@ async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=60.0):
         addr_match = dev.address.upper() == target_addr.upper()
         name_match = bool(dev.name and any(k in dev.name.upper() for k in ['CHASY', 'OTA', 'PPLUS']))
         if addr_match or name_match:
-            print(f"\n[+] Discovered watch in air: {dev.name or 'Unknown'} ({dev.address}), RSSI: {adv.rssi} dBm")
+            print(f"\n[+] Discovered watch in air: {dev.name or 'Unknown'} ({dev.address}), RSSI: {adv.rssi} dBm", flush=True)
             target_device[0] = dev
             found_event.set()
 
     scanner = BleakScanner(detection_callback=detection_cb)
-    print(f"[*] Starting continuous BLE scanner (waiting up to {int(timeout)}s for watch {target_addr})...")
+    print(f"[*] Starting continuous BLE scanner (waiting up to {int(timeout)}s for watch {target_addr})...", flush=True)
     await scanner.start()
     try:
         start_time = time.time()
@@ -103,28 +82,24 @@ async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=60.0):
                 await asyncio.wait_for(found_event.wait(), timeout=2.5)
                 break
             except asyncio.TimeoutError:
-                # Poke COM5 if available to wake watch or request status
-                try:
-                    s_wake = serial.Serial('COM5', 115200, timeout=0.05)
-                    s_wake.write(b'\r\nstatus\r\n')
-                    s_wake.close()
-                except Exception:
-                    pass
                 elapsed = int(time.time() - start_time)
                 print(f"  ...listening for BLE advertisement ({elapsed}s/{int(timeout)}s)...", flush=True)
     finally:
         await scanner.stop()
 
     if target_device[0] is not None:
-        client = BleakClient(target_device[0], timeout=25.0, winrt={'use_cached_services': False})
-        print(f"[+] Connecting to {target_device[0].address}...")
-        await client.connect()
-        return client
+        for c_try in range(3):
+            try:
+                client = BleakClient(target_device[0], timeout=20.0)
+                print(f"[+] Connecting to {target_device[0].address} (try {c_try+1}/3)...", flush=True)
+                await client.connect()
+                return client
+            except Exception as e:
+                print(f"[!] Connect attempt {c_try+1} failed: {e}", flush=True)
+                await asyncio.sleep(1.5)
     return None
 
 async def main():
-    global stop_uart
-
     base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     bin_path = os.path.join(base_dir, 'firmware', 'build', 'custom_firmware_ota.bin')
     print(f"[*] Loading OTA binary: {bin_path}...")
@@ -134,12 +109,14 @@ async def main():
     for p in partitions:
         print(f"  Part {p['index']}: Flash=0x{p['flash_addr']:06X} Run=0x{p['run_addr']:08X} Size={p['size']} CRC=0x{p['checksum']:04X}")
 
-    # Pre-emptively silence motor and LED before connection
+    # Pre-emptively reboot MCU via COM5 to ensure 100% clean BLE advertising state
     try:
         s_pre = serial.Serial('COM5', 115200, timeout=0.2)
-        s_pre.write(b'pin 3 0\npin 0 1\n')
-        time.sleep(0.05)
+        s_pre.write(b'\r\nreboot\r\n')
+        time.sleep(0.1)
         s_pre.close()
+        print('[+] Rebooted watch via COM5. Waiting 2.0s for clean advertising...', flush=True)
+        await asyncio.sleep(2.0)
     except Exception:
         pass
 
@@ -152,7 +129,6 @@ async def main():
     if not client or not client.is_connected:
         print("\n[!] Watch not detected in air or could not connect.")
         print("[!] Note: If watch battery is low, connect watch to USB charging or tap touch button to wake.")
-        stop_uart = True
         sys.exit(1)
 
     print(f"[+] Connected successfully! MTU = {client.mtu_size}")
@@ -164,21 +140,27 @@ async def main():
             raw = list(data)
             status = raw[0] if len(raw) > 0 else -1
             cmd = raw[1] if len(raw) > 1 else -1
-            if cmd != 0x87:
-                print(f"  << [BLE NOTIF] status=0x{status:02X}, cmd=0x{cmd:02X}")
+            print(f"  << [BLE NOTIF] status=0x{status:02X}, cmd=0x{cmd:02X}", flush=True)
             rsp_queue.append(raw)
 
         await client.start_notify(OTA_RSP_UUID, on_notification)
         await asyncio.sleep(0.5)
 
-        async def wait_for_cmd(exp_cmd, timeout=8.0):
+        async def wait_for_cmd(exp_cmd, timeout=15.0):
             t_end = time.time() + timeout
             while time.time() < t_end:
                 for idx, r in enumerate(rsp_queue):
-                    if len(r) > 1 and r[1] == exp_cmd:
-                        rsp_queue.pop(idx)
-                        return r
+                    if len(r) > 1:
+                        matched = False
+                        if isinstance(exp_cmd, (list, tuple, set)):
+                            matched = (r[1] in exp_cmd)
+                        else:
+                            matched = (r[1] == exp_cmd)
+                        if matched:
+                            return rsp_queue.pop(idx)
                 await asyncio.sleep(0.02)
+            if rsp_queue:
+                print(f"  [DEBUG] wait_for_cmd({exp_cmd}) timeout, queue has: {rsp_queue}", flush=True)
             return None
 
         # 1. Start OTA: [cmd=0x01, sector_num, burst_size=16, total_fw_size(4)]
@@ -188,16 +170,15 @@ async def main():
         rsp = await wait_for_cmd(0x81, timeout=8.0)
         if not rsp or rsp[0] != 0:
             print(f"[!] Start OTA rejected: {rsp}")
-            stop_uart = True
             sys.exit(1)
         print("[+] OTA Session started successfully! Display shows progress bar.")
 
-        # Instantly silence the vibrator (P03=0) and LED (P00=1) via UART CLI to prevent power sag and RF noise
+        # Silence vibrator and LED
         try:
-            ser_kill = serial.Serial('COM5', 115200, timeout=0.2)
-            ser_kill.write(b'pin 3 0\npin 0 1\n')
+            s_cli = serial.Serial('COM5', 115200, timeout=0.2)
+            s_cli.write(b'\r\npin 3 0\r\npin 0 1\r\n')
             time.sleep(0.05)
-            ser_kill.close()
+            s_cli.close()
             print("[+] Vibrator (P03=0) and LED (P00=1) silenced via UART CLI.", flush=True)
         except Exception as e:
             print(f"[!] UART kill-switch note: {e}", flush=True)
@@ -205,11 +186,11 @@ async def main():
         # 2. Iterate partitions
         total_sent = 0
         chunk_size = 230  # Max ATT payload (MTU 240 - 3 byte ATT header = 237 max, 230 is safe)
-        burst_accum = 0
 
         for part in partitions:
             idx = part['index']
-            print(f"\n[*] Sending PARTITION_INFO for Part {idx} (size: {part['size']} bytes, CRC: 0x{part['checksum']:04X})...")
+
+            print(f"\n[*] Sending PARTITION_INFO for Part {idx} (size: {part['size']} bytes, CRC: 0x{part['checksum']:04X})...", flush=True)
             part_cmd = struct.pack('<BBIIII',
                                    0x02,
                                    idx,
@@ -217,14 +198,23 @@ async def main():
                                    part['run_addr'],
                                    part['size'],
                                    part['checksum'])
-            await client.write_gatt_char(OTA_CMD_UUID, part_cmd, response=True)
+            part_written = False
+            for cmd_try in range(5):
+                try:
+                    await client.write_gatt_char(OTA_CMD_UUID, part_cmd, response=True)
+                    part_written = True
+                    break
+                except Exception as e:
+                    print(f"  [WARN] Partition {idx} info write error: {e}, retrying {cmd_try+1}/5...", flush=True)
+                    await asyncio.sleep(0.5)
+            if not part_written:
+                raise RuntimeError(f"Failed to write PARTITION_INFO for part {idx}")
             rsp = await wait_for_cmd(0x84, timeout=8.0)
             if not rsp or rsp[0] != 0:
                 print(f"[!] Partition {idx} info rejected: {rsp}")
-                stop_uart = True
                 sys.exit(1)
 
-            print(f"[+] Streaming data for Part {idx} (Write without response + burst flow-control)...")
+            print(f"[+] Streaming data for Part {idx} (Write with response for 100% reliability)...", flush=True)
             p_data = part['data']
             offset = 0
 
@@ -232,70 +222,69 @@ async def main():
                 chunk = p_data[offset:offset+chunk_size]
                 offset += len(chunk)
                 total_sent += len(chunk)
-                burst_accum += len(chunk)
 
                 # Send chunk with retry on transient WinRT BLE stack error
                 written = False
                 for w_try in range(8):
                     try:
-                        await client.write_gatt_char(OTA_DATA_UUID, chunk, response=False)
+                        await client.write_gatt_char(OTA_DATA_UUID, chunk, response=True)
                         written = True
                         break
                     except Exception as e:
-                        print(f"  [WARN] Write error on offset {offset}: {e}, retrying {w_try+1}/8...")
-                        await asyncio.sleep(0.05)
+                        print(f"  [WARN] Write error on offset {offset}: {e}, retrying {w_try+1}/8...", flush=True)
+                        await asyncio.sleep(0.1)
 
                 if not written:
                     raise RuntimeError(f"Failed to write chunk at offset {offset}")
 
                 pct = (total_sent * 100) // total_bytes
                 if offset % 4600 < chunk_size or offset >= len(p_data):
-                    print(f"  [PROGRESS] {pct}% ({total_sent}/{total_bytes} bytes sent, part {idx}: {offset}/{len(p_data)})")
+                    print(f"  [PROGRESS] {pct}% ({total_sent}/{total_bytes} bytes sent, part {idx}: {offset}/{len(p_data)})", flush=True)
 
-                # Pacing between chunks
+                # Small delay to give PHY6222 Flash controller time to write (exact timing from successful release 5d8b7b3)
                 await asyncio.sleep(0.012)
 
-                # PhyPlus In-App OTA burst synchronization:
-                # Every 3840 bytes (240 * 16), the watch writes to Flash and sends OTA_RSP_BLOCK_BURST (0x87)
-                if burst_accum >= 3840 and total_sent < total_bytes:
-                    burst_accum -= 3840
-                    rsp = await wait_for_cmd(0x87, timeout=6.0)
-                    if not rsp or rsp[0] != 0:
-                        print(f"  [WARN] Burst ACK 0x87 not received in time (rsp: {rsp}), continuing safely...")
-
             # Allow BLE stack to process the final packet and calculate CRC
-            await asyncio.sleep(0.15)
+            await asyncio.sleep(0.2)
 
-            # End of partition check: 0x83 for last partition, 0x85 for others
-            exp_done = 0x83 if (idx + 1 == len(partitions)) else 0x85
-            print(f"[*] Waiting for partition {idx} completion ACK (0x{exp_done:02X})...")
-            rsp = await wait_for_cmd(exp_done, timeout=15.0)
+            # End of partition check:
+            # - Last partition (Part 3): 0x83
+            # - Non-final partitions: 0x85 (or 0x87 if boundary burst occurred)
+            if idx + 1 == len(partitions):
+                exp_cmds = [0x83]
+            else:
+                exp_cmds = [0x85, 0x87]
+
+            print(f"[*] Waiting for partition {idx} completion ACK ({[f'0x{c:02X}' for c in exp_cmds]})...", flush=True)
+            rsp = await wait_for_cmd(exp_cmds, timeout=15.0)
             if not rsp or rsp[0] != 0:
                 print(f"[!] Error on partition {idx} completion: {rsp}")
-                stop_uart = True
                 sys.exit(1)
-            print(f"[+] Part {idx} verified & written successfully!")
-            await asyncio.sleep(0.1)
+
+            print(f"[+] Part {idx} verified & written successfully! (ACK: 0x{rsp[1]:02X})", flush=True)
+            rsp_queue.clear()
+            await asyncio.sleep(0.15)
 
         # 3. Finalize: send REBOOT command and IMMEDIATELY disconnect to terminate BLE connection events
-        print("\n[+] All partitions transmitted! Sending REBOOT and disconnecting immediately...")
+        print("\n[+] All partitions transmitted! Sending REBOOT and disconnecting immediately...", flush=True)
         reboot_cmd = bytes([0x04, 0x01])
         try:
             await client.write_gatt_char(OTA_CMD_UUID, reboot_cmd, response=False)
         except Exception as e:
             print(f"[!] Reboot send note: {e}")
 
-        # Immediately terminate BLE connection so Link Layer stops firing connection-event interrupts
+        # Wait 300ms for watch to receive command and begin flash swap
+        await asyncio.sleep(0.3)
         try:
             await client.disconnect()
-            print("[+] BLE disconnected cleanly! Watch is installing firmware and rebooting...")
+            print("[+] BLE disconnected cleanly! Watch is installing firmware and rebooting...", flush=True)
         except Exception as e:
             print(f"[!] Disconnect note: {e}")
 
     finally:
-        stop_uart = True
+        pass
 
-    print("\n[SUCCESS] OTA FLASH PROCEDURE COMPLETED 100%!")
+    print("\n[SUCCESS] OTA FLASH PROCEDURE COMPLETED 100%!", flush=True)
 
 if __name__ == '__main__':
     asyncio.run(main())

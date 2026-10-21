@@ -1,4 +1,5 @@
 #include "uart_cli.h"
+#include "config.h"
 #include "uart.h"
 #include "gpio.h"
 #include "log.h"
@@ -177,6 +178,7 @@ void uart_cli_update(void) {
                       "  i2c r <hex_a> <reg> - Read I2C register (e.g. i2c r 19 0f)\r\n"
                       "  i2c w <a> <r> <val> - Write I2C register\r\n"
                       "  status              - Show BLE, battery, sensor status\r\n"
+                      "  adc                 - Sample P20 ADC and show raw/battery mV\r\n"
                       "  time HH:MM:SS       - Set watch clock\r\n"
                       "  ota                 - Reboot into OTA bootloader\r\n"
                       "  reboot              - Soft reset MCU\r\n\r\n");
@@ -320,9 +322,22 @@ void uart_cli_update(void) {
             uart_send_str("Usage: i2c w <hex_addr> <hex_reg> <hex_val>\r\n");
         }
     } else if (strcmp(cmd, "status") == 0) {
-        snprintf(resp, sizeof(resp), "FW: v1.5.4-OTA, BLE: %s, Bat: %d%% (%s)\r\n",
+        battery_sample_now();
+        WaitMs(50);
+        snprintf(resp, sizeof(resp), "FW: %s, BLE: %s, Bat: %d%% (%dmV, %s)\r\n",
+                 FW_VERSION_STR,
                  ble_is_connected() ? "CONN" : "ADV",
-                 battery_get_percent(), battery_is_charging() ? "CHG" : "DISCHG");
+                 battery_get_percent(), battery_read_mv(),
+                 battery_is_charging() ? "CHG" : "DISCHG");
+        uart_send_str(resp);
+    } else if (strcmp(cmd, "adc") == 0) {
+        battery_sample_now();
+        WaitMs(60);
+        snprintf(resp, sizeof(resp), "[ADC] P20 Raw: %dmV, Bat: %dmV (%d%%), %s\r\n",
+                 battery_get_raw_adc_mv(),
+                 battery_read_mv(),
+                 battery_get_percent(),
+                 battery_is_charging() ? "CHG" : "DISCHG");
         uart_send_str(resp);
     } else if (strncmp(cmd, "time ", 5) == 0) {
         int h = 0, m = 0, s = 0;

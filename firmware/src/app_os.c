@@ -204,7 +204,7 @@ void app_os_update(void) {
     // 1-second system timer
     if (s_ms_counter - s_last_sec_tick >= 1000) {
         s_last_sec_tick = s_ms_counter;
-        s_uptime_seconds++;
+        s_uptime_seconds++; if ((s_uptime_seconds % 5) == 0) battery_sample_now();
         s_seconds++;
         if (s_seconds >= 60) {
             s_seconds = 0;
