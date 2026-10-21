@@ -265,9 +265,23 @@ void uart_cli_update(void) {
         cli_i2c_sda(true);
         WaitMs(20);
 
+        // If SDA is stuck LOW, attempt 9-clock bus recovery
+        if (!cli_i2c_sda_in()) {
+            uart_send_str("[WARN] I2C SDA is LOW, performing 9-clock recovery...\r\n");
+            for (int k = 0; k < 9; k++) {
+                hal_gpio_pin_init(GPIO_P16, GPIO_OUTPUT);
+                hal_gpio_write(GPIO_P16, 0);
+                WaitUs(10);
+                hal_gpio_write(GPIO_P16, 1);
+                WaitUs(10);
+            }
+            cli_i2c_stop();
+            WaitMs(10);
+        }
+
         // Verify bus idle condition (SDA must be HIGH due to pull-up)
         if (!cli_i2c_sda_in()) {
-            uart_send_str("[ERR] I2C SDA (P17) is stuck LOW! Missing pull-up or bus shorted.\r\n");
+            uart_send_str("[ERR] I2C SDA (P17) is stuck LOW after recovery! Missing pull-up or bus shorted.\r\n");
             return;
         }
 

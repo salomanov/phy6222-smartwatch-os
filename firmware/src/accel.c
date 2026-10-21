@@ -157,11 +157,25 @@ void accel_init(void) {
     WaitUs(50);
 
     int sda_st = hal_gpio_read(s_sda);
+    if (!sda_st) {
+        // Slave might be holding SDA LOW waiting for master clock: send 9 clocks to release
+        LOG("[ACCEL] SDA is LOW, performing 9-clock bus recovery...\n");
+        for (int k = 0; k < 9; k++) {
+            hal_gpio_pin_init(s_scl, GPIO_OUTPUT);
+            hal_gpio_write(s_scl, 0);
+            WaitUs(10);
+            hal_gpio_write(s_scl, 1);
+            WaitUs(10);
+        }
+        i2c_stop();
+        WaitUs(50);
+        sda_st = hal_gpio_read(s_sda);
+    }
     LOG("[ACCEL] Hardware pins P16/P17 initialized, SDA state: %d\n", sda_st);
 
     if (!sda_st) {
         strcpy(s_sensor_name, "BUS LOW");
-        LOG("[ACCEL] Error: P17 SDA is LOW! Missing pull-up or bus fault.\n");
+        LOG("[ACCEL] Error: P17 SDA is LOW after recovery! Bus shorted or missing pull-up.\n");
         return;
     }
 
