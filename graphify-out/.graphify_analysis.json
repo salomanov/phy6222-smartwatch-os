@@ -11,7 +11,7 @@
       "firmware_src_osal_init_app_osal_init",
       "host_cfg",
       "mcu_phy_prime",
-      "project_state_4_\u0434\u043e\u0440\u043e\u0436\u043d\u0430\u044f_\u043a\u0430\u0440\u0442\u0430_\u0438_\u0442\u0435\u043a\u0443\u0449\u0438\u0439_\u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441",
+      "project_state_4_дорожная_карта_и_текущий_прогресс",
       "tools_smartwatch_ref_sdk_components_ble_controller_rf_phy_driver",
       "tools_smartwatch_ref_sdk_components_driver_clock_clock_c_attr_section_xip",
       "tools_smartwatch_ref_sdk_components_driver_clock_clock_c_tools_smartwatch_ref_sdk_components_driver_clock_clock",
@@ -1438,7 +1438,7 @@
       "tools_smartwatch_ref_sdk_example_ble_peripheral_bleuart_at_source_bleuart_update_advdatafromat"
     ],
     "9": [
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_7_\u043f\u0443\u0442\u0430\u043d\u0438\u0446\u0430_\u043c\u0435\u0436\u0434\u0443_\u0438\u043d\u0434\u0435\u043a\u0441\u0430\u043c\u0438_enum_gpio_pin_e_\u0438_\u043d\u043e\u043c\u0435\u0440\u0430\u043c\u0438_\u043f\u0438\u043d\u043e\u0432_\u0447\u0438\u043f\u0430_\u0432_\u0434\u0435\u0430\u0441\u0441\u0435\u043c\u0431\u043b\u0435\u0440\u0435_\u0437\u0430\u0432\u043e\u0434\u0441\u043a\u043e\u0439_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438",
+      "docs_errors_and_failures_ошибка_6_7_путаница_между_индексами_enum_gpio_pin_e_и_номерами_пинов_чипа_в_деассемблере_заводской_прошивки",
       "gpio_dir_t",
       "gpio_pupd_e",
       "i2c_clock_e",
@@ -3472,44 +3472,44 @@
     ],
     "33": [
       "agent_handoff",
-      "agent_handoff_0_\u043f\u0440\u043e\u0447\u0438\u0442\u0430\u0439_\u044d\u0442\u043e_\u043f\u0435\u0440\u0432\u044b\u043c",
-      "agent_handoff_10_\u043f\u0440\u0430\u0432\u0438\u043b\u0430_\u043f\u043e\u0432\u0435\u0434\u0435\u043d\u0438\u044f_\u043a\u0440\u0430\u0442\u043a\u043e",
-      "agent_handoff_1_\u0447\u0442\u043e_\u0441\u0434\u0435\u043b\u0430\u043d\u043e_\u0432_\u044d\u0442\u043e\u043c_\u043f\u0440\u043e\u0445\u043e\u0434\u0435",
-      "agent_handoff_2_\u0434\u0435\u0442\u0430\u043b\u0438_\u043f\u043e_\u0441\u0430\u043c\u043e\u043c\u0443_\u0432\u0430\u0436\u043d\u043e\u043c\u0443_\u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044e_\u0434\u0435\u0444\u0435\u043a\u0442_a",
-      "agent_handoff_3_\u043a\u0430\u043a_\u043f\u0440\u043e\u0432\u0435\u0440\u044f\u043b\u043e\u0441\u044c_\u0432\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u043c\u043e",
-      "agent_handoff_4_\u0447\u0442\u043e_\u043d\u0435_\u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043e_\u0447\u0435\u0441\u0442\u043d\u044b\u0439_\u0441\u043f\u0438\u0441\u043e\u043a",
-      "agent_handoff_5_\u0437\u0430\u043c\u043e\u0440\u043e\u0437\u043a\u0430_\u0447\u0442\u043e_\u043d\u0435\u043b\u044c\u0437\u044f_\u0434\u0435\u043b\u0430\u0442\u044c_\u0434\u043e_\u043f\u043e\u044f\u0432\u043b\u0435\u043d\u0438\u044f_\u043f\u0440\u043e\u0432\u043e\u0434\u0430",
-      "agent_handoff_6_\u0447\u0442\u043e_\u043c\u043e\u0436\u043d\u043e_\u0434\u0435\u043b\u0430\u0442\u044c_\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e_\u0431\u0435\u0437_\u0436\u0435\u043b\u0435\u0437\u0430",
-      "agent_handoff_7_\u043e\u0442\u043a\u0440\u044b\u0442\u044b\u0435_\u0437\u0430\u0434\u0430\u0447\u0438",
-      "agent_handoff_8_\u043a\u0430\u0440\u0442\u0430_\u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u043e\u0432",
-      "agent_handoff_9_\u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435_git",
-      "agent_handoff_\u043f\u0435\u0440\u0435\u0434\u0430\u0447\u0430_\u043f\u0440\u043e\u0435\u043a\u0442\u0430_\u0434\u0440\u0443\u0433\u043e\u043c\u0443_\u0430\u0433\u0435\u043d\u0442\u0443",
-      "agent_tasks_4_\u0437\u0430\u0434\u0430\u0447\u0438_p2_\u043d\u0430\u0434\u0451\u0436\u043d\u043e\u0441\u0442\u044c_\u0438_\u043f\u0440\u043e\u0446\u0435\u0441\u0441",
-      "agent_tasks_p0_1_\u0443\u0431\u0440\u0430\u0442\u044c_\u043f\u0438\u043d_p07_\u0438\u0437_vib_scanner_\u0438_\u043f\u043e\u0441\u0442\u0430\u0432\u0438\u0442\u044c_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u044b\u0439_guard",
-      "agent_tasks_p2_1_\u0443\u0431\u0440\u0430\u0442\u044c_\u0431\u043b\u043e\u043a\u0438\u0440\u0443\u044e\u0449\u0438\u0435_nop_\u0437\u0430\u0434\u0435\u0440\u0436\u043a\u0438_\u0432_\u0432\u0438\u0431\u0440\u043e\u043c\u043e\u0442\u043e\u0440\u0435",
-      "agent_tasks_p2_2_\u043d\u0435_\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u0430\u0442\u044c_osal_\u0442\u0438\u043a_\u0432\u0438\u0431\u0440\u043e\u0438\u043c\u043f\u0443\u043b\u044c\u0441\u0430\u043c\u0438",
-      "agent_tasks_p2_3_\u043d\u0435_\u043f\u0435\u0440\u0435\u0438\u043d\u0438\u0446\u0438\u0430\u043b\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u0442\u044c_i2c_\u043f\u043e_\u043d\u0430\u0436\u0430\u0442\u0438\u044e_\u043a\u043d\u043e\u043f\u043a\u0438",
-      "agent_tasks_p2_4_\u0443\u0441\u0442\u0440\u0430\u043d\u0438\u0442\u044c_\u0434\u0443\u0431\u043b\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435_\u0440\u0430\u0441\u043a\u043b\u0430\u0434\u043a\u0438_\u0440\u0430\u0437\u0434\u0435\u043b\u043e\u0432_\u0438_\u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c_\u0441\u0432\u0435\u0440\u043a\u0443_crc_\u0432_\u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0449\u0438\u043a",
-      "agent_tasks_p2_5_\u043e\u0431\u043d\u043e\u0432\u0438\u0442\u044c_\u0433\u0440\u0430\u0444_\u0437\u043d\u0430\u043d\u0438\u0439_\u0438_\u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c_\u043c\u0438\u043d\u0438\u043c\u0430\u043b\u044c\u043d\u0443\u044e_\u0430\u0432\u0442\u043e\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0443",
+      "agent_handoff_0_прочитай_это_первым",
+      "agent_handoff_10_правила_поведения_кратко",
+      "agent_handoff_1_что_сделано_в_этом_проходе",
+      "agent_handoff_2_детали_по_самому_важному_изменению_дефект_a",
+      "agent_handoff_3_как_проверялось_воспроизводимо",
+      "agent_handoff_4_что_не_проверено_честный_список",
+      "agent_handoff_5_заморозка_что_нельзя_делать_до_появления_провода",
+      "agent_handoff_6_что_можно_делать_безопасно_без_железа",
+      "agent_handoff_7_открытые_задачи",
+      "agent_handoff_8_карта_документов",
+      "agent_handoff_9_состояние_git",
+      "agent_handoff_передача_проекта_другому_агенту",
+      "agent_tasks_4_задачи_p2_надёжность_и_процесс",
+      "agent_tasks_p0_1_убрать_пин_p07_из_vib_scanner_и_поставить_аппаратный_guard",
+      "agent_tasks_p2_1_убрать_блокирующие_nop_задержки_в_вибромоторе",
+      "agent_tasks_p2_2_не_блокировать_osal_тик_виброимпульсами",
+      "agent_tasks_p2_3_не_переинициализировать_i2c_по_нажатию_кнопки",
+      "agent_tasks_p2_4_устранить_дублирование_раскладки_разделов_и_добавить_сверку_crc_в_установщик",
+      "agent_tasks_p2_5_обновить_граф_знаний_и_добавить_минимальную_автопроверку",
       "code_review_recommendations",
-      "code_review_recommendations_0_\u043a\u043e\u043c\u0430\u043d\u0434\u044b_\u0434\u043b\u044f_\u0440\u0430\u0431\u043e\u0442\u044b_\u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u044b",
-      "code_review_recommendations_1_\u0447\u0442\u043e_\u0441\u0434\u0435\u043b\u0430\u043d\u043e_\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e_\u043d\u0435_\u043f\u0435\u0440\u0435\u0434\u0435\u043b\u044b\u0432\u0430\u0442\u044c",
-      "code_review_recommendations_2_\u0434\u0435\u0444\u0435\u043a\u0442\u044b",
-      "code_review_recommendations_3_\u0436\u0451\u0441\u0442\u043a\u0438\u0435_\u043f\u0440\u0430\u0432\u0438\u043b\u0430_\u043f\u0440\u043e\u0435\u043a\u0442\u0430_\u043d\u0435_\u043d\u0430\u0440\u0443\u0448\u0430\u0442\u044c_\u043f\u0440\u0438_\u043f\u0440\u0430\u0432\u043a\u0430\u0445",
-      "code_review_recommendations_4_\u043f\u043e\u0440\u044f\u0434\u043e\u043a_\u0440\u0430\u0431\u043e\u0442",
-      "code_review_recommendations_5_\u0436\u0443\u0440\u043d\u0430\u043b_\u0441\u0442\u0430\u0442\u0443\u0441\u043e\u0432",
-      "code_review_recommendations_6_\u0447\u0442\u043e_\u0438\u0437\u043c\u0435\u043d\u0435\u043d\u043e_\u0432_\u044d\u0442\u043e\u043c_\u043f\u0440\u043e\u0445\u043e\u0434\u0435",
-      "code_review_recommendations_p0_a_\u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_\u0431\u0435\u0437_\u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043d\u043d\u043e\u0433\u043e_crc_\u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0435\u0433\u043e_\u0440\u0430\u0437\u0434\u0435\u043b\u0430",
-      "code_review_recommendations_p0_b_docs_pinmap_md_\u043f\u0440\u043e\u0442\u0438\u0432\u043e\u0440\u0435\u0447\u0438\u0442_\u043a\u043e\u0434\u0443_\u0434\u043b\u044f_\u043a\u043e\u0442\u043e\u0440\u043e\u0433\u043e_\u043e\u0431\u044a\u044f\u0432\u043b\u0435\u043d_\u0438\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u043e\u043c_\u0438\u0441\u0442\u0438\u043d\u044b",
-      "code_review_recommendations_p0_c_\u043c\u043e\u0434\u0435\u043b\u044c_led_ppg_\u0437\u0430\u0432\u044f\u0437\u0430\u043d\u0430_\u043d\u0430_\u043a\u0430\u0436\u0434\u044b\u0439_\u0442\u0430\u043a\u0442\u0438\u043b\u044c\u043d\u044b\u0439_\u043e\u0442\u043a\u043b\u0438\u043a",
-      "code_review_recommendations_p0_d_\u043f\u0435\u0440\u0435\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435_\u0441\u0442\u0440\u043e\u043a_\u043d\u0430_\u0446\u0438\u0444\u0435\u0440\u0431\u043b\u0430\u0442\u0435_\u043d\u0430\u0440\u0443\u0448\u0435\u043d\u043e_\u043f\u0440\u0430\u0432\u0438\u043b\u043e_errors_3_1",
-      "code_review_recommendations_p1_e_\u0441\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439_\u0430\u0443\u0434\u0438\u0442_\u0433\u0435\u0439\u0442_\u043a\u0440\u0430\u0441\u043d\u044b\u0439",
-      "code_review_recommendations_p1_f_readme_\u0443\u0441\u0442\u0430\u0440\u0435\u043b",
-      "code_review_recommendations_p2_ota_\u0440\u0438\u0441\u043a\u0438_\u0442\u0440\u0435\u0431\u0443\u044e\u0449\u0438\u0435_\u0436\u0435\u043b\u0435\u0437\u0430",
-      "code_review_recommendations_p3_\u0433\u0438\u0433\u0438\u0435\u043d\u0430",
-      "code_review_recommendations_\u043a\u043e\u0434_\u0440\u0435\u0432\u044c\u044e_\u0438_\u043f\u043b\u0430\u043d_\u0438\u0441\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0439_e_projects_watch",
-      "code_review_recommendations_\u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0435_\u0448\u0430\u0433\u0438_\u0442\u0440\u0435\u0431\u0443\u044e\u0442_\u0436\u0435\u043b\u0435\u0437\u0430",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_2_\u0437\u0430\u0432\u0438\u0441\u0430\u043d\u0438\u0435_\u0432\u0438\u0431\u0440\u043e\u043c\u043e\u0442\u043e\u0440\u0430_\u0438_\u0441\u0432\u0435\u0442\u043e\u0434\u0438\u043e\u0434\u0430_\u0432\u043e_\u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043d\u043e\u043c_\u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0438_\u043f\u0440\u0438_\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u043a\u0435_\u0446\u0438\u043a\u043b\u0430_app_os_update_\u0432\u043e_\u0432\u0440\u0435\u043c\u044f_ota",
+      "code_review_recommendations_0_команды_для_работы_проверены",
+      "code_review_recommendations_1_что_сделано_правильно_не_переделывать",
+      "code_review_recommendations_2_дефекты",
+      "code_review_recommendations_3_жёсткие_правила_проекта_не_нарушать_при_правках",
+      "code_review_recommendations_4_порядок_работ",
+      "code_review_recommendations_5_журнал_статусов",
+      "code_review_recommendations_6_что_изменено_в_этом_проходе",
+      "code_review_recommendations_p0_a_установка_прошивки_без_подтверждённого_crc_последнего_раздела",
+      "code_review_recommendations_p0_b_docs_pinmap_md_противоречит_коду_для_которого_объявлен_источником_истины",
+      "code_review_recommendations_p0_c_модель_led_ppg_завязана_на_каждый_тактильный_отклик",
+      "code_review_recommendations_p0_d_переполнение_строк_на_циферблате_нарушено_правило_errors_3_1",
+      "code_review_recommendations_p1_e_собственный_аудит_гейт_красный",
+      "code_review_recommendations_p1_f_readme_устарел",
+      "code_review_recommendations_p2_ota_риски_требующие_железа",
+      "code_review_recommendations_p3_гигиена",
+      "code_review_recommendations_код_ревью_и_план_исправлений_e_projects_watch",
+      "code_review_recommendations_следующие_шаги_требуют_железа",
+      "docs_errors_and_failures_ошибка_6_2_зависание_вибромотора_и_светодиода_во_включенном_состоянии_при_блокировке_цикла_app_os_update_во_время_ota",
       "firmware_src_app_os_app_os_panic",
       "firmware_src_app_os_app_os_update",
       "firmware_src_ble_manager_ble_get_start_calls",
@@ -3537,7 +3537,7 @@
       "firmware_src_vibrator_vibrator_test_fire",
       "firmware_src_vibrator_vibrator_toggle_active_level",
       "firmware_src_vibrator_vibrator_update",
-      "project_state_9_\u044d\u0442\u0430\u043f_12_\u0444\u0438\u043a\u0441\u0430\u0446\u0438\u044f_\u043f\u043e\u043b\u044f\u0440\u043d\u043e\u0441\u0442\u0438_\u0441\u0432\u0435\u0442\u043e\u0434\u0438\u043e\u0434\u0430_p00_active_low_\u0438_\u0432\u0438\u0431\u0440\u043e\u043c\u043e\u0442\u043e\u0440\u0430_p03_active_high_80_\u043c\u0441"
+      "project_state_9_этап_12_фиксация_полярности_светодиода_p00_active_low_и_вибромотора_p03_active_high_80_мс"
     ],
     "34": [
       "tools_smartwatch_ref_sdk_components_ethermind_mesh_export_appl_model_server_appl_model_server_callback_appl_scene_server_cb",
@@ -4010,7 +4010,7 @@
       "gpio_btn_info",
       "gpio_polarity_e",
       "gpioin_hdl_t",
-      "project_state_7_\u044d\u0442\u0430\u043f_10_\u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435_\u043f\u0435\u0440\u0438\u0444\u0435\u0440\u0438\u0438_\u0438\u043d\u0442\u0435\u0440\u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0439_vib_scanner_\u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d_100",
+      "project_state_7_этап_10_тестирование_периферии_интерактивный_vib_scanner_выполнен_100",
       "pwrmgr_hdl_t",
       "spi_index_e",
       "tools_smartwatch_ref_sdk_components_driver_adc_adc_disable_analog_pin",
@@ -5070,13 +5070,13 @@
       "adc_cfg_t",
       "adc_hdl_t",
       "agents",
-      "agents_\u0433\u0434\u0435_\u0447\u0442\u043e_\u043b\u0435\u0436\u0438\u0442",
-      "agents_\u0434\u0438\u0441\u043f\u043b\u0435\u0439_80_160",
-      "agents_\u0436\u0435\u043b\u0435\u0437\u043e",
-      "agents_\u043f\u0440\u0430\u0432\u0438\u043b\u0430_\u043f\u0440\u043e\u0435\u043a\u0442\u0430_\u0434\u043b\u044f_\u0430\u0433\u0435\u043d\u0442\u0430",
-      "agents_\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430_\u043f\u043e\u0441\u043b\u0435_\u043a\u0430\u0436\u0434\u043e\u0439_\u043f\u0440\u0430\u0432\u043a\u0438",
-      "agents_\u0440\u0430\u0431\u043e\u0442\u0430_\u0441_\u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0435\u043c",
-      "agents_\u0441\u0442\u043e\u043f_ota_\u0437\u0430\u043c\u043e\u0440\u043e\u0436\u0435\u043d",
+      "agents_где_что_лежит",
+      "agents_дисплей_80_160",
+      "agents_железо",
+      "agents_правила_проекта_для_агента",
+      "agents_проверка_после_каждой_правки",
+      "agents_работа_с_репозиторием",
+      "agents_стоп_ota_заморожен",
       "firmware_src_app_os",
       "firmware_src_app_os_app_os_force_redraw",
       "firmware_src_app_os_app_os_set_time",
@@ -5103,7 +5103,7 @@
       "firmware_src_uart_cli_uart_cli_update",
       "firmware_src_uart_cli_uart_send_str",
       "firmware_src_vibrator",
-      "project_state_22_\u044d\u0442\u0430\u043f_25_\u0431\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u0430\u044f_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0430_v1_5_5_adc_\u0438_\u0432\u0435\u0440\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f_\u0430\u0446\u043f_\u0431\u0430\u0442\u0430\u0440\u0435\u0438_\u043d\u0430_\u0436\u0438\u0432\u043e\u043c_\u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0435",
+      "project_state_22_этап_25_беспроводная_прошивка_v1_5_5_adc_и_верификация_ацп_батареи_на_живом_устройстве",
       "tools_smartwatch_ref_sdk_components_driver_adc_adc_hal_adc_config_channel",
       "tools_smartwatch_ref_sdk_components_driver_adc_adc_hal_adc_init",
       "tools_smartwatch_ref_sdk_components_driver_adc_adc_hal_adc_load_calibration_value",
@@ -5393,7 +5393,7 @@
       "tools_smartwatch_ref_sdk_components_ethermind_mesh_export_appl_model_server_lighting_light_xyl_server_appl_model_state_handler_h_tools_smartwatch_ref_sdk_components_ethermind_mesh_export_appl_model_server_lighting_light_xyl_server_appl_model_state_handler"
     ],
     "67": [
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_1_7_\u0432\u044b\u0437\u043e\u0432_hal_uart_init_uart0_\u0431\u0435\u0437_\u043f\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e_hal_uart_deinit_uart0_\u043a\u043e\u043c\u0430\u043d\u0434\u044b_cli_\u043d\u0435_\u0440\u0430\u0431\u043e\u0442\u0430\u044e\u0442",
+      "docs_errors_and_failures_ошибка_1_7_вызов_hal_uart_init_uart0_без_предварительного_hal_uart_deinit_uart0_команды_cli_не_работают",
       "firmware_src_uart_cli_uart_cli_init",
       "tools_smartwatch_ref_sdk_components_driver_key_key_key_init",
       "tools_smartwatch_ref_sdk_components_driver_uart_uart_hal_uart_deinit",
@@ -6640,7 +6640,7 @@
       "firmware_src_gfx_gfx_fill_rect",
       "firmware_src_gfx_gfx_fill_round_rect",
       "firmware_src_ota_inapp_draw_ota_progress",
-      "project_state_23_\u044d\u0442\u0430\u043f_26_\u0432\u043d\u0435\u0434\u0440\u0435\u043d\u0438\u0435_\u0433\u0440\u0430\u0444\u0438\u0447\u0435\u0441\u043a\u0438\u0445_\u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c_\u0438_\u0441\u0431\u043e\u0440\u043a\u0430_v1_5_6_icons"
+      "project_state_23_этап_26_внедрение_графических_пиктограмм_и_сборка_v1_5_6_icons"
     ],
     "98": [
       "tools_smartwatch_ref_sdk_components_ethermind_mesh_export_appl_model_server_lighting_light_lc_server_appl_light_lc_server_appl_generic_onoff_server_cb",
@@ -7151,14 +7151,14 @@
     ],
     "113": [
       "button_event_t",
-      "code_review_recommendations_p1_g_\u0430\u043a\u0441\u0435\u043b\u0435\u0440\u043e\u043c\u0435\u0442\u0440_\u043c\u0451\u0440\u0442\u0432\u044b\u0439_\u043a\u043e\u0434",
-      "docs_errors_and_failures_1_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u044b\u0435_\u043f\u0438\u043d\u044b_hardware_gpio_pitfalls",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_1_1_\u0434\u0451\u0440\u0433\u0430\u043d\u0438\u0435_\u043f\u0438\u043d\u0430_p33_\u0432_\u0441\u043a\u0430\u043d\u0435\u0440\u0435_\u0448\u0438\u043d\u044b_\u044d\u043a\u0440\u0430\u043d_\u0433\u0430\u0441\u043d\u0435\u0442",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_1_2_\u043f\u043e\u0434\u0430\u0447\u0430_1_gpio_output_1_\u043d\u0430_\u043f\u0438\u043d_p07_\u0437\u0430\u0432\u0438\u0441\u0430\u043d\u0438\u0435_\u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_1_3_\u043f\u0435\u0440\u0435\u0431\u043e\u0440_\u0441\u043b\u0443\u0447\u0430\u0439\u043d\u044b\u0445_\u043f\u0438\u043d\u043e\u0432_p20_p23_p26_p27_\u0434\u043b\u044f_i2c",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_1_4_\u0430\u043d\u0430\u043b\u043e\u0433\u043e\u0432\u044b\u0439_\u0440\u0435\u0436\u0438\u043c_\u043a\u0432\u0430\u0440\u0446\u0430_32\u043a\u0433\u0446_\u043d\u0430_\u043d\u043e\u0436\u043a\u0430\u0445_p16_p17_bus_err",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_1_5_\u0441\u043b\u0430\u0431\u0430\u044f_\u0432\u043d\u0443\u0442\u0440\u0435\u043d\u043d\u044f\u044f_\u043f\u043e\u0434\u0442\u044f\u0436\u043a\u0430_gpio_pull_up_\u0432\u043c\u0435\u0441\u0442\u043e_strong_pull_up",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_1_6_\u043f\u043e\u0432\u0442\u043e\u0440\u043d\u0430\u044f_\u0438\u043d\u0438\u0446\u0438\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u044f_\u0437\u0430\u0432\u0438\u0441\u0448\u0435\u0439_\u0448\u0438\u043d\u044b_i2c_\u043f\u043e_\u043d\u0430\u0436\u0430\u0442\u0438\u044e_\u043a\u043d\u043e\u043f\u043a\u0438",
+      "code_review_recommendations_p1_g_акселерометр_мёртвый_код",
+      "docs_errors_and_failures_1_аппаратные_пины_hardware_gpio_pitfalls",
+      "docs_errors_and_failures_ошибка_1_1_дёргание_пина_p33_в_сканере_шины_экран_гаснет",
+      "docs_errors_and_failures_ошибка_1_2_подача_1_gpio_output_1_на_пин_p07_зависание_загрузки",
+      "docs_errors_and_failures_ошибка_1_3_перебор_случайных_пинов_p20_p23_p26_p27_для_i2c",
+      "docs_errors_and_failures_ошибка_1_4_аналоговый_режим_кварца_32кгц_на_ножках_p16_p17_bus_err",
+      "docs_errors_and_failures_ошибка_1_5_слабая_внутренняя_подтяжка_gpio_pull_up_вместо_strong_pull_up",
+      "docs_errors_and_failures_ошибка_1_6_повторная_инициализация_зависшей_шины_i2c_по_нажатию_кнопки",
       "firmware_src_accel",
       "firmware_src_accel_accel_get_name",
       "firmware_src_accel_accel_get_xyz",
@@ -7215,35 +7215,35 @@
     ],
     "115": [
       "docs_ota_recovery",
-      "docs_ota_recovery_3_\u0437\u0430\u0449\u0438\u0442\u0430_\u043e\u0442_\u0441\u0431\u043e\u0435\u0432_\u0432_\u043a\u043e\u0434\u0435_in_app_ota",
-      "docs_ota_recovery_\u0432\u0430\u0440\u0438\u0430\u043d\u0442\u044b_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_\u043f\u043e_\u043f\u0440\u043e\u0432\u043e\u0434\u0443",
-      "docs_ota_recovery_\u0440\u0438\u0441\u043a\u0438_\u0438_\u043f\u0440\u043e\u0446\u0435\u0434\u0443\u0440\u0430_\u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_ota_wire",
-      "docs_ota_recovery_\u0441\u0446\u0435\u043d\u0430\u0440\u0438\u0439_1_\u0448\u0442\u0430\u0442\u043d\u044b\u0439_\u043e\u0442\u043a\u0430\u0442_\u043d\u0430_\u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043d\u0443\u044e_\u0432\u0435\u0440\u0441\u0438\u044e_\u043f\u043e_\u0432\u043e\u0437\u0434\u0443\u0445\u0443_ble_ota",
-      "docs_ota_recovery_\u0441\u0446\u0435\u043d\u0430\u0440\u0438\u0439_2_\u0430\u0432\u0430\u0440\u0438\u0439\u043d\u043e\u0435_\u0440\u0430\u0441\u043a\u0438\u0440\u043f\u0438\u0447\u0438\u0432\u0430\u043d\u0438\u0435_\u043f\u043e_\u043f\u0440\u043e\u0432\u043e\u0434\u0443_uart",
-      "docs_ota_recovery_\u0447\u0442\u043e_\u043d\u0443\u0436\u043d\u043e",
+      "docs_ota_recovery_3_защита_от_сбоев_в_коде_in_app_ota",
+      "docs_ota_recovery_варианты_прошивки_по_проводу",
+      "docs_ota_recovery_риски_и_процедура_восстановления_прошивки_ota_wire",
+      "docs_ota_recovery_сценарий_1_штатный_откат_на_проверенную_версию_по_воздуху_ble_ota",
+      "docs_ota_recovery_сценарий_2_аварийное_раскирпичивание_по_проводу_uart",
+      "docs_ota_recovery_что_нужно",
       "docs_project_state",
       "docs_project_state_project_state_md",
       "firmware_src_ota_inapp_ota_install_firmware_and_reboot",
       "project_state",
-      "project_state_10_\u044d\u0442\u0430\u043f_13_\u0442\u043e\u0447\u043d\u0430\u044f_\u043f\u0440\u0438\u0447\u0438\u043d\u0430_\u0437\u0430\u0432\u0438\u0441\u0430\u043d\u0438\u044f_\u0434\u0438\u043e\u0434_\u0433\u043e\u0440\u0438\u0442_\u0432_\u043f\u043e\u043b\u043d\u0430\u043a\u0430\u043b\u0430_\u0434\u0438\u0441\u043f\u043b\u0435\u0439_\u043d\u0435_\u0433\u043e\u0440\u0438\u0442_\u0438_\u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435",
-      "project_state_11_\u044d\u0442\u0430\u043f_14_\u043f\u043e\u043b\u043d\u0430\u044f_\u0438_\u0434\u043e\u0441\u043a\u043e\u043d\u0430\u043b\u044c\u043d\u0430\u044f_\u043f\u043e\u0431\u0430\u0439\u0442\u043e\u0432\u0430\u044f_\u0441\u0438\u043d\u0445\u0440\u043e\u043d\u0438\u0437\u0430\u0446\u0438\u044f_\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u043e\u0439_wire_\u0438_\u0431\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u043e\u0439_ota_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438",
-      "project_state_12_\u044d\u0442\u0430\u043f_15_\u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435_spi_\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u043a\u0438_ble_\u043f\u0440\u0438_ota_\u0441\u0438\u043d\u0445\u0440\u043e\u043d\u0438\u0437\u0430\u0446\u0438\u044f_\u0442\u0435\u043c\u043f\u0430_35\u043c\u0441_\u0438_\u0440\u0435\u043b\u0438\u0437_v1_2_0_ota",
-      "project_state_13_\u044d\u0442\u0430\u043f_16_\u0443\u0441\u043f\u0435\u0445_\u0432\u043e\u0437\u0434\u0443\u0448\u043d\u043e\u0439_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_in_app_ble_ota_\u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435_\u0430\u043a\u0441\u0435\u043b\u0435\u0440\u043e\u043c\u0435\u0442\u0440\u0430_\u0438_\u0432\u0435\u0440\u0441\u0442\u043a\u0430_\u044d\u043a\u0440\u0430\u043d\u0430_80x160",
-      "project_state_14_\u044d\u0442\u0430\u043f_17_\u0440\u0435\u0435\u0441\u0442\u0440_\u043e\u0448\u0438\u0431\u043e\u043a_errors_and_failures_md_\u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435_\u0441\u0440\u044b\u0432\u0430_st7735s_\u0438_\u043f\u0435\u0440\u0435\u0445\u043e\u0434_\u043d\u0430_hardware_cli",
-      "project_state_15_\u044d\u0442\u0430\u043f_18_\u0438\u0441\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435_\u0434\u0435\u0438\u043d\u0438\u0446\u0438\u0430\u043b\u0438\u0437\u0430\u0446\u0438\u0438_uart0_\u0430\u0443\u0434\u0438\u0442_ble_\u0438_\u0433\u0435\u043d\u0435\u0440\u0430\u043b\u044c\u043d\u044b\u0439_\u043e\u0442\u0447\u0451\u0442",
-      "project_state_16_\u044d\u0442\u0430\u043f_19_\u0443\u0441\u043f\u0435\u0445_\u044d\u043a\u0440\u0430\u043d_\u0441\u0432\u0435\u0442\u0438\u0442\u0441\u044f_uart_cli_\u0430\u043a\u0442\u0438\u0432\u0435\u043d_ble_\u043e\u0431\u043d\u0430\u0440\u0443\u0436\u0435\u043d_\u043f\u0435\u0440\u0435\u0445\u043e\u0434_\u043d\u0430_100_ota",
-      "project_state_17_\u044d\u0442\u0430\u043f_21_\u0443\u0441\u043f\u0435\u0448\u043d\u0430\u044f_\u0431\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u0430\u044f_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0430_v1_5_2_ota_\u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435_\u043f\u0430\u0440\u0430\u0437\u0438\u0442\u043d\u043e\u0433\u043e_\u0432\u0438\u0431\u0440\u043e\u043c\u043e\u0442\u043e\u0440\u0430_\u0438_\u043e\u0447\u0438\u0441\u0442\u043a\u0430_16_\u0433\u0431_\u0431\u044d\u043a\u0430\u043f\u043e\u0432",
-      "project_state_18_\u044d\u0442\u0430\u043f_22_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u044b\u0439_\u0441\u0442\u0435\u043d\u0434_\u0434\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u043a\u0438_lp715_smartwatch_studio_\u0432\u0435\u0440\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f_\u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u043e\u0439_\u043f\u0435\u0440\u0438\u0444\u0435\u0440\u0438\u0438_\u0438_\u0430\u0443\u0434\u0438\u0442_i2c",
-      "project_state_19_\u044d\u0442\u0430\u043f_25_\u043a\u043e\u043c\u043f\u043b\u0435\u043a\u0441\u043d\u043e\u0435_\u043a\u043e\u0434_\u0440\u0435\u0432\u044c\u044e_\u0438_\u043f\u0430\u043a\u0435\u0442_\u0438\u0441\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0439_\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u0438_v1_5_4_ota",
-      "project_state_1_\u043e\u0431\u0437\u043e\u0440_\u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430",
-      "project_state_24_\u044d\u0442\u0430\u043f_27_\u0433\u043b\u0443\u0431\u043e\u043a\u0438\u0439_\u0440\u0435\u0432\u0435\u0440\u0441_\u0438\u043d\u0436\u0438\u043d\u0438\u0440\u0438\u043d\u0433_\u0430\u043a\u0441\u0435\u043b\u0435\u0440\u043e\u043c\u0435\u0442\u0440\u0430_\u0432_factory_dump_bin_\u0438_\u0441\u0431\u043e\u0440\u043a\u0430_v1_5_7_acc",
-      "project_state_2_1_\u0440\u0430\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435_\u043f\u0440\u0438\u0447\u0438\u043d\u044b_\u0447\u0451\u0440\u043d\u043e\u0433\u043e_\u044d\u043a\u0440\u0430\u043d\u0430_\u043f\u043e\u0441\u043b\u0435_ota",
-      "project_state_2_\u0441\u0442\u0430\u0442\u0443\u0441_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_\u0438_\u0440\u0435\u0437\u0435\u0440\u0432\u043d\u043e\u0439_\u043a\u043e\u043f\u0438\u0438_ground_truth",
-      "project_state_3_\u0433\u043b\u0430\u0432\u043d\u0430\u044f_\u0446\u0435\u043b\u044c_\u043f\u043e\u043b\u043d\u043e\u0446\u0435\u043d\u043d\u0430\u044f_\u043a\u0430\u0441\u0442\u043e\u043c\u043d\u0430\u044f_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0430_\u0441\u043c\u0430\u0440\u0442_\u0447\u0430\u0441\u043e\u0432_custom_smartwatch_os",
-      "project_state_5_\u043e\u043a\u0440\u0443\u0436\u0435\u043d\u0438\u0435_\u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a\u0430_\u0438_\u043f\u043a_\u0445\u043e\u0441\u0442_host_environment",
-      "project_state_6_\u044d\u0442\u0430\u043f_9_\u0431\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u0430\u044f_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0430_in_app_ota_\u0441_\u043a\u043e\u043c\u043f\u044c\u044e\u0442\u0435\u0440\u0430_\u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d_100",
-      "project_state_8_\u044d\u0442\u0430\u043f_11_\u0430\u043d\u0430\u043b\u0438\u0437_\u043c\u0435\u0445\u0430\u043d\u0438\u0437\u043c\u0430_ota_\u0432\u043d\u0435\u0434\u0440\u0435\u043d\u0438\u0435_sram_\u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0449\u0438\u043a\u0430_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_v1_5_\u0438_\u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430_\u0432\u0438\u0431\u0440\u043e\u043c\u043e\u0442\u043e\u0440\u0430_\u043d\u0430_p14",
-      "project_state_\u043f\u0440\u043e\u0435\u043a\u0442_\u043f\u0435\u0440\u0435\u0434\u0435\u043b\u043a\u0430_\u0440\u0435\u0432\u0435\u0440\u0441_\u0438\u043d\u0436\u0438\u043d\u0438\u0440\u0438\u043d\u0433_\u0443\u043c\u043d\u043e\u0433\u043e_\u0431\u0440\u0430\u0441\u043b\u0435\u0442\u0430_lp715_mb_v1_3"
+      "project_state_10_этап_13_точная_причина_зависания_диод_горит_в_полнакала_дисплей_не_горит_и_устранение",
+      "project_state_11_этап_14_полная_и_доскональная_побайтовая_синхронизация_проводной_wire_и_беспроводной_ota_прошивки",
+      "project_state_12_этап_15_устранение_spi_блокировки_ble_при_ota_синхронизация_темпа_35мс_и_релиз_v1_2_0_ota",
+      "project_state_13_этап_16_успех_воздушной_прошивки_in_app_ble_ota_исследование_акселерометра_и_верстка_экрана_80x160",
+      "project_state_14_этап_17_реестр_ошибок_errors_and_failures_md_устранение_срыва_st7735s_и_переход_на_hardware_cli",
+      "project_state_15_этап_18_исправление_деинициализации_uart0_аудит_ble_и_генеральный_отчёт",
+      "project_state_16_этап_19_успех_экран_светится_uart_cli_активен_ble_обнаружен_переход_на_100_ota",
+      "project_state_17_этап_21_успешная_беспроводная_прошивка_v1_5_2_ota_устранение_паразитного_вибромотора_и_очистка_16_гб_бэкапов",
+      "project_state_18_этап_22_аппаратный_стенд_диагностики_lp715_smartwatch_studio_верификация_физической_периферии_и_аудит_i2c",
+      "project_state_19_этап_25_комплексное_код_ревью_и_пакет_исправлений_безопасности_v1_5_4_ota",
+      "project_state_1_обзор_устройства",
+      "project_state_24_этап_27_глубокий_реверс_инжиниринг_акселерометра_в_factory_dump_bin_и_сборка_v1_5_7_acc",
+      "project_state_2_1_расследование_причины_чёрного_экрана_после_ota",
+      "project_state_2_статус_прошивки_и_резервной_копии_ground_truth",
+      "project_state_3_главная_цель_полноценная_кастомная_прошивка_смарт_часов_custom_smartwatch_os",
+      "project_state_5_окружение_разработчика_и_пк_хост_host_environment",
+      "project_state_6_этап_9_беспроводная_прошивка_in_app_ota_с_компьютера_выполнен_100",
+      "project_state_8_этап_11_анализ_механизма_ota_внедрение_sram_установщика_прошивки_v1_5_и_настройка_вибромотора_на_p14",
+      "project_state_проект_переделка_реверс_инжиниринг_умного_браслета_lp715_mb_v1_3"
     ],
     "116": [
       "ext_cbtimer_entity",
@@ -9132,47 +9132,47 @@
     ],
     "186": [
       "docs_pinmap",
-      "docs_pinmap_1_\u0441\u0432\u043e\u0434\u043d\u0430\u044f_\u0442\u0430\u0431\u043b\u0438\u0446\u0430_gpio",
-      "docs_pinmap_2_\u043d\u0435\u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u043d\u0430\u044f_\u043f\u0435\u0440\u0438\u0444\u0435\u0440\u0438\u044f",
-      "docs_pinmap_3_\u043a\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0435_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u044b\u0435_\u0437\u0430\u043f\u0440\u0435\u0442\u044b_hardware_guards",
-      "docs_pinmap_\u0435\u0434\u0438\u043d\u0430\u044f_\u043a\u0430\u0440\u0442\u0430_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u044b\u0445_\u0432\u044b\u0432\u043e\u0434\u043e\u0432_pinmap",
+      "docs_pinmap_1_сводная_таблица_gpio",
+      "docs_pinmap_2_неподтвержденная_периферия",
+      "docs_pinmap_3_критические_аппаратные_запреты_hardware_guards",
+      "docs_pinmap_единая_карта_аппаратных_выводов_pinmap",
       "docs_sdk_setup",
-      "docs_sdk_setup_1_\u0440\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435_sdk_\u0432_\u043f\u0440\u043e\u0435\u043a\u0442\u0435",
-      "docs_sdk_setup_2_\u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430_\u0432_\u0447\u0438\u0441\u0442\u043e\u043c_\u043a\u043b\u043e\u043d\u0435",
-      "docs_sdk_setup_3_\u0442\u0443\u043b\u0447\u0435\u0439\u043d_\u043a\u043e\u043c\u043f\u0438\u043b\u044f\u0442\u043e\u0440\u0430",
-      "docs_sdk_setup_\u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430_\u0432\u0435\u043d\u0434\u043e\u0440\u0441\u043a\u043e\u0433\u043e_sdk_tools_smartwatch_ref",
+      "docs_sdk_setup_1_расположение_sdk_в_проекте",
+      "docs_sdk_setup_2_установка_в_чистом_клоне",
+      "docs_sdk_setup_3_тулчейн_компилятора",
+      "docs_sdk_setup_настройка_вендорского_sdk_tools_smartwatch_ref",
       "readme",
       "readme_phyplus_phy6222_smartwatch_custom_os_lp715_lp719",
-      "readme_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u0430\u044f_\u0440\u0430\u0441\u043f\u0438\u043d\u043e\u0432\u043a\u0430",
-      "readme_\u0431\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u0430\u044f_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0430_in_app_ble_ota",
-      "readme_\u043a\u043e\u043c\u043f\u0438\u043b\u044f\u0446\u0438\u044f",
-      "readme_\u043b\u0438\u0446\u0435\u043d\u0437\u0438\u044f",
-      "readme_\u0440\u0435\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0435_\u0440\u0435\u0436\u0438\u043c\u044b_\u0438_\u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u0438",
-      "readme_\u0441\u0431\u043e\u0440\u043a\u0430_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438",
-      "readme_\u0442\u0440\u0435\u0431\u043e\u0432\u0430\u043d\u0438\u044f",
-      "readme_\u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435_\u0441\u0435\u043d\u0441\u043e\u0440\u043d\u0430\u044f_\u043a\u043d\u043e\u043f\u043a\u0430_p11"
+      "readme_аппаратная_распиновка",
+      "readme_беспроводная_прошивка_in_app_ble_ota",
+      "readme_компиляция",
+      "readme_лицензия",
+      "readme_реализованные_режимы_и_возможности",
+      "readme_сборка_прошивки",
+      "readme_требования",
+      "readme_управление_сенсорная_кнопка_p11"
     ],
     "187": [
       "docs_rea_readme_ru",
-      "docs_rea_readme_ru_dx_ball_\u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435_\u0440\u0430\u0441\u0447\u0451\u0442\u0430_\u0437\u0432\u0443\u043a\u043e\u0432\u043e\u0439_\u043f\u0430\u043d\u043e\u0440\u0430\u043c\u044b",
-      "docs_rea_readme_ru_notion_\u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435_\u043c\u043e\u0441\u0442\u0430_\u0431\u0443\u0444\u0435\u0440\u0430_\u043e\u0431\u043c\u0435\u043d\u0430_electron",
-      "docs_rea_readme_ru_rea_\u0440\u0435\u0432\u0435\u0440\u0441_\u0438\u043d\u0436\u0438\u043d\u0438\u0440\u0438\u043d\u0433_\u0447\u0435\u0433\u043e_\u0443\u0433\u043e\u0434\u043d\u043e",
-      "docs_rea_readme_ru_th04_\u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435_\u0440\u0430\u0441\u0447\u0451\u0442\u0430_\u043a\u043e\u043b\u044c\u0446\u0430_\u043f\u0443\u043b\u044c_\u0432_dos",
-      "docs_rea_readme_ru_\u0431\u044b\u0441\u0442\u0440\u044b\u0439_\u0441\u0442\u0430\u0440\u0442",
-      "docs_rea_readme_ru_\u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u044f",
-      "docs_rea_readme_ru_\u0437\u0430\u0434\u0430\u0439\u0442\u0435_\u0432\u043e\u043f\u0440\u043e\u0441_\u0430\u0433\u0435\u043d\u0442\u0443",
-      "docs_rea_readme_ru_\u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435_\u0442\u0435\u0440\u043c\u0438\u043d\u0430\u043b",
-      "docs_rea_readme_ru_\u0438\u0441\u0442\u043e\u0440\u0438\u044f_\u0437\u0432\u0451\u0437\u0434",
-      "docs_rea_readme_ru_\u043a\u0430\u043a_\u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442_rea",
-      "docs_rea_readme_ru_\u043b\u0438\u0446\u0435\u043d\u0437\u0438\u044f",
-      "docs_rea_readme_ru_\u043d\u0430\u0441\u0442\u0440\u043e\u0439\u0442\u0435_\u0430\u0433\u0435\u043d\u0442\u0430",
-      "docs_rea_readme_ru_\u043e\u0431\u043d\u043e\u0432\u0438\u0442\u0435_rea",
-      "docs_rea_readme_ru_\u043e\u0434\u0438\u043d_mcp_\u0434\u043b\u044f_\u0440\u0435\u0432\u0435\u0440\u0441_\u0438\u043d\u0436\u0438\u043d\u0438\u0440\u0438\u043d\u0433\u0430_\u0431\u0438\u043d\u0430\u0440\u043d\u044b\u0445_\u0444\u0430\u0439\u043b\u043e\u0432_\u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439_\u0438_\u043f\u043e\u0432\u0435\u0434\u0435\u043d\u0438\u044f_\u0432\u043e_\u0432\u0440\u0435\u043c\u044f_\u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f",
-      "docs_rea_readme_ru_\u043e\u0442\u043a\u0430\u0437_\u043e\u0442_\u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u0438",
-      "docs_rea_readme_ru_\u043f\u0440\u0438\u043c\u0435\u0440\u044b",
-      "docs_rea_readme_ru_\u0443\u0447\u0430\u0441\u0442\u0438\u0435_\u0432_\u043f\u0440\u043e\u0435\u043a\u0442\u0435",
-      "docs_rea_readme_ru_\u0447\u0430\u0441\u0442\u044b\u0435_\u0432\u043e\u043f\u0440\u043e\u0441\u044b",
-      "docs_rea_readme_ru_\u0447\u0442\u043e_\u043c\u043e\u0436\u043d\u043e_\u0430\u043d\u0430\u043b\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u0442\u044c"
+      "docs_rea_readme_ru_dx_ball_восстановление_расчёта_звуковой_панорамы",
+      "docs_rea_readme_ru_notion_исследование_моста_буфера_обмена_electron",
+      "docs_rea_readme_ru_rea_реверс_инжиниринг_чего_угодно",
+      "docs_rea_readme_ru_th04_восстановление_расчёта_кольца_пуль_в_dos",
+      "docs_rea_readme_ru_быстрый_старт",
+      "docs_rea_readme_ru_документация",
+      "docs_rea_readme_ru_задайте_вопрос_агенту",
+      "docs_rea_readme_ru_используйте_терминал",
+      "docs_rea_readme_ru_история_звёзд",
+      "docs_rea_readme_ru_как_работает_rea",
+      "docs_rea_readme_ru_лицензия",
+      "docs_rea_readme_ru_настройте_агента",
+      "docs_rea_readme_ru_обновите_rea",
+      "docs_rea_readme_ru_один_mcp_для_реверс_инжиниринга_бинарных_файлов_приложений_и_поведения_во_время_выполнения",
+      "docs_rea_readme_ru_отказ_от_ответственности",
+      "docs_rea_readme_ru_примеры",
+      "docs_rea_readme_ru_участие_в_проекте",
+      "docs_rea_readme_ru_частые_вопросы",
+      "docs_rea_readme_ru_что_можно_анализировать"
     ],
     "188": [
       "slb_fwinfo_t",
@@ -9843,22 +9843,22 @@
     ],
     "220": [
       "agent_tasks",
-      "agent_tasks_0_\u0436\u0451\u0441\u0442\u043a\u0438\u0435_\u043f\u0440\u0430\u0432\u0438\u043b\u0430_\u043f\u0440\u043e\u0435\u043a\u0442\u0430_\u043d\u0430\u0440\u0443\u0448\u0430\u0442\u044c_\u043d\u0435\u043b\u044c\u0437\u044f",
-      "agent_tasks_1_\u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442_\u043a\u043e\u0442\u043e\u0440\u044b\u0439_\u043d\u0443\u0436\u043d\u043e_\u0437\u043d\u0430\u0442\u044c_\u0434\u043e_\u043f\u0440\u0430\u0432\u043e\u043a",
-      "agent_tasks_2_\u0437\u0430\u0434\u0430\u0447\u0438_p0_\u0441\u0434\u0435\u043b\u0430\u0442\u044c_\u0432_\u043f\u0435\u0440\u0432\u0443\u044e_\u043e\u0447\u0435\u0440\u0435\u0434\u044c",
-      "agent_tasks_3_\u0437\u0430\u0434\u0430\u0447\u0438_p1_\u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0439_\u0438_\u0432\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u043c\u043e\u0441\u0442\u044c",
-      "agent_tasks_5_\u0447\u0435\u0433\u043e_\u0434\u0435\u043b\u0430\u0442\u044c_\u043d\u0435_\u043d\u0430\u0434\u043e",
-      "agent_tasks_6_\u0444\u043e\u0440\u043c\u0430\u0442_\u043e\u0442\u0447\u0451\u0442\u0430_\u043e_\u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0438",
-      "agent_tasks_7_\u0447\u0435\u043a_\u043b\u0438\u0441\u0442_\u043f\u0440\u0438\u0451\u043c\u043a\u0438_\u0432\u0441\u0435\u0433\u043e_\u0437\u0430\u0434\u0430\u043d\u0438\u044f",
-      "agent_tasks_p0_2_\u0435\u0434\u0438\u043d\u044b\u0439_\u0438\u0441\u0442\u043e\u0447\u043d\u0438\u043a_\u0438\u0441\u0442\u0438\u043d\u044b_\u043f\u043e_\u043f\u0438\u043d\u0430\u043c_\u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435_\u043f\u0440\u043e\u0442\u0438\u0432\u043e\u0440\u0435\u0447\u0438\u0439",
-      "agent_tasks_p0_3_\u043f\u0440\u0438\u0432\u0435\u0441\u0442\u0438_readme_\u043a_\u0444\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u043e\u043c\u0443_\u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044e_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438",
-      "agent_tasks_p1_1_\u0441\u0434\u0435\u043b\u0430\u0442\u044c_\u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0439_\u043a\u043b\u043e\u043d\u0438\u0440\u0443\u0435\u043c\u044b\u043c_\u0438_\u0441\u043e\u0431\u0438\u0440\u0430\u0435\u043c\u044b\u043c",
-      "agent_tasks_p1_2_\u043f\u0435\u0440\u0435\u0441\u0442\u0430\u0442\u044c_\u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u044c_240_\u043c\u0431_\u043c\u0443\u0441\u043e\u0440\u0430_\u043d\u0430_\u043a\u0430\u0436\u0434\u043e\u0439_\u0441\u0431\u043e\u0440\u043a\u0435",
-      "agent_tasks_p1_3_\u0443\u0431\u0440\u0430\u0442\u044c_\u0430\u0440\u0442\u0435\u0444\u0430\u043a\u0442\u044b_\u0441\u0431\u043e\u0440\u043a\u0438_\u0438_\u0434\u0443\u0431\u043b\u0438_\u0433\u0440\u0430\u0444\u0430_\u0438\u0437_git",
-      "agent_tasks_p1_4_\u043d\u0430\u0432\u0435\u0441\u0442\u0438_\u043f\u043e\u0440\u044f\u0434\u043e\u043a_\u0432_\u043a\u043e\u0440\u043d\u0435_\u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u044f",
-      "agent_tasks_p1_5_\u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c_\u0444\u0430\u0439\u043b_license",
-      "agent_tasks_\u0437\u0430\u0434\u0430\u043d\u0438\u0435_\u0434\u043b\u044f_\u0430\u0433\u0435\u043d\u0442\u0430_\u0430\u0443\u0434\u0438\u0442_\u0438_\u0434\u043e\u0432\u0435\u0434\u0435\u043d\u0438\u0435_\u043f\u0440\u043e\u0435\u043a\u0442\u0430_\u0447\u0430\u0441\u044b",
-      "agent_tasks_\u043a\u043e\u043c\u0430\u043d\u0434\u0430_\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438_\u0441\u0431\u043e\u0440\u043a\u0438_\u0431\u0435\u0437_\u043f\u043e\u0440\u0447\u0438_\u0440\u0430\u0431\u043e\u0447\u0435\u0433\u043e_\u0434\u0435\u0440\u0435\u0432\u0430"
+      "agent_tasks_0_жёсткие_правила_проекта_нарушать_нельзя",
+      "agent_tasks_1_контекст_который_нужно_знать_до_правок",
+      "agent_tasks_2_задачи_p0_сделать_в_первую_очередь",
+      "agent_tasks_3_задачи_p1_репозиторий_и_воспроизводимость",
+      "agent_tasks_5_чего_делать_не_надо",
+      "agent_tasks_6_формат_отчёта_о_выполнении",
+      "agent_tasks_7_чек_лист_приёмки_всего_задания",
+      "agent_tasks_p0_2_единый_источник_истины_по_пинам_устранение_противоречий",
+      "agent_tasks_p0_3_привести_readme_к_фактическому_состоянию_прошивки",
+      "agent_tasks_p1_1_сделать_репозиторий_клонируемым_и_собираемым",
+      "agent_tasks_p1_2_перестать_производить_240_мб_мусора_на_каждой_сборке",
+      "agent_tasks_p1_3_убрать_артефакты_сборки_и_дубли_графа_из_git",
+      "agent_tasks_p1_4_навести_порядок_в_корне_репозитория",
+      "agent_tasks_p1_5_добавить_файл_license",
+      "agent_tasks_задание_для_агента_аудит_и_доведение_проекта_часы",
+      "agent_tasks_команда_проверки_сборки_без_порчи_рабочего_дерева"
     ],
     "221": [
       "ancs_evt_hdl_t",
@@ -10623,32 +10623,32 @@
     ],
     "265": [
       "docs_errors_and_failures",
-      "docs_errors_and_failures_2_\u0431\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u0430\u044f_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0430_ble_in_app_ota_pitfalls",
-      "docs_errors_and_failures_4_\u0441\u043a\u0440\u0438\u043f\u0442\u044b_\u0438_\u0441\u0440\u0435\u0434\u0430_windows_bat_powershell",
-      "docs_errors_and_failures_5_\u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u044f_\u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0438_\u043e\u0442\u043b\u0430\u0434\u043a\u0438_\u0438_\u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f_development_anti_patterns",
-      "docs_errors_and_failures_\u0431\u0430\u0437\u0430_\u0437\u043d\u0430\u043d\u0438\u0439_\u043e\u0448\u0438\u0431\u043e\u043a_\u0433\u0440\u0430\u0431\u043b\u0435\u0439_\u0438_\u043d\u0435\u0443\u0434\u0430\u0447\u043d\u044b\u0445_\u044d\u043a\u0441\u043f\u0435\u0440\u0438\u043c\u0435\u043d\u0442\u043e\u0432_failure_log",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_2_1_\u0441\u0442\u0438\u0440\u0430\u043d\u0438\u0435_\u0441\u0435\u043a\u0442\u043e\u0440\u0430_0x11003000_\u0438_\u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0435_\u0430\u0434\u0440\u0435\u0441\u0430_\u0437\u0435\u043b\u0435\u043d\u044b\u0439_\u0434\u0438\u043e\u0434_\u0432_\u043f\u043e\u043b\u043d\u0430\u043a\u0430\u043b\u0430",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_2_2_\u043f\u043e\u043b\u043d\u0430\u044f_\u043f\u0435\u0440\u0435\u0440\u0438\u0441\u043e\u0432\u043a\u0430_\u044d\u043a\u0440\u0430\u043d\u0430_\u043f\u0440\u0438_\u043f\u0440\u0438\u0435\u043c\u0435_\u043a\u0430\u0436\u0434\u043e\u0433\u043e_\u043f\u0430\u043a\u0435\u0442\u0430_ota_\u043e\u0431\u0440\u044b\u0432_\u0441\u0432\u044f\u0437\u0438_\u043d\u0430_91",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_2_3_\u0441\u043b\u0438\u0448\u043a\u043e\u043c_\u0431\u044b\u0441\u0442\u0440\u044b\u0439_\u0442\u0435\u043c\u043f_\u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0438_\u043f\u0430\u043a\u0435\u0442\u043e\u0432_\u0441_\u043f\u043a_20_\u043c\u0441",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_4_1_\u043a\u0438\u0440\u0438\u043b\u043b\u0438\u0446\u0430_\u0432_utf_8_\u0432\u043d\u0443\u0442\u0440\u0438_bat_\u0444\u0430\u0439\u043b\u043e\u0432",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_4_2_powershell_5_1_\u0438_\u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0438\u0435_bom_\u0432_\u0441\u043a\u0440\u0438\u043f\u0442\u0430\u0445",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_5_1_\u0431\u0435\u0441\u043a\u043e\u043d\u0435\u0447\u043d\u044b\u0435_\u043f\u0435\u0440\u0435\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_\u0447\u0438\u043f\u0430_\u0432\u043c\u0435\u0441\u0442\u043e_\u0438\u043d\u0442\u0435\u0440\u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0433\u043e_cli_\u0433\u043b\u0430\u0432\u043d\u044b\u0439_\u0430\u043d\u0442\u0438\u043f\u0430\u0442\u0442\u0435\u0440\u043d",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_5_2_\u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d\u0438\u0435_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u044b\u0445_\u044d\u043a\u0441\u043f\u0435\u0440\u0438\u043c\u0435\u043d\u0442\u043e\u0432_\u0432\u0441\u043b\u0435\u043f\u0443\u044e",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_5_3_\u043f\u043e\u043f\u044b\u0442\u043a\u0438_\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u043e\u0439_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_\u043f\u043e\u0441\u043b\u0435_\u0432\u0432\u043e\u0434\u0430_in_app_ble_ota_\u0436\u0435\u043b\u0435\u0437\u043d\u044b\u0439_\u0437\u0430\u043f\u0440\u0435\u0442_\u043d\u0430_\u043f\u0440\u043e\u0432\u043e\u0434\u0430"
+      "docs_errors_and_failures_2_беспроводная_прошивка_ble_in_app_ota_pitfalls",
+      "docs_errors_and_failures_4_скрипты_и_среда_windows_bat_powershell",
+      "docs_errors_and_failures_5_стратегия_разработки_отладки_и_тестирования_development_anti_patterns",
+      "docs_errors_and_failures_база_знаний_ошибок_граблей_и_неудачных_экспериментов_failure_log",
+      "docs_errors_and_failures_ошибка_2_1_стирание_сектора_0x11003000_и_относительные_адреса_зеленый_диод_в_полнакала",
+      "docs_errors_and_failures_ошибка_2_2_полная_перерисовка_экрана_при_приеме_каждого_пакета_ota_обрыв_связи_на_91",
+      "docs_errors_and_failures_ошибка_2_3_слишком_быстрый_темп_отправки_пакетов_с_пк_20_мс",
+      "docs_errors_and_failures_ошибка_4_1_кириллица_в_utf_8_внутри_bat_файлов",
+      "docs_errors_and_failures_ошибка_4_2_powershell_5_1_и_отсутствие_bom_в_скриптах",
+      "docs_errors_and_failures_ошибка_5_1_бесконечные_перепрошивки_чипа_вместо_интерактивного_cli_главный_антипаттерн",
+      "docs_errors_and_failures_ошибка_5_2_проведение_аппаратных_экспериментов_вслепую",
+      "docs_errors_and_failures_ошибка_5_3_попытки_проводной_прошивки_после_ввода_in_app_ble_ota_железный_запрет_на_провода"
     ],
     "266": [
       "docs_sdk_digest",
-      "docs_sdk_digest_1_1_\u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0435_\u0430\u0434\u0440\u0435\u0441\u043d\u044b\u0435_\u043f\u0440\u043e\u0441\u0442\u0440\u0430\u043d\u0441\u0442\u0432\u0430",
-      "docs_sdk_digest_1_2_\u043a\u0430\u0440\u0442\u0430_flash_\u043f\u0430\u043c\u044f\u0442\u0438_512_\u043a\u0431_spi_flash",
-      "docs_sdk_digest_1_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u0430\u044f_\u0430\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u0443\u0440\u0430_\u0438_\u043a\u0430\u0440\u0442\u0430_\u043f\u0430\u043c\u044f\u0442\u0438_memory_map",
-      "docs_sdk_digest_2_1_\u0436\u0438\u0437\u043d\u0435\u043d\u043d\u044b\u0439_\u0446\u0438\u043a\u043b",
-      "docs_sdk_digest_2_2_\u0436\u0435\u043b\u0435\u0437\u043d\u044b\u0435_\u043f\u0440\u0430\u0432\u0438\u043b\u0430_osal",
-      "docs_sdk_digest_2_\u043e\u043f\u0435\u0440\u0430\u0446\u0438\u043e\u043d\u043d\u0430\u044f_\u0441\u0440\u0435\u0434\u0430_osal_ti_ble_\u0441\u043e\u0432\u043c\u0435\u0441\u0442\u0438\u043c\u044b\u0439_\u043f\u043b\u0430\u043d\u0438\u0440\u043e\u0432\u0449\u0438\u043a",
-      "docs_sdk_digest_3_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u044b\u0439_\u043f\u0438\u043d\u0430\u0443\u0442_\u043f\u043b\u0430\u0442\u044b_lp715_phy6222qc",
-      "docs_sdk_digest_4_1_\u043f\u0440\u043e\u0444\u0438\u043b\u044c_ota_in_app_service",
-      "docs_sdk_digest_4_2_\u0444\u043e\u0440\u043c\u0443\u043b\u0430_100_\u0441\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u043e\u0441\u0442\u0438_ota",
-      "docs_sdk_digest_4_\u0441\u0442\u0435\u043a_ble_\u0438_\u0431\u0435\u0441\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u0430\u044f_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0430_in_app_ota",
-      "docs_sdk_digest_5_\u044d\u043d\u0435\u0440\u0433\u043e\u0441\u0431\u0435\u0440\u0435\u0436\u0435\u043d\u0438\u0435_\u0438_\u0441\u043f\u044f\u0449\u0438\u0439_\u0440\u0435\u0436\u0438\u043c_power_management",
+      "docs_sdk_digest_1_1_физические_адресные_пространства",
+      "docs_sdk_digest_1_2_карта_flash_памяти_512_кб_spi_flash",
+      "docs_sdk_digest_1_аппаратная_архитектура_и_карта_памяти_memory_map",
+      "docs_sdk_digest_2_1_жизненный_цикл",
+      "docs_sdk_digest_2_2_железные_правила_osal",
+      "docs_sdk_digest_2_операционная_среда_osal_ti_ble_совместимый_планировщик",
+      "docs_sdk_digest_3_аппаратный_пинаут_платы_lp715_phy6222qc",
+      "docs_sdk_digest_4_1_профиль_ota_in_app_service",
+      "docs_sdk_digest_4_2_формула_100_стабильности_ota",
+      "docs_sdk_digest_4_стек_ble_и_беспроводная_прошивка_in_app_ota",
+      "docs_sdk_digest_5_энергосбережение_и_спящий_режим_power_management",
       "docs_sdk_digest_phyplus_phy6222_sdk_architecture_digest"
     ],
     "267": [
@@ -10991,15 +10991,15 @@
     ],
     "291": [
       "docs_hardware_and_platform_spec",
-      "docs_hardware_and_platform_spec_1_\u043e\u0431\u0449\u0438\u0435_\u0441\u0432\u0435\u0434\u0435\u043d\u0438\u044f_\u0438_\u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f_\u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u044b",
-      "docs_hardware_and_platform_spec_2_\u043c\u0438\u043a\u0440\u043e\u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440_soc_phyplus_phy6222qc",
-      "docs_hardware_and_platform_spec_3_\u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0430\u044f_\u0442\u043e\u043f\u043e\u043b\u043e\u0433\u0438\u044f_\u043a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u044b\u0445_\u043f\u043b\u043e\u0449\u0430\u0434\u043e\u043a_\u0442\u0435\u0441\u0442\u043f\u043e\u0438\u043d\u0442\u044b_\u043d\u0430_\u043f\u043b\u0430\u0442\u0435",
-      "docs_hardware_and_platform_spec_4_\u0440\u0430\u0441\u043f\u0438\u043d\u043e\u0432\u043a\u0430_\u043f\u0435\u0440\u0438\u0444\u0435\u0440\u0438\u0438_gpio_pinout",
-      "docs_hardware_and_platform_spec_5_\u0434\u0438\u0441\u043f\u043b\u0435\u0439_st7735s_0_96_tft_80x160",
-      "docs_hardware_and_platform_spec_6_\u043a\u0430\u0440\u0442\u0430_flash_\u043f\u0430\u043c\u044f\u0442\u0438_512_\u043a\u0431_0x80000_\u0431\u0430\u0439\u0442",
-      "docs_hardware_and_platform_spec_7_\u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b_\u043f\u0440\u043e\u0432\u043e\u0434\u043d\u043e\u0433\u043e_bootloader_\u0447\u0438\u043f\u0430_phy6222_cmd",
-      "docs_hardware_and_platform_spec_8_\u0437\u0430\u0432\u043e\u0434\u0441\u043a\u043e\u0439_\u0434\u0430\u043c\u043f_\u0438_\u0433\u0430\u0440\u0430\u043d\u0442\u0438\u044f_\u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f",
-      "docs_hardware_and_platform_spec_\u043f\u043e\u043b\u043d\u0430\u044f_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u0430\u044f_\u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f_\u0438_\u0431\u0430\u0437\u0430_\u0437\u043d\u0430\u043d\u0438\u0439_\u0441\u043c\u0430\u0440\u0442_\u0447\u0430\u0441\u044b_lp715_lp719_\u043d\u0430_soc_phyplus_phy6222"
+      "docs_hardware_and_platform_spec_1_общие_сведения_и_идентификация_платформы",
+      "docs_hardware_and_platform_spec_2_микроконтроллер_soc_phyplus_phy6222qc",
+      "docs_hardware_and_platform_spec_3_физическая_топология_контактных_площадок_тестпоинты_на_плате",
+      "docs_hardware_and_platform_spec_4_распиновка_периферии_gpio_pinout",
+      "docs_hardware_and_platform_spec_5_дисплей_st7735s_0_96_tft_80x160",
+      "docs_hardware_and_platform_spec_6_карта_flash_памяти_512_кб_0x80000_байт",
+      "docs_hardware_and_platform_spec_7_протокол_проводного_bootloader_чипа_phy6222_cmd",
+      "docs_hardware_and_platform_spec_8_заводской_дамп_и_гарантия_восстановления",
+      "docs_hardware_and_platform_spec_полная_аппаратная_спецификация_и_база_знаний_смарт_часы_lp715_lp719_на_soc_phyplus_phy6222"
     ],
     "292": [
       "tools_smartwatch_ref_sdk_components_ethermind_mesh_export_appl_model_server_lighting_light_hsl_server_appl_light_hsl_server_appl_scene_server_cb",
@@ -11062,7 +11062,7 @@
       "tools_smartwatch_ref_sdk_lib_ble_host_sm_task_smto_timercb"
     ],
     "297": [
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_5_\u0441\u043a\u043b\u0435\u0439\u043a\u0430_\u043a\u043e\u043c\u0430\u043d\u0434_uart_cli_\u043f\u0440\u0438_\u0444\u043e\u043d\u043e\u0432\u043e\u043c_\u043e\u043f\u0440\u043e\u0441\u0435_statusvib_statusread",
+      "docs_errors_and_failures_ошибка_6_5_склейка_команд_uart_cli_при_фоновом_опросе_statusvib_statusread",
       "watch_studio_watchserialworker",
       "watch_studio_watchserialworker_init",
       "watch_studio_watchserialworker_resume_port",
@@ -11074,14 +11074,14 @@
     ],
     "298": [
       "docs_factory_firmware_comprehensive_analysis",
-      "docs_factory_firmware_comprehensive_analysis_1_\u043a\u0430\u0440\u0442\u0430_\u0430\u0434\u0440\u0435\u0441\u043d\u043e\u0433\u043e_\u043f\u0440\u043e\u0441\u0442\u0440\u0430\u043d\u0441\u0442\u0432\u0430_flash_\u043f\u0430\u043c\u044f\u0442\u0438_512_\u043a\u0431",
-      "docs_factory_firmware_comprehensive_analysis_2_\u0440\u0430\u0437\u0433\u0430\u0434\u043a\u0430_\u0441\u0438\u0441\u0442\u0435\u043c\u044b_\u043d\u0443\u043c\u0435\u0440\u0430\u0446\u0438\u0438_\u043f\u0438\u043d\u043e\u0432_\u0432_\u0430\u0441\u0441\u0435\u043c\u0431\u043b\u0435\u0440\u0435_\u0437\u0430\u0432\u043e\u0434\u0441\u043a\u043e\u0439_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438",
-      "docs_factory_firmware_comprehensive_analysis_3_\u0430\u043f\u043f\u0430\u0440\u0430\u0442\u043d\u0430\u044f_\u0440\u0430\u0437\u0433\u0430\u0434\u043a\u0430_\u0448\u0438\u043d\u044b_i2c_\u0438_\u043a\u0432\u0430\u0440\u0446\u0435\u0432\u043e\u0433\u043e_\u0433\u0435\u043d\u0435\u0440\u0430\u0442\u043e\u0440\u0430",
-      "docs_factory_firmware_comprehensive_analysis_4_\u0437\u0430\u0432\u043e\u0434\u0441\u043a\u0430\u044f_\u0442\u0430\u0431\u043b\u0438\u0446\u0430_\u0441\u0430\u043c\u043e\u0434\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u043a\u0438_\u0438_\u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u043c\u044b\u0435_\u0434\u0430\u0442\u0447\u0438\u043a\u0438",
-      "docs_factory_firmware_comprehensive_analysis_5_\u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b_\u043e\u0431\u043c\u0435\u043d\u0430_\u0434\u0430\u043d\u043d\u044b\u043c\u0438_fitpro_0xcd",
-      "docs_factory_firmware_comprehensive_analysis_6_\u0430\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u0443\u0440\u0430_\u044d\u043d\u0435\u0440\u0433\u043e\u0441\u0431\u0435\u0440\u0435\u0436\u0435\u043d\u0438\u044f_\u0438_\u0441\u043d\u0430_power_management",
-      "docs_factory_firmware_comprehensive_analysis_\u043f\u043e\u043b\u043d\u044b\u0439_\u0442\u0435\u0445\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0439_\u0430\u043d\u0430\u043b\u0438\u0437_\u0437\u0430\u0432\u043e\u0434\u0441\u043a\u043e\u0439_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438_\u0431\u0440\u0430\u0441\u043b\u0435\u0442\u0430_lp715_mb_v1_3_phy6222qc",
-      "docs_factory_firmware_comprehensive_analysis_\u0441\u0432\u043e\u0434\u043d\u0430\u044f_\u0442\u0430\u0431\u043b\u0438\u0446\u0430_\u0441\u043e\u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0438\u044f_\u043f\u0435\u0440\u0435\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f_\u0438_\u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0433\u043e_\u0436\u0435\u043b\u0435\u0437\u0430"
+      "docs_factory_firmware_comprehensive_analysis_1_карта_адресного_пространства_flash_памяти_512_кб",
+      "docs_factory_firmware_comprehensive_analysis_2_разгадка_системы_нумерации_пинов_в_ассемблере_заводской_прошивки",
+      "docs_factory_firmware_comprehensive_analysis_3_аппаратная_разгадка_шины_i2c_и_кварцевого_генератора",
+      "docs_factory_firmware_comprehensive_analysis_4_заводская_таблица_самодиагностики_и_поддерживаемые_датчики",
+      "docs_factory_firmware_comprehensive_analysis_5_протокол_обмена_данными_fitpro_0xcd",
+      "docs_factory_firmware_comprehensive_analysis_6_архитектура_энергосбережения_и_сна_power_management",
+      "docs_factory_firmware_comprehensive_analysis_полный_технический_анализ_заводской_прошивки_браслета_lp715_mb_v1_3_phy6222qc",
+      "docs_factory_firmware_comprehensive_analysis_сводная_таблица_соответствия_перечисления_и_реального_железа"
     ],
     "299": [
       "file",
@@ -11223,11 +11223,11 @@
       "tools_smartwatch_ref_sdk_example_ble_peripheral_sbpmulticonn_readme_sbp_mulit_connection_porting_guide",
       "tools_smartwatch_ref_sdk_example_ble_peripheral_sbpmulticonn_readme_sbpmulitconn_uvprojx",
       "tools_smartwatch_ref_sdk_example_ble_peripheral_sbpmulticonn_readme_scatter_load_sct",
-      "tools_smartwatch_ref_sdk_example_ble_peripheral_sbpmulticonn_readme_\u5173\u4e8e\u65b0\u589e\u52a0\u7684api\u7684\u4f7f\u7528",
-      "tools_smartwatch_ref_sdk_example_ble_peripheral_sbpmulticonn_readme_\u8fde\u63a5\u5e7f\u64ad\u95f4\u9694\u914d\u7f6e"
+      "tools_smartwatch_ref_sdk_example_ble_peripheral_sbpmulticonn_readme_关于新增加的api的使用",
+      "tools_smartwatch_ref_sdk_example_ble_peripheral_sbpmulticonn_readme_连接广播间隔配置"
     ],
     "312": [
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_8_\u0441\u0431\u043e\u0439_\u0441\u0442\u0435\u043a\u0430_windows_11_winrt_ro_e_closed_0x8000000e_watcher_status_stopped_3_\u043f\u0440\u0438_\u0446\u0438\u043a\u043b\u0438\u0447\u0435\u0441\u043a\u043e\u043c_ble_ota_\u0441\u043a\u0430\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0438",
+      "docs_errors_and_failures_ошибка_6_8_сбой_стека_windows_11_winrt_ro_e_closed_0x8000000e_watcher_status_stopped_3_при_циклическом_ble_ota_сканировании",
       "qthread",
       "watch_studio_otaflashworker",
       "watch_studio_otaflashworker_run",
@@ -11238,13 +11238,13 @@
     ],
     "313": [
       "docs_roadmap_and_capabilities_analysis",
-      "docs_roadmap_and_capabilities_analysis_1_\u0447\u0442\u043e_\u0443\u0436\u0435_\u0440\u0435\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043e_\u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u043e_\u0438_\u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438_\u0444\u0443\u043d\u043a\u0446\u0438\u043e\u043d\u0438\u0440\u0443\u0435\u0442",
-      "docs_roadmap_and_capabilities_analysis_2_\u0447\u0442\u043e_\u043c\u044b_\u043c\u043e\u0436\u0435\u043c_\u0441\u0434\u0435\u043b\u0430\u0442\u044c_\u0434\u0430\u043b\u044c\u0448\u0435_\u0441\u0442\u0440\u0430\u0442\u0435\u0433\u0438\u0447\u0435\u0441\u043a\u0430\u044f_\u0434\u043e\u0440\u043e\u0436\u043d\u0430\u044f_\u043a\u0430\u0440\u0442\u0430",
-      "docs_roadmap_and_capabilities_analysis_\u0430\u043d\u0430\u043b\u0438\u0437_\u0442\u0435\u043a\u0443\u0449\u0438\u0445_\u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u0435\u0439_\u0438_\u0434\u043e\u0440\u043e\u0436\u043d\u0430\u044f_\u043a\u0430\u0440\u0442\u0430_\u0440\u0430\u0437\u0432\u0438\u0442\u0438\u044f_roadmap",
-      "docs_roadmap_and_capabilities_analysis_\u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442_1_\u0430\u043a\u0442\u0438\u0432\u0430\u0446\u0438\u044f_\u0434\u0430\u0442\u0447\u0438\u043a\u043e\u0432_\u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f_\u0438_\u0431\u0438\u043e\u043c\u0435\u0442\u0440\u0438\u0438",
-      "docs_roadmap_and_capabilities_analysis_\u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442_2_\u043c\u043d\u043e\u0433\u043e\u044d\u043a\u0440\u0430\u043d\u043d\u044b\u0439_\u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441_\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f_ui_ux",
-      "docs_roadmap_and_capabilities_analysis_\u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442_3_\u044d\u043d\u0435\u0440\u0433\u043e\u0441\u0431\u0435\u0440\u0435\u0436\u0435\u043d\u0438\u0435_\u0438_\u0430\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u043e\u0441\u0442\u044c_\u0434\u043e_7_\u0434\u043d\u0435\u0439_\u043e\u0442_\u043e\u0434\u043d\u043e\u0433\u043e_\u0437\u0430\u0440\u044f\u0434\u0430",
-      "docs_roadmap_and_capabilities_analysis_\u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442_4_\u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435_\u0441\u043e_\u0441\u043c\u0430\u0440\u0442\u0444\u043e\u043d\u043e\u043c_ble_notifications_control"
+      "docs_roadmap_and_capabilities_analysis_1_что_уже_реализовано_проверено_и_физически_функционирует",
+      "docs_roadmap_and_capabilities_analysis_2_что_мы_можем_сделать_дальше_стратегическая_дорожная_карта",
+      "docs_roadmap_and_capabilities_analysis_анализ_текущих_возможностей_и_дорожная_карта_развития_roadmap",
+      "docs_roadmap_and_capabilities_analysis_приоритет_1_активация_датчиков_движения_и_биометрии",
+      "docs_roadmap_and_capabilities_analysis_приоритет_2_многоэкранный_интерфейс_пользователя_ui_ux",
+      "docs_roadmap_and_capabilities_analysis_приоритет_3_энергосбережение_и_автономность_до_7_дней_от_одного_заряда",
+      "docs_roadmap_and_capabilities_analysis_приоритет_4_взаимодействие_со_смартфоном_ble_notifications_control"
     ],
     "314": [
       "led_pwr_e",
@@ -11306,13 +11306,13 @@
       "tools_smartwatch_ref_sdk_example_peripheral_spiflash_rte_device_armcm0_system_armcm0_systeminit"
     ],
     "320": [
-      "docs_errors_and_failures_6_\u043f\u0435\u0440\u0438\u0444\u0435\u0440\u0438\u044f_\u0440\u0430\u0434\u0438\u043e\u043a\u0430\u043d\u0430\u043b_\u0438_\u0448\u0438\u043d\u043d\u044b\u0435_\u043a\u043e\u043b\u043b\u0438\u0437\u0438\u0438_ble_i2c_spi_collisions",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_10_\u0437\u0430\u0432\u0438\u0441\u0430\u043d\u0438\u0435_soc_phy6222_\u0432_standby_sleep_\u043f\u043e\u0441\u043b\u0435_\u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u043d\u043e\u0433\u043e_hal_system_soft_reset_\u043f\u0440\u0435\u0432\u0435\u043d\u0442\u0438\u0432\u043d\u044b\u0439_reboot_\u043f\u043e_uart_\u043f\u0435\u0440\u0435\u0434_ble_ota",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_1_\u0444\u043e\u043d\u043e\u0432\u044b\u0439_\u043e\u043f\u0440\u043e\u0441_\u043d\u0435\u0440\u0430\u0431\u043e\u0442\u0430\u044e\u0449\u0435\u0433\u043e_\u0430\u043a\u0441\u0435\u043b\u0435\u0440\u043e\u043c\u0435\u0442\u0440\u0430_\u0438_\u0437\u0430\u0434\u0435\u0440\u0436\u043a\u0438_spi_\u0432\u043e_\u0432\u0440\u0435\u043c\u044f_ble_ota",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_3_\u0438\u043d\u0432\u0435\u0440\u0441\u0438\u044f_\u043f\u043e\u043b\u044f\u0440\u043d\u043e\u0441\u0442\u0438_\u043f\u0440\u0438_\u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u043d\u043e\u043c_\u0433\u043b\u0443\u0448\u0435\u043d\u0438\u0438_\u0432\u0438\u0431\u0440\u043e\u043c\u043e\u0442\u043e\u0440\u0430_\u0447\u0435\u0440\u0435\u0437_uart_cli_active_high_vs_active_low",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_4_\u0441\u0440\u044b\u0432_\u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f_windows_bat_\u0444\u0430\u0439\u043b\u043e\u0432_\u0438\u0437_\u0437\u0430_utf_8_bom_\u0438_unix_lf_\u043e\u043a\u043e\u043d\u0447\u0430\u043d\u0438\u0439_\u0441\u0442\u0440\u043e\u043a",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_6_\u043b\u043e\u0436\u043d\u044b\u0439_ack_\u043d\u0430_\u0432\u0441\u0435\u0445_112_\u0430\u0434\u0440\u0435\u0441\u0430\u0445_i2c_\u0441\u043a\u0430\u043d\u0435\u0440\u0430_\u043f\u0440\u0438_\u0437\u0430\u043a\u043e\u0440\u043e\u0447\u0435\u043d\u043d\u043e\u0439_\u043d\u0430_0_\u043b\u0438\u043d\u0438\u0438_sda",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_6_9_\u0437\u0430\u0432\u0438\u0441\u0430\u043d\u0438\u0435_\u043d\u0430_100_\u043f\u0440\u0438_in_app_ota_\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0435_hardfault_\u0438\u0437_\u0437\u0430_\u043f\u043e\u0432\u0442\u043e\u0440\u043d\u043e\u0433\u043e_\u0432\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f_\u043f\u0440\u0435\u0440\u044b\u0432\u0430\u043d\u0438\u0439_\u0434\u0440\u0430\u0439\u0432\u0435\u0440\u043e\u043c_flash_\u0438_\u043e\u043f\u0442\u0438\u043c\u0438\u0437\u0430\u0446\u0438\u0438_gcc_\u0432_memset"
+      "docs_errors_and_failures_6_периферия_радиоканал_и_шинные_коллизии_ble_i2c_spi_collisions",
+      "docs_errors_and_failures_ошибка_6_10_зависание_soc_phy6222_в_standby_sleep_после_программного_hal_system_soft_reset_превентивный_reboot_по_uart_перед_ble_ota",
+      "docs_errors_and_failures_ошибка_6_1_фоновый_опрос_неработающего_акселерометра_и_задержки_spi_во_время_ble_ota",
+      "docs_errors_and_failures_ошибка_6_3_инверсия_полярности_при_программном_глушении_вибромотора_через_uart_cli_active_high_vs_active_low",
+      "docs_errors_and_failures_ошибка_6_4_срыв_выполнения_windows_bat_файлов_из_за_utf_8_bom_и_unix_lf_окончаний_строк",
+      "docs_errors_and_failures_ошибка_6_6_ложный_ack_на_всех_112_адресах_i2c_сканера_при_закороченной_на_0_линии_sda",
+      "docs_errors_and_failures_ошибка_6_9_зависание_на_100_при_in_app_ota_прошивке_hardfault_из_за_повторного_включения_прерываний_драйвером_flash_и_оптимизации_gcc_в_memset"
     ],
     "321": [
       "tools_smartwatch_ref_sdk_components_ethermind_mesh_export_appl_model_server_appl_model_server_state_handler_appl_light_xyl_set_actual",
@@ -11432,10 +11432,10 @@
       "tools_smartwatch_ref_sdk_components_profiles_ota_ota_protocol_run_fct"
     ],
     "335": [
-      "docs_errors_and_failures_3_\u0433\u0440\u0430\u0444\u0438\u043a\u0430_\u0438_\u0432\u0435\u0440\u0441\u0442\u043a\u0430_\u044d\u043a\u0440\u0430\u043d\u0430_80x160",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_3_1_\u0434\u043b\u0438\u043d\u0430_\u0442\u0435\u043a\u0441\u0442\u043e\u0432\u044b\u0445_\u0441\u0442\u0440\u043e\u043a_12_\u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432_\u043a\u0430\u0448\u0430_\u043d\u0430_\u0434\u0438\u0441\u043f\u043b\u0435\u0435",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_3_2_\u0447\u0435\u0440\u043d\u044b\u0439_\u044d\u043a\u0440\u0430\u043d_\u043f\u0440\u0438_\u0440\u0435\u0430\u0433\u0438\u0440\u0443\u044e\u0449\u0435\u0439_\u043a\u043d\u043e\u043f\u043a\u0435_\u0441\u0440\u044b\u0432_\u0441\u0442\u0430\u0440\u0442\u0430_\u043c\u0430\u0442\u0440\u0438\u0446\u044b_st7735s_\u0438\u0437_\u0437\u0430_\u043f\u0443\u0441\u0442\u044b\u0445_\u0446\u0438\u043a\u043b\u043e\u0432_nop",
-      "docs_errors_and_failures_\u043e\u0448\u0438\u0431\u043a\u0430_3_3_\u043e\u0448\u0438\u0431\u043e\u0447\u043d\u044b\u0439_\u0432\u044b\u0432\u043e\u0434_\u043e_\u043d\u0435\u0438\u0441\u043f\u0440\u0430\u0432\u043d\u043e\u0441\u0442\u0438_\u043f\u043e\u0434\u0441\u0432\u0435\u0442\u043a\u0438_\u043f\u0440\u0438_\u0441\u043f\u044f\u0449\u0435\u0439_\u043c\u0430\u0442\u0440\u0438\u0446\u0435"
+      "docs_errors_and_failures_3_графика_и_верстка_экрана_80x160",
+      "docs_errors_and_failures_ошибка_3_1_длина_текстовых_строк_12_символов_каша_на_дисплее",
+      "docs_errors_and_failures_ошибка_3_2_черный_экран_при_реагирующей_кнопке_срыв_старта_матрицы_st7735s_из_за_пустых_циклов_nop",
+      "docs_errors_and_failures_ошибка_3_3_ошибочный_вывод_о_неисправности_подсветки_при_спящей_матрице"
     ],
     "336": [
       "timepackge",
@@ -12143,7 +12143,29 @@
   ],
   "surprises": [
     {
-      "source": "\u041e\u0448\u0438\u0431\u043a\u0430 6.10: \u0417\u0430\u0432\u0438\u0441\u0430\u043d\u0438\u0435 SoC PHY6222 \u0432 Standby/Sleep \u043f\u043e\u0441\u043b\u0435 \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u043d\u043e\u0433\u043e `hal_system_soft_reset()` (\u041f\u0440\u0435\u0432\u0435\u043d\u0442\u0438\u0432\u043d\u044b\u0439 `reboot` \u043f\u043e UART \u043f\u0435\u0440\u0435\u0434 BLE OTA)",
+      "source": "2. Микроконтроллер (SoC) — PhyPlus PHY6222QC",
+      "target": "hal_rc32k_clk_tracking_init()",
+      "source_files": [
+        "docs/HARDWARE_AND_PLATFORM_SPEC.md",
+        "tools/smartwatch_ref/sdk/components/driver/clock/clock.c"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code ↔ doc); connects across different repos/directories; bridges separate communities; peripheral node `2. Микроконтроллер (SoC) — PhyPlus PHY6222QC` unexpectedly reaches hub `hal_rc32k_clk_tracking_init()`"
+    },
+    {
+      "source": "P2-3. Не переинициализировать I2C по нажатию кнопки",
+      "target": "accel_init()",
+      "source_files": [
+        "AGENT_TASKS.md",
+        "firmware/src/accel.c"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code ↔ doc); connects across different repos/directories; bridges separate communities; peripheral node `P2-3. Не переинициализировать I2C по нажатию кнопки` unexpectedly reaches hub `accel_init()`"
+    },
+    {
+      "source": "Ошибка 6.10: Зависание SoC PHY6222 в Standby/Sleep после программного `hal_system_soft_reset()` (Превентивный `reboot` по UART перед BLE OTA)",
       "target": "hal_system_soft_reset()",
       "source_files": [
         "docs/ERRORS_AND_FAILURES.md",
@@ -12151,55 +12173,66 @@
       ],
       "confidence": "INFERRED",
       "relation": "references",
-      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities; peripheral node `\u041e\u0448\u0438\u0431\u043a\u0430 6.10: \u0417\u0430\u0432\u0438\u0441\u0430\u043d\u0438\u0435 SoC PHY6222 \u0432 Standby/Sleep \u043f\u043e\u0441\u043b\u0435 \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u043d\u043e\u0433\u043e `hal_system_soft_reset()` (\u041f\u0440\u0435\u0432\u0435\u043d\u0442\u0438\u0432\u043d\u044b\u0439 `reboot` \u043f\u043e UART \u043f\u0435\u0440\u0435\u0434 BLE OTA)` unexpectedly reaches hub `hal_system_soft_reset()`"
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code ↔ doc); connects across different repos/directories; bridges separate communities; peripheral node `Ошибка 6.10: Зависание SoC PHY6222 в Standby/Sleep после программного `hal_system_soft_reset()` (Превентивный `reboot` по UART перед BLE OTA)` unexpectedly reaches hub `hal_system_soft_reset()`"
     },
     {
-      "source": "\u041e\u0448\u0438\u0431\u043a\u0430 3.2: \u0427\u0435\u0440\u043d\u044b\u0439 \u044d\u043a\u0440\u0430\u043d \u043f\u0440\u0438 \u0440\u0435\u0430\u0433\u0438\u0440\u0443\u044e\u0449\u0435\u0439 \u043a\u043d\u043e\u043f\u043a\u0435 (\u0421\u0440\u044b\u0432 \u0441\u0442\u0430\u0440\u0442\u0430 \u043c\u0430\u0442\u0440\u0438\u0446\u044b ST7735S \u0438\u0437-\u0437\u0430 \u043f\u0443\u0441\u0442\u044b\u0445 \u0446\u0438\u043a\u043b\u043e\u0432 NOP)",
-      "target": "display_delay_ms()",
+      "source": "4.2. Формула 100% стабильности OTA",
+      "target": "vibrator_stop()",
       "source_files": [
-        "docs/ERRORS_AND_FAILURES.md",
-        "firmware/src/display.c"
+        "docs/SDK_DIGEST.md",
+        "firmware/src/vibrator.c"
       ],
       "confidence": "INFERRED",
       "relation": "references",
-      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities; peripheral node `\u041e\u0448\u0438\u0431\u043a\u0430 3.2: \u0427\u0435\u0440\u043d\u044b\u0439 \u044d\u043a\u0440\u0430\u043d \u043f\u0440\u0438 \u0440\u0435\u0430\u0433\u0438\u0440\u0443\u044e\u0449\u0435\u0439 \u043a\u043d\u043e\u043f\u043a\u0435 (\u0421\u0440\u044b\u0432 \u0441\u0442\u0430\u0440\u0442\u0430 \u043c\u0430\u0442\u0440\u0438\u0446\u044b ST7735S \u0438\u0437-\u0437\u0430 \u043f\u0443\u0441\u0442\u044b\u0445 \u0446\u0438\u043a\u043b\u043e\u0432 NOP)` unexpectedly reaches hub `display_delay_ms()`"
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code ↔ doc); connects across different repos/directories; bridges separate communities; peripheral node `4.2. Формула 100% стабильности OTA` unexpectedly reaches hub `vibrator_stop()`"
     },
     {
-      "source": "14. \u042d\u0442\u0430\u043f 17: \u0420\u0435\u0435\u0441\u0442\u0440 \u043e\u0448\u0438\u0431\u043e\u043a (ERRORS_AND_FAILURES.md), \u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435 \u0441\u0440\u044b\u0432\u0430 ST7735S \u0438 \u043f\u0435\u0440\u0435\u0445\u043e\u0434 \u043d\u0430 Hardware CLI",
-      "target": "display_delay_ms()",
-      "source_files": [
-        "PROJECT_STATE.md",
-        "firmware/src/display.c"
-      ],
-      "confidence": "INFERRED",
-      "relation": "references",
-      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities; peripheral node `14. \u042d\u0442\u0430\u043f 17: \u0420\u0435\u0435\u0441\u0442\u0440 \u043e\u0448\u0438\u0431\u043e\u043a (ERRORS_AND_FAILURES.md), \u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435 \u0441\u0440\u044b\u0432\u0430 ST7735S \u0438 \u043f\u0435\u0440\u0435\u0445\u043e\u0434 \u043d\u0430 Hardware CLI` unexpectedly reaches hub `display_delay_ms()`"
-    },
-    {
-      "source": "\u0414\u0438\u0441\u043f\u043b\u0435\u0439 80\u00d7160",
-      "target": "gfx_draw_string()",
-      "source_files": [
-        "AGENTS.md",
-        "firmware/src/gfx.c"
-      ],
-      "confidence": "INFERRED",
-      "relation": "references",
-      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities; peripheral node `\u0414\u0438\u0441\u043f\u043b\u0435\u0439 80\u00d7160` unexpectedly reaches hub `gfx_draw_string()`"
-    },
-    {
-      "source": "13. \u042d\u0442\u0430\u043f 16: \u0423\u0441\u043f\u0435\u0445 \u0432\u043e\u0437\u0434\u0443\u0448\u043d\u043e\u0439 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 (In-App BLE OTA), \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u0430\u043a\u0441\u0435\u043b\u0435\u0440\u043e\u043c\u0435\u0442\u0440\u0430 \u0438 \u0432\u0435\u0440\u0441\u0442\u043a\u0430 \u044d\u043a\u0440\u0430\u043d\u0430 80x160",
-      "target": "gfx_draw_string()",
+      "source": "17. Этап 21: Успешная беспроводная прошивка v1.5.2-OTA, устранение паразитного вибромотора и очистка 16 ГБ бэкапов",
+      "target": "vibrator_stop()",
       "source_files": [
         "PROJECT_STATE.md",
-        "firmware/src/gfx.c"
+        "firmware/src/vibrator.c"
       ],
       "confidence": "INFERRED",
       "relation": "references",
-      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities; peripheral node `13. \u042d\u0442\u0430\u043f 16: \u0423\u0441\u043f\u0435\u0445 \u0432\u043e\u0437\u0434\u0443\u0448\u043d\u043e\u0439 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 (In-App BLE OTA), \u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u0430\u043a\u0441\u0435\u043b\u0435\u0440\u043e\u043c\u0435\u0442\u0440\u0430 \u0438 \u0432\u0435\u0440\u0441\u0442\u043a\u0430 \u044d\u043a\u0440\u0430\u043d\u0430 80x160` unexpectedly reaches hub `gfx_draw_string()`"
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code ↔ doc); connects across different repos/directories; bridges separate communities; peripheral node `17. Этап 21: Успешная беспроводная прошивка v1.5.2-OTA, устранение паразитного вибромотора и очистка 16 ГБ бэкапов` unexpectedly reaches hub `vibrator_stop()`"
     }
   ],
-  "tokens": {
-    "input": 0,
-    "output": 0
-  }
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `appl_dump_bytes()` connect `appl_dump_bytes` to `aliGenie_bleMesh_socket/source/aliGenie_appl.c`, `cli_generic_onoff_client.c`, `cli_generic_power_onoff_client.c`, `asyncio`, `EM_timer.c`, `cli_light_hsl_client.c`, `GAPBondMgr_LinkEst`, `sec/aes.c`, `appl_generic_default_transition_time_client.c`, `appl_generic_power_onoff_client.c`, `cli_sensor_client.c`, `i2c.c`, `ppsp_impl.c`, `hal_gpio_pull_set`, `patch.c`, `float32_t`, `appl_dump_bytes`, `EM_debug.c`, `cli_generic_property_client.c`, `cli_light_lightness_client.c`, `climodel/cli_model.c`, `aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_fan.c`, `flash.c`, `simpleIBeaconProfile_ota.c`, `test_ccm_mode.c`, `attSendMsg`, `hci.h`, `multi.c`, `subprocess`, `gattservapp.c`, `cli_generic_default_transition_time_client.c`, `cli_generic_power_level_client.c`, `cli_generic_power_level_client.c`, `cli_time_client.c`, `appl_sample_example_7.c`, `aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_light.c`, `UI_generic_onoff_model_server_cb`, `appl_time_server_cb`, `appl_light_xyl_client.c`, `cli_time_client.c`, `bsp_button.c`, `appl_generic_power_onoff_client.c`, `cli_core.c`, `UI_generic_scene_server_cb`, `appl_scene_client.c`, `cli_scene_client.c`, `aliGenie_appl_common.c`, `appl_generic_power_onoff_client_cb`, `bleuart_ProcessEvent`, `gap_linkmgr.c`, `kscan.c`, `voice_circ_buff.c`, `cli_generic_level_client.c`, `phyflasher`, `gapbondmgr.c`, `aliGenie_blebrr.c`, `appl_scheduler_client.c`, `at_ble_service.c`, `appl_sample_example_10.c`, `mesh_lpn/source/bleMesh/dongleKey.c`, `SimpleBLEPeripheral_ProcessEvent`, `generic_level_server/appl_model_state_handler.c`, `appl_sample_example_9.c`, `aliGenie_bleMesh_curtain/source/aliGenie_appl.c`, `appl_generic_onoff_client.c`, `appl_light_ctl_server.c`, `UI_light_hsl_server_cb`, `at_multi_schedule.c`, `appl_generic_battery_client_cb`, `aliGenie_bleMesh_light/source/aliGenie_appl.c`?",
+      "why": "High betweenness centrality (0.060) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 191 inferred relationships involving `CLI_strtoi()` (e.g. with `cli_config_ntf()` and `cli_create_gatt_conn()`) actually correct?",
+      "why": "`CLI_strtoi()` has 191 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `MESH_PROV_DATA_IN_VALUE_CHAR`, `MESH_PROV_DATA_IN_VALUE_VAL`, `MESH_PROV_DATA_OUT_VALUE_CCC` to the rest of the system?",
+      "why": "18 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `aliGenie_appl_Generic.h` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.025205694136084627 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `CLI_strtoi()` connect `attSendMsg` to `cli_core_provision.c`, `cli_generic_onoff_client.c`, `cli_generic_power_onoff_client.c`, `GAPBondMgr_LinkEst`, `HeartRate_MeasNotify`, `cli_sensor_client.c`, `cli_generic_battery_client.c`, `EM_debug.c`, `cli_generic_property_client.c`, `cli_light_lightness_client.c`, `cli_brr.c`, `simpleIBeaconProfile_ota.c`, `test_ccm_mode.c`, `core_cmFunc.h`, `EM_platform.c`, `cli_ps.c`, `subprocess`, `cli_generic_default_transition_time_client.c`, `cli_generic_power_level_client.c`, `cli_time_client.c`, `cli_time_client.c`, `smp.c`, `cli_scene_client.c`, `cli_generic_level_client.c`, `at_ble_service.c`, `appl_light_ctl_server.c`?",
+      "why": "High betweenness centrality (0.025) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 116 inferred relationships involving `hal_gpio_pull_set()` (e.g. with `Ошибка 6.7: Путаница между индексами enum `gpio_pin_e` и номерами пинов чипа в деассемблере заводской прошивки` and `2. Разгадка системы нумерации пинов в ассемблере заводской прошивки`) actually correct?",
+      "why": "`hal_gpio_pull_set()` has 116 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `gatt.h` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.020703517587939698 - nodes in this community are weakly interconnected."
+    }
+  ]
 }
