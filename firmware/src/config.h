@@ -37,6 +37,6 @@
 #define ST7735_ROWSTART 1
 
 // Firmware Version
-#define FW_VERSION_STR "v1.5.5-ADC"
+#define FW_VERSION_STR "v1.5.6-ICONS"
 
 #endif // CONFIG_H

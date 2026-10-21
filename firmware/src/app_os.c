@@ -35,62 +35,68 @@ static bool s_diag_first_draw = true;
 
 
 static void render_watchface(void) {
+    uint8_t bat_pct = battery_get_percent();
+    uint16_t bat_mv = battery_read_mv();
+
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
         display_fill_screen(COLOR_BLACK);
         
         // Header (Navy Blue Bar)
         gfx_fill_rect(0, 0, 80, 15, COLOR_NAVY);
-        gfx_draw_string(7, 4, "LP715 WATCH", COLOR_CYAN, COLOR_NAVY, 1);
+        gfx_draw_string(23, 4, "LP715", COLOR_WHITE, COLOR_NAVY, 1);
         
-        gfx_draw_fast_h_line(2, 18, 76, COLOR_DARKGREY);
-        gfx_draw_string(7, 22, FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 17, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 42, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 60, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 86, 76, COLOR_DARKGREY);
         
-        gfx_draw_fast_h_line(2, 32, 76, COLOR_DARKGREY);
-        gfx_draw_fast_h_line(2, 80, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 84, "UPTIME:", COLOR_YELLOW, COLOR_BLACK, 1);
-        
-        gfx_draw_fast_h_line(2, 106, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 90, "UPTIME:", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_fast_h_line(2, 110, 76, COLOR_DARKGREY);
+        gfx_draw_string(4, 114, FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
         gfx_draw_fast_h_line(2, 138, 76, COLOR_DARKGREY);
         gfx_draw_string(4, 144, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
     char buf[24];
 
-    // 1. Dynamic Clock / Time.
-    // ERRORS_AND_FAILURES 3.1: at scale 2 exactly 6 chars fit into 80 px (6 * 12 px = 72 px).
-    // The old "%02d:%02d:%02d" was 96 px wide and hard-wrapped "00" onto the next line.
+    // 0. Header Bar Icons (Top right: Battery outline+level; Top left: BLE status)
+    gfx_draw_ble_icon(3, 3, ble_is_connected());
+    gfx_draw_battery_icon(58, 3, bat_pct, battery_is_charging());
+
+    // 1. Dynamic Clock / Time (Scale 2 for HH:MM, Scale 1 for SS)
     snprintf(buf, sizeof(buf), "%02d:%02d", s_hours, s_minutes);
-    gfx_draw_string(10, 46, buf, COLOR_CYAN, COLOR_BLACK, 2); // 5 chars * 12 px = 60 px
+    gfx_draw_string(6, 22, buf, COLOR_CYAN, COLOR_BLACK, 2); // 5 chars * 12 px = 60 px
 
-    // Seconds are a separate scale-1 field so the clock line can never wrap.
     snprintf(buf, sizeof(buf), "%02d", s_seconds);
-    gfx_draw_string(68, 64, buf, COLOR_CYAN, COLOR_BLACK, 1);
+    gfx_draw_string(66, 30, buf, COLOR_YELLOW, COLOR_BLACK, 1);
 
-    // 2. Dynamic ticking Uptime: HH:MM:SS
+    // 2. Activity Row: Heart Rate & Step count with graphical icons
+    gfx_draw_heart_icon(4, 47, COLOR_RED);
+    gfx_draw_string(14, 48, "--", COLOR_WHITE, COLOR_BLACK, 1);
+
+    gfx_draw_step_icon(42, 47, COLOR_CYAN);
+    snprintf(buf, sizeof(buf), "%lu", (unsigned long)s_click_count);
+    gfx_draw_string(52, 48, buf, COLOR_WHITE, COLOR_BLACK, 1);
+
+    // 3. Battery status & Mini-gauge
+    snprintf(buf, sizeof(buf), "%3d%% %4dmV", bat_pct, bat_mv); // 10 chars * 6 px = 60 px < 80 px
+    gfx_draw_string(4, 65, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
+    gfx_draw_progress_bar(4, 75, 72, 6, bat_pct, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_DARKGREY);
+
+    // 4. Dynamic ticking Uptime: HH:MM:SS
     uint32_t sec = s_uptime_seconds;
     uint32_t h = sec / 3600;
     uint32_t m = (sec % 3600) / 60;
     uint32_t s = sec % 60;
     snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s);
-    gfx_draw_string(4, 94, buf, COLOR_WHITE, COLOR_BLACK, 1);
+    gfx_draw_string(4, 99, buf, COLOR_WHITE, COLOR_BLACK, 1);
 
-    // 3. Battery status.
-    // ERRORS_AND_FAILURES 3.1: max 12 chars per scale-1 line. "%d%%" + "%dmV" on one line
-    // was 16-17 chars and word-wrapped onto the BLE line.
-    uint8_t bat_pct = battery_get_percent();
-    uint16_t bat_mv = battery_read_mv();
-    snprintf(buf, sizeof(buf), "BAT %3d%%", bat_pct); // max 8 chars * 6 px = 48 px
-    gfx_draw_string(4, 110, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
-
-    snprintf(buf, sizeof(buf), "%dmV", bat_mv);       // max 6 chars * 6 px = 36 px
-    gfx_draw_string(4, 120, buf, COLOR_WHITE, COLOR_BLACK, 1);
-
-    // 4. BLE status (max 11 chars * 6 px = 66 px)
+    // 5. BLE status line
     if (ble_is_connected()) {
-        gfx_draw_string(4, 130, "BLE: ONLINE", COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 126, "BLE: ONLINE", COLOR_GREEN, COLOR_BLACK, 1);
     } else {
-        gfx_draw_string(4, 130, "BLE: ADV...", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_string(4, 126, "BLE: ADV...", COLOR_YELLOW, COLOR_BLACK, 1);
     }
 }
 

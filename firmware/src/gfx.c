@@ -427,6 +427,50 @@ void gfx_draw_ble_icon(int16_t x, int16_t y, bool connected) {
     gfx_draw_line(x + 3, y + 8, x + 5, y + 6, col);
 }
 
+void gfx_draw_bitmap_1bpp(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg) {
+    int16_t byte_width = (w + 7) / 8;
+    for (int16_t j = 0; j < h; j++) {
+        for (int16_t i = 0; i < w; i++) {
+            uint8_t byte = bitmap[j * byte_width + (i / 8)];
+            if (byte & (0x80 >> (i & 7))) {
+                gfx_draw_pixel(x + i, y + j, color);
+            } else if (bg != color) {
+                gfx_draw_pixel(x + i, y + j, bg);
+            }
+        }
+    }
+}
+
+static const uint8_t s_icon_heart_8x8[] = {
+    0x00, // ........
+    0x66, // .XX..XX.
+    0xFF, // XXXXXXXX
+    0xFF, // XXXXXXXX
+    0x7E, // .XXXXXX.
+    0x3C, // ..XXXX..
+    0x18, // ...XX...
+    0x00  // ........
+};
+
+static const uint8_t s_icon_step_8x8[] = {
+    0x0E, // ....XXX.
+    0x1E, // ...XXXX.
+    0x3C, // ..XXXX..
+    0x7C, // .XXXXX..
+    0xFE, // XXXXXXX.
+    0xFE, // XXXXXXX.
+    0xAA, // X.X.X.X.
+    0x00  // ........
+};
+
+void gfx_draw_heart_icon(int16_t x, int16_t y, uint16_t color) {
+    gfx_draw_bitmap_1bpp(x, y, s_icon_heart_8x8, 8, 8, color, COLOR_BLACK);
+}
+
+void gfx_draw_step_icon(int16_t x, int16_t y, uint16_t color) {
+    gfx_draw_bitmap_1bpp(x, y, s_icon_step_8x8, 8, 8, color, COLOR_BLACK);
+}
+
 void gfx_draw_progress_bar(int16_t x, int16_t y, int16_t w, int16_t h, uint8_t percent, uint16_t color, uint16_t bg) {
     gfx_draw_rect(x, y, w, h, COLOR_WHITE);
     int16_t inner_w = w - 4;

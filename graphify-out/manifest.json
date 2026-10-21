@@ -6,10 +6,10 @@
     "semantic_hash": "a84a598d8e3ebb36938c78a481ad1c6d"
   },
   "firmware/src/app_os.c": {
-    "mtime": 1792519998.5656083,
-    "seen": 1792542910.218866,
-    "ast_hash": "93009e8808b41c9401a70e62682b723f",
-    "semantic_hash": "93009e8808b41c9401a70e62682b723f"
+    "mtime": 1792543135.1005118,
+    "seen": 1792545235.9284608,
+    "ast_hash": "d80c8c0e33b4c36c3df8f693fdbb0335",
+    "semantic_hash": "d80c8c0e33b4c36c3df8f693fdbb0335"
   },
   "firmware/src/app_os.h": {
     "mtime": 1792364249.69934,
@@ -42,10 +42,10 @@
     "semantic_hash": "353876afb95a79d86ffadc7280714cc7"
   },
   "firmware/src/config.h": {
-    "mtime": 1792526477.8384786,
-    "seen": 1792542910.219761,
-    "ast_hash": "d72b832b6784a964e0c367839853efe6",
-    "semantic_hash": "d72b832b6784a964e0c367839853efe6"
+    "mtime": 1792543037.416506,
+    "seen": 1792545235.9296262,
+    "ast_hash": "c6ab8d99833a2308cc640b6769e812d9",
+    "semantic_hash": "c6ab8d99833a2308cc640b6769e812d9"
   },
   "firmware/src/display.c": {
     "mtime": 1792128892.9407415,
@@ -72,16 +72,16 @@
     "semantic_hash": "9a24b32c8e199a347847c22a4150357f"
   },
   "firmware/src/gfx.c": {
-    "mtime": 1792071519.587811,
-    "seen": 1792089004.638444,
-    "ast_hash": "8c66afc311adde0f280541f368f48c33",
-    "semantic_hash": "8c66afc311adde0f280541f368f48c33"
+    "mtime": 1792543064.0811207,
+    "seen": 1792545235.9303575,
+    "ast_hash": "3c46399d1ed4352e30f5ca26a486d431",
+    "semantic_hash": "3c46399d1ed4352e30f5ca26a486d431"
   },
   "firmware/src/gfx.h": {
-    "mtime": 1791622347.9841366,
-    "seen": 1791705973.0382464,
-    "ast_hash": "cc38af19ec16ce1044720ae7067d288a",
-    "semantic_hash": "cc38af19ec16ce1044720ae7067d288a"
+    "mtime": 1792543048.9230742,
+    "seen": 1792545235.93036,
+    "ast_hash": "201b400cc7b52103eb6ad9cb68111806",
+    "semantic_hash": "201b400cc7b52103eb6ad9cb68111806"
   },
   "firmware/src/main.c": {
     "mtime": 1792364821.5768895,
@@ -6954,10 +6954,10 @@
     "semantic_hash": "a485b2b9dde3fe7bd29d96686748fb4b"
   },
   "firmware/src/battery.c": {
-    "mtime": 1792519076.3969004,
-    "seen": 1792542910.2190695,
-    "ast_hash": "b010d2b9bd1f6aba212211079453aacf",
-    "semantic_hash": "b010d2b9bd1f6aba212211079453aacf"
+    "mtime": 1792542993.3760912,
+    "seen": 1792545235.9286702,
+    "ast_hash": "30b67ec8d00c36b31509b761a0eaea87",
+    "semantic_hash": "30b67ec8d00c36b31509b761a0eaea87"
   },
   "firmware/src/battery.h": {
     "mtime": 1792519050.3040252,

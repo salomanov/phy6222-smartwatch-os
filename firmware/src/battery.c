@@ -15,8 +15,8 @@ static volatile bool s_sampling = false;
 static void on_adc_evt(adc_Evt_t *pev) {
     if (pev->type == HAL_ADC_EVT_DATA && pev->ch == ADC_CH3P_P20) {
         float v = hal_adc_value_cal((adc_CH_t)pev->ch, pev->data, pev->size, FALSE, FALSE);
-        uint16_t adc_mv = (uint16_t)(v * 1000.0f);
-        uint16_t bat_mv = (uint16_t)(v * 2000.0f); // 1:2 external voltage divider
+        uint16_t adc_mv = (uint16_t)v;
+        uint16_t bat_mv = (uint16_t)(v * 4.0f); // 1:4 external voltage divider on P20 (e.g. 980mV * 4 = 3920mV)
 
         s_raw_adc_mv = adc_mv;
         if (bat_mv >= 2800 && bat_mv <= 4500) {
