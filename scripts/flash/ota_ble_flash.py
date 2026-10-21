@@ -60,7 +60,7 @@ def parse_ota_bin(filepath):
         })
     return partitions
 
-async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=60.0):
+async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=120.0):
     found_event = asyncio.Event()
     target_device = [None]
 
@@ -118,7 +118,7 @@ async def main():
 
     client = None
     try:
-        client = await find_and_connect(target_addr='62:62:15:07:07:15', timeout=45.0)
+        client = await find_and_connect(target_addr='62:62:15:07:07:15', timeout=180.0)
     except Exception as e:
         print(f"[!] Connect error: {e}")
 

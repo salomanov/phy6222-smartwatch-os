@@ -6798,9 +6798,9 @@
     "semantic_hash": "04a5290fc7c10352e003982bde00b68b"
   },
   "PROJECT_STATE.md": {
-    "mtime": 1791704330.0686402,
-    "seen": 1791706178.1154869,
-    "ast_hash": "b11482f6aad6951994561333de04b1c0",
+    "mtime": 1792572158.3676333,
+    "seen": 1792577031.2968757,
+    "ast_hash": "a6149201d61c0cef3d4c9e6b59b96c5c",
     "semantic_hash": ""
   },
   "tools/smartwatch_ref/README.md": {
@@ -6894,9 +6894,9 @@
     "semantic_hash": ""
   },
   "tools/smartwatch_ref/web_ota.html": {
-    "mtime": 1791626627.167018,
-    "seen": 1791706178.115518,
-    "ast_hash": "fccb82375b67689a98d02e15f8f2ea08",
+    "mtime": 1791725113.5542078,
+    "seen": 1792577031.2969463,
+    "ast_hash": "58d775ad12094777d7dfd2b14f10892e",
     "semantic_hash": ""
   },
   "tools/smartwatch_ref/docs/PHY6222_BLE_SoC_Datasheet_v1.5_20231101.pdf": {
@@ -6942,10 +6942,10 @@
     "semantic_hash": ""
   },
   "firmware/src/accel.c": {
-    "mtime": 1792571211.8915262,
-    "seen": 1792571783.9680774,
-    "ast_hash": "4c232833d7f2b26f4e9c13754e42bec2",
-    "semantic_hash": "4c232833d7f2b26f4e9c13754e42bec2"
+    "mtime": 1792573053.7302341,
+    "seen": 1792577168.2618542,
+    "ast_hash": "7ea5406354ab7491f3832aa5a578511c",
+    "semantic_hash": "7ea5406354ab7491f3832aa5a578511c"
   },
   "firmware/src/accel.h": {
     "mtime": 1792095743.8731775,
@@ -6978,10 +6978,10 @@
     "semantic_hash": "2721d057c19e2bafacc7ed280651061b"
   },
   "firmware/src/uart_cli.c": {
-    "mtime": 1792571181.3403862,
-    "seen": 1792571783.9727786,
-    "ast_hash": "f0c5eba7eb87c7e09c3970823b23a67a",
-    "semantic_hash": "f0c5eba7eb87c7e09c3970823b23a67a"
+    "mtime": 1792573065.2044742,
+    "seen": 1792577168.2661154,
+    "ast_hash": "d6fdba4a84f119c4c4c70d88beba9b96",
+    "semantic_hash": "d6fdba4a84f119c4c4c70d88beba9b96"
   },
   "firmware/src/uart_cli.h": {
     "mtime": 1791710143.7158964,
@@ -7026,10 +7026,10 @@
     "semantic_hash": "92f51f50d232e5c80ec3a5432dc62522"
   },
   "scripts/flash/ota_ble_flash.py": {
-    "mtime": 1792540575.5522435,
-    "seen": 1792542910.2239919,
-    "ast_hash": "39be2e9fe1a01f06ae25c2ecb6d0b15c",
-    "semantic_hash": "39be2e9fe1a01f06ae25c2ecb6d0b15c"
+    "mtime": 1792573425.139519,
+    "seen": 1792577168.267975,
+    "ast_hash": "c8ae67c0edc6ed30abd0f3ec8485cd73",
+    "semantic_hash": "c8ae67c0edc6ed30abd0f3ec8485cd73"
   },
   "scripts/flash/test_bl.py": {
     "mtime": 1792037033.5201445,
@@ -7270,5 +7270,155 @@
     "seen": 1792571783.9733498,
     "ast_hash": "9fdb96017af92a8ac4237593db6e2445",
     "semantic_hash": "9fdb96017af92a8ac4237593db6e2445"
+  },
+  "AGENTS.md": {
+    "mtime": 1792478814.4810028,
+    "seen": 1792577031.2968664,
+    "ast_hash": "b85cdb57af6c74c1f5edca0c35e7eb77",
+    "semantic_hash": ""
+  },
+  "AGENT_HANDOFF.md": {
+    "mtime": 1792516476.1210601,
+    "seen": 1792577031.2968693,
+    "ast_hash": "4c32ef94f7f3d51411d60e8d6bb7835b",
+    "semantic_hash": ""
+  },
+  "AGENT_TASKS.md": {
+    "mtime": 1792230764.170935,
+    "seen": 1792577031.2968714,
+    "ast_hash": "0eaae8e66247cfdaa77ff60086e26ce6",
+    "semantic_hash": ""
+  },
+  "CODE_REVIEW_RECOMMENDATIONS.md": {
+    "mtime": 1792478818.078542,
+    "seen": 1792577031.2968733,
+    "ast_hash": "b7c6f219a44f7dc42710e0b63425c19f",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1792474918.3897736,
+    "seen": 1792577031.2968779,
+    "ast_hash": "725bbc2cd8ebc45d5b9204cd7553ad0a",
+    "semantic_hash": ""
+  },
+  "docs/ERRORS_AND_FAILURES.md": {
+    "mtime": 1792576972.6030407,
+    "seen": 1792577031.2968798,
+    "ast_hash": "98a3a94802f50d1985bc42127bb2519c",
+    "semantic_hash": ""
+  },
+  "docs/FACTORY_FIRMWARE_COMPREHENSIVE_ANALYSIS.md": {
+    "mtime": 1792365467.8326838,
+    "seen": 1792577031.2968817,
+    "ast_hash": "b6127859bf2df2d37293f0bb02751f63",
+    "semantic_hash": ""
+  },
+  "docs/HARDWARE_AND_PLATFORM_SPEC.md": {
+    "mtime": 1792234505.4740863,
+    "seen": 1792577031.296884,
+    "ast_hash": "0179c105ebd3651dadbf69effb1359c4",
+    "semantic_hash": ""
+  },
+  "docs/OTA_RECOVERY.md": {
+    "mtime": 1792253759.7961142,
+    "seen": 1792577031.296886,
+    "ast_hash": "0565575553ffee801622f943a57a6b10",
+    "semantic_hash": ""
+  },
+  "docs/PINMAP.md": {
+    "mtime": 1792572133.1150093,
+    "seen": 1792577031.2968879,
+    "ast_hash": "b65bbb7142c60c85340bd91d630bb6d9",
+    "semantic_hash": ""
+  },
+  "docs/PROJECT_STATE.md": {
+    "mtime": 1792569938.098394,
+    "seen": 1792577031.2968895,
+    "ast_hash": "a7a617cbbadc11f202425cc82147faff",
+    "semantic_hash": ""
+  },
+  "docs/ROADMAP_AND_CAPABILITIES_ANALYSIS.md": {
+    "mtime": 1792365491.9708772,
+    "seen": 1792577031.2968915,
+    "ast_hash": "f19302f4e18b2d3954c12f66e4488552",
+    "semantic_hash": ""
+  },
+  "docs/SDK_DIGEST.md": {
+    "mtime": 1792361015.806101,
+    "seen": 1792577031.2968931,
+    "ast_hash": "a99b8ef83b25bf71616344e6db1a3b1e",
+    "semantic_hash": ""
+  },
+  "docs/SDK_SETUP.md": {
+    "mtime": 1792237377.930967,
+    "seen": 1792577031.2968955,
+    "ast_hash": "c9ba62f8168a0d87e26db23ef770a8e7",
+    "semantic_hash": ""
+  },
+  "docs/rea_readme_ru.md": {
+    "mtime": 1792000368.1328197,
+    "seen": 1792577031.2968972,
+    "ast_hash": "d80b1fbe292b2b953b735fc4a034aec1",
+    "semantic_hash": ""
+  },
+  "media/transcript_-LuA11BlPKY.txt": {
+    "mtime": 1791923714.923909,
+    "seen": 1792577031.2968993,
+    "ast_hash": "8a220a5420b805260cf5177e6a874354",
+    "semantic_hash": ""
+  },
+  "media/transcript_MpSVU3t1J38.txt": {
+    "mtime": 1791923713.3864026,
+    "seen": 1792577031.2969012,
+    "ast_hash": "d1180ce02f7d70bc12f4f1d492bde33c",
+    "semantic_hash": ""
+  },
+  "media/transcript_NvNtfvvK60E.txt": {
+    "mtime": 1791923714.0853238,
+    "seen": 1792577031.296903,
+    "ast_hash": "8d6c6d7a78deb5df30b7da68e15158aa",
+    "semantic_hash": ""
+  },
+  "media/youtube_subs_timed.txt": {
+    "mtime": 1791918988.3008795,
+    "seen": 1792577031.2969048,
+    "ast_hash": "a12bcf7cc6a8f48e1c5ceae5dca12c5b",
+    "semantic_hash": ""
+  },
+  "tools/web_ota.html": {
+    "mtime": 1791713430.6686606,
+    "seen": 1792577031.2969482,
+    "ast_hash": "a26007352d65506759e5e7a7314a0a5d",
+    "semantic_hash": ""
+  },
+  "docs/30261ef55167d446f447f8644033a15529edc97faf5b380061f2b73b0fed6463.pdf": {
+    "mtime": 1792000985.6361723,
+    "seen": 1792577031.29695,
+    "ast_hash": "f624e9654d463adf95d47fab87317849",
+    "semantic_hash": ""
+  },
+  "docs/381918b9d752c6a3323af5dee2bb2d6c0e88c129a8f0883328481d611e0822ab (1).pdf": {
+    "mtime": 1792001024.9997492,
+    "seen": 1792577031.296952,
+    "ast_hash": "fbf2ed276abd4361927419942380aea8",
+    "semantic_hash": ""
+  },
+  "docs/381918b9d752c6a3323af5dee2bb2d6c0e88c129a8f0883328481d611e0822ab.pdf": {
+    "mtime": 1792001008.5801938,
+    "seen": 1792577031.2969544,
+    "ast_hash": "fbf2ed276abd4361927419942380aea8",
+    "semantic_hash": ""
+  },
+  "docs/39da1f940fc494df96add68d36cc0d5fc5f9a2fcd078bccb609e051119ea912f.pdf": {
+    "mtime": 1792001017.8254158,
+    "seen": 1792577031.296956,
+    "ast_hash": "dd6544db8e7c15f0ed39cf7b8cdb3c5c",
+    "semantic_hash": ""
+  },
+  "docs/Flash and Authorize PHY6222_Tuya Developer Platform_Tuya Developer Platform.pdf": {
+    "mtime": 1792000996.3775454,
+    "seen": 1792577031.296958,
+    "ast_hash": "51b458d1c7537e6166ce3f5db02b4ece",
+    "semantic_hash": ""
   }
 }
