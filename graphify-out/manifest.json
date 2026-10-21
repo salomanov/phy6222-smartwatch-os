@@ -6,10 +6,10 @@
     "semantic_hash": "a84a598d8e3ebb36938c78a481ad1c6d"
   },
   "firmware/src/app_os.c": {
-    "mtime": 1792543135.1005118,
-    "seen": 1792545235.9284608,
-    "ast_hash": "d80c8c0e33b4c36c3df8f693fdbb0335",
-    "semantic_hash": "d80c8c0e33b4c36c3df8f693fdbb0335"
+    "mtime": 1792571247.9323192,
+    "seen": 1792571783.9682832,
+    "ast_hash": "cd53aa4d3b87ae3c488e3a885cce3e2f",
+    "semantic_hash": "cd53aa4d3b87ae3c488e3a885cce3e2f"
   },
   "firmware/src/app_os.h": {
     "mtime": 1792364249.69934,
@@ -42,10 +42,10 @@
     "semantic_hash": "353876afb95a79d86ffadc7280714cc7"
   },
   "firmware/src/config.h": {
-    "mtime": 1792543037.416506,
-    "seen": 1792545235.9296262,
-    "ast_hash": "c6ab8d99833a2308cc640b6769e812d9",
-    "semantic_hash": "c6ab8d99833a2308cc640b6769e812d9"
+    "mtime": 1792571150.1298406,
+    "seen": 1792571783.9695885,
+    "ast_hash": "751452de9337eab5c98ae22a44dcbccb",
+    "semantic_hash": "751452de9337eab5c98ae22a44dcbccb"
   },
   "firmware/src/display.c": {
     "mtime": 1792128892.9407415,
@@ -6942,10 +6942,10 @@
     "semantic_hash": ""
   },
   "firmware/src/accel.c": {
-    "mtime": 1792491774.7177818,
-    "seen": 1792542910.2186415,
-    "ast_hash": "dd784979b33c247777ef363b63aa6699",
-    "semantic_hash": "dd784979b33c247777ef363b63aa6699"
+    "mtime": 1792571211.8915262,
+    "seen": 1792571783.9680774,
+    "ast_hash": "4c232833d7f2b26f4e9c13754e42bec2",
+    "semantic_hash": "4c232833d7f2b26f4e9c13754e42bec2"
   },
   "firmware/src/accel.h": {
     "mtime": 1792095743.8731775,
@@ -6978,10 +6978,10 @@
     "semantic_hash": "2721d057c19e2bafacc7ed280651061b"
   },
   "firmware/src/uart_cli.c": {
-    "mtime": 1792519276.079814,
-    "seen": 1792542910.2226243,
-    "ast_hash": "dbc3fe9a90c964690054789cb3475e66",
-    "semantic_hash": "dbc3fe9a90c964690054789cb3475e66"
+    "mtime": 1792571181.3403862,
+    "seen": 1792571783.9727786,
+    "ast_hash": "f0c5eba7eb87c7e09c3970823b23a67a",
+    "semantic_hash": "f0c5eba7eb87c7e09c3970823b23a67a"
   },
   "firmware/src/uart_cli.h": {
     "mtime": 1791710143.7158964,
@@ -7264,5 +7264,11 @@
     "seen": 1792542910.2305896,
     "ast_hash": "6073ea2f2b51a8defcf374ccfb9a65eb",
     "semantic_hash": "6073ea2f2b51a8defcf374ccfb9a65eb"
+  },
+  "scripts/find_i2c_factory.py": {
+    "mtime": 1792570127.3130019,
+    "seen": 1792571783.9733498,
+    "ast_hash": "9fdb96017af92a8ac4237593db6e2445",
+    "semantic_hash": "9fdb96017af92a8ac4237593db6e2445"
   }
 }

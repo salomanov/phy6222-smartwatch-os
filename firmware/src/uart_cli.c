@@ -28,7 +28,7 @@ static void uart_send_str(const char *str) {
 
 // Low-level Bit-Bang I2C helper for CLI commands on P16/P17 (ACCEL)
 static void cli_i2c_delay(void) {
-    WaitUs(5);
+    WaitUs(10);
 }
 
 static void cli_i2c_sda(bool hi) {
@@ -44,6 +44,7 @@ static void cli_i2c_sda(bool hi) {
 static bool cli_i2c_sda_in(void) {
     hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
     hal_gpio_pull_set(GPIO_P17, GPIO_PULL_UP_S);
+    WaitUs(10);
     return hal_gpio_read(GPIO_P17);
 }
 
@@ -243,24 +244,26 @@ void uart_cli_update(void) {
         snprintf(resp, sizeof(resp), "[OK] Vibration pulse %d ms\r\n", ms);
         uart_send_str(resp);
     } else if (strcmp(cmd, "i2c scan") == 0) {
-        uart_send_str("Powering up sensors (P15=1) & scanning I2C on P16 (SCL) / P17 (SDA)...\r\n");
+        uart_send_str("Resetting sensors via P15 & scanning I2C on P16 (SCL) / P17 (SDA)...\r\n");
         
-        // Power ON accelerometer / sensors via P15
+        // Power-cycle accelerometer / sensors via P15 (Active HIGH, reset pulse)
         hal_gpio_cfg_analog_io(GPIO_P15, Bit_DISABLE);
         hal_gpio_pin_init(GPIO_P15, GPIO_OUTPUT);
+        hal_gpio_write(GPIO_P15, 0);
+        WaitMs(100);
         hal_gpio_write(GPIO_P15, 1);
-        WaitMs(50);
+        WaitMs(200);
 
         // Power down 32K XTAL analog oscillator so P16/P17 become standard digital GPIOs
         subWriteReg(0x4000f01c, 16, 7, 0x3fb);
         subWriteReg(0x4000f01c, 6, 6, 0x01);
         hal_gpio_cfg_analog_io(GPIO_P16, Bit_DISABLE);
         hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
-        WaitMs(5);
+        WaitMs(10);
 
         cli_i2c_scl(true);
         cli_i2c_sda(true);
-        WaitMs(10);
+        WaitMs(20);
 
         // Verify bus idle condition (SDA must be HIGH due to pull-up)
         if (!cli_i2c_sda_in()) {

@@ -17,10 +17,11 @@
 #define GPIO_VIBRATOR         GPIO_P03    // Vibration motor (Active HIGH: 1 = ON, 0 = OFF)
 #define VIBRATOR_ACTIVE_LEVEL 1           // 1 = Active HIGH
 
-// Accelerometer / Motion Sensor (I2C on P16/P17, Power on P15)
+// Accelerometer / Motion Sensor (I2C on P16/P17, Power on P15, INT on P18)
 #define ACCEL_SCL_PIN         GPIO_P16    // I2C Clock (XTALI pin in digital mode)
 #define ACCEL_SDA_PIN         GPIO_P17    // I2C Data (XTALO pin in digital mode)
 #define ACCEL_PWR_PIN         GPIO_P15    // Power Enable / Reset
+#define ACCEL_INT_PIN         GPIO_P18    // Motion Sensor INT1 input
 
 // Optical Heart Rate Sensor (PPG on back cover)
 #define HR_PWR_PIN            GPIO_P00    // Optical sensor power switch (Active LOW: 0 = ON)
@@ -37,6 +38,6 @@
 #define ST7735_ROWSTART 1
 
 // Firmware Version
-#define FW_VERSION_STR "v1.5.6-ICONS"
+#define FW_VERSION_STR "v1.5.7-ACC"
 
 #endif // CONFIG_H

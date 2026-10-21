@@ -189,6 +189,7 @@ void app_os_init(void) {
     hal_gpio_pin_init(HR_LED_PIN, GPIO_OUTPUT);
     hal_gpio_write(HR_LED_PIN, 0); // Green LED OFF (P14 active HIGH)
 
+    accel_init();
     uart_cli_init();
     
     // No buzz on startup (safe and quiet)

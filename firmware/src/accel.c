@@ -20,7 +20,7 @@ static int16_t s_acc_y = 0;
 static int16_t s_acc_z = 0;
 
 static void i2c_delay(void) {
-    WaitUs(5);
+    WaitUs(10);
 }
 
 static void i2c_sda_out(bool hi) {
@@ -36,6 +36,7 @@ static void i2c_sda_out(bool hi) {
 static bool i2c_sda_in(void) {
     hal_gpio_pin_init(s_sda, GPIO_INPUT);
     hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
+    WaitUs(10);
     return hal_gpio_read(s_sda);
 }
 
@@ -132,20 +133,20 @@ void accel_init(void) {
     s_detected = false;
     strcpy(s_sensor_name, "SEARCH..");
 
-    // 1. Power ON / Reset sensor via P15 (Active HIGH)
+    // 1. Power ON / Reset sensor via P15 (Active HIGH reset cycle)
     hal_gpio_cfg_analog_io(s_pwr, Bit_DISABLE);
     hal_gpio_pin_init(s_pwr, GPIO_OUTPUT);
     hal_gpio_write(s_pwr, 0);
-    WaitMs(20);
+    WaitMs(100);
     hal_gpio_write(s_pwr, 1);
-    WaitMs(50);
+    WaitMs(200);
 
     // 2. Power down 32K XTAL analog oscillator so P16/P17 (XTALI/XTALO) become standard digital GPIOs
     subWriteReg(0x4000f01c, 16, 7, 0x3fb);   // software control 32k_clk: power down crystal
     subWriteReg(0x4000f01c, 6, 6, 0x01);     // enable software control
     hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
     hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
-    WaitMs(5);
+    WaitMs(10);
 
     // 3. Configure P16 (SCL) and P17 (SDA) as inputs with strong pull-up
     hal_gpio_pin_init(s_scl, GPIO_INPUT);
@@ -153,7 +154,7 @@ void accel_init(void) {
 
     hal_gpio_pin_init(s_sda, GPIO_INPUT);
     hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
-    WaitMs(10);
+    WaitUs(50);
 
     int sda_st = hal_gpio_read(s_sda);
     LOG("[ACCEL] Hardware pins P16/P17 initialized, SDA state: %d\n", sda_st);
