@@ -42,10 +42,10 @@
     "semantic_hash": "353876afb95a79d86ffadc7280714cc7"
   },
   "firmware/src/config.h": {
-    "mtime": 1792571150.1298406,
-    "seen": 1792571783.9695885,
-    "ast_hash": "751452de9337eab5c98ae22a44dcbccb",
-    "semantic_hash": "751452de9337eab5c98ae22a44dcbccb"
+    "mtime": 1792696300.3541427,
+    "seen": 1792696406.208151,
+    "ast_hash": "731ffa58abe7d6628f81bb74c6648aaf",
+    "semantic_hash": "731ffa58abe7d6628f81bb74c6648aaf"
   },
   "firmware/src/display.c": {
     "mtime": 1792128892.9407415,
@@ -6942,10 +6942,10 @@
     "semantic_hash": ""
   },
   "firmware/src/accel.c": {
-    "mtime": 1792573053.7302341,
-    "seen": 1792577168.2618542,
-    "ast_hash": "7ea5406354ab7491f3832aa5a578511c",
-    "semantic_hash": "7ea5406354ab7491f3832aa5a578511c"
+    "mtime": 1792696230.874179,
+    "seen": 1792696406.2063644,
+    "ast_hash": "c7d7c721bcc91fe9fc5c5fe301da892a",
+    "semantic_hash": "c7d7c721bcc91fe9fc5c5fe301da892a"
   },
   "firmware/src/accel.h": {
     "mtime": 1792095743.8731775,
@@ -6978,10 +6978,10 @@
     "semantic_hash": "2721d057c19e2bafacc7ed280651061b"
   },
   "firmware/src/uart_cli.c": {
-    "mtime": 1792573065.2044742,
-    "seen": 1792577168.2661154,
-    "ast_hash": "d6fdba4a84f119c4c4c70d88beba9b96",
-    "semantic_hash": "d6fdba4a84f119c4c4c70d88beba9b96"
+    "mtime": 1792696282.5473468,
+    "seen": 1792696406.2113779,
+    "ast_hash": "b6b2d863893fdc5b7ded88d55ca0637f",
+    "semantic_hash": "b6b2d863893fdc5b7ded88d55ca0637f"
   },
   "firmware/src/uart_cli.h": {
     "mtime": 1791710143.7158964,

@@ -24,30 +24,15 @@ static void i2c_delay(void) {
 }
 
 static void i2c_sda_out(bool hi) {
-    if (hi) {
-        hal_gpio_pin_init(s_sda, GPIO_INPUT);
-        hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
-    } else {
-        hal_gpio_pin_init(s_sda, GPIO_OUTPUT);
-        hal_gpio_write(s_sda, 0);
-    }
-}
-
-static bool i2c_sda_in(void) {
-    hal_gpio_pin_init(s_sda, GPIO_INPUT);
-    hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
-    WaitUs(10);
-    return hal_gpio_read(s_sda);
+    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
+    hal_gpio_pin_init(s_sda, GPIO_OUTPUT);
+    hal_gpio_fast_write(s_sda, hi ? 1 : 0);
 }
 
 static void i2c_scl_out(bool hi) {
-    if (hi) {
-        hal_gpio_pin_init(s_scl, GPIO_INPUT);
-        hal_gpio_pull_set(s_scl, GPIO_PULL_UP_S);
-    } else {
-        hal_gpio_pin_init(s_scl, GPIO_OUTPUT);
-        hal_gpio_write(s_scl, 0);
-    }
+    hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
+    hal_gpio_pin_init(s_scl, GPIO_OUTPUT);
+    hal_gpio_fast_write(s_scl, hi ? 1 : 0);
 }
 
 static void i2c_start(void) {
@@ -78,34 +63,40 @@ static bool i2c_write_byte(uint8_t byte) {
         i2c_scl_out(false);
         i2c_delay();
     }
-    // Read ACK
-    i2c_sda_out(true);
+    // Read ACK from slave
+    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
+    hal_gpio_pin_init(s_sda, GPIO_INPUT);
+    hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
     i2c_delay();
     i2c_scl_out(true);
     i2c_delay();
-    bool ack = !i2c_sda_in();
+    bool ack = (hal_gpio_read(s_sda) == 0); // 0 = ACK
     i2c_scl_out(false);
     i2c_delay();
+    i2c_sda_out(true);
     return ack;
 }
 
 static uint8_t i2c_read_byte(bool ack) {
     uint8_t byte = 0;
-    i2c_sda_out(true);
+    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
+    hal_gpio_pin_init(s_sda, GPIO_INPUT);
+    hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
+    i2c_delay();
     for (int i = 7; i >= 0; i--) {
         i2c_scl_out(true);
         i2c_delay();
-        if (i2c_sda_in()) byte |= (1 << i);
+        if (hal_gpio_read(s_sda)) byte |= (1 << i);
         i2c_scl_out(false);
         i2c_delay();
     }
-    // Send ACK / NACK
     i2c_sda_out(!ack);
     i2c_delay();
     i2c_scl_out(true);
     i2c_delay();
     i2c_scl_out(false);
     i2c_delay();
+    i2c_sda_out(true);
     return byte;
 }
 
@@ -148,36 +139,11 @@ void accel_init(void) {
     hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
     WaitMs(10);
 
-    // 3. Configure P16 (SCL) and P17 (SDA) as inputs with strong pull-up
-    hal_gpio_pin_init(s_scl, GPIO_INPUT);
-    hal_gpio_pull_set(s_scl, GPIO_PULL_UP_S);
-
-    hal_gpio_pin_init(s_sda, GPIO_INPUT);
-    hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
-    WaitUs(50);
-
-    int sda_st = hal_gpio_read(s_sda);
-    if (!sda_st) {
-        // Slave might be holding SDA LOW waiting for master clock: send 9 clocks to release
-        LOG("[ACCEL] SDA is LOW, performing 9-clock bus recovery...\n");
-        for (int k = 0; k < 9; k++) {
-            hal_gpio_pin_init(s_scl, GPIO_OUTPUT);
-            hal_gpio_write(s_scl, 0);
-            WaitUs(10);
-            hal_gpio_write(s_scl, 1);
-            WaitUs(10);
-        }
-        i2c_stop();
-        WaitUs(50);
-        sda_st = hal_gpio_read(s_sda);
-    }
-    LOG("[ACCEL] Hardware pins P16/P17 initialized, SDA state: %d\n", sda_st);
-
-    if (!sda_st) {
-        strcpy(s_sensor_name, "BUS LOW");
-        LOG("[ACCEL] Error: P17 SDA is LOW after recovery! Bus shorted or missing pull-up.\n");
-        return;
-    }
+    // 3. Configure P16 (SCL) and P17 (SDA) as active push-pull outputs in idle HIGH state
+    i2c_scl_out(true);
+    i2c_sda_out(true);
+    WaitMs(20);
+    LOG("[ACCEL] Hardware pins P16/P17 initialized in active Push-Pull mode\n");
 
     // Common G-sensor addresses: 0x12 (QMA6100), 0x18/0x19 (SC7A20), 0x13 (QMA7981)
     static const uint8_t candidate_addrs[] = { 0x12, 0x18, 0x19, 0x13, 0x38, 0x26, 0x68 };

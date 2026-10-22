@@ -22,40 +22,54 @@ static volatile bool s_cmd_ready = false;
 
 extern void app_os_set_time(uint8_t h, uint8_t m, uint8_t s);
 
+static gpio_pin_e pin_num_to_enum(int pin) {
+    switch (pin) {
+        case 0:  return GPIO_P00;
+        case 1:  return GPIO_P01;
+        case 2:  return GPIO_P02;
+        case 3:  return GPIO_P03;
+        case 7:  return GPIO_P07;
+        case 9:  return GPIO_P09;
+        case 10: return GPIO_P10;
+        case 11: return GPIO_P11;
+        case 14: return GPIO_P14;
+        case 15: return GPIO_P15;
+        case 16: return GPIO_P16;
+        case 17: return GPIO_P17;
+        case 18: return GPIO_P18;
+        case 20: return GPIO_P20;
+        case 23: return GPIO_P23;
+        case 24: return GPIO_P24;
+        case 25: return GPIO_P25;
+        case 26: return GPIO_P26;
+        case 27: return GPIO_P27;
+        case 31: return GPIO_P31;
+        case 32: return GPIO_P32;
+        case 33: return GPIO_P33;
+        case 34: return GPIO_P34;
+        default: return GPIO_DUMMY;
+    }
+}
+
 static void uart_send_str(const char *str) {
     hal_uart_send_buff(UART0, (uint8_t *)str, strlen(str));
 }
 
-// Low-level Bit-Bang I2C helper for CLI commands on P16/P17 (ACCEL)
+// Low-level Bit-Bang I2C helper for CLI commands on P16/P17 (ACCEL Push-Pull mode)
 static void cli_i2c_delay(void) {
     WaitUs(10);
 }
 
 static void cli_i2c_sda(bool hi) {
-    if (hi) {
-        hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
-        hal_gpio_pull_set(GPIO_P17, GPIO_PULL_UP_S);
-    } else {
-        hal_gpio_pin_init(GPIO_P17, GPIO_OUTPUT);
-        hal_gpio_write(GPIO_P17, 0);
-    }
-}
-
-static bool cli_i2c_sda_in(void) {
-    hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
-    hal_gpio_pull_set(GPIO_P17, GPIO_PULL_UP_S);
-    WaitUs(10);
-    return hal_gpio_read(GPIO_P17);
+    hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
+    hal_gpio_pin_init(GPIO_P17, GPIO_OUTPUT);
+    hal_gpio_fast_write(GPIO_P17, hi ? 1 : 0);
 }
 
 static void cli_i2c_scl(bool hi) {
-    if (hi) {
-        hal_gpio_pin_init(GPIO_P16, GPIO_INPUT);
-        hal_gpio_pull_set(GPIO_P16, GPIO_PULL_UP_S);
-    } else {
-        hal_gpio_pin_init(GPIO_P16, GPIO_OUTPUT);
-        hal_gpio_write(GPIO_P16, 0);
-    }
+    hal_gpio_cfg_analog_io(GPIO_P16, Bit_DISABLE);
+    hal_gpio_pin_init(GPIO_P16, GPIO_OUTPUT);
+    hal_gpio_fast_write(GPIO_P16, hi ? 1 : 0);
 }
 
 static void cli_i2c_start(void) {
@@ -86,23 +100,30 @@ static bool cli_i2c_write_byte(uint8_t byte) {
         cli_i2c_scl(false);
         cli_i2c_delay();
     }
-    cli_i2c_sda(true);
+    // Switch SDA to input to sample ACK from slave
+    hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
+    hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
+    hal_gpio_pull_set(GPIO_P17, GPIO_PULL_UP_S);
     cli_i2c_delay();
     cli_i2c_scl(true);
     cli_i2c_delay();
-    bool ack = !cli_i2c_sda_in();
+    bool ack = (hal_gpio_read(GPIO_P17) == 0); // 0 = ACK
     cli_i2c_scl(false);
     cli_i2c_delay();
+    cli_i2c_sda(true);
     return ack;
 }
 
 static uint8_t cli_i2c_read_byte(bool ack) {
     uint8_t byte = 0;
-    cli_i2c_sda(true);
+    hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
+    hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
+    hal_gpio_pull_set(GPIO_P17, GPIO_PULL_UP_S);
+    cli_i2c_delay();
     for (int i = 7; i >= 0; i--) {
         cli_i2c_scl(true);
         cli_i2c_delay();
-        if (cli_i2c_sda_in()) byte |= (1 << i);
+        if (hal_gpio_read(GPIO_P17)) byte |= (1 << i);
         cli_i2c_scl(false);
         cli_i2c_delay();
     }
@@ -112,6 +133,7 @@ static uint8_t cli_i2c_read_byte(bool ack) {
     cli_i2c_delay();
     cli_i2c_scl(false);
     cli_i2c_delay();
+    cli_i2c_sda(true);
     return byte;
 }
 
@@ -186,17 +208,23 @@ void uart_cli_update(void) {
     } else if (strncmp(cmd, "pin ", 4) == 0) {
         int pin = -1, val = -1;
         if (sscanf(cmd + 4, "%d %d", &pin, &val) == 2 && pin >= 0 && pin <= 34) {
-            // Guard against P07 (TM bootloader pin), P20 (ADC battery), P33, or display pins
-            if (pin == 7) {
+            gpio_pin_e epin = pin_num_to_enum(pin);
+            if (epin == GPIO_DUMMY) {
+                snprintf(resp, sizeof(resp), "[ERR] Pin P%d does not exist on PHY6222.\r\n", pin);
+            } else if (pin >= 0 && pin <= 3) {
+                snprintf(resp, sizeof(resp), "[ERR] Pins P00-P03 are SPI Flash bus! Driving OUTPUT is forbidden.\r\n");
+            } else if (pin == 7) {
                 snprintf(resp, sizeof(resp), "[ERR] Pin P07 is hardware TM input! Driving OUTPUT is forbidden.\r\n");
+            } else if (pin == 9 || pin == 10) {
+                snprintf(resp, sizeof(resp), "[ERR] Pins P09/P10 are UART0 TX/RX! Modifying them is forbidden.\r\n");
             } else if (pin == 20) {
                 snprintf(resp, sizeof(resp), "[ERR] Pin P20 is battery ADC input! Driving OUTPUT is forbidden.\r\n");
             } else if (pin == 33 || pin == 24 || pin == 25 || pin == 31 || pin == 32 || pin == 34) {
                 snprintf(resp, sizeof(resp), "[WARN] Pin P%d is reserved for ST7735 display! Skipped.\r\n", pin);
             } else {
-                hal_gpio_cfg_analog_io((gpio_pin_e)pin, Bit_DISABLE);
-                hal_gpio_pin_init((gpio_pin_e)pin, GPIO_OUTPUT);
-                hal_gpio_write((gpio_pin_e)pin, val ? 1 : 0);
+                hal_gpio_cfg_analog_io(epin, Bit_DISABLE);
+                hal_gpio_pin_init(epin, GPIO_OUTPUT);
+                hal_gpio_write(epin, val ? 1 : 0);
                 snprintf(resp, sizeof(resp), "[OK] Pin P%d set to %d\r\n", pin, val ? 1 : 0);
             }
             uart_send_str(resp);
@@ -206,15 +234,25 @@ void uart_cli_update(void) {
     } else if (strncmp(cmd, "read ", 5) == 0) {
         int pin = -1;
         if (sscanf(cmd + 5, "%d", &pin) == 1 && pin >= 0 && pin <= 34) {
-            if (pin == 20) {
+            gpio_pin_e epin = pin_num_to_enum(pin);
+            if (epin == GPIO_DUMMY) {
+                snprintf(resp, sizeof(resp), "[ERR] Pin P%d does not exist on PHY6222.\r\n", pin);
+                uart_send_str(resp);
+            } else if (pin >= 0 && pin <= 3) {
+                snprintf(resp, sizeof(resp), "[ERR] Pins P00-P03 are SPI Flash bus! Reading as GPIO stalls XIP.\r\n");
+                uart_send_str(resp);
+            } else if (pin == 9 || pin == 10) {
+                snprintf(resp, sizeof(resp), "[ERR] Pins P09/P10 are UART0 TX/RX! Cannot read as standard GPIO.\r\n");
+                uart_send_str(resp);
+            } else if (pin == 20) {
                 snprintf(resp, sizeof(resp), "[WARN] Pin P20 is analog battery ADC input (use 'status' for bat).\r\n");
                 uart_send_str(resp);
             } else {
-                hal_gpio_cfg_analog_io((gpio_pin_e)pin, Bit_DISABLE);
-                hal_gpio_pin_init((gpio_pin_e)pin, GPIO_INPUT);
-                hal_gpio_pull_set((gpio_pin_e)pin, GPIO_PULL_UP_S);
+                hal_gpio_cfg_analog_io(epin, Bit_DISABLE);
+                hal_gpio_pin_init(epin, GPIO_INPUT);
+                hal_gpio_pull_set(epin, GPIO_PULL_UP_S);
                 WaitUs(50);
-                int level = hal_gpio_read((gpio_pin_e)pin);
+                int level = hal_gpio_read(epin);
                 snprintf(resp, sizeof(resp), "[OK] Pin P%d = %d\r\n", pin, level);
                 uart_send_str(resp);
             }
@@ -264,26 +302,6 @@ void uart_cli_update(void) {
         cli_i2c_scl(true);
         cli_i2c_sda(true);
         WaitMs(20);
-
-        // If SDA is stuck LOW, attempt 9-clock bus recovery
-        if (!cli_i2c_sda_in()) {
-            uart_send_str("[WARN] I2C SDA is LOW, performing 9-clock recovery...\r\n");
-            for (int k = 0; k < 9; k++) {
-                hal_gpio_pin_init(GPIO_P16, GPIO_OUTPUT);
-                hal_gpio_write(GPIO_P16, 0);
-                WaitUs(10);
-                hal_gpio_write(GPIO_P16, 1);
-                WaitUs(10);
-            }
-            cli_i2c_stop();
-            WaitMs(10);
-        }
-
-        // Verify bus idle condition (SDA must be HIGH due to pull-up)
-        if (!cli_i2c_sda_in()) {
-            uart_send_str("[ERR] I2C SDA (P17) is stuck LOW after recovery! Missing pull-up or bus shorted.\r\n");
-            return;
-        }
 
         int count = 0;
         for (uint8_t a = 0x08; a <= 0x77; a++) {
