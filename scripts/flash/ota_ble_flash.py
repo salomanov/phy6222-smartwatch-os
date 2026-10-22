@@ -169,16 +169,6 @@ async def main():
             sys.exit(1)
         print("[+] OTA Session started successfully! Display shows progress bar.")
 
-        # Silence vibrator and LED
-        try:
-            s_cli = serial.Serial('COM5', 115200, timeout=0.2)
-            s_cli.write(b'\r\npin 3 0\r\npin 0 1\r\n')
-            time.sleep(0.05)
-            s_cli.close()
-            print("[+] Vibrator (P03=0) and LED (P00=1) silenced via UART CLI.", flush=True)
-        except Exception as e:
-            print(f"[!] UART kill-switch note: {e}", flush=True)
-
         # 2. Iterate partitions
         total_sent = 0
         chunk_size = 230  # Max ATT payload (MTU 240 - 3 byte ATT header = 237 max, 230 is safe)
