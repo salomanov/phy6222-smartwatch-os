@@ -295,3 +295,10 @@
 
 
 
+
+---
+
+### [Инцидент 2026-10-22 23:51:23] Freeze XIP on read P00-P03
+- **Симптом и ущерб**: Black screen, lost UART and BLE after reading SPI Flash pins
+- **Причина (Root Cause)**: PHY6222 P00-P03 are wired to SPI Flash XIP. CLI read command switched them to GPIO_INPUT, causing M0 core freeze due to instruction bus stall. Also CLI pin numbers were not mapped to gpio_pin_e enum.
+- **Решение и правило**: Guard P00-P03, P24, P25, P31-P34 from CLI modification. Map physical pin numbers to gpio_pin_e enum. Power cycle watch to resume normal operation.

@@ -1,4 +1,4 @@
-# Graph Report - Watch  (2026-10-21)
+# Graph Report - Watch  (2026-10-22)
 
 ## Corpus Check
 - cluster-only mode — file stats not available
@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `48f45a07`
+- Built from commit: `36a2ccf5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -1687,7 +1687,7 @@ Nodes (4): ll_readLocalIRK(), ll_readPeerIRK(), LL_ProcessEvent0(), LL_SetAdvPar
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `appl_dump_bytes()` connect `appl_dump_bytes` to `aliGenie_bleMesh_socket/source/aliGenie_appl.c`, `cli_generic_onoff_client.c`, `cli_generic_power_onoff_client.c`, `asyncio`, `EM_timer.c`, `cli_light_hsl_client.c`, `GAPBondMgr_LinkEst`, `sec/aes.c`, `appl_generic_default_transition_time_client.c`, `appl_generic_power_onoff_client.c`, `cli_sensor_client.c`, `i2c.c`, `ppsp_impl.c`, `hal_gpio_pull_set`, `patch.c`, `float32_t`, `appl_dump_bytes`, `EM_debug.c`, `cli_generic_property_client.c`, `cli_light_lightness_client.c`, `climodel/cli_model.c`, `aliGenie_bleMesh_fan/source/model_vendor/aliGenie_appl_Vendor_fan.c`, `flash.c`, `simpleIBeaconProfile_ota.c`, `test_ccm_mode.c`, `attSendMsg`, `hci.h`, `multi.c`, `subprocess`, `gattservapp.c`, `cli_generic_default_transition_time_client.c`, `cli_generic_power_level_client.c`, `cli_generic_power_level_client.c`, `cli_time_client.c`, `appl_sample_example_7.c`, `aliGenie_bleMesh_fanlight/source/model_vendor/aliGenie_appl_Vendor_light.c`, `UI_generic_onoff_model_server_cb`, `appl_time_server_cb`, `appl_light_xyl_client.c`, `cli_time_client.c`, `bsp_button.c`, `appl_generic_power_onoff_client.c`, `cli_core.c`, `UI_generic_scene_server_cb`, `appl_scene_client.c`, `cli_scene_client.c`, `aliGenie_appl_common.c`, `appl_generic_power_onoff_client_cb`, `bleuart_ProcessEvent`, `gap_linkmgr.c`, `kscan.c`, `voice_circ_buff.c`, `cli_generic_level_client.c`, `phyflasher`, `gapbondmgr.c`, `aliGenie_blebrr.c`, `appl_scheduler_client.c`, `at_ble_service.c`, `appl_sample_example_10.c`, `mesh_lpn/source/bleMesh/dongleKey.c`, `SimpleBLEPeripheral_ProcessEvent`, `generic_level_server/appl_model_state_handler.c`, `appl_sample_example_9.c`, `aliGenie_bleMesh_curtain/source/aliGenie_appl.c`, `appl_generic_onoff_client.c`, `appl_light_ctl_server.c`, `UI_light_hsl_server_cb`, `at_multi_schedule.c`, `appl_generic_battery_client_cb`, `aliGenie_bleMesh_light/source/aliGenie_appl.c`?**
-  _High betweenness centrality (0.060) - this node is a cross-community bridge._
+  _High betweenness centrality (0.061) - this node is a cross-community bridge._
 - **Are the 191 inferred relationships involving `CLI_strtoi()` (e.g. with `cli_config_ntf()` and `cli_create_gatt_conn()`) actually correct?**
   _`CLI_strtoi()` has 191 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `MESH_PROV_DATA_IN_VALUE_CHAR`, `MESH_PROV_DATA_IN_VALUE_VAL`, `MESH_PROV_DATA_OUT_VALUE_CCC` to the rest of the system?**
@@ -1695,7 +1695,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `aliGenie_appl_Generic.h` be split into smaller, more focused modules?**
   _Cohesion score 0.025205694136084627 - nodes in this community are weakly interconnected._
 - **Why does `CLI_strtoi()` connect `attSendMsg` to `cli_core_provision.c`, `cli_generic_onoff_client.c`, `cli_generic_power_onoff_client.c`, `GAPBondMgr_LinkEst`, `HeartRate_MeasNotify`, `cli_sensor_client.c`, `cli_generic_battery_client.c`, `EM_debug.c`, `cli_generic_property_client.c`, `cli_light_lightness_client.c`, `cli_brr.c`, `simpleIBeaconProfile_ota.c`, `test_ccm_mode.c`, `core_cmFunc.h`, `EM_platform.c`, `cli_ps.c`, `subprocess`, `cli_generic_default_transition_time_client.c`, `cli_generic_power_level_client.c`, `cli_time_client.c`, `cli_time_client.c`, `smp.c`, `cli_scene_client.c`, `cli_generic_level_client.c`, `at_ble_service.c`, `appl_light_ctl_server.c`?**
-  _High betweenness centrality (0.025) - this node is a cross-community bridge._
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
 - **Are the 116 inferred relationships involving `hal_gpio_pull_set()` (e.g. with `Ошибка 6.7: Путаница между индексами enum `gpio_pin_e` и номерами пинов чипа в деассемблере заводской прошивки` and `2. Разгадка системы нумерации пинов в ассемблере заводской прошивки`) actually correct?**
   _`hal_gpio_pull_set()` has 116 INFERRED edges - model-reasoned connections that need verification._
 - **Should `gatt.h` be split into smaller, more focused modules?**
