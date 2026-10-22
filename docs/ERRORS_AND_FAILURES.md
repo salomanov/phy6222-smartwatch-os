@@ -302,3 +302,10 @@
 - **Симптом и ущерб**: Black screen, lost UART and BLE after reading SPI Flash pins
 - **Причина (Root Cause)**: PHY6222 P00-P03 are wired to SPI Flash XIP. CLI read command switched them to GPIO_INPUT, causing M0 core freeze due to instruction bus stall. Also CLI pin numbers were not mapped to gpio_pin_e enum.
 - **Решение и правило**: Guard P00-P03, P24, P25, P31-P34 from CLI modification. Map physical pin numbers to gpio_pin_e enum. Power cycle watch to resume normal operation.
+
+---
+
+### [Инцидент 2026-10-23 02:43:18] Срыв OTA на 17% из-за отправки команд pin в UART
+- **Симптом и ущерб**: Обрыв BLE соединения WinError -2147467260 на offset 29900 во время прошивки
+- **Причина (Root Cause)**: В ota_ble_flash.py оставался рудимент s_cli.write(pin 3 0 / pin 0 1) в COM5 при старте OTA. В работающей v1.5.7-ACC пины 0 и 3 вели на SPI Flash, что создавало сбои в момент активной записи блоков по OTA.
+- **Решение и правило**: Полностью удалить любые отправки команд pin по UART из ota_ble_flash.py. Прошивать чистым BLE без вмешательства в UART во время OTA-сессии.
