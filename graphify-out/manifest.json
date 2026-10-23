@@ -7420,5 +7420,11 @@
     "seen": 1792577031.296958,
     "ast_hash": "51b458d1c7537e6166ce3f5db02b4ece",
     "semantic_hash": ""
+  },
+  "scripts/test_vib_sensor.py": {
+    "mtime": 1792738132.172299,
+    "seen": 1792749767.3462193,
+    "ast_hash": "64b367d5a24ecaf4508d61ef6400432a",
+    "semantic_hash": "64b367d5a24ecaf4508d61ef6400432a"
   }
 }
