@@ -230,20 +230,23 @@ void uart_cli_update(void) {
     if (strcmp(cmd, "ping") == 0) {
         uart_send_str("pong\r\n");
     } else if (strcmp(cmd, "help") == 0) {
-        uart_send_str("\r\n=== HARDWARE CLI COMMANDS ===\r\n"
-                      "  pin <p> <0|1>       - Set GPIO pin level\r\n"
-                      "  read <p>            - Read GPIO pin input level\r\n"
-                      "  bkl <1|0>           - Backlight ON (1) or OFF (0)\r\n"
-                      "  disp                - Re-initialize display and redraw\r\n"
-                      "  vib [ms]            - Trigger vibrator (default 80ms)\r\n"
-                      "  i2c scan            - Scan I2C addresses on P16/P17 (P15 PWR ON)\r\n"
-                      "  i2c r <hex_a> <reg> - Read I2C register (e.g. i2c r 19 0f)\r\n"
-                      "  i2c w <a> <r> <val> - Write I2C register\r\n"
-                      "  status              - Show BLE, battery, sensor status\r\n"
-                      "  adc                 - Sample P20 ADC and show raw/battery mV\r\n"
-                      "  time HH:MM:SS       - Set watch clock\r\n"
-                      "  ota                 - Reboot into OTA bootloader\r\n"
-                      "  reboot              - Soft reset MCU\r\n\r\n");
+        uart_send_str("\r\n=== CLI ===\r\n"
+                      "  pin <p> <0|1> - Set pin\r\n"
+                      "  read <p>      - Read pin\r\n"
+                      "  bkl <1|0>     - Backlight\r\n"
+                      "  disp          - Redraw\r\n"
+                      "  vib [ms]      - Vibrate\r\n"
+                      "  vib_test [ms] - Vib test P18\r\n"
+                      "  motion        - Motion status\r\n"
+                      "  step reset    - Reset steps\r\n"
+                      "  i2c scan      - I2C scan\r\n"
+                      "  i2c r <a> <r> - Read I2C\r\n"
+                      "  i2c w <a><r><v>- Write I2C\r\n"
+                      "  status        - Status\r\n"
+                      "  adc           - Battery ADC\r\n"
+                      "  time HH:MM:SS - Set time\r\n"
+                      "  ota           - OTA reboot\r\n"
+                      "  reboot        - Reset\r\n");
     } else if (strncmp(cmd, "pin ", 4) == 0) {
         int pin = -1, val = -1;
         if (sscanf(cmd + 4, "%d %d", &pin, &val) == 2 && pin >= 0 && pin <= 34) {
@@ -330,6 +333,17 @@ void uart_cli_update(void) {
         display_init(0);
         app_os_force_redraw();
         uart_send_str("[OK] Display re-initialized.\r\n");
+    } else if (strncmp(cmd, "vib_test", 8) == 0) {
+        int ms = 120;
+        sscanf(cmd + 8, "%d", &ms);
+        if (ms < 50 || ms > 1000) ms = 120;
+        uint32_t p0 = accel_get_pulses();
+        vibrator_pulse((uint16_t)ms);
+        WaitMs(ms + 30);
+        uint32_t p1 = accel_get_pulses();
+        snprintf(resp, sizeof(resp), "[OK] Vib test %d ms: pulses before=%lu, after=%lu, caught=%lu\r\n",
+                 ms, (unsigned long)p0, (unsigned long)p1, (unsigned long)(p1 - p0));
+        uart_send_str(resp);
     } else if (strncmp(cmd, "vib", 3) == 0) {
         int ms = 80;
         sscanf(cmd + 3, "%d", &ms);
@@ -337,8 +351,15 @@ void uart_cli_update(void) {
         vibrator_pulse((uint32_t)ms);
         snprintf(resp, sizeof(resp), "[OK] Vibration pulse %d ms\r\n", ms);
         uart_send_str(resp);
+    } else if (strcmp(cmd, "motion") == 0) {
+        snprintf(resp, sizeof(resp), "Motion (HK01BS): pulses=%lu, steps=%lu, P18=%d\r\n",
+                 (unsigned long)accel_get_pulses(), (unsigned long)accel_get_steps(), hal_gpio_read(ACCEL_INT_PIN));
+        uart_send_str(resp);
+    } else if (strcmp(cmd, "step reset") == 0) {
+        accel_reset_steps();
+        uart_send_str("[OK] Step counters reset to 0\r\n");
     } else if (strcmp(cmd, "i2c scan") == 0) {
-        uart_send_str("Powering sensors via P02 (VCC) and P15 (RST), prepping I2C on P16/P17...\r\n");
+        uart_send_str("I2C init P16/P17...\r\n");
         
         // 1. Power on P02 (Sensor VCC power switch, factory 0x110312ba)
         hal_gpio_pin2pin3_control(GPIO_P02, 1);

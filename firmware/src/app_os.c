@@ -76,7 +76,7 @@ static void render_watchface(void) {
     gfx_draw_string(14, 48, "--", COLOR_WHITE, COLOR_BLACK, 1);
 
     gfx_draw_step_icon(42, 47, COLOR_CYAN);
-    snprintf(buf, sizeof(buf), "%lu", (unsigned long)s_click_count);
+    snprintf(buf, sizeof(buf), "%lu", (unsigned long)accel_get_steps());
     gfx_draw_string(52, 48, buf, COLOR_WHITE, COLOR_BLACK, 1);
 
     // 3. Battery status & Mini-gauge
@@ -190,6 +190,7 @@ void app_os_init(void) {
     hal_gpio_write(HR_LED_PIN, 0); // Green LED OFF (P14 active HIGH)
 
     uart_cli_init();
+    accel_init();
     
     // No buzz on startup (safe and quiet)
     s_needs_redraw = false;
@@ -205,6 +206,7 @@ void app_os_update(void) {
 
     s_ms_counter += 50; // Called every 50ms by OSAL timer (WATCH_TICK_EVT)
     vibrator_update(50); // Non-blocking vibrator timer (P2-2: prevents blocking OSAL tick)
+    accel_update();
     uart_cli_update();
 
     // 1-second system timer

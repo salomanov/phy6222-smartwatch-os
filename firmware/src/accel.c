@@ -3,235 +3,109 @@
 #include "gpio.h"
 #include "clock.h"
 #include "log.h"
-#include "mcu.h"
 #include <string.h>
 
-// Accelerometer auto-detection driver (Bit-Bang I2C)
-// Hardware pins for LP715_MB_V1.3: P16 (SCL), P17 (SDA), P15 (PWR)
-static bool s_detected = false;
-static const gpio_pin_e s_scl = ACCEL_SCL_PIN;
-static const gpio_pin_e s_sda = ACCEL_SDA_PIN;
-static const gpio_pin_e s_pwr = ACCEL_PWR_PIN;
-static uint8_t s_i2c_addr = 0x12;
-static char s_sensor_name[16] = "NONE";
+// Motion sensor driver for LP715_MB_V1.3
+// Hardware: HK01BS / UM201 mechanical roll-ball vibration switch on GPIO_P18
+// Reverse-engineered from factory firmware (dump 0x110126e8 / 0x11031954 / 0x1103377c)
 
+static bool s_detected = false;
+static const char *s_sensor_name = "HK01BS";
+
+// Hardware ISR pulse counter
+static volatile uint32_t s_raw_pulses = 0;
+static uint32_t s_prev_pulses = 0;
+static uint32_t s_step_count = 0;
+
+// Factory filter parameters
+static uint16_t s_window_pulses = 0;
+static uint8_t  s_idle_ticks = 0;
+static bool     s_in_walking_session = false;
+
+// Synthetic XYZ for UI / BLE compatibility
 static int16_t s_acc_x = 0;
 static int16_t s_acc_y = 0;
-static int16_t s_acc_z = 0;
+static int16_t s_acc_z = 1000; // 1G baseline
 
-static void i2c_delay(void) {
-    WaitUs(10);
-}
-
-static void i2c_sda_out(bool hi) {
-    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
-    hal_gpio_pin_init(s_sda, GPIO_OUTPUT);
-    hal_gpio_fast_write(s_sda, hi ? 1 : 0);
-}
-
-static void i2c_scl_out(bool hi) {
-    hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
-    hal_gpio_pin_init(s_scl, GPIO_OUTPUT);
-    hal_gpio_fast_write(s_scl, hi ? 1 : 0);
-}
-
-static void i2c_start(void) {
-    i2c_sda_out(true);
-    i2c_scl_out(true);
-    i2c_delay();
-    i2c_sda_out(false);
-    i2c_delay();
-    i2c_scl_out(false);
-    i2c_delay();
-}
-
-static void i2c_stop(void) {
-    i2c_sda_out(false);
-    i2c_delay();
-    i2c_scl_out(true);
-    i2c_delay();
-    i2c_sda_out(true);
-    i2c_delay();
-}
-
-static bool i2c_write_byte(uint8_t byte) {
-    for (int i = 7; i >= 0; i--) {
-        i2c_sda_out((byte >> i) & 1);
-        i2c_delay();
-        i2c_scl_out(true);
-        i2c_delay();
-        i2c_scl_out(false);
-        i2c_delay();
+static void motion_edge_isr(gpio_pin_e pin, gpio_polarity_e type) {
+    if (pin == ACCEL_INT_PIN) {
+        s_raw_pulses++;
     }
-    // Read ACK from slave
-    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
-    hal_gpio_pin_init(s_sda, GPIO_INPUT);
-    hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
-    i2c_delay();
-    i2c_scl_out(true);
-    i2c_delay();
-    bool ack = (hal_gpio_read(s_sda) == 0); // 0 = ACK
-    i2c_scl_out(false);
-    i2c_delay();
-    i2c_sda_out(true);
-    return ack;
-}
-
-static uint8_t i2c_read_byte(bool ack) {
-    uint8_t byte = 0;
-    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
-    hal_gpio_pin_init(s_sda, GPIO_INPUT);
-    hal_gpio_pull_set(s_sda, GPIO_PULL_UP_S);
-    i2c_delay();
-    for (int i = 7; i >= 0; i--) {
-        i2c_scl_out(true);
-        i2c_delay();
-        if (hal_gpio_read(s_sda)) byte |= (1 << i);
-        i2c_scl_out(false);
-        i2c_delay();
-    }
-    i2c_sda_out(!ack);
-    i2c_delay();
-    i2c_scl_out(true);
-    i2c_delay();
-    i2c_scl_out(false);
-    i2c_delay();
-    i2c_sda_out(true);
-    return byte;
-}
-
-static bool i2c_write_reg(uint8_t addr, uint8_t reg, uint8_t val) {
-    i2c_start();
-    if (!i2c_write_byte((addr << 1) | 0)) { i2c_stop(); return false; }
-    if (!i2c_write_byte(reg)) { i2c_stop(); return false; }
-    if (!i2c_write_byte(val)) { i2c_stop(); return false; }
-    i2c_stop();
-    return true;
-}
-
-static bool i2c_read_reg(uint8_t addr, uint8_t reg, uint8_t *val) {
-    i2c_start();
-    if (!i2c_write_byte((addr << 1) | 0)) { i2c_stop(); return false; }
-    if (!i2c_write_byte(reg)) { i2c_stop(); return false; }
-    i2c_start(); // repeated start
-    if (!i2c_write_byte((addr << 1) | 1)) { i2c_stop(); return false; }
-    *val = i2c_read_byte(false);
-    i2c_stop();
-    return true;
 }
 
 void accel_init(void) {
-    s_detected = false;
-    strcpy(s_sensor_name, "SEARCH..");
+    s_detected = true;
+    s_raw_pulses = 0;
+    s_prev_pulses = 0;
+    s_step_count = 0;
+    s_window_pulses = 0;
+    s_idle_ticks = 0;
+    s_in_walking_session = false;
 
-    // 1. Power ON / Reset sensor via P15 (Active HIGH reset cycle)
-    hal_gpio_cfg_analog_io(s_pwr, Bit_DISABLE);
-    hal_gpio_pin_init(s_pwr, GPIO_OUTPUT);
-    hal_gpio_write(s_pwr, 0);
-    WaitMs(100);
-    hal_gpio_write(s_pwr, 1);
-    WaitMs(200);
+    // 1. Ensure sensor power rail (P15) is ON
+    hal_gpio_cfg_analog_io(ACCEL_PWR_PIN, Bit_DISABLE);
+    hal_gpio_pin_init(ACCEL_PWR_PIN, GPIO_OUTPUT);
+    hal_gpio_write(ACCEL_PWR_PIN, 1);
 
-    // 2. Power down 32K XTAL analog oscillator so P16/P17 (XTALI/XTALO) become standard digital GPIOs
-    subWriteReg(0x4000f01c, 16, 7, 0x3fb);   // software control 32k_clk: power down crystal
-    subWriteReg(0x4000f01c, 6, 6, 0x01);     // enable software control
-    hal_gpio_cfg_analog_io(s_scl, Bit_DISABLE);
-    hal_gpio_cfg_analog_io(s_sda, Bit_DISABLE);
-    WaitMs(10);
+    // 2. Configure P18 (HK01BS motion switch input)
+    hal_gpio_cfg_analog_io(ACCEL_INT_PIN, Bit_DISABLE);
+    hal_gpio_pin_init(ACCEL_INT_PIN, GPIO_INPUT);
+    
+    // Enable pull-up so that when the mechanical ball disconnects from GND, P18 rises cleanly to HIGH
+    hal_gpio_pull_set(ACCEL_INT_PIN, GPIO_PULL_UP_S);
 
-    // 3. Configure P16 (SCL) and P17 (SDA) as active push-pull outputs in idle HIGH state
-    i2c_scl_out(true);
-    i2c_sda_out(true);
-    WaitMs(20);
-    LOG("[ACCEL] Hardware pins P16/P17 initialized in active Push-Pull mode\n");
+    // 3. Register hardware edge interrupt (both edges to capture fast chatter/bounce)
+    hal_gpioin_register(ACCEL_INT_PIN, motion_edge_isr, motion_edge_isr);
 
-    // Common G-sensor addresses: 0x12 (QMA6100), 0x18/0x19 (SC7A20), 0x13 (QMA7981)
-    static const uint8_t candidate_addrs[] = { 0x12, 0x18, 0x19, 0x13, 0x38, 0x26, 0x68 };
-    for (size_t i = 0; i < sizeof(candidate_addrs); i++) {
-        uint8_t a = candidate_addrs[i];
-        i2c_start();
-        bool ack = i2c_write_byte((a << 1) | 0);
-        i2c_stop();
-
-        if (ack) {
-            uint8_t id0 = 0, idf = 0;
-            i2c_read_reg(a, 0x00, &id0);
-            i2c_read_reg(a, 0x0F, &idf);
-            LOG("[I2C-ACK] Device at 0x%02X! reg0=0x%02X regF=0x%02X\n", a, id0, idf);
-
-            if ((id0 >= 0x90 && id0 <= 0xB9) || a == 0x12) {
-                s_detected = true;
-                s_i2c_addr = a;
-                strcpy(s_sensor_name, "QMA6100");
-                i2c_write_reg(a, 0x0F, 0x01);
-                i2c_write_reg(a, 0x10, 0x08);
-                i2c_write_reg(a, 0x11, 0x80);
-                LOG("[ACCEL] QMA6100 configured on P16/P17\n");
-                return;
-            }
-
-            if (idf == 0x11 || idf == 0x26 || idf == 0x33 || a == 0x18 || a == 0x19) {
-                s_detected = true;
-                s_i2c_addr = a;
-                strcpy(s_sensor_name, "SC7A20");
-                i2c_write_reg(a, 0x20, 0x57); // 50Hz, XYZ enable
-                i2c_write_reg(a, 0x23, 0x88); // High-Res, BDU
-                LOG("[ACCEL] SC7A20 configured on P16/P17\n");
-                return;
-            }
-
-            s_detected = true;
-            s_i2c_addr = a;
-            strcpy(s_sensor_name, "G-SENS");
-            return;
-        }
-    }
-
-    strcpy(s_sensor_name, "NO ACK");
-    LOG("[ACCEL] P16/P17 scan complete: no ACK received\n");
+    LOG("[MOTION] HK01BS driver initialized on P18 with Edge ISR\n");
 }
 
 void accel_update(void) {
     if (!s_detected) return;
 
-    if (s_i2c_addr == 0x12 || s_i2c_addr == 0x13) {
-        // QMA6100 / QMA7981
-        i2c_start();
-        if (!i2c_write_byte((s_i2c_addr << 1) | 0)) { i2c_stop(); return; }
-        if (!i2c_write_byte(0x01)) { i2c_stop(); return; }
-        i2c_start();
-        if (!i2c_write_byte((s_i2c_addr << 1) | 1)) { i2c_stop(); return; }
+    uint32_t cur = s_raw_pulses;
+    uint32_t delta = cur - s_prev_pulses;
+    s_prev_pulses = cur;
 
-        uint8_t xl = i2c_read_byte(true);
-        uint8_t xh = i2c_read_byte(true);
-        uint8_t yl = i2c_read_byte(true);
-        uint8_t yh = i2c_read_byte(true);
-        uint8_t zl = i2c_read_byte(true);
-        uint8_t zh = i2c_read_byte(false);
-        i2c_stop();
+    if (delta > 0) {
+        s_idle_ticks = 0;
+        s_window_pulses += (uint16_t)delta;
 
-        s_acc_x = (int16_t)((xh << 8) | xl) / 64;
-        s_acc_y = (int16_t)((yh << 8) | yl) / 64;
-        s_acc_z = (int16_t)((zh << 8) | zl) / 64;
+        // Factory algorithm (0x11016cf0): series threshold to filter out random isolated shocks
+        if (!s_in_walking_session) {
+            if (s_window_pulses >= 10) {
+                // Confirmed walking session! Flush accumulated steps
+                s_in_walking_session = true;
+                s_step_count += (s_window_pulses / 2);
+                s_window_pulses = 0;
+            }
+        } else {
+            // Active walking session: each 2 ball state breaks count as 1 step
+            if (s_window_pulses >= 2) {
+                uint16_t add = s_window_pulses / 2;
+                s_step_count += add;
+                s_window_pulses %= 2;
+            }
+        }
+
+        // Generate synthetic dynamic acceleration for watchface animations
+        s_acc_x = (int16_t)(delta * 35);
+        s_acc_y = (int16_t)(delta * 50);
+        s_acc_z = (int16_t)(1000 + delta * 20);
     } else {
-        // SC7A20 / HK01BS
-        i2c_start();
-        if (!i2c_write_byte((s_i2c_addr << 1) | 0)) { i2c_stop(); return; }
-        if (!i2c_write_byte(0x28 | 0x80)) { i2c_stop(); return; }
-        i2c_start();
-        if (!i2c_write_byte((s_i2c_addr << 1) | 1)) { i2c_stop(); return; }
+        // Decay synthetic values back to 1G stationary
+        if (s_acc_x > 0) s_acc_x -= 5;
+        if (s_acc_y > 0) s_acc_y -= 5;
+        s_acc_z = 1000;
 
-        uint8_t xl = i2c_read_byte(true);
-        uint8_t xh = i2c_read_byte(true);
-        uint8_t yl = i2c_read_byte(true);
-        uint8_t yh = i2c_read_byte(true);
-        uint8_t zl = i2c_read_byte(true);
-        uint8_t zh = i2c_read_byte(false);
-        i2c_stop();
-
-        s_acc_x = (int16_t)((xh << 8) | xl) / 64;
-        s_acc_y = (int16_t)((yh << 8) | yl) / 64;
-        s_acc_z = (int16_t)((zh << 8) | zl) / 64;
+        // Inactivity timeout: if no motion for ~2 seconds (40 * 50ms ticks), reset walking session
+        if (s_idle_ticks < 50) {
+            s_idle_ticks++;
+            if (s_idle_ticks >= 40) {
+                s_in_walking_session = false;
+                s_window_pulses = 0;
+            }
+        }
     }
 }
 
@@ -247,4 +121,20 @@ void accel_get_xyz(int16_t *x, int16_t *y, int16_t *z) {
 
 const char *accel_get_name(void) {
     return s_sensor_name;
+}
+
+uint32_t accel_get_steps(void) {
+    return s_step_count;
+}
+
+uint32_t accel_get_pulses(void) {
+    return s_raw_pulses;
+}
+
+void accel_reset_steps(void) {
+    s_step_count = 0;
+    s_raw_pulses = 0;
+    s_prev_pulses = 0;
+    s_window_pulses = 0;
+    s_in_walking_session = false;
 }
