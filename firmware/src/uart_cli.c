@@ -57,7 +57,7 @@ static void uart_send_str(const char *str) {
 
 // Low-level Bit-Bang I2C helper for CLI commands on P16/P17 (ACCEL Push-Pull mode)
 static void cli_i2c_delay(void) {
-    WaitUs(10);
+    WaitUs(15);
 }
 
 static void cli_i2c_sda(bool hi) {
@@ -100,14 +100,14 @@ static bool cli_i2c_write_byte(uint8_t byte) {
         cli_i2c_scl(false);
         cli_i2c_delay();
     }
-    // Switch SDA to input to sample ACK from slave
+    // Switch SDA to input with hardware strong pull-up (10b = 2) to sample ACK
     hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
     hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
-    hal_gpio_pull_set(GPIO_P17, GPIO_PULL_UP_S);
-    cli_i2c_delay();
+    subWriteReg(&(AP_AON->IOCTL[1]), 23, 22, 2); // 10b: 10k strong pull-up
+    WaitUs(10);
     cli_i2c_scl(true);
-    cli_i2c_delay();
-    bool ack = (hal_gpio_read(GPIO_P17) == 0); // 0 = ACK
+    WaitUs(15);
+    bool ack = (hal_gpio_read(GPIO_P17) == 0); // 0 = ACK (slave pulled line low)
     cli_i2c_scl(false);
     cli_i2c_delay();
     cli_i2c_sda(true);
@@ -118,11 +118,11 @@ static uint8_t cli_i2c_read_byte(bool ack) {
     uint8_t byte = 0;
     hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
     hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
-    hal_gpio_pull_set(GPIO_P17, GPIO_PULL_UP_S);
-    cli_i2c_delay();
+    subWriteReg(&(AP_AON->IOCTL[1]), 23, 22, 2); // 10b: 10k strong pull-up
+    WaitUs(10);
     for (int i = 7; i >= 0; i--) {
         cli_i2c_scl(true);
-        cli_i2c_delay();
+        WaitUs(15);
         if (hal_gpio_read(GPIO_P17)) byte |= (1 << i);
         cli_i2c_scl(false);
         cli_i2c_delay();
@@ -135,6 +135,45 @@ static uint8_t cli_i2c_read_byte(bool ack) {
     cli_i2c_delay();
     cli_i2c_sda(true);
     return byte;
+}
+
+static bool cli_i2c_read_reg(uint8_t addr, uint8_t reg, uint8_t *val) {
+    cli_i2c_start();
+    if (!cli_i2c_write_byte((addr << 1) | 0)) { cli_i2c_stop(); return false; }
+    if (!cli_i2c_write_byte(reg)) { cli_i2c_stop(); return false; }
+    cli_i2c_start();
+    if (!cli_i2c_write_byte((addr << 1) | 1)) { cli_i2c_stop(); return false; }
+    *val = cli_i2c_read_byte(false);
+    cli_i2c_stop();
+    return true;
+}
+
+static bool cli_i2c_bus_recover(void) {
+    subWriteReg(&(AP_AON->IOCTL[1]), 23, 22, 2); // P17 strong pull-up
+    subWriteReg(&(AP_AON->IOCTL[1]), 20, 19, 2); // P16 strong pull-up
+    cli_i2c_scl(true);
+    hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
+    hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
+    WaitUs(50);
+
+    for (int i = 0; i < 9; i++) {
+        cli_i2c_scl(false);
+        WaitUs(25);
+        cli_i2c_scl(true);
+        WaitUs(25);
+    }
+    cli_i2c_sda(false);
+    WaitUs(25);
+    cli_i2c_scl(true);
+    WaitUs(25);
+    cli_i2c_sda(true);
+    WaitUs(50);
+
+    hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
+    hal_gpio_pin_init(GPIO_P17, GPIO_INPUT);
+    subWriteReg(&(AP_AON->IOCTL[1]), 23, 22, 2); // 10b: 10k strong pull-up
+    WaitUs(50);
+    return hal_gpio_read(GPIO_P17);
 }
 
 static void on_uart_evt(uart_Evt_t *pev) {
@@ -211,8 +250,6 @@ void uart_cli_update(void) {
             gpio_pin_e epin = pin_num_to_enum(pin);
             if (epin == GPIO_DUMMY) {
                 snprintf(resp, sizeof(resp), "[ERR] Pin P%d does not exist on PHY6222.\r\n", pin);
-            } else if (pin >= 0 && pin <= 3) {
-                snprintf(resp, sizeof(resp), "[ERR] Pins P00-P03 are SPI Flash bus! Driving OUTPUT is forbidden.\r\n");
             } else if (pin == 7) {
                 snprintf(resp, sizeof(resp), "[ERR] Pin P07 is hardware TM input! Driving OUTPUT is forbidden.\r\n");
             } else if (pin == 9 || pin == 10) {
@@ -222,6 +259,14 @@ void uart_cli_update(void) {
             } else if (pin == 33 || pin == 24 || pin == 25 || pin == 31 || pin == 32 || pin == 34) {
                 snprintf(resp, sizeof(resp), "[WARN] Pin P%d is reserved for ST7735 display! Skipped.\r\n", pin);
             } else {
+                if (pin == 2 || pin == 3) {
+                    hal_gpio_pin2pin3_control(epin, 1);
+                }
+                if (epin == GPIO_P16 || epin == GPIO_P17) {
+                    subWriteReg(0x4000f014, 31, 27, 0x05);
+                    subWriteReg(0x4000f01c, 16, 7, 0x3fb);
+                    subWriteReg(0x4000f01c, 6, 6, 0x01);
+                }
                 hal_gpio_cfg_analog_io(epin, Bit_DISABLE);
                 hal_gpio_pin_init(epin, GPIO_OUTPUT);
                 hal_gpio_write(epin, val ? 1 : 0);
@@ -238,9 +283,6 @@ void uart_cli_update(void) {
             if (epin == GPIO_DUMMY) {
                 snprintf(resp, sizeof(resp), "[ERR] Pin P%d does not exist on PHY6222.\r\n", pin);
                 uart_send_str(resp);
-            } else if (pin >= 0 && pin <= 3) {
-                snprintf(resp, sizeof(resp), "[ERR] Pins P00-P03 are SPI Flash bus! Reading as GPIO stalls XIP.\r\n");
-                uart_send_str(resp);
             } else if (pin == 9 || pin == 10) {
                 snprintf(resp, sizeof(resp), "[ERR] Pins P09/P10 are UART0 TX/RX! Cannot read as standard GPIO.\r\n");
                 uart_send_str(resp);
@@ -248,9 +290,23 @@ void uart_cli_update(void) {
                 snprintf(resp, sizeof(resp), "[WARN] Pin P20 is analog battery ADC input (use 'status' for bat).\r\n");
                 uart_send_str(resp);
             } else {
+                if (pin == 2 || pin == 3) {
+                    hal_gpio_pin2pin3_control(epin, 1);
+                }
+                if (epin == GPIO_P16 || epin == GPIO_P17) {
+                    subWriteReg(0x4000f014, 31, 27, 0x05);
+                    subWriteReg(0x4000f01c, 16, 7, 0x3fb);
+                    subWriteReg(0x4000f01c, 6, 6, 0x01);
+                }
                 hal_gpio_cfg_analog_io(epin, Bit_DISABLE);
                 hal_gpio_pin_init(epin, GPIO_INPUT);
-                hal_gpio_pull_set(epin, GPIO_PULL_UP_S);
+                if (epin == GPIO_P16) {
+                    subWriteReg(&(AP_AON->IOCTL[1]), 20, 19, 2);
+                } else if (epin == GPIO_P17) {
+                    subWriteReg(&(AP_AON->IOCTL[1]), 23, 22, 2);
+                } else {
+                    hal_gpio_pull_set(epin, GPIO_PULL_UP_S);
+                }
                 WaitUs(50);
                 int level = hal_gpio_read(epin);
                 snprintf(resp, sizeof(resp), "[OK] Pin P%d = %d\r\n", pin, level);
@@ -282,26 +338,40 @@ void uart_cli_update(void) {
         snprintf(resp, sizeof(resp), "[OK] Vibration pulse %d ms\r\n", ms);
         uart_send_str(resp);
     } else if (strcmp(cmd, "i2c scan") == 0) {
-        uart_send_str("Resetting sensors via P15 & scanning I2C on P16 (SCL) / P17 (SDA)...\r\n");
+        uart_send_str("Powering sensors via P02 (VCC) and P15 (RST), prepping I2C on P16/P17...\r\n");
         
-        // Power-cycle accelerometer / sensors via P15 (Active HIGH, reset pulse)
+        // 1. Power on P02 (Sensor VCC power switch, factory 0x110312ba)
+        hal_gpio_pin2pin3_control(GPIO_P02, 1);
+        hal_gpio_cfg_analog_io(GPIO_P02, Bit_DISABLE);
+        hal_gpio_pin_init(GPIO_P02, GPIO_OUTPUT);
+        hal_gpio_write(GPIO_P02, 1);
+
+        // Power-cycle sensors via P15 (Active HIGH)
         hal_gpio_cfg_analog_io(GPIO_P15, Bit_DISABLE);
         hal_gpio_pin_init(GPIO_P15, GPIO_OUTPUT);
         hal_gpio_write(GPIO_P15, 0);
-        WaitMs(100);
+        WaitMs(50);
         hal_gpio_write(GPIO_P15, 1);
-        WaitMs(200);
+        WaitMs(150);
 
-        // Power down 32K XTAL analog oscillator so P16/P17 become standard digital GPIOs
-        subWriteReg(0x4000f01c, 16, 7, 0x3fb);
-        subWriteReg(0x4000f01c, 6, 6, 0x01);
+        // 2. Power down 32K XTAL analog oscillator so P16/P17 become digital GPIOs
+        subWriteReg(0x4000f014, 31, 27, 0x05); // PMCTL0: RCOSC 32K mode
+        subWriteReg(0x4000f01c, 16, 7, 0x3fb); // PMCTL2_0: power down crystal
+        subWriteReg(0x4000f01c, 6, 6, 0x01);   // PMCTL2_0: enable software control
         hal_gpio_cfg_analog_io(GPIO_P16, Bit_DISABLE);
         hal_gpio_cfg_analog_io(GPIO_P17, Bit_DISABLE);
+        subWriteReg(&(AP_AON->IOCTL[1]), 23, 22, 2); // 10b: P17 strong pull-up
+        subWriteReg(&(AP_AON->IOCTL[1]), 20, 19, 2); // 10b: P16 strong pull-up
         WaitMs(10);
 
-        cli_i2c_scl(true);
-        cli_i2c_sda(true);
-        WaitMs(20);
+        // 3. 9-clock bus recovery & verify SDA is idle HIGH
+        bool sda_idle = cli_i2c_bus_recover();
+        if (!sda_idle) {
+            uart_send_str("[ERR] SDA line (P17) is stuck LOW! Bus recovery failed.\r\n"
+                          "      Line not rising to 3.3V (missing pull-up or short to GND).\r\n");
+            return;
+        }
+        uart_send_str("[OK] Bus recovery passed. SDA is idle HIGH (3.3V). Scanning 0x08..0x77:\r\n");
 
         int count = 0;
         for (uint8_t a = 0x08; a <= 0x77; a++) {
@@ -310,36 +380,47 @@ void uart_cli_update(void) {
             cli_i2c_stop();
             if (ack) {
                 count++;
-                snprintf(resp, sizeof(resp), "  -> Found ACK at 7-bit addr: 0x%02X (8-bit: 0x%02X)\r\n", a, a << 1);
+                uint8_t id = 0;
+                if (a == 0x19 && cli_i2c_read_reg(a, 0x0F, &id)) {
+                    snprintf(resp, sizeof(resp), "  -> Found 0x19: Silan SC7A20 Accelerometer! WHO_AM_I=0x%02X\r\n", id);
+                } else if ((a == 0x12 || a == 0x13) && cli_i2c_read_reg(a, 0x00, &id)) {
+                    snprintf(resp, sizeof(resp), "  -> Found 0x%02X: QST QMA6100/7981 Accelerometer! CHIP_ID=0x%02X\r\n", a, id);
+                } else if (a == 0x44 && cli_i2c_read_reg(a, 0x00, &id)) {
+                    snprintf(resp, sizeof(resp), "  -> Found 0x44: Elan EM7028 PPG Pulse Sensor! ID=0x%02X\r\n", id);
+                } else {
+                    snprintf(resp, sizeof(resp), "  -> Found ACK at 7-bit addr: 0x%02X (8-bit: 0x%02X)\r\n", a, a << 1);
+                }
                 uart_send_str(resp);
             }
         }
-        snprintf(resp, sizeof(resp), "Scan complete. Found %d devices.\r\n", count);
+        snprintf(resp, sizeof(resp), "Scan complete. Found %d responsive device(s).\r\n", count);
         uart_send_str(resp);
     } else if (strncmp(cmd, "i2c r ", 6) == 0) {
         unsigned int a = 0, reg = 0;
         if (sscanf(cmd + 6, "%x %x", &a, &reg) == 2) {
-            cli_i2c_start();
-            if (!cli_i2c_write_byte((a << 1) | 0)) {
-                cli_i2c_stop();
-                uart_send_str("[ERR] NAK on addr write\r\n");
-            } else if (!cli_i2c_write_byte(reg)) {
-                cli_i2c_stop();
-                uart_send_str("[ERR] NAK on reg write\r\n");
+            uint8_t val = 0;
+            if (cli_i2c_read_reg((uint8_t)a, (uint8_t)reg, &val)) {
+                snprintf(resp, sizeof(resp), "[OK] Addr 0x%02X Reg 0x%02X = 0x%02X (%d)\r\n", a, reg, val, val);
+                uart_send_str(resp);
             } else {
-                cli_i2c_start();
-                if (!cli_i2c_write_byte((a << 1) | 1)) {
-                    cli_i2c_stop();
-                    uart_send_str("[ERR] NAK on addr read\r\n");
-                } else {
-                    uint8_t val = cli_i2c_read_byte(false);
-                    cli_i2c_stop();
-                    snprintf(resp, sizeof(resp), "[OK] Addr 0x%02X Reg 0x%02X = 0x%02X (%d)\r\n", a, reg, val, val);
-                    uart_send_str(resp);
-                }
+                uart_send_str("[ERR] NAK or read failure\r\n");
             }
         } else {
             uart_send_str("Usage: i2c r <hex_addr> <hex_reg> (e.g. i2c r 19 0f)\r\n");
+        }
+    } else if (strncmp(cmd, "peek ", 5) == 0) {
+        uint32_t addr = 0;
+        if (sscanf(cmd + 5, "%x", &addr) == 1) {
+            uint32_t val = *(volatile uint32_t *)addr;
+            snprintf(resp, sizeof(resp), "[PEEK] 0x%08X = 0x%08X\r\n", addr, val);
+            uart_send_str(resp);
+        }
+    } else if (strncmp(cmd, "poke ", 5) == 0) {
+        uint32_t addr = 0, val = 0;
+        if (sscanf(cmd + 5, "%x %x", &addr, &val) == 2) {
+            *(volatile uint32_t *)addr = val;
+            snprintf(resp, sizeof(resp), "[POKE] 0x%08X = 0x%08X\r\n", addr, val);
+            uart_send_str(resp);
         }
     } else if (strncmp(cmd, "i2c w ", 6) == 0) {
         unsigned int a = 0, reg = 0, val = 0;

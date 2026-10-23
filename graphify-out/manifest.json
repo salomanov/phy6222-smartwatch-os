@@ -42,10 +42,10 @@
     "semantic_hash": "353876afb95a79d86ffadc7280714cc7"
   },
   "firmware/src/config.h": {
-    "mtime": 1792725774.4707544,
-    "seen": 1792726376.2434807,
-    "ast_hash": "850c71d9e2b983be2299e154aaa16d02",
-    "semantic_hash": "850c71d9e2b983be2299e154aaa16d02"
+    "mtime": 1792728359.2132862,
+    "seen": 1792735735.7818792,
+    "ast_hash": "df8c5fe86a73c07a2f2e708265a8e3f2",
+    "semantic_hash": "df8c5fe86a73c07a2f2e708265a8e3f2"
   },
   "firmware/src/display.c": {
     "mtime": 1792128892.9407415,
@@ -6978,10 +6978,10 @@
     "semantic_hash": "2721d057c19e2bafacc7ed280651061b"
   },
   "firmware/src/uart_cli.c": {
-    "mtime": 1792696282.5473468,
-    "seen": 1792696406.2113779,
-    "ast_hash": "b6b2d863893fdc5b7ded88d55ca0637f",
-    "semantic_hash": "b6b2d863893fdc5b7ded88d55ca0637f"
+    "mtime": 1792735642.2818778,
+    "seen": 1792735735.7891376,
+    "ast_hash": "108a233fa192079c93e6019dfe5ce066",
+    "semantic_hash": "108a233fa192079c93e6019dfe5ce066"
   },
   "firmware/src/uart_cli.h": {
     "mtime": 1791710143.7158964,

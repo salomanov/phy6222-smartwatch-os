@@ -38,6 +38,6 @@
 #define ST7735_ROWSTART 1
 
 // Firmware Version
-#define FW_VERSION_STR "v1.5.9-SAFE"
+#define FW_VERSION_STR "v1.5.10-I2C_DIAG"
 
 #endif // CONFIG_H
