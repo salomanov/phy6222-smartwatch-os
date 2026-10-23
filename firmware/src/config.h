@@ -38,6 +38,6 @@
 #define ST7735_ROWSTART 1
 
 // Firmware Version
-#define FW_VERSION_STR "v1.5.11-HK01BS"
+#define FW_VERSION_STR "v1.5.12-STEP_CAL"
 
 #endif // CONFIG_H

@@ -5,7 +5,7 @@
 #include "log.h"
 #include <string.h>
 
-// Motion sensor driver for LP715_MB_V1.3
+// Motion sensor & pedometer driver for LP715_MB_V1.3
 // Hardware: HK01BS / UM201 mechanical roll-ball vibration switch on GPIO_P18
 // Reverse-engineered from factory firmware (dump 0x110126e8 / 0x11031954 / 0x1103377c)
 
@@ -17,9 +17,11 @@ static volatile uint32_t s_raw_pulses = 0;
 static uint32_t s_prev_pulses = 0;
 static uint32_t s_step_count = 0;
 
-// Factory filter parameters
-static uint16_t s_window_pulses = 0;
-static uint8_t  s_idle_ticks = 0;
+// Factory windowing & cadence filter (evaluated every 500ms / 10 OSAL ticks)
+#define CADENCE_WINDOW_TICKS 10 // 10 * 50ms = 500ms
+static uint8_t  s_tick_acc = 0;
+static uint16_t s_streak_pulses = 0;
+static uint8_t  s_idle_windows = 0;
 static bool     s_in_walking_session = false;
 
 // Synthetic XYZ for UI / BLE compatibility
@@ -38,8 +40,9 @@ void accel_init(void) {
     s_raw_pulses = 0;
     s_prev_pulses = 0;
     s_step_count = 0;
-    s_window_pulses = 0;
-    s_idle_ticks = 0;
+    s_tick_acc = 0;
+    s_streak_pulses = 0;
+    s_idle_windows = 0;
     s_in_walking_session = false;
 
     // 1. Ensure sensor power rail (P15) is ON
@@ -56,54 +59,66 @@ void accel_init(void) {
 
     // 3. Register hardware edge interrupt (both edges to capture fast chatter/bounce)
     hal_gpioin_register(ACCEL_INT_PIN, motion_edge_isr, motion_edge_isr);
-
-    LOG("[MOTION] HK01BS driver initialized on P18 with Edge ISR\n");
 }
 
 void accel_update(void) {
     if (!s_detected) return;
+
+    s_tick_acc++;
+    if (s_tick_acc < CADENCE_WINDOW_TICKS) {
+        return; // Evaluate every 500ms window
+    }
+    s_tick_acc = 0;
 
     uint32_t cur = s_raw_pulses;
     uint32_t delta = cur - s_prev_pulses;
     s_prev_pulses = cur;
 
     if (delta > 0) {
-        s_idle_ticks = 0;
-        s_window_pulses += (uint16_t)delta;
+        s_idle_windows = 0;
+        s_streak_pulses += (uint16_t)delta;
 
-        // Factory algorithm (0x11016cf0): series threshold to filter out random isolated shocks
+        // Factory algorithm (dump 0x11016cf0 & 0x11031954):
+        // Filter out isolated random wrist twitches/desk vibrations.
+        // Requires a cumulative streak of at least 15 pulses to confirm walking.
         if (!s_in_walking_session) {
-            if (s_window_pulses >= 10) {
-                // Confirmed walking session! Flush accumulated steps
+            if (s_streak_pulses >= 15) {
                 s_in_walking_session = true;
-                s_step_count += (s_window_pulses / 2);
-                s_window_pulses = 0;
-            }
-        } else {
-            // Active walking session: each 2 ball state breaks count as 1 step
-            if (s_window_pulses >= 2) {
-                uint16_t add = s_window_pulses / 2;
-                s_step_count += add;
-                s_window_pulses %= 2;
+                // Credit the initial 2 steps that started the sequence
+                s_step_count += 2;
             }
         }
 
-        // Generate synthetic dynamic acceleration for watchface animations
-        s_acc_x = (int16_t)(delta * 35);
-        s_acc_y = (int16_t)(delta * 50);
-        s_acc_z = (int16_t)(1000 + delta * 20);
+        if (s_in_walking_session) {
+            // Human cadence mapping per 500ms window:
+            // - Normal walk (cadence ~1.5 - 2 steps/sec): 1-8 ball chattering pulses -> 1 step
+            // - Brisk walk (cadence ~2 - 2.5 steps/sec): 9-16 pulses -> 2 steps
+            // - Running/jogging: >16 pulses -> 3 steps
+            if (delta <= 8) {
+                s_step_count += 1;
+            } else if (delta <= 16) {
+                s_step_count += 2;
+            } else {
+                s_step_count += 3;
+            }
+        }
+
+        // Dynamic synthetic acceleration for UI / watchface
+        s_acc_x = (int16_t)(delta * 25);
+        s_acc_y = (int16_t)(delta * 35);
+        s_acc_z = (int16_t)(1000 + delta * 15);
     } else {
-        // Decay synthetic values back to 1G stationary
-        if (s_acc_x > 0) s_acc_x -= 5;
-        if (s_acc_y > 0) s_acc_y -= 5;
+        // No motion in this 500ms window
+        if (s_acc_x > 0) s_acc_x -= 10;
+        if (s_acc_y > 0) s_acc_y -= 10;
         s_acc_z = 1000;
 
-        // Inactivity timeout: if no motion for ~2 seconds (40 * 50ms ticks), reset walking session
-        if (s_idle_ticks < 50) {
-            s_idle_ticks++;
-            if (s_idle_ticks >= 40) {
+        // Inactivity timeout: 4 idle windows (~2 seconds) terminates walking session
+        if (s_idle_windows < 10) {
+            s_idle_windows++;
+            if (s_idle_windows >= 4) {
                 s_in_walking_session = false;
-                s_window_pulses = 0;
+                s_streak_pulses = 0;
             }
         }
     }
@@ -135,6 +150,8 @@ void accel_reset_steps(void) {
     s_step_count = 0;
     s_raw_pulses = 0;
     s_prev_pulses = 0;
-    s_window_pulses = 0;
+    s_streak_pulses = 0;
+    s_tick_acc = 0;
+    s_idle_windows = 0;
     s_in_walking_session = false;
 }
