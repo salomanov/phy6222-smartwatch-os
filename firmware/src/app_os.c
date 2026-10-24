@@ -47,56 +47,59 @@ static void render_watchface(void) {
         gfx_draw_string(23, 4, "LP715", COLOR_WHITE, COLOR_NAVY, 1);
         
         gfx_draw_fast_h_line(2, 17, 76, COLOR_DARKGREY);
-        gfx_draw_fast_h_line(2, 42, 76, COLOR_DARKGREY);
-        gfx_draw_fast_h_line(2, 60, 76, COLOR_DARKGREY);
-        gfx_draw_fast_h_line(2, 86, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 38, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 82, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 104, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 134, 76, COLOR_DARKGREY);
         
-        gfx_draw_string(4, 90, "UPTIME:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_fast_h_line(2, 110, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 114, FW_VERSION_STR, COLOR_GREEN, COLOR_BLACK, 1);
-        gfx_draw_fast_h_line(2, 138, 76, COLOR_DARKGREY);
-        gfx_draw_string(4, 144, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 41, "STEPS:", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_string(4, 120, "v1.5.13-STEP", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+        gfx_draw_string(4, 148, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
     char buf[24];
 
-    // 0. Header Bar Icons (Top right: Battery outline+level; Top left: BLE status)
+    // 0. Header Bar Icons
     gfx_draw_ble_icon(3, 3, ble_is_connected());
     gfx_draw_battery_icon(58, 3, bat_pct, battery_is_charging());
 
     // 1. Dynamic Clock / Time (Scale 2 for HH:MM, Scale 1 for SS)
     snprintf(buf, sizeof(buf), "%02d:%02d", s_hours, s_minutes);
-    gfx_draw_string(6, 22, buf, COLOR_CYAN, COLOR_BLACK, 2); // 5 chars * 12 px = 60 px
+    gfx_draw_string(6, 20, buf, COLOR_CYAN, COLOR_BLACK, 2);
 
     snprintf(buf, sizeof(buf), "%02d", s_seconds);
-    gfx_draw_string(66, 30, buf, COLOR_YELLOW, COLOR_BLACK, 1);
+    gfx_draw_string(66, 27, buf, COLOR_YELLOW, COLOR_BLACK, 1);
 
-    // 2. Activity Row: Heart Rate & Step count with graphical icons
-    gfx_draw_heart_icon(4, 47, COLOR_RED);
-    gfx_draw_string(14, 48, "--", COLOR_WHITE, COLOR_BLACK, 1);
+    // 2. Motion / Steps Row
+    snprintf(buf, sizeof(buf), "P18:%d", hal_gpio_read(ACCEL_INT_PIN));
+    gfx_draw_string(46, 41, buf, COLOR_LIGHTGREY, COLOR_BLACK, 1);
 
-    gfx_draw_step_icon(42, 47, COLOR_CYAN);
-    snprintf(buf, sizeof(buf), "%lu", (unsigned long)accel_get_steps());
-    gfx_draw_string(52, 48, buf, COLOR_WHITE, COLOR_BLACK, 1);
+    // Large Step Counter (Scale 2, max 5 chars = 60 px)
+    snprintf(buf, sizeof(buf), "%5lu", (unsigned long)accel_get_steps());
+    gfx_draw_string(10, 52, buf, COLOR_GREEN, COLOR_BLACK, 2);
+
+    // Raw pulses (Scale 1)
+    snprintf(buf, sizeof(buf), "PULSE:%-5lu", (unsigned long)accel_get_pulses());
+    gfx_draw_string(4, 71, buf, COLOR_CYAN, COLOR_BLACK, 1);
 
     // 3. Battery status & Mini-gauge
-    snprintf(buf, sizeof(buf), "%3d%% %4dmV", bat_pct, bat_mv); // 10 chars * 6 px = 60 px < 80 px
-    gfx_draw_string(4, 65, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
-    gfx_draw_progress_bar(4, 75, 72, 6, bat_pct, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_DARKGREY);
+    snprintf(buf, sizeof(buf), "%3d%% %4dmV", bat_pct, bat_mv);
+    gfx_draw_string(4, 85, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
+    gfx_draw_progress_bar(4, 95, 72, 5, bat_pct, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_DARKGREY);
 
-    // 4. Dynamic ticking Uptime: HH:MM:SS
+    // 4. Dynamic Uptime: UP:HH:MM:SS
     uint32_t sec = s_uptime_seconds;
     uint32_t h = sec / 3600;
     uint32_t m = (sec % 3600) / 60;
     uint32_t s = sec % 60;
-    snprintf(buf, sizeof(buf), "%02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s);
-    gfx_draw_string(4, 99, buf, COLOR_WHITE, COLOR_BLACK, 1);
+    snprintf(buf, sizeof(buf), "UP:%02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s);
+    gfx_draw_string(4, 108, buf, COLOR_WHITE, COLOR_BLACK, 1);
 
     // 5. BLE status line
     if (ble_is_connected()) {
-        gfx_draw_string(4, 126, "BLE: ONLINE", COLOR_GREEN, COLOR_BLACK, 1);
+        gfx_draw_string(4, 137, "BLE:ONLINE", COLOR_GREEN, COLOR_BLACK, 1);
     } else {
-        gfx_draw_string(4, 126, "BLE: ADV...", COLOR_YELLOW, COLOR_BLACK, 1);
+        gfx_draw_string(4, 137, "BLE:ADV...", COLOR_YELLOW, COLOR_BLACK, 1);
     }
 }
 
@@ -207,6 +210,23 @@ void app_os_update(void) {
     s_ms_counter += 50; // Called every 50ms by OSAL timer (WATCH_TICK_EVT)
     vibrator_update(50); // Non-blocking vibrator timer (P2-2: prevents blocking OSAL tick)
     accel_update();
+
+    // Live motion display refresh (throttled to 4 Hz / 250ms to keep BLE and SPI safe)
+    static uint32_t s_last_motion_redraw = 0;
+    static uint32_t s_last_drawn_pulses = 0;
+    static uint32_t s_last_drawn_steps = 0;
+    uint32_t cur_p = accel_get_pulses();
+    uint32_t cur_s = accel_get_steps();
+    if ((cur_p != s_last_drawn_pulses || cur_s != s_last_drawn_steps) &&
+        (s_ms_counter - s_last_motion_redraw >= 250)) {
+        s_last_drawn_pulses = cur_p;
+        s_last_drawn_steps = cur_s;
+        s_last_motion_redraw = s_ms_counter;
+        if (s_current_mode == MODE_WATCHFACE) {
+            s_needs_redraw = true;
+        }
+    }
+
     uart_cli_update();
 
     // 1-second system timer
