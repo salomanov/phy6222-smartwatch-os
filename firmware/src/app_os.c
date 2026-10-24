@@ -17,13 +17,14 @@
 #include <string.h>
 
 #define COLOR_NAVY 0x000F
-#define WF_PAGE_COUNT 4
+#define WF_PAGE_COUNT 8
 
 static os_mode_t s_current_mode = MODE_WATCHFACE;
 static uint8_t s_wf_page = 0;
 static uint32_t s_uptime_seconds = 0;
 static uint32_t s_last_sec_tick = 0;
 static uint32_t s_ms_counter = 0;
+static uint8_t s_anim_frame = 0;
 
 // Watch Time (Simulated RTC starting at 12:34:00)
 static uint8_t s_hours = 12;
@@ -35,6 +36,7 @@ static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
 static bool s_diag_first_draw = true;
 
+// Page 0: Main Watchface (100% preserved)
 static void render_watchface_page0(void) {
     uint8_t bat_pct = battery_get_percent();
     uint16_t bat_mv = battery_read_mv();
@@ -54,7 +56,7 @@ static void render_watchface_page0(void) {
         gfx_draw_fast_h_line(2, 134, 76, COLOR_DARKGREY);
         
         gfx_draw_string(4, 41, "STEPS:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_string(4, 120, "v1.5.14-DEMO", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+        gfx_draw_string(4, 120, "v1.5.15-ICON", COLOR_LIGHTGREY, COLOR_BLACK, 1);
         gfx_draw_string(4, 148, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
@@ -104,7 +106,7 @@ static void render_watchface_page0(void) {
     }
 }
 
-// Page 1: Factory Watchface (0x1107260C 8bpp BMP wallpaper + 0x110721C2 giant digits + ROM icons)
+// Page 1: Factory Watchface #1 (0x1107260C 8bpp BMP wallpaper + 0x110721C2 giant digits + ROM icons)
 static void render_watchface_page1(void) {
     uint8_t bat_pct = battery_get_percent();
     if (s_diag_first_draw) {
@@ -112,35 +114,129 @@ static void render_watchface_page1(void) {
         factory_draw_bmp_wallpaper();
     }
 
-    // Factory BLE icon (16x7) at top-left
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BLE_ADDR, 4, 4,
                              ble_is_connected() ? COLOR_CYAN : COLOR_LIGHTGREY, COLOR_BLACK, true);
 
-    // Factory Battery level icon (0..4, 16x8) at top-right
     uint8_t bat_idx = bat_pct / 25;
     if (bat_idx > 4) bat_idx = 4;
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BAT_BASE + (uint32_t)bat_idx * 26U, 60, 4,
                              COLOR_GREEN, COLOR_BLACK, true);
 
-    // Factory Weekday badge (32x10, MON..SUN cycled every 3s for demo)
     uint8_t wk_idx = (uint8_t)((s_uptime_seconds / 3U) % 7U);
     factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + (uint32_t)wk_idx * 50U, 24, 18,
                              COLOR_YELLOW, COLOR_BLACK, true);
 
-    // Factory Giant 16x29 smooth watchface time HH:MM
     factory_draw_big_time(s_hours, s_minutes, 34, COLOR_WHITE, true);
 
-    // Factory small 8x10 date & live step count at bottom
     char buf[16];
-    snprintf(buf, sizeof(buf), "24/10-%02d", s_seconds);
+    snprintf(buf, sizeof(buf), "25/10-%02d", s_seconds);
     factory_draw_small_num(8, 128, buf, COLOR_WHITE, COLOR_BLACK, true);
 
     snprintf(buf, sizeof(buf), "%05lu", (unsigned long)accel_get_steps());
     factory_draw_small_num(20, 144, buf, COLOR_CYAN, COLOR_BLACK, true);
 }
 
-// Page 2: Factory 16px Russian Cyrillic Font Demo (PHY_FONTV1.01.03)
+// Page 2: Factory Watchface #2 (Giant 34x32 3D Neon Digits [65] + Smooth 32x30 Digits [67] + Sneaker [37])
 static void render_watchface_page2(void) {
+    if (s_diag_first_draw) {
+        s_diag_first_draw = false;
+        display_fill_screen(COLOR_BLACK);
+        // Hours '12' using Giant 34x32 3D Neon digits [65] (frames 0='1', 1='2')
+        factory_draw_rle_icon(FAC_RLE_DIGITS_34X32, 0, 4, 6);
+        factory_draw_rle_icon(FAC_RLE_DIGITS_34X32, 1, 42, 6);
+        // Draw color Sneaker icon (50x36) at bottom-left
+        factory_draw_rle_icon(FAC_RLE_STEPS_SHOE, 0, 15, 98);
+    }
+
+    // Seconds/Minutes using Giant 32x30 Smooth digits [67] (all 0..9)
+    factory_draw_rle_icon(FAC_RLE_DIGITS_32X30, (s_seconds / 10) % 10, 6, 48);
+    factory_draw_rle_icon(FAC_RLE_DIGITS_32X30, s_seconds % 10, 42, 48);
+
+    char buf[24];
+    snprintf(buf, sizeof(buf), "Шаги: %-5lu", (unsigned long)accel_get_steps());
+    factory_draw_utf8(4, 140, buf, COLOR_GREEN, COLOR_BLACK);
+}
+
+// Page 3: Animated Heart Rate [84] (3-frame live beating heart + ECG) + Running [31] + Find Phone [39]
+static void render_watchface_page3(void) {
+    if (s_diag_first_draw) {
+        s_diag_first_draw = false;
+        display_fill_screen(COLOR_BLACK);
+        gfx_fill_rect(0, 0, 80, 18, COLOR_NAVY);
+        factory_draw_utf8(4, 1, "АНИМАЦИЯ", COLOR_YELLOW, COLOR_NAVY);
+
+        // Static color icons on bottom half: Running (36x52) + Find Tower (38x50)
+        factory_draw_rle_icon(FAC_RLE_SPORT_RUN, 0, 2, 86);
+        factory_draw_rle_icon(FAC_RLE_FIND_TOWER, 0, 40, 88);
+        factory_draw_utf8(4, 142, "Спорт / Поиск", COLOR_CYAN, COLOR_BLACK);
+    }
+
+    // Live 3-frame animated beating Heart + ECG (50x42) at top center
+    factory_draw_rle_icon(FAC_RLE_HEART_ANIM, s_anim_frame % 3, 15, 22);
+    char buf[20];
+    snprintf(buf, sizeof(buf), "Пульс к%d/3", (s_anim_frame % 3) + 1);
+    factory_draw_utf8(4, 66, buf, COLOR_RED, COLOR_BLACK);
+}
+
+// Page 4: Steps Goal Ring (68x80 [50]+[51]) + 4 Social App Color Icons (23x23 [80])
+static void render_watchface_page4(void) {
+    if (s_diag_first_draw) {
+        s_diag_first_draw = false;
+        display_fill_screen(COLOR_BLACK);
+        // Full 68x80 color Steps Goal Ring (top 68x40 + bottom 68x40)
+        factory_draw_rle_icon(FAC_RLE_RING_TOP, 0, 6, 2);
+        factory_draw_rle_icon(FAC_RLE_RING_BOT, 0, 6, 42);
+
+        // 4 of the 23x23 color Social App icons in 2 rows of 2 (SMS, WeChat, FB, WhatsApp)
+        factory_draw_rle_icon(FAC_RLE_SOCIAL_23X23, 0, 10, 86);  // SMS
+        factory_draw_rle_icon(FAC_RLE_SOCIAL_23X23, 1, 46, 86);  // WeChat
+        factory_draw_rle_icon(FAC_RLE_SOCIAL_23X23, 2, 10, 113); // Facebook
+        factory_draw_rle_icon(FAC_RLE_SOCIAL_23X23, 3, 46, 113); // WhatsApp
+    }
+
+    char buf[16];
+    snprintf(buf, sizeof(buf), "%05lu", (unsigned long)accel_get_steps());
+    factory_draw_small_num(20, 144, buf, COLOR_YELLOW, COLOR_BLACK, false);
+}
+
+// Page 5: Factory Menu Icons Showcase (Color + Monochrome 1bpp Icons cycling every 2 seconds)
+static void render_watchface_page5(void) {
+    static uint8_t s_last_pair = 0xFF;
+    uint8_t pair_idx = (uint8_t)((s_uptime_seconds / 2U) % 4U);
+
+    if (s_diag_first_draw || pair_idx != s_last_pair) {
+        s_diag_first_draw = false;
+        s_last_pair = pair_idx;
+        display_fill_screen(COLOR_BLACK);
+        gfx_fill_rect(0, 0, 80, 18, COLOR_NAVY);
+        factory_draw_utf8(4, 1, "ЗНАЧКИ ПЗУ", COLOR_CYAN, COLOR_NAVY);
+
+        static const uint8_t s_color_ids[4] = {
+            FAC_RLE_SLEEP_MOON, FAC_RLE_MORE_DOTS, FAC_RLE_MSG_BUBBLE, FAC_RLE_INFO_BOX
+        };
+        static const uint8_t s_mono_ids[4] = {
+            FAC_MONO_TROPHY, FAC_MONO_ALARM, FAC_MONO_FIND_PHONE, FAC_MONO_STOPWATCH
+        };
+        static const uint16_t s_mono_cols[4] = {
+            COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE, COLOR_GREEN
+        };
+
+        // Top: Color RLE icon (~50x50)
+        factory_draw_rle_icon(s_color_ids[pair_idx], 0, 15, 22);
+
+        // Bottom: 1bpp Monochrome icon (up to 64x56)
+        uint8_t mid = s_mono_ids[pair_idx];
+        uint8_t mx = (mid >= 19) ? 8 : 20;
+        factory_draw_mono_icon(mid, mx, 80, s_mono_cols[pair_idx], COLOR_BLACK);
+
+        char buf[20];
+        snprintf(buf, sizeof(buf), "Пара %d из 4", pair_idx + 1);
+        factory_draw_utf8(6, 142, buf, COLOR_LIGHTGREY, COLOR_BLACK);
+    }
+}
+
+// Page 6: Factory 16px Russian Cyrillic Font Demo (PHY_FONTV1.01.03)
+static void render_watchface_page6(void) {
     uint8_t bat_pct = battery_get_percent();
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
@@ -168,36 +264,30 @@ static void render_watchface_page2(void) {
     factory_draw_utf8(2, 85, buf, (bat_pct < 20) ? COLOR_RED : COLOR_YELLOW, COLOR_BLACK);
 }
 
-// Page 3: Factory ROM Sprites Gallery (0x11072000)
-static void render_watchface_page3(void) {
+// Page 7: Factory ROM Sprites Gallery (0x11072000)
+static void render_watchface_page7(void) {
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
         display_fill_screen(COLOR_BLACK);
         gfx_fill_rect(0, 0, 80, 18, COLOR_NAVY);
         factory_draw_utf8(6, 1, "СПРАЙТЫ", COLOR_CYAN, COLOR_NAVY);
 
-        // Row 1: All 5 battery sprites (16x8) + BLE icon (16x7)
         for (uint8_t i = 0; i < 5; i++) {
             factory_draw_sprite_1bpp(FACTORY_SPRITE_BAT_BASE + (uint32_t)i * 26U,
                                      2 + (i % 3) * 26, 22 + (i / 3) * 12,
                                      COLOR_GREEN, COLOR_BLACK, false);
         }
         factory_draw_sprite_1bpp(FACTORY_SPRITE_BLE_ADDR, 54, 34, COLOR_CYAN, COLOR_BLACK, false);
-
-        // Row 2: Divider sprite (24x2)
         factory_draw_sprite_1bpp(FACTORY_SPRITE_DIV_ADDR, 28, 48, COLOR_DARKGREY, COLOR_BLACK, false);
 
-        // Row 3: 4 Weekday badges (32x10)
         factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + 0 * 50U, 4, 54, COLOR_YELLOW, COLOR_BLACK, false);
         factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + 1 * 50U, 44, 54, COLOR_ORANGE, COLOR_BLACK, false);
         factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + 4 * 50U, 4, 68, COLOR_CYAN, COLOR_BLACK, false);
         factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + 6 * 50U, 44, 68, COLOR_RED, COLOR_BLACK, false);
 
-        // Row 4: Small 8x10 ROM digits
         factory_draw_small_num(0, 84, "0123456789", COLOR_WHITE, COLOR_BLACK, false);
     }
 
-    // Row 5: Animated giant 16x29 digits (cycling with seconds)
     uint8_t d0 = (s_seconds / 10) % 10;
     uint8_t d1 = s_seconds % 10;
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 0 * 68U, 4, 100, COLOR_GREEN, COLOR_BLACK, false);
@@ -206,7 +296,7 @@ static void render_watchface_page3(void) {
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + (uint32_t)d0 * 68U, 48, 100, COLOR_CYAN, COLOR_BLACK, false);
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + (uint32_t)d1 * 68U, 64, 100, COLOR_CYAN, COLOR_BLACK, false);
 
-    factory_draw_utf8(4, 140, "Стр 4 из 4", COLOR_LIGHTGREY, COLOR_BLACK);
+    factory_draw_utf8(4, 140, "Стр 8 из 8", COLOR_LIGHTGREY, COLOR_BLACK);
 }
 
 static void render_watchface(void) {
@@ -224,6 +314,18 @@ static void render_watchface(void) {
         case 3:
             render_watchface_page3();
             break;
+        case 4:
+            render_watchface_page4();
+            break;
+        case 5:
+            render_watchface_page5();
+            break;
+        case 6:
+            render_watchface_page6();
+            break;
+        case 7:
+            render_watchface_page7();
+            break;
     }
 }
 
@@ -237,9 +339,8 @@ static void render_vibrator_test(void) {
 
     char p_buf[20];
     snprintf(p_buf, sizeof(p_buf), "%s", vibrator_get_test_pin_name());
-    gfx_draw_string(8, 38, p_buf, COLOR_CYAN, COLOR_BLACK, 2); // max 3 chars * 12 px = 36 px
+    gfx_draw_string(8, 38, p_buf, COLOR_CYAN, COLOR_BLACK, 2);
 
-    // Role hint at scale 1 (the old "P03 (Vib)" name was 9 chars * 12 px = 108 px and wrapped)
     const char *p_tag = vibrator_get_test_pin_tag();
     if (p_tag[0]) {
         gfx_draw_string(52, 44, p_tag, COLOR_LIGHTGREY, COLOR_BLACK, 1);
@@ -304,7 +405,6 @@ void app_os_init(void) {
     vibrator_init();
     battery_init();
     
-    // Hardware sensors power lines (from factory ROM reverse engineering)
     hal_gpio_cfg_analog_io(ACCEL_PWR_PIN, Bit_DISABLE);
     hal_gpio_pin_init(ACCEL_PWR_PIN, GPIO_OUTPUT);
     hal_gpio_write(ACCEL_PWR_PIN, 1); // Power ON accelerometer (P15)
@@ -320,7 +420,6 @@ void app_os_init(void) {
     uart_cli_init();
     accel_init();
     
-    // No buzz on startup (safe and quiet)
     s_needs_redraw = false;
     render_watchface();
 }
@@ -332,11 +431,17 @@ void app_os_update(void) {
         return;
     }
 
-    s_ms_counter += 50; // Called every 50ms by OSAL timer (WATCH_TICK_EVT)
-    vibrator_update(50); // Non-blocking vibrator timer (P2-2: prevents blocking OSAL tick)
+    s_ms_counter += 50;
+    vibrator_update(50);
     accel_update();
 
-    // Live motion display refresh (throttled to 4 Hz / 250ms to keep BLE and SPI safe)
+    // 5 Hz animation tick for Page 3 (beating heart + ECG)
+    if (s_current_mode == MODE_WATCHFACE && s_wf_page == 3 && (s_ms_counter % 200) == 0) {
+        s_anim_frame++;
+        s_needs_redraw = true;
+    }
+
+    // Live motion display refresh (throttled to 4 Hz / 250ms)
     static uint32_t s_last_motion_redraw = 0;
     static uint32_t s_last_drawn_pulses = 0;
     static uint32_t s_last_drawn_steps = 0;
@@ -367,7 +472,6 @@ void app_os_update(void) {
                 s_hours = (s_hours + 1) % 24;
             }
         }
-        // If BLE is still in INIT (B:0), trigger GAPRole_StartDevice once at startup
         if (ble_get_state() == 0 && ble_get_start_calls() == 0) {
             ble_try_start_device();
         }
@@ -377,7 +481,6 @@ void app_os_update(void) {
         }
     }
 
-    // Process button events
     button_event_t evt = button_update(s_ms_counter);
 
     if (evt == BTN_EVENT_CLICK) {
@@ -385,7 +488,6 @@ void app_os_update(void) {
         s_vib_count++;
 
         if (s_current_mode == MODE_WATCHFACE) {
-            // Single click cycles through the 4 demo pages (Page 0 = main watchface, Pages 1..3 = factory demos)
             s_wf_page = (s_wf_page + 1) % WF_PAGE_COUNT;
             s_diag_first_draw = true;
             vibrator_pulse(80);
@@ -404,11 +506,9 @@ void app_os_update(void) {
         s_vib_count += 2;
 
         if (s_current_mode == MODE_VIBRATOR_TEST) {
-            // Double click: toggle active polarity (HIGH vs LOW) and test fire!
             vibrator_toggle_active_level();
             vibrator_test_fire();
         } else {
-            // Double click from any screen: return to main watchface Page 0
             s_current_mode = MODE_WATCHFACE;
             s_wf_page = 0;
             s_diag_first_draw = true;
@@ -422,22 +522,18 @@ void app_os_update(void) {
         s_vib_count += 3;
 
         if (s_current_mode == MODE_OTA_UPDATE) {
-            // REBOOT INTO OTA BOOTLOADER
             ble_start_ota_mode();
             return;
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
-            // Long press in test saves and returns home
             vibrator_select_current_pin();
             s_current_mode = MODE_WATCHFACE;
             s_diag_first_draw = true;
         } else if (s_current_mode == MODE_WATCHFACE) {
-            // Long press from watchface: OTA MODE!
             s_current_mode = MODE_OTA_UPDATE;
         }
         s_needs_redraw = true;
     }
 
-    // Redraw screen if requested
     if (s_needs_redraw && !ota_inapp_is_active()) {
         s_needs_redraw = false;
         switch (s_current_mode) {

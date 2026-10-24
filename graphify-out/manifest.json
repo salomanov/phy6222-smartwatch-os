@@ -6,10 +6,10 @@
     "semantic_hash": "a84a598d8e3ebb36938c78a481ad1c6d"
   },
   "firmware/src/app_os.c": {
-    "mtime": 1792841888.326033,
-    "seen": 1792847112.784146,
-    "ast_hash": "0bb1a7a6a575152cf5805d2c7c8cfd17",
-    "semantic_hash": "0bb1a7a6a575152cf5805d2c7c8cfd17"
+    "mtime": 1792874725.6634927,
+    "seen": 1792874899.7592862,
+    "ast_hash": "e672a0ba47f92b692802ba56bbd304b3",
+    "semantic_hash": "e672a0ba47f92b692802ba56bbd304b3"
   },
   "firmware/src/app_os.h": {
     "mtime": 1792364249.69934,
@@ -42,10 +42,10 @@
     "semantic_hash": "353876afb95a79d86ffadc7280714cc7"
   },
   "firmware/src/config.h": {
-    "mtime": 1792841777.1311889,
-    "seen": 1792847112.7855437,
-    "ast_hash": "c1102f5cb26a1ff987d6eaea151ece99",
-    "semantic_hash": "c1102f5cb26a1ff987d6eaea151ece99"
+    "mtime": 1792869158.8529942,
+    "seen": 1792874899.760716,
+    "ast_hash": "c303b7b88c2756f3a8ea63fa8898865c",
+    "semantic_hash": "c303b7b88c2756f3a8ea63fa8898865c"
   },
   "firmware/src/display.c": {
     "mtime": 1792128892.9407415,
@@ -7428,21 +7428,27 @@
     "semantic_hash": "64b367d5a24ecaf4508d61ef6400432a"
   },
   "firmware/src/factory_assets.c": {
-    "mtime": 1792841613.588196,
-    "seen": 1792847112.7859077,
-    "ast_hash": "b6ab1ae42af7089722559cb623e0cd86",
-    "semantic_hash": "b6ab1ae42af7089722559cb623e0cd86"
+    "mtime": 1792874699.3055913,
+    "seen": 1792874899.7613935,
+    "ast_hash": "fc0fba173cfb831e392814f47b251487",
+    "semantic_hash": "fc0fba173cfb831e392814f47b251487"
   },
   "firmware/src/factory_assets.h": {
-    "mtime": 1792841613.5861187,
-    "seen": 1792847112.7859104,
-    "ast_hash": "6c19a03dd42bd15ce2b419ffeebf3142",
-    "semantic_hash": "6c19a03dd42bd15ce2b419ffeebf3142"
+    "mtime": 1792874699.3055913,
+    "seen": 1792874899.7613976,
+    "ast_hash": "f617146212b90e48e16e4edc9884d772",
+    "semantic_hash": "f617146212b90e48e16e4edc9884d772"
   },
   "scripts/monitor_motion.py": {
     "mtime": 1792783235.0291865,
     "seen": 1792847112.7910714,
     "ast_hash": "6bc73bd885fad0ce040141aa69f312d0",
     "semantic_hash": "6bc73bd885fad0ce040141aa69f312d0"
+  },
+  "scripts/tools/gen_factory_assets.py": {
+    "mtime": 1792874691.51597,
+    "seen": 1792874899.7716587,
+    "ast_hash": "3700b0724fa2c9894274759093f35d8e",
+    "semantic_hash": "3700b0724fa2c9894274759093f35d8e"
   }
 }
