@@ -38,6 +38,6 @@
 #define ST7735_ROWSTART 1
 
 // Firmware Version
-#define FW_VERSION_STR "v1.5.13-STEPS"
+#define FW_VERSION_STR "v1.5.14-DEMO"
 
 #endif // CONFIG_H

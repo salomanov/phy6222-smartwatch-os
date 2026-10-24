@@ -6,10 +6,10 @@
     "semantic_hash": "a84a598d8e3ebb36938c78a481ad1c6d"
   },
   "firmware/src/app_os.c": {
-    "mtime": 1792725762.343015,
-    "seen": 1792726376.241724,
-    "ast_hash": "1da75f51f9e976f065aa8b53d10e2b27",
-    "semantic_hash": "1da75f51f9e976f065aa8b53d10e2b27"
+    "mtime": 1792841888.326033,
+    "seen": 1792847112.784146,
+    "ast_hash": "0bb1a7a6a575152cf5805d2c7c8cfd17",
+    "semantic_hash": "0bb1a7a6a575152cf5805d2c7c8cfd17"
   },
   "firmware/src/app_os.h": {
     "mtime": 1792364249.69934,
@@ -42,10 +42,10 @@
     "semantic_hash": "353876afb95a79d86ffadc7280714cc7"
   },
   "firmware/src/config.h": {
-    "mtime": 1792728359.2132862,
-    "seen": 1792735735.7818792,
-    "ast_hash": "df8c5fe86a73c07a2f2e708265a8e3f2",
-    "semantic_hash": "df8c5fe86a73c07a2f2e708265a8e3f2"
+    "mtime": 1792841777.1311889,
+    "seen": 1792847112.7855437,
+    "ast_hash": "c1102f5cb26a1ff987d6eaea151ece99",
+    "semantic_hash": "c1102f5cb26a1ff987d6eaea151ece99"
   },
   "firmware/src/display.c": {
     "mtime": 1792128892.9407415,
@@ -6942,16 +6942,16 @@
     "semantic_hash": ""
   },
   "firmware/src/accel.c": {
-    "mtime": 1792696230.874179,
-    "seen": 1792696406.2063644,
-    "ast_hash": "c7d7c721bcc91fe9fc5c5fe301da892a",
-    "semantic_hash": "c7d7c721bcc91fe9fc5c5fe301da892a"
+    "mtime": 1792783441.9512343,
+    "seen": 1792847112.7841349,
+    "ast_hash": "11cfebaefeff4806e51987f405a48cd6",
+    "semantic_hash": "11cfebaefeff4806e51987f405a48cd6"
   },
   "firmware/src/accel.h": {
-    "mtime": 1792095743.8731775,
-    "seen": 1792123116.5678,
-    "ast_hash": "a485b2b9dde3fe7bd29d96686748fb4b",
-    "semantic_hash": "a485b2b9dde3fe7bd29d96686748fb4b"
+    "mtime": 1792749817.1780388,
+    "seen": 1792847112.784142,
+    "ast_hash": "d9832d66e9025ba6017450ee51f0fcfe",
+    "semantic_hash": "d9832d66e9025ba6017450ee51f0fcfe"
   },
   "firmware/src/battery.c": {
     "mtime": 1792542993.3760912,
@@ -6978,10 +6978,10 @@
     "semantic_hash": "2721d057c19e2bafacc7ed280651061b"
   },
   "firmware/src/uart_cli.c": {
-    "mtime": 1792735642.2818778,
-    "seen": 1792735735.7891376,
-    "ast_hash": "108a233fa192079c93e6019dfe5ce066",
-    "semantic_hash": "108a233fa192079c93e6019dfe5ce066"
+    "mtime": 1792841767.114543,
+    "seen": 1792847112.7876503,
+    "ast_hash": "abf71c5aa424c88a0592dfb5e386b99a",
+    "semantic_hash": "abf71c5aa424c88a0592dfb5e386b99a"
   },
   "firmware/src/uart_cli.h": {
     "mtime": 1791710143.7158964,
@@ -7426,5 +7426,23 @@
     "seen": 1792749767.3462193,
     "ast_hash": "64b367d5a24ecaf4508d61ef6400432a",
     "semantic_hash": "64b367d5a24ecaf4508d61ef6400432a"
+  },
+  "firmware/src/factory_assets.c": {
+    "mtime": 1792841613.588196,
+    "seen": 1792847112.7859077,
+    "ast_hash": "b6ab1ae42af7089722559cb623e0cd86",
+    "semantic_hash": "b6ab1ae42af7089722559cb623e0cd86"
+  },
+  "firmware/src/factory_assets.h": {
+    "mtime": 1792841613.5861187,
+    "seen": 1792847112.7859104,
+    "ast_hash": "6c19a03dd42bd15ce2b419ffeebf3142",
+    "semantic_hash": "6c19a03dd42bd15ce2b419ffeebf3142"
+  },
+  "scripts/monitor_motion.py": {
+    "mtime": 1792783235.0291865,
+    "seen": 1792847112.7910714,
+    "ast_hash": "6bc73bd885fad0ce040141aa69f312d0",
+    "semantic_hash": "6bc73bd885fad0ce040141aa69f312d0"
   }
 }

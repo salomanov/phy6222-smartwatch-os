@@ -12,12 +12,15 @@
 #include "peripheral.h"
 #include "battery.h"
 #include "accel.h"
+#include "factory_assets.h"
 #include <stdio.h>
 #include <string.h>
 
 #define COLOR_NAVY 0x000F
+#define WF_PAGE_COUNT 4
 
 static os_mode_t s_current_mode = MODE_WATCHFACE;
+static uint8_t s_wf_page = 0;
 static uint32_t s_uptime_seconds = 0;
 static uint32_t s_last_sec_tick = 0;
 static uint32_t s_ms_counter = 0;
@@ -32,9 +35,7 @@ static uint32_t s_click_count = 0;
 static uint32_t s_vib_count = 0;
 static bool s_diag_first_draw = true;
 
-
-
-static void render_watchface(void) {
+static void render_watchface_page0(void) {
     uint8_t bat_pct = battery_get_percent();
     uint16_t bat_mv = battery_read_mv();
 
@@ -53,7 +54,7 @@ static void render_watchface(void) {
         gfx_draw_fast_h_line(2, 134, 76, COLOR_DARKGREY);
         
         gfx_draw_string(4, 41, "STEPS:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_string(4, 120, "v1.5.13-STEP", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+        gfx_draw_string(4, 120, "v1.5.14-DEMO", COLOR_LIGHTGREY, COLOR_BLACK, 1);
         gfx_draw_string(4, 148, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
@@ -100,6 +101,129 @@ static void render_watchface(void) {
         gfx_draw_string(4, 137, "BLE:ONLINE", COLOR_GREEN, COLOR_BLACK, 1);
     } else {
         gfx_draw_string(4, 137, "BLE:ADV...", COLOR_YELLOW, COLOR_BLACK, 1);
+    }
+}
+
+// Page 1: Factory Watchface (0x1107260C 8bpp BMP wallpaper + 0x110721C2 giant digits + ROM icons)
+static void render_watchface_page1(void) {
+    uint8_t bat_pct = battery_get_percent();
+    if (s_diag_first_draw) {
+        s_diag_first_draw = false;
+        factory_draw_bmp_wallpaper();
+    }
+
+    // Factory BLE icon (16x7) at top-left
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BLE_ADDR, 4, 4,
+                             ble_is_connected() ? COLOR_CYAN : COLOR_LIGHTGREY, COLOR_BLACK, true);
+
+    // Factory Battery level icon (0..4, 16x8) at top-right
+    uint8_t bat_idx = bat_pct / 25;
+    if (bat_idx > 4) bat_idx = 4;
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BAT_BASE + (uint32_t)bat_idx * 26U, 60, 4,
+                             COLOR_GREEN, COLOR_BLACK, true);
+
+    // Factory Weekday badge (32x10, MON..SUN cycled every 3s for demo)
+    uint8_t wk_idx = (uint8_t)((s_uptime_seconds / 3U) % 7U);
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + (uint32_t)wk_idx * 50U, 24, 18,
+                             COLOR_YELLOW, COLOR_BLACK, true);
+
+    // Factory Giant 16x29 smooth watchface time HH:MM
+    factory_draw_big_time(s_hours, s_minutes, 34, COLOR_WHITE, true);
+
+    // Factory small 8x10 date & live step count at bottom
+    char buf[16];
+    snprintf(buf, sizeof(buf), "24/10-%02d", s_seconds);
+    factory_draw_small_num(8, 128, buf, COLOR_WHITE, COLOR_BLACK, true);
+
+    snprintf(buf, sizeof(buf), "%05lu", (unsigned long)accel_get_steps());
+    factory_draw_small_num(20, 144, buf, COLOR_CYAN, COLOR_BLACK, true);
+}
+
+// Page 2: Factory 16px Russian Cyrillic Font Demo (PHY_FONTV1.01.03)
+static void render_watchface_page2(void) {
+    uint8_t bat_pct = battery_get_percent();
+    if (s_diag_first_draw) {
+        s_diag_first_draw = false;
+        display_fill_screen(COLOR_BLACK);
+        gfx_fill_rect(0, 0, 80, 18, COLOR_NAVY);
+        factory_draw_utf8(3, 1, "ШРИФТ ПЗУ", COLOR_YELLOW, COLOR_NAVY);
+        gfx_draw_fast_h_line(2, 19, 76, COLOR_DARKGREY);
+        gfx_draw_fast_h_line(2, 108, 76, COLOR_DARKGREY);
+        factory_draw_utf8(2, 111, "АБВГДЕЁЖЗ", COLOR_ORANGE, COLOR_BLACK);
+        factory_draw_utf8(2, 127, "абвгдеёжз", COLOR_LIGHTGREY, COLOR_BLACK);
+        factory_draw_utf8(2, 143, "Нажми: след", COLOR_CYAN, COLOR_BLACK);
+    }
+
+    char buf[32];
+    snprintf(buf, sizeof(buf), "Час: %02d:%02d", s_hours, s_minutes);
+    factory_draw_utf8(2, 22, buf, COLOR_WHITE, COLOR_BLACK);
+
+    snprintf(buf, sizeof(buf), "Шаги: %-5lu", (unsigned long)accel_get_steps());
+    factory_draw_utf8(2, 43, buf, COLOR_GREEN, COLOR_BLACK);
+
+    snprintf(buf, sizeof(buf), "Имп: %-6lu", (unsigned long)accel_get_pulses());
+    factory_draw_utf8(2, 64, buf, COLOR_CYAN, COLOR_BLACK);
+
+    snprintf(buf, sizeof(buf), "Бат: %3d%%  ", bat_pct);
+    factory_draw_utf8(2, 85, buf, (bat_pct < 20) ? COLOR_RED : COLOR_YELLOW, COLOR_BLACK);
+}
+
+// Page 3: Factory ROM Sprites Gallery (0x11072000)
+static void render_watchface_page3(void) {
+    if (s_diag_first_draw) {
+        s_diag_first_draw = false;
+        display_fill_screen(COLOR_BLACK);
+        gfx_fill_rect(0, 0, 80, 18, COLOR_NAVY);
+        factory_draw_utf8(6, 1, "СПРАЙТЫ", COLOR_CYAN, COLOR_NAVY);
+
+        // Row 1: All 5 battery sprites (16x8) + BLE icon (16x7)
+        for (uint8_t i = 0; i < 5; i++) {
+            factory_draw_sprite_1bpp(FACTORY_SPRITE_BAT_BASE + (uint32_t)i * 26U,
+                                     2 + (i % 3) * 26, 22 + (i / 3) * 12,
+                                     COLOR_GREEN, COLOR_BLACK, false);
+        }
+        factory_draw_sprite_1bpp(FACTORY_SPRITE_BLE_ADDR, 54, 34, COLOR_CYAN, COLOR_BLACK, false);
+
+        // Row 2: Divider sprite (24x2)
+        factory_draw_sprite_1bpp(FACTORY_SPRITE_DIV_ADDR, 28, 48, COLOR_DARKGREY, COLOR_BLACK, false);
+
+        // Row 3: 4 Weekday badges (32x10)
+        factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + 0 * 50U, 4, 54, COLOR_YELLOW, COLOR_BLACK, false);
+        factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + 1 * 50U, 44, 54, COLOR_ORANGE, COLOR_BLACK, false);
+        factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + 4 * 50U, 4, 68, COLOR_CYAN, COLOR_BLACK, false);
+        factory_draw_sprite_1bpp(FACTORY_SPRITE_WKDAY_BASE + 6 * 50U, 44, 68, COLOR_RED, COLOR_BLACK, false);
+
+        // Row 4: Small 8x10 ROM digits
+        factory_draw_small_num(0, 84, "0123456789", COLOR_WHITE, COLOR_BLACK, false);
+    }
+
+    // Row 5: Animated giant 16x29 digits (cycling with seconds)
+    uint8_t d0 = (s_seconds / 10) % 10;
+    uint8_t d1 = s_seconds % 10;
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 0 * 68U, 4, 100, COLOR_GREEN, COLOR_BLACK, false);
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 7 * 68U, 22, 100, COLOR_YELLOW, COLOR_BLACK, false);
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 10 * 68U, 38, 100, COLOR_WHITE, COLOR_BLACK, false);
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + (uint32_t)d0 * 68U, 48, 100, COLOR_CYAN, COLOR_BLACK, false);
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + (uint32_t)d1 * 68U, 64, 100, COLOR_CYAN, COLOR_BLACK, false);
+
+    factory_draw_utf8(4, 140, "Стр 4 из 4", COLOR_LIGHTGREY, COLOR_BLACK);
+}
+
+static void render_watchface(void) {
+    switch (s_wf_page) {
+        case 0:
+        default:
+            render_watchface_page0();
+            break;
+        case 1:
+            render_watchface_page1();
+            break;
+        case 2:
+            render_watchface_page2();
+            break;
+        case 3:
+            render_watchface_page3();
+            break;
     }
 }
 
@@ -155,6 +279,7 @@ static void render_ota_update(void) {
 
 void app_os_panic(void) {
     s_current_mode = MODE_WATCHFACE;
+    s_wf_page = 0;
     s_diag_first_draw = true;
     s_needs_redraw = true;
     vibrator_pulse(40);
@@ -260,9 +385,10 @@ void app_os_update(void) {
         s_vib_count++;
 
         if (s_current_mode == MODE_WATCHFACE) {
-            // Tactile 80ms haptic tap feedback (non-blocking)
+            // Single click cycles through the 4 demo pages (Page 0 = main watchface, Pages 1..3 = factory demos)
+            s_wf_page = (s_wf_page + 1) % WF_PAGE_COUNT;
+            s_diag_first_draw = true;
             vibrator_pulse(80);
-            // Note: repeated accel_init() on button click is removed (P2-3, ERRORS_AND_FAILURES 1.6: avoids SPI display bus collisions)
         } else if (s_current_mode == MODE_VIBRATOR_TEST) {
             vibrator_next_test_pin();
             vibrator_test_fire();
@@ -282,8 +408,9 @@ void app_os_update(void) {
             vibrator_toggle_active_level();
             vibrator_test_fire();
         } else {
-            // Double click from any screen: return to main watchface
+            // Double click from any screen: return to main watchface Page 0
             s_current_mode = MODE_WATCHFACE;
+            s_wf_page = 0;
             s_diag_first_draw = true;
             ble_try_start_device();
         }

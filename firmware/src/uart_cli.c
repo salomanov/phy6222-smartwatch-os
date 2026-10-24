@@ -22,6 +22,31 @@ static volatile bool s_cmd_ready = false;
 
 extern void app_os_set_time(uint8_t h, uint8_t m, uint8_t s);
 
+static int cli_parse_u32(const char *s, int base, uint32_t *out, int max_n) {
+    int count = 0;
+    while (*s && count < max_n) {
+        while (*s == ' ' || *s == '\t' || *s == ':') s++;
+        if (!*s) break;
+        if (base == 16 && s[0] == '0' && (s[1] == 'x' || s[1] == 'X')) s += 2;
+        uint32_t v = 0;
+        bool got = false;
+        while (*s) {
+            char c = *s;
+            int d = -1;
+            if (c >= '0' && c <= '9') d = c - '0';
+            else if (base == 16 && c >= 'a' && c <= 'f') d = c - 'a' + 10;
+            else if (base == 16 && c >= 'A' && c <= 'F') d = c - 'A' + 10;
+            if (d < 0 || d >= base) break;
+            v = v * (uint32_t)base + (uint32_t)d;
+            got = true;
+            s++;
+        }
+        if (!got) break;
+        out[count++] = v;
+    }
+    return count;
+}
+
 static gpio_pin_e pin_num_to_enum(int pin) {
     switch (pin) {
         case 0:  return GPIO_P00;
@@ -248,8 +273,9 @@ void uart_cli_update(void) {
                       "  ota           - OTA reboot\r\n"
                       "  reboot        - Reset\r\n");
     } else if (strncmp(cmd, "pin ", 4) == 0) {
-        int pin = -1, val = -1;
-        if (sscanf(cmd + 4, "%d %d", &pin, &val) == 2 && pin >= 0 && pin <= 34) {
+        uint32_t args[2] = {0, 0};
+        if (cli_parse_u32(cmd + 4, 10, args, 2) == 2 && args[0] <= 34) {
+            int pin = (int)args[0], val = (int)args[1];
             gpio_pin_e epin = pin_num_to_enum(pin);
             if (epin == GPIO_DUMMY) {
                 snprintf(resp, sizeof(resp), "[ERR] Pin P%d does not exist on PHY6222.\r\n", pin);
@@ -280,8 +306,9 @@ void uart_cli_update(void) {
             uart_send_str("Usage: pin <pin_num> <0|1>\r\n");
         }
     } else if (strncmp(cmd, "read ", 5) == 0) {
-        int pin = -1;
-        if (sscanf(cmd + 5, "%d", &pin) == 1 && pin >= 0 && pin <= 34) {
+        uint32_t args[1] = {0};
+        if (cli_parse_u32(cmd + 5, 10, args, 1) == 1 && args[0] <= 34) {
+            int pin = (int)args[0];
             gpio_pin_e epin = pin_num_to_enum(pin);
             if (epin == GPIO_DUMMY) {
                 snprintf(resp, sizeof(resp), "[ERR] Pin P%d does not exist on PHY6222.\r\n", pin);
@@ -319,9 +346,9 @@ void uart_cli_update(void) {
             uart_send_str("Usage: read <pin_num>\r\n");
         }
     } else if (strncmp(cmd, "bkl ", 4) == 0) {
-        int val = -1;
-        if (sscanf(cmd + 4, "%d", &val) == 1) {
-            if (val) {
+        uint32_t args[1] = {0};
+        if (cli_parse_u32(cmd + 4, 10, args, 1) == 1) {
+            if (args[0]) {
                 backlight_on();
                 uart_send_str("[OK] Backlight ON\r\n");
             } else {
@@ -334,8 +361,9 @@ void uart_cli_update(void) {
         app_os_force_redraw();
         uart_send_str("[OK] Display re-initialized.\r\n");
     } else if (strncmp(cmd, "vib_test", 8) == 0) {
-        int ms = 120;
-        sscanf(cmd + 8, "%d", &ms);
+        uint32_t args[1] = {120};
+        cli_parse_u32(cmd + 8, 10, args, 1);
+        int ms = (int)args[0];
         if (ms < 50 || ms > 1000) ms = 120;
         uint32_t p0 = accel_get_pulses();
         vibrator_pulse((uint16_t)ms);
@@ -345,8 +373,9 @@ void uart_cli_update(void) {
                  ms, (unsigned long)p0, (unsigned long)p1, (unsigned long)(p1 - p0));
         uart_send_str(resp);
     } else if (strncmp(cmd, "vib", 3) == 0) {
-        int ms = 80;
-        sscanf(cmd + 3, "%d", &ms);
+        uint32_t args[1] = {80};
+        cli_parse_u32(cmd + 3, 10, args, 1);
+        int ms = (int)args[0];
         if (ms <= 0 || ms > 2000) ms = 80;
         vibrator_pulse((uint32_t)ms);
         snprintf(resp, sizeof(resp), "[OK] Vibration pulse %d ms\r\n", ms);
@@ -417,8 +446,9 @@ void uart_cli_update(void) {
         snprintf(resp, sizeof(resp), "Scan complete. Found %d responsive device(s).\r\n", count);
         uart_send_str(resp);
     } else if (strncmp(cmd, "i2c r ", 6) == 0) {
-        unsigned int a = 0, reg = 0;
-        if (sscanf(cmd + 6, "%x %x", &a, &reg) == 2) {
+        uint32_t args[2] = {0, 0};
+        if (cli_parse_u32(cmd + 6, 16, args, 2) == 2) {
+            unsigned int a = args[0], reg = args[1];
             uint8_t val = 0;
             if (cli_i2c_read_reg((uint8_t)a, (uint8_t)reg, &val)) {
                 snprintf(resp, sizeof(resp), "[OK] Addr 0x%02X Reg 0x%02X = 0x%02X (%d)\r\n", a, reg, val, val);
@@ -430,22 +460,25 @@ void uart_cli_update(void) {
             uart_send_str("Usage: i2c r <hex_addr> <hex_reg> (e.g. i2c r 19 0f)\r\n");
         }
     } else if (strncmp(cmd, "peek ", 5) == 0) {
-        uint32_t addr = 0;
-        if (sscanf(cmd + 5, "%x", &addr) == 1) {
+        uint32_t args[1] = {0};
+        if (cli_parse_u32(cmd + 5, 16, args, 1) == 1) {
+            uint32_t addr = args[0];
             uint32_t val = *(volatile uint32_t *)addr;
-            snprintf(resp, sizeof(resp), "[PEEK] 0x%08X = 0x%08X\r\n", addr, val);
+            snprintf(resp, sizeof(resp), "[PEEK] 0x%08X = 0x%08X\r\n", (unsigned int)addr, (unsigned int)val);
             uart_send_str(resp);
         }
     } else if (strncmp(cmd, "poke ", 5) == 0) {
-        uint32_t addr = 0, val = 0;
-        if (sscanf(cmd + 5, "%x %x", &addr, &val) == 2) {
+        uint32_t args[2] = {0, 0};
+        if (cli_parse_u32(cmd + 5, 16, args, 2) == 2) {
+            uint32_t addr = args[0], val = args[1];
             *(volatile uint32_t *)addr = val;
-            snprintf(resp, sizeof(resp), "[POKE] 0x%08X = 0x%08X\r\n", addr, val);
+            snprintf(resp, sizeof(resp), "[POKE] 0x%08X = 0x%08X\r\n", (unsigned int)addr, (unsigned int)val);
             uart_send_str(resp);
         }
     } else if (strncmp(cmd, "i2c w ", 6) == 0) {
-        unsigned int a = 0, reg = 0, val = 0;
-        if (sscanf(cmd + 6, "%x %x %x", &a, &reg, &val) == 3) {
+        uint32_t args[3] = {0, 0, 0};
+        if (cli_parse_u32(cmd + 6, 16, args, 3) == 3) {
+            unsigned int a = args[0], reg = args[1], val = args[2];
             cli_i2c_start();
             if (!cli_i2c_write_byte((a << 1) | 0) || !cli_i2c_write_byte(reg) || !cli_i2c_write_byte(val)) {
                 cli_i2c_stop();
@@ -477,10 +510,10 @@ void uart_cli_update(void) {
                  battery_is_charging() ? "CHG" : "DISCHG");
         uart_send_str(resp);
     } else if (strncmp(cmd, "time ", 5) == 0) {
-        int h = 0, m = 0, s = 0;
-        if (sscanf(cmd + 5, "%d:%d:%d", &h, &m, &s) >= 2) {
-            app_os_set_time((uint8_t)h, (uint8_t)m, (uint8_t)s);
-            snprintf(resp, sizeof(resp), "Time set to %02d:%02d:%02d\r\n", h, m, s);
+        uint32_t args[3] = {0, 0, 0};
+        if (cli_parse_u32(cmd + 5, 10, args, 3) >= 2) {
+            app_os_set_time((uint8_t)args[0], (uint8_t)args[1], (uint8_t)args[2]);
+            snprintf(resp, sizeof(resp), "Time set to %02d:%02d:%02d\r\n", (int)args[0], (int)args[1], (int)args[2]);
             uart_send_str(resp);
         }
     } else if (strcmp(cmd, "ota") == 0) {
