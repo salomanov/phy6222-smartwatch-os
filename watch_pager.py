@@ -127,36 +127,49 @@ class WatchDisplaySimulator(QWidget):
         self.update()
 
     def wrap_text(self, text, max_chars):
+        PUNCT = set(',.!?:;-–—')
         lines = []
-        # Support manual newlines (\n) first
         paragraphs = text.split('\n')
+        
         for para in paragraphs:
             para = para.strip()
             if not para:
                 lines.append("")
                 continue
-            words = para.split(' ')
+            
             cur_line = ""
-            for word in words:
+            for word in para.split(' '):
                 if not word:
                     continue
-                if not cur_line:
-                    if len(word) > max_chars:
-                        for i in range(0, len(word), max_chars):
-                            lines.append(word[i:i+max_chars])
-                    else:
-                        cur_line = word
-                else:
+                
+                # Check if word fits on current line
+                if cur_line:
                     if len(cur_line) + 1 + len(word) <= max_chars:
                         cur_line += " " + word
+                        continue
                     else:
                         lines.append(cur_line)
-                        if len(word) > max_chars:
-                            for i in range(0, len(word), max_chars):
-                                lines.append(word[i:i+max_chars])
-                            cur_line = ""
-                        else:
-                            cur_line = word
+                        cur_line = ""
+                
+                # Word starts on a fresh line
+                if len(word) <= max_chars:
+                    cur_line = word
+                else:
+                    # Break long word with hyphenation
+                    w = word
+                    while len(w) > max_chars:
+                        cut = max_chars - 1
+                        tail = w[cut:]
+                        # Never leave orphan punctuation or 1 character on tail
+                        if len(tail) <= 2 and any(c in PUNCT for c in tail):
+                            cut -= 2
+                        elif len(tail) == 1:
+                            cut -= 1
+                        cut = max(2, cut)
+                        lines.append(w[:cut] + "-")
+                        w = w[cut:]
+                    cur_line = w
+            
             if cur_line:
                 lines.append(cur_line)
         return lines
@@ -430,11 +443,9 @@ class WatchPagerWindow(QMainWindow):
         max_lines = MAX_LINES_SCALE1 if self.cur_scale == 1 else MAX_LINES_SCALE2
         all_lines = self.sim.wrap_text(raw_text, max_chars)
 
-        # If text exceeds display capacity, gracefully trim to visible screen lines
-        text_to_send = raw_text
-        if len(all_lines) > max_lines:
-            trimmed_lines = all_lines[:max_lines]
-            text_to_send = " ".join(trimmed_lines)
+        # Format strictly with newline breaks matching the live simulator preview
+        trimmed_lines = all_lines[:max_lines]
+        text_to_send = "\n".join(trimmed_lines)
 
         self.btn_send.setEnabled(False)
         self.btn_send.setText("⏳ Отправка по BLE...")
