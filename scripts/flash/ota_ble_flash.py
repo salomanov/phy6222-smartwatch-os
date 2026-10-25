@@ -61,17 +61,6 @@ def parse_ota_bin(filepath):
     return partitions
 
 async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=60.0):
-    # 1. Fast direct connect without scanner overhead
-    print(f"[*] Attempting direct connection to {target_addr}...", flush=True)
-    try:
-        client = BleakClient(target_addr, timeout=10.0)
-        await client.connect()
-        if client.is_connected:
-            print(f"[+] Direct connection established to {target_addr}!", flush=True)
-            return client
-    except Exception as e:
-        print(f"  [i] Direct connect bypassed ({e}), falling back to BLE scanner...", flush=True)
-
     found_event = asyncio.Event()
     target_device = [None]
 

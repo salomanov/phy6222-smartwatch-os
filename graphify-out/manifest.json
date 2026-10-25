@@ -7026,10 +7026,10 @@
     "semantic_hash": "92f51f50d232e5c80ec3a5432dc62522"
   },
   "scripts/flash/ota_ble_flash.py": {
-    "mtime": 1792919049.6085417,
-    "seen": 1792919858.4027653,
-    "ast_hash": "f9402a7fae8bc8b43ed9b7e96f56911c",
-    "semantic_hash": "f9402a7fae8bc8b43ed9b7e96f56911c"
+    "mtime": 1792953640.9735339,
+    "seen": 1792955538.4551864,
+    "ast_hash": "228e8372feb45b20403a1db647571f64",
+    "semantic_hash": "228e8372feb45b20403a1db647571f64"
   },
   "scripts/flash/test_bl.py": {
     "mtime": 1792037033.5201445,
@@ -7504,5 +7504,17 @@
     "seen": 1792953270.6648223,
     "ast_hash": "00f0c99c2e1746f41e154139ce14d6be",
     "semantic_hash": "00f0c99c2e1746f41e154139ce14d6be"
+  },
+  "scripts/tools/ble_send_text.ps1": {
+    "mtime": 1792955358.1953902,
+    "seen": 1792955538.4603765,
+    "ast_hash": "44f9915ff34bd172d592e27f577613b6",
+    "semantic_hash": "44f9915ff34bd172d592e27f577613b6"
+  },
+  "scripts/tools/ble_send_text.py": {
+    "mtime": 1792955442.5638795,
+    "seen": 1792955538.4603796,
+    "ast_hash": "49bcbed3062aa6f73c646005b073ec38",
+    "semantic_hash": "49bcbed3062aa6f73c646005b073ec38"
   }
 }
