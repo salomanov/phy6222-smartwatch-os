@@ -12,11 +12,19 @@ param(
     [ValidateSet(1, 2)]
     [int]$Scale = 1,
     
+    [string]$TextFile = "",
+    
     [string]$DeviceAddress = "62:62:15:07:07:15"
 )
 
+# Load text from file if provided
+if ($TextFile -and (Test-Path $TextFile)) {
+    $Text = [System.IO.File]::ReadAllText($TextFile, [System.Text.Encoding]::UTF8)
+}
+
 Add-Type -AssemblyName System.Runtime.WindowsRuntime
 [Windows.Devices.Bluetooth.BluetoothLEDevice, Windows.Devices.Bluetooth, ContentType = WindowsRuntime] | Out-Null
+[Windows.Devices.Bluetooth.BluetoothCacheMode, Windows.Devices.Bluetooth, ContentType = WindowsRuntime] | Out-Null
 [Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceServicesResult, Windows.Devices.Bluetooth, ContentType = WindowsRuntime] | Out-Null
 [Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicsResult, Windows.Devices.Bluetooth, ContentType = WindowsRuntime] | Out-Null
 [Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus, Windows.Devices.Bluetooth, ContentType = WindowsRuntime] | Out-Null
@@ -26,7 +34,7 @@ $asTaskGeneric = ([System.WindowsRuntimeSystemExtensions].GetMethods() | ? { $_.
 function AwaitOp($WinRtTask, $ResultType) {
     $asTask = $asTaskGeneric.MakeGenericMethod($ResultType)
     $netTask = $asTask.Invoke($null, @($WinRtTask))
-    $netTask.Wait(-1) | Out-Null
+    $netTask.Wait(12000) | Out-Null
     $netTask.Result
 }
 
@@ -51,20 +59,33 @@ Write-Host "[*] Target Watch   : $DeviceAddress"
 Write-Host "[*] Message Text   : $Text"
 Write-Host "[*] Color / Scale  : $Color ($colorChar) / Scale $Scale"
 
-# 1. Connect to BLE device
-$op = [Windows.Devices.Bluetooth.BluetoothLEDevice]::FromBluetoothAddressAsync($macInt)
-$dev = AwaitOp $op ([Windows.Devices.Bluetooth.BluetoothLEDevice])
+# 1. Connect to BLE device with retries
+$dev = $null
+for ($try = 1; $try -le 3; $try++) {
+    Write-Host "[*] Looking up device (attempt $try/3)..."
+    $op = [Windows.Devices.Bluetooth.BluetoothLEDevice]::FromBluetoothAddressAsync($macInt)
+    $dev = AwaitOp $op ([Windows.Devices.Bluetooth.BluetoothLEDevice])
+    if ($null -ne $dev) { break }
+    Start-Sleep -Milliseconds 600
+}
 
 if ($null -eq $dev) {
     Write-Host "[!] Could not reach Bluetooth device $DeviceAddress" -ForegroundColor Red
     exit 1
 }
-Write-Host "[+] Watch Connected : $($dev.Name) ($($dev.ConnectionStatus))" -ForegroundColor Green
+Write-Host "[+] Watch Discovered : $($dev.Name) ($($dev.ConnectionStatus))" -ForegroundColor Green
 
-# 2. Find SimpleProfile Service 0xFFF0
-$srvOp = $dev.GetGattServicesAsync()
-$srvRes = AwaitOp $srvOp ([Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceServicesResult])
-$srv = $srvRes.Services | Where-Object { $_.Uuid.ToString().StartsWith("0000fff0") } | Select-Object -First 1
+# 2. Find SimpleProfile Service 0xFFF0 (query Uncached to trigger connection if idle)
+$srv = $null
+for ($try = 1; $try -le 4; $try++) {
+    $srvOp = $dev.GetGattServicesAsync([Windows.Devices.Bluetooth.BluetoothCacheMode]::Uncached)
+    $srvRes = AwaitOp $srvOp ([Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceServicesResult])
+    if ($null -ne $srvRes -and $null -ne $srvRes.Services) {
+        $srv = $srvRes.Services | Where-Object { $_.Uuid.ToString().StartsWith("0000fff0") } | Select-Object -First 1
+        if ($null -ne $srv) { break }
+    }
+    Start-Sleep -Milliseconds 500
+}
 
 if ($null -eq $srv) {
     Write-Host "[!] SimpleProfile service (0xFFF0) not found" -ForegroundColor Red
@@ -72,7 +93,7 @@ if ($null -eq $srv) {
 }
 
 # 3. Find Characteristic 0xFFF1
-$charOp = $srv.GetCharacteristicsAsync()
+$charOp = $srv.GetCharacteristicsAsync([Windows.Devices.Bluetooth.BluetoothCacheMode]::Uncached)
 $charRes = AwaitOp $charOp ([Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicsResult])
 $char1 = $charRes.Characteristics | Where-Object { $_.Uuid.ToString().StartsWith("0000fff1") } | Select-Object -First 1
 
@@ -116,15 +137,31 @@ function Split-TextIntoSafeChunks([string]$str, [int]$firstMaxBytes, [int]$restM
     return $result
 }
 
+# Safety cap for watch buffer (max 140 UTF-8 bytes to leave margin in 160b buffer)
 $utf8Bytes = [System.Text.Encoding]::UTF8.GetBytes($Text)
-Write-Host "[*] Total UTF-8 length: $($utf8Bytes.Length) bytes"
+if ($utf8Bytes.Length -gt 140) {
+    Write-Host "[!] Text exceeds watch buffer limit ($($utf8Bytes.Length) > 140 bytes). Truncating safely..." -ForegroundColor Yellow
+    # Truncate text character-by-character
+    $truncated = ""
+    foreach ($ch in $Text.ToCharArray()) {
+        if ([System.Text.Encoding]::UTF8.GetByteCount($truncated + $ch) -le 136) {
+            $truncated += $ch
+        } else {
+            break
+        }
+    }
+    $Text = $truncated + "..."
+    $utf8Bytes = [System.Text.Encoding]::UTF8.GetBytes($Text)
+}
+
+Write-Host "[*] Safe UTF-8 payload: $($utf8Bytes.Length) bytes ('$Text')"
 
 $singleHeader = [System.Text.Encoding]::ASCII.GetBytes("MSG:$colorChar`:$Scale`:")
 if ($singleHeader.Length + $utf8Bytes.Length -le 16) {
     $pkt = New-Object byte[] ($singleHeader.Length + $utf8Bytes.Length)
     [Array]::Copy($singleHeader, 0, $pkt, 0, $singleHeader.Length)
     [Array]::Copy($utf8Bytes, 0, $pkt, $singleHeader.Length, $utf8Bytes.Length)
-    Write-Host "[*] Sending single 16-byte packet: '$( [System.Text.Encoding]::UTF8.GetString($pkt) )'..."
+    Write-Host "[*] Sending single 16-byte packet..."
     Send-BlePacket $pkt
 } else {
     $chunks = Split-TextIntoSafeChunks $Text 9 13

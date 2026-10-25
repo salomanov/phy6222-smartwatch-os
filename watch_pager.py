@@ -6,6 +6,7 @@ Interactive text composer and live display preview with direct BLE dispatch.
 
 import sys
 import os
+import tempfile
 import subprocess
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
@@ -21,10 +22,16 @@ try:
 except Exception:
     pass
 
-# Display constants matching firmware/src/app_os.c and AGENTS.md
+# Display geometry
 DISP_W = 80
 DISP_H = 160
 SCALE_FACTOR = 3  # Preview size 240x480
+
+# Physical limits of smartwatch screen
+MAX_LINES_SCALE1 = 11  # 5x7 font (12 chars/line)
+MAX_CHARS_SCALE1 = 12
+MAX_LINES_SCALE2 = 6   # 10x14 font (6 chars/line)
+MAX_CHARS_SCALE2 = 6
 
 COLORS = [
     ("Белый", "White", "#FFFFFF", QColor(255, 255, 255)),
@@ -39,7 +46,7 @@ COLORS = [
 
 
 # ==============================================================================
-# BLE SENDER THREAD
+# BLE SENDER THREAD (Uses temp file to prevent Windows CLI quote & newline issues)
 # ==============================================================================
 class BleSenderThread(QThread):
     finished_signal = pyqtSignal(bool, str)
@@ -53,23 +60,44 @@ class BleSenderThread(QThread):
     def run(self):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         ps1_script = os.path.join(base_dir, "scripts", "tools", "ble_send_text.ps1")
+        
+        # Write payload to a UTF-8 temporary file
+        tmp_path = os.path.join(tempfile.gettempdir(), "lp715_pager_msg.txt")
+        try:
+            with open(tmp_path, "w", encoding="utf-8") as f:
+                f.write(self.text)
+        except Exception as e:
+            self.finished_signal.emit(False, f"Ошибка записи temp-файла: {e}")
+            return
+
         cmd = [
             "powershell.exe",
             "-ExecutionPolicy", "Bypass",
             "-File", ps1_script,
-            "-Text", self.text,
+            "-TextFile", tmp_path,
             "-Color", self.color_name,
             "-Scale", str(self.scale)
         ]
         try:
-            res = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="ignore", timeout=25)
+            res = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="ignore", timeout=30)
             if res.returncode == 0 and "SUCCESS!" in res.stdout:
-                self.finished_signal.emit(True, "Сообщение успешно доставлено на часы!")
+                self.finished_signal.emit(True, "Сообщение доставлено на часы!")
             else:
-                err_msg = res.stderr.strip() or res.stdout.strip() or f"Exit code {res.returncode}"
-                self.finished_signal.emit(False, f"Ошибка отправки: {err_msg[:200]}")
+                err_msg = res.stderr.strip() or res.stdout.strip() or f"Код возврата {res.returncode}"
+                # Filter useful part of error
+                lines = [l for l in err_msg.splitlines() if "[!]" in l or "Error" in l or "found" in l]
+                summary = " | ".join(lines) if lines else err_msg[:120]
+                self.finished_signal.emit(False, summary)
+        except subprocess.TimeoutExpired:
+            self.finished_signal.emit(False, "Таймаут подключения BLE (часы не ответили за 30 сек)")
         except Exception as e:
-            self.finished_signal.emit(False, f"Сбой выполнения: {e}")
+            self.finished_signal.emit(False, f"Сбой: {e}")
+        finally:
+            try:
+                if os.path.exists(tmp_path):
+                    os.remove(tmp_path)
+            except Exception:
+                pass
 
 
 # ==============================================================================
@@ -82,40 +110,55 @@ class WatchDisplaySimulator(QWidget):
         self.text = "Привет, мир!"
         self.text_color = QColor(46, 204, 113)  # Green
         self.scale = 1
+        self.overflow = False
+        self.visible_lines = []
+        self.hidden_lines = []
 
     def update_content(self, text, qcolor, scale):
         self.text = text
         self.text_color = qcolor
         self.scale = scale
+        max_chars = MAX_CHARS_SCALE1 if scale == 1 else MAX_CHARS_SCALE2
+        max_lines = MAX_LINES_SCALE1 if scale == 1 else MAX_LINES_SCALE2
+        all_lines = self.wrap_text(text, max_chars)
+        self.visible_lines = all_lines[:max_lines]
+        self.hidden_lines = all_lines[max_lines:]
+        self.overflow = len(self.hidden_lines) > 0
         self.update()
 
     def wrap_text(self, text, max_chars):
         lines = []
-        words = text.split(' ')
-        cur_line = ""
-        for word in words:
-            if not word:
+        # Support manual newlines (\n) first
+        paragraphs = text.split('\n')
+        for para in paragraphs:
+            para = para.strip()
+            if not para:
+                lines.append("")
                 continue
-            if not cur_line:
-                if len(word) > max_chars:
-                    # Break long word
-                    for i in range(0, len(word), max_chars):
-                        lines.append(word[i:i+max_chars])
-                else:
-                    cur_line = word
-            else:
-                if len(cur_line) + 1 + len(word) <= max_chars:
-                    cur_line += " " + word
-                else:
-                    lines.append(cur_line)
+            words = para.split(' ')
+            cur_line = ""
+            for word in words:
+                if not word:
+                    continue
+                if not cur_line:
                     if len(word) > max_chars:
                         for i in range(0, len(word), max_chars):
                             lines.append(word[i:i+max_chars])
-                        cur_line = ""
                     else:
                         cur_line = word
-        if cur_line:
-            lines.append(cur_line)
+                else:
+                    if len(cur_line) + 1 + len(word) <= max_chars:
+                        cur_line += " " + word
+                    else:
+                        lines.append(cur_line)
+                        if len(word) > max_chars:
+                            for i in range(0, len(word), max_chars):
+                                lines.append(word[i:i+max_chars])
+                            cur_line = ""
+                        else:
+                            cur_line = word
+            if cur_line:
+                lines.append(cur_line)
         return lines
 
     def paintEvent(self, event):
@@ -157,8 +200,7 @@ class WatchDisplaySimulator(QWidget):
         p.setFont(f_ftr)
         p.drawText(disp_x, ftr_y, disp_w, ftr_h, Qt.AlignmentFlag.AlignCenter, "КЛИК: ВЫХОД")
 
-        # 5. Message Body with Word Wrap
-        max_chars = 12 if self.scale == 1 else 6
+        # 5. Message Body
         line_height = 10 * SCALE_FACTOR if self.scale == 1 else 19 * SCALE_FACTOR
         font_size = int((6 if self.scale == 1 else 13) * SCALE_FACTOR * 0.82)
         
@@ -166,17 +208,25 @@ class WatchDisplaySimulator(QWidget):
         p.setFont(f_body)
         p.setPen(self.text_color)
 
-        lines = self.wrap_text(self.text, max_chars)
-        start_y = disp_y + hdr_h + int(6 * SCALE_FACTOR)
+        start_y = disp_y + hdr_h + int(5 * SCALE_FACTOR)
 
-        for i, line in enumerate(lines):
+        for i, line in enumerate(self.visible_lines):
             y_pos = start_y + (i * line_height)
-            if y_pos + line_height > ftr_y:
-                # Overflow indicator
-                p.setPen(QColor(255, 80, 80))
-                p.drawText(disp_x + 8, ftr_y - 6, "...")
-                break
-            p.drawText(disp_x + 8, y_pos + font_size + 4, line)
+            p.drawText(disp_x + 8, y_pos + font_size + 2, line)
+
+        # 6. Overflow badge if text exceeded screen height
+        if self.overflow:
+            p.setBrush(QBrush(QColor(180, 40, 40, 220)))
+            p.setPen(Qt.PenStyle.NoPen)
+            badge_h = 18 * SCALE_FACTOR
+            badge_y = ftr_y - badge_h - 4
+            p.drawRoundedRect(disp_x + 8, badge_y, disp_w - 16, badge_h, 6, 6)
+            
+            p.setPen(QColor(255, 255, 255))
+            f_warn = QFont("Segoe UI", 9, QFont.Weight.Bold)
+            p.setFont(f_warn)
+            p.drawText(disp_x + 8, badge_y, disp_w - 16, badge_h, Qt.AlignmentFlag.AlignCenter,
+                       f"⚠️ +{len(self.hidden_lines)} строк не влезло")
 
 
 # ==============================================================================
@@ -185,8 +235,8 @@ class WatchDisplaySimulator(QWidget):
 class WatchPagerWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("LP715 Smartwatch - BLE Пейджер и Уведомления")
-        self.setMinimumSize(820, 600)
+        self.setWindowTitle("LP715 Smartwatch - BLE Пейджер и Live-Экран")
+        self.setMinimumSize(860, 620)
         self.setStyleSheet("""
             QMainWindow { background-color: #1A1C23; }
             QWidget { color: #E0E0E0; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; }
@@ -220,14 +270,13 @@ class WatchPagerWindow(QMainWindow):
         # LEFT: Control Panel
         # -------------------------------------------------------------
         ctrl_layout = QVBoxLayout()
-        ctrl_layout.setSpacing(14)
+        ctrl_layout.setSpacing(12)
 
-        # 1. Header
         lbl_title = QLabel("💬 Отправка сообщений на часы по BLE")
         lbl_title.setStyleSheet("font-size: 18px; font-weight: bold; color: #5dade2;")
         ctrl_layout.addWidget(lbl_title)
 
-        # 2. Text Input Group
+        # Text Input Group
         grp_text = QGroupBox("Текст сообщения")
         grp_text_layout = QVBoxLayout(grp_text)
         
@@ -237,9 +286,9 @@ class WatchPagerWindow(QMainWindow):
         self.txt_input.textChanged.connect(self.on_content_changed)
         grp_text_layout.addWidget(self.txt_input)
 
-        # Character Counter & Limits Label
-        self.lbl_stats = QLabel("Символов: 12 | Строк: 1 | Лимит в строке: 12")
-        self.lbl_stats.setStyleSheet("color: #888; font-size: 11px;")
+        # Stats & Overflow Warning Label
+        self.lbl_stats = QLabel("Символов: 12 | Строк: 1/11 | Лимит в строке: 12")
+        self.lbl_stats.setStyleSheet("color: #888; font-size: 12px;")
         grp_text_layout.addWidget(self.lbl_stats)
 
         # Quick Templates
@@ -254,7 +303,7 @@ class WatchPagerWindow(QMainWindow):
 
         ctrl_layout.addWidget(grp_text)
 
-        # 3. Color Selection Group
+        # Color Selection Group
         grp_color = QGroupBox("Цвет текста на экране")
         grp_color_layout = QHBoxLayout(grp_color)
         self.color_btn_group = QButtonGroup(self)
@@ -283,22 +332,22 @@ class WatchPagerWindow(QMainWindow):
 
         ctrl_layout.addWidget(grp_color)
 
-        # 4. Font Scale Selection Group
+        # Font Scale Selection Group
         grp_scale = QGroupBox("Размер шрифта")
         grp_scale_layout = QHBoxLayout(grp_scale)
 
-        self.rb_scale1 = QRadioButton("Scale 1 (Компактный 5×7: до 12 симв/строка, до 11 строк)")
+        self.rb_scale1 = QRadioButton("Scale 1 (Компактный: до 12 симв/строка, до 11 строк)")
         self.rb_scale1.setChecked(True)
         self.rb_scale1.toggled.connect(self.on_scale_toggled)
         grp_scale_layout.addWidget(self.rb_scale1)
 
-        self.rb_scale2 = QRadioButton("Scale 2 (Крупный 10×14: до 6 симв/строка, до 6 строк)")
+        self.rb_scale2 = QRadioButton("Scale 2 (Крупный: до 6 симв/строка, до 6 строк)")
         self.rb_scale2.toggled.connect(self.on_scale_toggled)
         grp_scale_layout.addWidget(self.rb_scale2)
 
         ctrl_layout.addWidget(grp_scale)
 
-        # 5. Send Action Button
+        # Send Action Button
         self.btn_send = QPushButton("🚀 Отправить на часы (BLE)")
         self.btn_send.setObjectName("btnSend")
         self.btn_send.clicked.connect(self.send_to_watch)
@@ -353,25 +402,46 @@ class WatchPagerWindow(QMainWindow):
         text = self.txt_input.toPlainText().strip() or " "
         self.sim.update_content(text, self.cur_qcolor, self.cur_scale)
 
-        max_chars = 12 if self.cur_scale == 1 else 6
-        lines = self.sim.wrap_text(text, max_chars)
+        max_chars = MAX_CHARS_SCALE1 if self.cur_scale == 1 else MAX_CHARS_SCALE2
+        max_lines = MAX_LINES_SCALE1 if self.cur_scale == 1 else MAX_LINES_SCALE2
+        all_lines = self.sim.wrap_text(text, max_chars)
+        line_count = len(all_lines)
         utf8_len = len(text.encode('utf-8'))
-        self.lbl_stats.setText(
-            f"UTF-8: {utf8_len} байт | Символов: {len(text)} | Строк: {len(lines)} | Лимит строки: {max_chars} симв."
-        )
+
+        if line_count > max_lines:
+            overflow_lines = line_count - max_lines
+            self.lbl_stats.setText(
+                f"⚠️ ПЕРЕПОЛНЕНИЕ: {line_count}/{max_lines} строк (+{overflow_lines} не влезет). Символов: {len(text)}."
+            )
+            self.lbl_stats.setStyleSheet("color: #E74C3C; font-weight: bold; font-size: 12px;")
+        else:
+            self.lbl_stats.setText(
+                f"Строк: {line_count}/{max_lines} | Символов: {len(text)} | UTF-8: {utf8_len} байт (лимит строки: {max_chars} симв.)"
+            )
+            self.lbl_stats.setStyleSheet("color: #2ECC71; font-size: 12px;")
 
     def send_to_watch(self):
-        text = self.txt_input.toPlainText().strip()
-        if not text:
+        raw_text = self.txt_input.toPlainText().strip()
+        if not raw_text:
             QMessageBox.warning(self, "Внимание", "Пожалуйста, введите текст сообщения перед отправкой.")
             return
+
+        max_chars = MAX_CHARS_SCALE1 if self.cur_scale == 1 else MAX_CHARS_SCALE2
+        max_lines = MAX_LINES_SCALE1 if self.cur_scale == 1 else MAX_LINES_SCALE2
+        all_lines = self.sim.wrap_text(raw_text, max_chars)
+
+        # If text exceeds display capacity, gracefully trim to visible screen lines
+        text_to_send = raw_text
+        if len(all_lines) > max_lines:
+            trimmed_lines = all_lines[:max_lines]
+            text_to_send = " ".join(trimmed_lines)
 
         self.btn_send.setEnabled(False)
         self.btn_send.setText("⏳ Отправка по BLE...")
         self.lbl_status.setText("Подключение к часам по BLE...")
         self.lbl_status.setStyleSheet("color: #F39C12; font-weight: bold;")
 
-        self.sender_thread = BleSenderThread(text, self.cur_color_name, self.cur_scale)
+        self.sender_thread = BleSenderThread(text_to_send, self.cur_color_name, self.cur_scale)
         self.sender_thread.finished_signal.connect(self.on_send_finished)
         self.sender_thread.start()
 
