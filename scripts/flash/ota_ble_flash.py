@@ -240,11 +240,11 @@ async def main():
                 if offset % 4600 < chunk_size or offset >= len(p_data):
                     print(f"  [PROGRESS] {pct}% ({total_sent}/{total_bytes} bytes sent, part {idx}: {offset}/{len(p_data)})", flush=True)
 
-                # Small delay to give PHY6222 Flash controller time to write (exact timing from successful release 5d8b7b3)
-                await asyncio.sleep(0.012)
+                # Small delay to give PHY6222 Flash controller and WinRT BLE stack time to process
+                await asyncio.sleep(0.025)
 
             # Allow BLE stack to process the final packet and calculate CRC
-            await asyncio.sleep(0.2)
+            await asyncio.sleep(0.4)
 
             # End of partition check:
             # - Last partition (Part 3): 0x83 (OTA_RSP_OTA_COMPLETE)
@@ -262,7 +262,7 @@ async def main():
 
             print(f"[+] Part {idx} verified & written successfully! (ACK: 0x{rsp[1]:02X})", flush=True)
             rsp_queue.clear()
-            await asyncio.sleep(0.2)
+            await asyncio.sleep(0.4)
 
         # 3. Finalize: send REBOOT command and IMMEDIATELY disconnect to terminate BLE connection events
         print("\n[+] All partitions transmitted! Sending REBOOT and disconnecting immediately...", flush=True)

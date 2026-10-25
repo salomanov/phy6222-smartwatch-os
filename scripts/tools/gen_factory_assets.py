@@ -6,13 +6,13 @@ with open('.backups/factory_dump.bin', 'rb') as f:
 # 1. Extract proportional 16px ASCII (U+0020..U+007E) and Cyrillic (U+0400..U+045F) from 0x1103F000
 FONT_BASE = 0x3F000
 
-def extract_range(start_cp, end_cp, sec_table_off):
+def extract_range(start_cp, end_cp, sec_table_off, base_cp):
     offsets = []
     blob = bytearray()
     for cp in range(start_cp, end_cp + 1):
-        idx = cp - (0x0020 if start_cp == 0x0020 else 0x0400)
+        idx = cp - base_cp
         entry = struct.unpack_from('<I', data, FONT_BASE + sec_table_off + idx * 4)[0]
-        off = entry & 0x3FFFFFF
+        off = entry & 0x00FFFFFF
         if entry == 0xFFFFFFFF or off >= 0x40000:
             offsets.append(0xFFFF)
             continue
@@ -28,8 +28,10 @@ def extract_range(start_cp, end_cp, sec_table_off):
         blob.extend(data[g_off + 2 : g_off + 2 + n_bytes])
     return offsets, bytes(blob)
 
-ascii_offs, ascii_blob = extract_range(0x0020, 0x007E, 0x20)
-cyr_offs, cyr_blob     = extract_range(0x0400, 0x045F, 0xFBC)
+# Section 0: ASCII/Latin range 0x0020..0x03FF, offset table at 0xC0
+ascii_offs, ascii_blob = extract_range(0x0020, 0x007E, 0xC0, 0x0020)
+# Section 1: Cyrillic range 0x0400..0x045F, offset table at 0x4DB0
+cyr_offs, cyr_blob     = extract_range(0x0400, 0x045F, 0x4DB0, 0x0400)
 
 # 2. Extract RLE (bpp=18) and 1bpp (bpp=1) icons from 0x1105886C asset pack
 DESC_BASE = 0x5886C
