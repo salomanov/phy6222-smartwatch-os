@@ -9,6 +9,7 @@
 #include "ble_manager.h"
 #include "vibrator.h"
 #include "display.h"
+#include "gfx.h"
 #include "accel.h"
 #include "battery.h"
 #include <string.h>
@@ -21,6 +22,7 @@ static volatile uint8_t s_rx_len = 0;
 static volatile bool s_cmd_ready = false;
 
 extern void app_os_set_time(uint8_t h, uint8_t m, uint8_t s);
+extern void app_os_show_message(const char *text, uint16_t color, uint8_t scale);
 
 static int cli_parse_u32(const char *s, int base, uint32_t *out, int max_n) {
     int count = 0;
@@ -269,7 +271,7 @@ void uart_cli_update(void) {
                       "  i2c w <a><r><v>- Write I2C\r\n"
                       "  status        - Status\r\n"
                       "  adc           - Battery ADC\r\n"
-                      "  time HH:MM:SS - Set time\r\n"
+                      "  time HH:MM:SS - Set time\r\n  msg [C S] txt - Show message\r\n"
                       "  ota           - OTA reboot\r\n"
                       "  reboot        - Reset\r\n");
     } else if (strncmp(cmd, "pin ", 4) == 0) {
@@ -516,6 +518,26 @@ void uart_cli_update(void) {
             snprintf(resp, sizeof(resp), "Time set to %02d:%02d:%02d\r\n", (int)args[0], (int)args[1], (int)args[2]);
             uart_send_str(resp);
         }
+    } else if (strncmp(cmd, "msg ", 4) == 0) {
+        const char *p = cmd + 4;
+        uint16_t col = COLOR_WHITE;
+        uint8_t sc = 1;
+        if (p[0] && p[1] == ' ' && p[2] && p[3] == ' ') {
+            switch (p[0]) {
+                case 'G': case 'g': col = COLOR_GREEN; break;
+                case 'Y': case 'y': col = COLOR_YELLOW; break;
+                case 'C': case 'c': col = COLOR_CYAN; break;
+                case 'R': case 'r': col = COLOR_RED; break;
+                case 'M': case 'm': col = COLOR_MAGENTA; break;
+                case 'B': case 'b': col = COLOR_BLUE; break;
+                case 'O': case 'o': col = COLOR_ORANGE; break;
+                default: col = COLOR_WHITE; break;
+            }
+            sc = (p[2] == '2') ? 2 : 1;
+            p += 4;
+        }
+        app_os_show_message(p, col, sc);
+        uart_send_str("[OK] Message displayed on screen\r\n");
     } else if (strcmp(cmd, "ota") == 0) {
         uart_send_str("Rebooting into OTA bootloader...\r\n");
         ble_start_ota_mode();

@@ -6,22 +6,22 @@
     "semantic_hash": "a84a598d8e3ebb36938c78a481ad1c6d"
   },
   "firmware/src/app_os.c": {
-    "mtime": 1792941500.0814726,
-    "seen": 1792945904.164069,
-    "ast_hash": "5baf933ba1ed32898f2445530e8c5f80",
-    "semantic_hash": "5baf933ba1ed32898f2445530e8c5f80"
+    "mtime": 1792953018.878523,
+    "seen": 1792953270.6495304,
+    "ast_hash": "993e2ac6f50c23e376580d74ae5ec3c5",
+    "semantic_hash": "993e2ac6f50c23e376580d74ae5ec3c5"
   },
   "firmware/src/app_os.h": {
-    "mtime": 1792364249.69934,
-    "seen": 1792365205.1097374,
-    "ast_hash": "2d5170b5c571ead307260176f5da47f6",
-    "semantic_hash": "2d5170b5c571ead307260176f5da47f6"
+    "mtime": 1792952920.269436,
+    "seen": 1792953270.6495347,
+    "ast_hash": "8a1326a9e78ff3bd3e3070e6271caec0",
+    "semantic_hash": "8a1326a9e78ff3bd3e3070e6271caec0"
   },
   "firmware/src/ble_manager.c": {
-    "mtime": 1792941467.2381563,
-    "seen": 1792945904.1646042,
-    "ast_hash": "d0bed6532204ad77e5e04618393a44ee",
-    "semantic_hash": "d0bed6532204ad77e5e04618393a44ee"
+    "mtime": 1792953141.0988555,
+    "seen": 1792953270.6499686,
+    "ast_hash": "bf52c607cef13928f7ddec27c091757b",
+    "semantic_hash": "bf52c607cef13928f7ddec27c091757b"
   },
   "firmware/src/ble_manager.h": {
     "mtime": 1792037773.6369822,
@@ -42,10 +42,10 @@
     "semantic_hash": "353876afb95a79d86ffadc7280714cc7"
   },
   "firmware/src/config.h": {
-    "mtime": 1792941471.0925274,
-    "seen": 1792945904.1651237,
-    "ast_hash": "53476ac6984c56fce88fe0539de2c656",
-    "semantic_hash": "53476ac6984c56fce88fe0539de2c656"
+    "mtime": 1792953115.0534666,
+    "seen": 1792953270.650598,
+    "ast_hash": "6eb3c90c3348f909ee72c1824ba5e410",
+    "semantic_hash": "6eb3c90c3348f909ee72c1824ba5e410"
   },
   "firmware/src/display.c": {
     "mtime": 1792128892.9407415,
@@ -6978,10 +6978,10 @@
     "semantic_hash": "2721d057c19e2bafacc7ed280651061b"
   },
   "firmware/src/uart_cli.c": {
-    "mtime": 1792841767.114543,
-    "seen": 1792847112.7876503,
-    "ast_hash": "abf71c5aa424c88a0592dfb5e386b99a",
-    "semantic_hash": "abf71c5aa424c88a0592dfb5e386b99a"
+    "mtime": 1792953144.766817,
+    "seen": 1792953270.6532862,
+    "ast_hash": "d4639e7b31a966d500b47af0ae488a55",
+    "semantic_hash": "d4639e7b31a966d500b47af0ae488a55"
   },
   "firmware/src/uart_cli.h": {
     "mtime": 1791710143.7158964,
@@ -7452,10 +7452,10 @@
     "semantic_hash": "cfba35a10282042c7570e9be0b07e48b"
   },
   "scripts/tools/patch_app_os.py": {
-    "mtime": 1792917079.5103884,
-    "seen": 1792919858.4084585,
-    "ast_hash": "6b0956cfb2d478e236625bb6acdf3621",
-    "semantic_hash": "6b0956cfb2d478e236625bb6acdf3621"
+    "mtime": 1792953012.0881035,
+    "seen": 1792953270.664585,
+    "ast_hash": "417e0c961b7cfe1f0d22da28e211836f",
+    "semantic_hash": "417e0c961b7cfe1f0d22da28e211836f"
   },
   "scripts/tools/patch_app_os_diff.py": {
     "mtime": 1792923728.0751834,
@@ -7492,5 +7492,17 @@
     "seen": 1792945904.1795037,
     "ast_hash": "8e3ab5cca981d053e8e05e3b460c00d5",
     "semantic_hash": "8e3ab5cca981d053e8e05e3b460c00d5"
+  },
+  "scripts/tools/patch_ble_manager.py": {
+    "mtime": 1792953046.5738876,
+    "seen": 1792953270.6648192,
+    "ast_hash": "8be3e1e297146312eea3c20bd05ccda3",
+    "semantic_hash": "8be3e1e297146312eea3c20bd05ccda3"
+  },
+  "scripts/tools/patch_uart_cli.py": {
+    "mtime": 1792953070.3895085,
+    "seen": 1792953270.6648223,
+    "ast_hash": "00f0c99c2e1746f41e154139ce14d6be",
+    "semantic_hash": "00f0c99c2e1746f41e154139ce14d6be"
   }
 }
