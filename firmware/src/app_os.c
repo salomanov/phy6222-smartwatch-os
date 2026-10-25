@@ -79,7 +79,7 @@ static void render_watchface_page0(bool first) {
         gfx_draw_fast_h_line(2, 134, 76, COLOR_DARKGREY);
         
         gfx_draw_string(4, 41, "STEPS:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_string(4, 120, "v1.5.18-DIFF", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+        gfx_draw_string(4, 120, FW_VERSION_STR, COLOR_LIGHTGREY, COLOR_BLACK, 1);
         gfx_draw_string(4, 148, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 

@@ -159,6 +159,67 @@ static void watch_ProcessGATTMsg(gattMsgEvent_t *pMsg) {
     }
 }
 
+static void watch_SimpleProfileChangeCB(uint8_t paramID) {
+    if (paramID == SIMPLEPROFILE_CHAR1) {
+        uint8_t val[IBEACON_UUID_LEN];
+        if (SimpleProfile_GetParameter(SIMPLEPROFILE_CHAR1, val) == SUCCESS) {
+            uint8_t h = 0, m = 0, s = 0;
+            bool time_parsed = false;
+
+            // Check ASCII: "TIME:HH:MM:SS" (13 chars)
+            if (val[0] == 'T' && val[1] == 'I' && val[2] == 'M' && val[3] == 'E' && val[4] == ':') {
+                if (val[5] >= '0' && val[5] <= '9' && val[6] >= '0' && val[6] <= '9' &&
+                    val[8] >= '0' && val[8] <= '9' && val[9] >= '0' && val[9] <= '9' &&
+                    val[11] >= '0' && val[11] <= '9' && val[12] >= '0' && val[12] <= '9') {
+                    h = (val[5] - '0') * 10 + (val[6] - '0');
+                    m = (val[8] - '0') * 10 + (val[9] - '0');
+                    s = (val[11] - '0') * 10 + (val[12] - '0');
+                    time_parsed = true;
+                }
+            }
+            // Check ASCII: "T:HH:MM:SS" (10 chars)
+            else if (val[0] == 'T' && val[1] == ':') {
+                if (val[2] >= '0' && val[2] <= '9' && val[3] >= '0' && val[3] <= '9' &&
+                    val[5] >= '0' && val[5] <= '9' && val[6] >= '0' && val[6] <= '9' &&
+                    val[8] >= '0' && val[8] <= '9' && val[9] >= '0' && val[9] <= '9') {
+                    h = (val[2] - '0') * 10 + (val[3] - '0');
+                    m = (val[5] - '0') * 10 + (val[6] - '0');
+                    s = (val[8] - '0') * 10 + (val[9] - '0');
+                    time_parsed = true;
+                }
+            }
+            // Check ASCII: "HH:MM:SS" (8 chars)
+            else if (val[2] == ':' && val[5] == ':') {
+                if (val[0] >= '0' && val[0] <= '9' && val[1] >= '0' && val[1] <= '9' &&
+                    val[3] >= '0' && val[3] <= '9' && val[4] >= '0' && val[4] <= '9' &&
+                    val[6] >= '0' && val[6] <= '9' && val[7] >= '0' && val[7] <= '9') {
+                    h = (val[0] - '0') * 10 + (val[1] - '0');
+                    m = (val[3] - '0') * 10 + (val[4] - '0');
+                    s = (val[6] - '0') * 10 + (val[7] - '0');
+                    time_parsed = true;
+                }
+            }
+            // Check Binary: val[0] = H (<24), val[1] = M (<60), val[2] = S (<60)
+            else if (val[0] < 24 && val[1] < 60 && val[2] < 60) {
+                h = val[0];
+                m = val[1];
+                s = val[2];
+                time_parsed = true;
+            }
+
+            if (time_parsed && h < 24 && m < 60 && s < 60) {
+                app_os_set_time(h, m, s);
+                vibrator_pulse(60);
+                LOG("BLE Time Synced: %02d:%02d:%02d\n", h, m, s);
+            }
+        }
+    }
+}
+
+static simpleProfileCBs_t s_simpleProfileCBs = {
+    watch_SimpleProfileChangeCB
+};
+
 void WatchBLE_Init(uint8_t task_id) {
     s_task_id = task_id;
 
@@ -213,6 +274,7 @@ void WatchBLE_Init(uint8_t task_id) {
 
     // 5. Register Simple GATT Profile (0xFFF0) for Data Exchange
     SimpleProfile_AddService(GATT_ALL_SERVICES);
+    SimpleProfile_RegisterAppCBs(&s_simpleProfileCBs);
 
     // 6. Register Official PhyPlus BLE In-App OTA Service (UUID 5833ff01 + 5833ff04)
     ota_inapp_init();

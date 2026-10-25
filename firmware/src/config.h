@@ -38,6 +38,6 @@
 #define ST7735_ROWSTART 1
 
 // Firmware Version
-#define FW_VERSION_STR "v1.5.18-DIFF"
+#define FW_VERSION_STR "v1.5.19-BLE"
 
 #endif // CONFIG_H
