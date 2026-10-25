@@ -60,11 +60,11 @@ def parse_ota_bin(filepath):
         })
     return partitions
 
-async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=120.0):
+async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=60.0):
     # 1. Fast direct connect without scanner overhead
     print(f"[*] Attempting direct connection to {target_addr}...", flush=True)
     try:
-        client = BleakClient(target_addr, timeout=12.0)
+        client = BleakClient(target_addr, timeout=10.0)
         await client.connect()
         if client.is_connected:
             print(f"[+] Direct connection established to {target_addr}!", flush=True)
@@ -84,13 +84,13 @@ async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=120.0):
             found_event.set()
 
     scanner = BleakScanner(detection_callback=detection_cb)
-    print(f"[*] Starting continuous BLE scanner (waiting up to {int(timeout)}s for watch {target_addr})...", flush=True)
+    print(f"[*] Starting BLE scanner (waiting up to {int(timeout)}s for watch {target_addr})...", flush=True)
     await scanner.start()
     try:
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
-                await asyncio.wait_for(found_event.wait(), timeout=2.5)
+                await asyncio.wait_for(found_event.wait(), timeout=2.0)
                 break
             except asyncio.TimeoutError:
                 elapsed = int(time.time() - start_time)
@@ -101,42 +101,22 @@ async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=120.0):
     if target_device[0] is not None:
         for c_try in range(3):
             try:
-                client = BleakClient(target_device[0], timeout=20.0)
+                client = BleakClient(target_device[0], timeout=15.0)
                 print(f"[+] Connecting to {target_device[0].address} (try {c_try+1}/3)...", flush=True)
                 await client.connect()
                 return client
             except Exception as e:
                 print(f"[!] Connect attempt {c_try+1} failed: {e}", flush=True)
-                await asyncio.sleep(1.5)
+                await asyncio.sleep(1.0)
     return None
 
-async def main():
-    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    bin_path = os.path.join(base_dir, 'firmware', 'build', 'custom_firmware_ota.bin')
-    print(f"[*] Loading OTA binary: {bin_path}...")
-    partitions = parse_ota_bin(bin_path)
+async def run_flash_session(partitions, target_addr='62:62:15:07:07:15'):
     total_bytes = sum(p['size'] for p in partitions)
-    print(f"[+] Loaded {len(partitions)} partitions, total payload: {total_bytes} bytes.")
-    for p in partitions:
-        print(f"  Part {p['index']}: Flash=0x{p['flash_addr']:06X} Run=0x{p['run_addr']:08X} Size={p['size']} CRC=0x{p['checksum']:04X}")
-
-    # Optional: ensure COM5 is free before BLE OTA connection
-    try:
-        s_pre = serial.Serial('COM5', 115200, timeout=0.2)
-        s_pre.close()
-    except Exception:
-        pass
-
-    client = None
-    try:
-        client = await find_and_connect(target_addr='62:62:15:07:07:15', timeout=180.0)
-    except Exception as e:
-        print(f"[!] Connect error: {e}")
+    client = await find_and_connect(target_addr=target_addr, timeout=90.0)
 
     if not client or not client.is_connected:
         print("\n[!] Watch not detected in air or could not connect.")
-        print("[!] Note: If watch battery is low, connect watch to USB charging or tap touch button to wake.")
-        sys.exit(1)
+        return False
 
     print(f"[+] Connected successfully! MTU = {client.mtu_size}")
 
@@ -148,7 +128,6 @@ async def main():
             status = raw[0] if len(raw) > 0 else -1
             cmd = raw[1] if len(raw) > 1 else -1
             print(f"  << [BLE NOTIF] status=0x{status:02X}, cmd=0x{cmd:02X}", flush=True)
-            # Filter out intermediate burst ticks (0x87) so they don't pollute command queue
             if cmd != 0x87:
                 rsp_queue.append(raw)
 
@@ -179,12 +158,12 @@ async def main():
         rsp = await wait_for_cmd(0x81, timeout=8.0)
         if not rsp or rsp[0] != 0:
             print(f"[!] Start OTA rejected: {rsp}")
-            sys.exit(1)
+            return False
         print("[+] OTA Session started successfully! Display shows progress bar.")
 
         # 2. Iterate partitions
         total_sent = 0
-        chunk_size = 230  # Max ATT payload (MTU 240 - 3 byte ATT header = 237 max, 230 is safe)
+        chunk_size = 230  # Max safe ATT payload
 
         for part in partitions:
             idx = part['index']
@@ -208,10 +187,11 @@ async def main():
                     await asyncio.sleep(0.5)
             if not part_written:
                 raise RuntimeError(f"Failed to write PARTITION_INFO for part {idx}")
+
             rsp = await wait_for_cmd(0x84, timeout=8.0)
             if not rsp or rsp[0] != 0:
                 print(f"[!] Partition {idx} info rejected: {rsp}")
-                sys.exit(1)
+                return False
 
             print(f"[+] Streaming data for Part {idx} (Write with response for 100% reliability)...", flush=True)
             p_data = part['data']
@@ -240,15 +220,11 @@ async def main():
                 if offset % 4600 < chunk_size or offset >= len(p_data):
                     print(f"  [PROGRESS] {pct}% ({total_sent}/{total_bytes} bytes sent, part {idx}: {offset}/{len(p_data)})", flush=True)
 
-                # Small delay to give PHY6222 Flash controller and WinRT BLE stack time to process
                 await asyncio.sleep(0.025)
 
-            # Allow BLE stack to process the final packet and calculate CRC
             await asyncio.sleep(0.4)
 
             # End of partition check:
-            # - Last partition (Part 3): 0x83 (OTA_RSP_OTA_COMPLETE)
-            # - Non-final partitions: 0x85 (OTA_RSP_PARTITION_COMPLETE)
             if idx + 1 == len(partitions):
                 exp_cmds = [0x83]
             else:
@@ -258,13 +234,13 @@ async def main():
             rsp = await wait_for_cmd(exp_cmds, timeout=15.0)
             if not rsp or rsp[0] != 0:
                 print(f"[!] Error on partition {idx} completion: {rsp}")
-                sys.exit(1)
+                return False
 
             print(f"[+] Part {idx} verified & written successfully! (ACK: 0x{rsp[1]:02X})", flush=True)
             rsp_queue.clear()
             await asyncio.sleep(0.4)
 
-        # 3. Finalize: send REBOOT command and IMMEDIATELY disconnect to terminate BLE connection events
+        # 3. Finalize: send REBOOT command and IMMEDIATELY disconnect
         print("\n[+] All partitions transmitted! Sending REBOOT and disconnecting immediately...", flush=True)
         reboot_cmd = bytes([0x04, 0x01])
         try:
@@ -272,7 +248,6 @@ async def main():
         except Exception as e:
             print(f"[!] Reboot send note: {e}")
 
-        # Wait 300ms for watch to receive command and begin flash swap
         await asyncio.sleep(0.3)
         try:
             await client.disconnect()
@@ -280,10 +255,51 @@ async def main():
         except Exception as e:
             print(f"[!] Disconnect note: {e}")
 
-    finally:
+        return True
+
+    except Exception as e:
+        print(f"\n[!] Session exception: {e}", flush=True)
+        try:
+            if client and client.is_connected:
+                await client.disconnect()
+        except Exception:
+            pass
+        return False
+
+async def main():
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    bin_path = os.path.join(base_dir, 'firmware', 'build', 'custom_firmware_ota.bin')
+    print(f"[*] Loading OTA binary: {bin_path}...")
+    partitions = parse_ota_bin(bin_path)
+    total_bytes = sum(p['size'] for p in partitions)
+    print(f"[+] Loaded {len(partitions)} partitions, total payload: {total_bytes} bytes.")
+    for p in partitions:
+        print(f"  Part {p['index']}: Flash=0x{p['flash_addr']:06X} Run=0x{p['run_addr']:08X} Size={p['size']} CRC=0x{p['checksum']:04X}")
+
+    # Optional: ensure COM5 is free before BLE OTA connection
+    try:
+        s_pre = serial.Serial('COM5', 115200, timeout=0.2)
+        s_pre.close()
+    except Exception:
         pass
 
-    print("\n[SUCCESS] OTA FLASH PROCEDURE COMPLETED 100%!", flush=True)
+    target_addr = '62:62:15:07:07:15'
+    max_attempts = 3
+    for attempt in range(1, max_attempts + 1):
+        print(f"\n========================================================")
+        print(f"[*] Starting OTA Flash Session (Attempt {attempt}/{max_attempts})")
+        print(f"========================================================")
+        success = await run_flash_session(partitions, target_addr=target_addr)
+        if success:
+            print("\n[SUCCESS] OTA FLASH PROCEDURE COMPLETED 100%!", flush=True)
+            sys.exit(0)
+        else:
+            if attempt < max_attempts:
+                print(f"\n[!] Attempt {attempt} failed. Waiting 5s for watch to reset and re-advertise...", flush=True)
+                await asyncio.sleep(5.0)
+
+    print("\n[FAIL] OTA flashing failed after all attempts.", flush=True)
+    sys.exit(1)
 
 if __name__ == '__main__':
     asyncio.run(main())

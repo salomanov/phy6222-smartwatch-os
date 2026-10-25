@@ -272,13 +272,8 @@ void gfx_draw_string(int16_t x, int16_t y, const char *str, uint16_t color, uint
         }
 
         if (c == ' ') {
-            // Drop leading space if we just wrapped to line start
-            if (cur_x == x) {
-                str++;
-                continue;
-            }
             int next_word_px = get_word_len(str + 1) * char_width;
-            if (cur_x + char_width + next_word_px > display_get_width()) {
+            if (cur_x + char_width + next_word_px > display_get_width() && cur_x > x) {
                 str++; // Wrap before next word
                 cur_x = x;
                 cur_y += line_height;
@@ -333,13 +328,8 @@ void gfx_draw_string_utf8(int16_t x, int16_t y, const char *utf8_str, uint16_t c
         }
 
         if (c == ' ') {
-            // Drop leading space if we just wrapped to line start
-            if (cur_x == x) {
-                p++;
-                continue;
-            }
             int next_word_px = get_utf8_word_chars(p + 1) * char_width;
-            if (cur_x + char_width + next_word_px > display_get_width()) {
+            if (cur_x + char_width + next_word_px > display_get_width() && cur_x > x) {
                 p++; // Wrap before next word
                 cur_x = x;
                 cur_y += line_height;

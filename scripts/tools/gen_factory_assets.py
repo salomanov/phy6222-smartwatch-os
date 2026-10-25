@@ -228,7 +228,10 @@ static uint16_t sample_bmp_pixel(uint8_t x, uint8_t y) {{
     uint8_t bmp_row = (SCREEN_HEIGHT - 1) - y;
     uint8_t idx = pix[(uint32_t)bmp_row * SCREEN_WIDTH + x];
     const uint8_t *pe = pal + (uint32_t)idx * 4;
-    return ((uint16_t)pe[1] << 8) | pe[2];
+    uint8_t b = pe[0];
+    uint8_t g = pe[1];
+    uint8_t r = pe[2];
+    return ((uint16_t)(r & 0xF8) << 8) | ((uint16_t)(g & 0xFC) << 3) | ((uint16_t)b >> 3);
 }}
 
 void factory_draw_bmp_wallpaper(void) {{
@@ -246,8 +249,12 @@ void factory_draw_bmp_wallpaper(void) {{
         const uint8_t *src = pix + (uint32_t)bmp_row * SCREEN_WIDTH;
         for (uint8_t x = 0; x < SCREEN_WIDTH; x++) {{
             const uint8_t *pe = pal + (uint32_t)src[x] * 4;
-            row_buf[x * 2]     = pe[1];
-            row_buf[x * 2 + 1] = pe[2];
+            uint8_t b = pe[0];
+            uint8_t g = pe[1];
+            uint8_t r = pe[2];
+            uint16_t c565 = ((uint16_t)(r & 0xF8) << 8) | ((uint16_t)(g & 0xFC) << 3) | ((uint16_t)b >> 3);
+            row_buf[x * 2]     = (uint8_t)(c565 >> 8);
+            row_buf[x * 2 + 1] = (uint8_t)(c565 & 0xFF);
         }}
         display_fill_window(0, y, SCREEN_WIDTH - 1, y, (uint16_t *)row_buf, SCREEN_WIDTH);
     }}
@@ -255,9 +262,9 @@ void factory_draw_bmp_wallpaper(void) {{
 
 void factory_draw_sprite_1bpp(uint32_t flash_addr, uint8_t x, uint8_t y, uint16_t fg_color, uint16_t bg_color, bool over_bmp) {{
     const uint8_t *hdr = (const uint8_t *)flash_addr;
-    uint8_t w = hdr[2];
-    uint8_t h = hdr[4];
-    uint8_t stride = hdr[6];
+    uint8_t w = hdr[0];
+    uint8_t h = hdr[1];
+    uint8_t stride = (w + 7) >> 3;
     if (w == 0 || w > SCREEN_WIDTH || h == 0 || h > SCREEN_HEIGHT) return;
 
     const uint8_t *bits = hdr + 10;

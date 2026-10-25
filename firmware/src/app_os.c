@@ -56,7 +56,7 @@ static void render_watchface_page0(void) {
         gfx_draw_fast_h_line(2, 134, 76, COLOR_DARKGREY);
         
         gfx_draw_string(4, 41, "STEPS:", COLOR_YELLOW, COLOR_BLACK, 1);
-        gfx_draw_string(4, 120, "v1.5.15-ICON", COLOR_LIGHTGREY, COLOR_BLACK, 1);
+        gfx_draw_string(4, 120, "v1.5.17-FIX", COLOR_LIGHTGREY, COLOR_BLACK, 1);
         gfx_draw_string(4, 148, "HOLD: OTA", COLOR_CYAN, COLOR_BLACK, 1);
     }
 
@@ -67,25 +67,31 @@ static void render_watchface_page0(void) {
     gfx_draw_battery_icon(58, 3, bat_pct, battery_is_charging());
 
     // 1. Dynamic Clock / Time (Scale 2 for HH:MM, Scale 1 for SS)
+    gfx_fill_rect(6, 20, 58, 16, COLOR_BLACK);
     snprintf(buf, sizeof(buf), "%02d:%02d", s_hours, s_minutes);
     gfx_draw_string(6, 20, buf, COLOR_CYAN, COLOR_BLACK, 2);
 
+    gfx_fill_rect(66, 27, 12, 8, COLOR_BLACK);
     snprintf(buf, sizeof(buf), "%02d", s_seconds);
     gfx_draw_string(66, 27, buf, COLOR_YELLOW, COLOR_BLACK, 1);
 
     // 2. Motion / Steps Row
+    gfx_fill_rect(46, 41, 30, 8, COLOR_BLACK);
     snprintf(buf, sizeof(buf), "P18:%d", hal_gpio_read(ACCEL_INT_PIN));
     gfx_draw_string(46, 41, buf, COLOR_LIGHTGREY, COLOR_BLACK, 1);
 
     // Large Step Counter (Scale 2, max 5 chars = 60 px)
+    gfx_fill_rect(10, 52, 60, 16, COLOR_BLACK);
     snprintf(buf, sizeof(buf), "%5lu", (unsigned long)accel_get_steps());
     gfx_draw_string(10, 52, buf, COLOR_GREEN, COLOR_BLACK, 2);
 
     // Raw pulses (Scale 1)
+    gfx_fill_rect(4, 71, 72, 8, COLOR_BLACK);
     snprintf(buf, sizeof(buf), "PULSE:%-5lu", (unsigned long)accel_get_pulses());
     gfx_draw_string(4, 71, buf, COLOR_CYAN, COLOR_BLACK, 1);
 
-    // 3. Battery status & Mini-gauge
+    // 3. Battery status & Mini-gauge (Clean row clear prevents overlapping digits/percents)
+    gfx_fill_rect(4, 85, 72, 17, COLOR_BLACK);
     snprintf(buf, sizeof(buf), "%3d%% %4dmV", bat_pct, bat_mv);
     gfx_draw_string(4, 85, buf, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_BLACK, 1);
     gfx_draw_progress_bar(4, 95, 72, 5, bat_pct, (bat_pct < 20) ? COLOR_RED : COLOR_GREEN, COLOR_DARKGREY);
@@ -95,6 +101,7 @@ static void render_watchface_page0(void) {
     uint32_t h = sec / 3600;
     uint32_t m = (sec % 3600) / 60;
     uint32_t s = sec % 60;
+    gfx_fill_rect(4, 108, 72, 8, COLOR_BLACK);
     snprintf(buf, sizeof(buf), "UP:%02lu:%02lu:%02lu", (unsigned long)h, (unsigned long)m, (unsigned long)s);
     gfx_draw_string(4, 108, buf, COLOR_WHITE, COLOR_BLACK, 1);
 
@@ -147,14 +154,17 @@ static void render_watchface_page2(void) {
         factory_draw_rle_icon(FAC_RLE_STEPS_SHOE, 0, 15, 68);
     }
 
-    // Time HH:MM using Giant 16x29 factory digits
+    // Time HH:MM using Giant 16x29 factory digits (clean row clear prevents ghosts)
+    gfx_fill_rect(2, 26, 76, 30, COLOR_BLACK);
     factory_draw_big_time(s_hours, s_minutes, 26, COLOR_CYAN, false);
 
     char buf[24];
-    snprintf(buf, sizeof(buf), "%05lu шаг", (unsigned long)accel_get_steps());
+    snprintf(buf, sizeof(buf), "%05lu ШАГ", (unsigned long)accel_get_steps());
+    gfx_fill_rect(2, 114, 76, 17, COLOR_BLACK);
     factory_draw_utf8(4, 114, buf, COLOR_GREEN, COLOR_BLACK);
 
     snprintf(buf, sizeof(buf), "%02d:%02d:%02d", s_hours, s_minutes, s_seconds);
+    gfx_fill_rect(2, 140, 76, 17, COLOR_BLACK);
     factory_draw_utf8(10, 140, buf, COLOR_LIGHTGREY, COLOR_BLACK);
 }
 
@@ -206,15 +216,19 @@ static void render_watchface_page4(void) {
 
     char buf[32];
     snprintf(buf, sizeof(buf), "Час: %02d:%02d", s_hours, s_minutes);
+    gfx_fill_rect(2, 22, 76, 17, COLOR_BLACK);
     factory_draw_utf8(2, 22, buf, COLOR_WHITE, COLOR_BLACK);
 
     snprintf(buf, sizeof(buf), "Шаги: %-5lu", (unsigned long)accel_get_steps());
+    gfx_fill_rect(2, 43, 76, 17, COLOR_BLACK);
     factory_draw_utf8(2, 43, buf, COLOR_GREEN, COLOR_BLACK);
 
     snprintf(buf, sizeof(buf), "Имп: %-6lu", (unsigned long)accel_get_pulses());
+    gfx_fill_rect(2, 64, 76, 17, COLOR_BLACK);
     factory_draw_utf8(2, 64, buf, COLOR_CYAN, COLOR_BLACK);
 
-    snprintf(buf, sizeof(buf), "Бат: %3d%%  ", bat_pct);
+    snprintf(buf, sizeof(buf), "Бат: %3d%%", bat_pct);
+    gfx_fill_rect(2, 85, 76, 17, COLOR_BLACK);
     factory_draw_utf8(2, 85, buf, (bat_pct < 20) ? COLOR_RED : COLOR_YELLOW, COLOR_BLACK);
 }
 
@@ -244,9 +258,10 @@ static void render_watchface_page5(void) {
 
     uint8_t d0 = (s_seconds / 10) % 10;
     uint8_t d1 = s_seconds % 10;
+    gfx_fill_rect(0, 100, 80, 32, COLOR_BLACK);
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 0 * 68U, 4, 100, COLOR_GREEN, COLOR_BLACK, false);
-    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 7 * 68U, 22, 100, COLOR_YELLOW, COLOR_BLACK, false);
-    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 10 * 68U, 38, 100, COLOR_WHITE, COLOR_BLACK, false);
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 7 * 68U, 20, 100, COLOR_YELLOW, COLOR_BLACK, false);
+    factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + 10 * 68U, 36, 100, COLOR_WHITE, COLOR_BLACK, false);
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + (uint32_t)d0 * 68U, 48, 100, COLOR_CYAN, COLOR_BLACK, false);
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + (uint32_t)d1 * 68U, 64, 100, COLOR_CYAN, COLOR_BLACK, false);
 
@@ -254,6 +269,9 @@ static void render_watchface_page5(void) {
 }
 
 static void render_watchface(void) {
+    if (s_diag_first_draw) {
+        display_fill_screen(COLOR_BLACK);
+    }
     switch (s_wf_page) {
         case 0:
         default:
