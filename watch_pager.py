@@ -194,38 +194,54 @@ class WatchDisplaySimulator(QWidget):
         p.setPen(QPen(QColor(10, 10, 10), 1))
         p.drawRect(disp_x, disp_y, disp_w, disp_h)
 
-        # 3. Header Bar ("СООБЩЕНИЕ" on Navy Blue)
-        hdr_h = 18 * SCALE_FACTOR
+        # 3. Header Bar ("СООБЩЕНИЕ" on Navy Blue, matching firmware)
+        hdr_h = 16 * SCALE_FACTOR
         p.fillRect(disp_x, disp_y, disp_w, hdr_h, QColor(0, 32, 96))
         
-        p.setPen(QColor(255, 255, 255))
-        f_hdr = QFont("Consolas", int(7 * SCALE_FACTOR * 0.8), QFont.Weight.Bold)
+        p.setPen(QColor(255, 230, 0))  # Yellow, matching firmware COLOR_YELLOW
+        f_hdr = QFont("Consolas", -1)
+        f_hdr.setPixelSize(int(7 * SCALE_FACTOR))
+        f_hdr.setBold(True)
         p.setFont(f_hdr)
         p.drawText(disp_x, disp_y, disp_w, hdr_h, Qt.AlignmentFlag.AlignCenter, "СООБЩЕНИЕ")
 
-        # 4. Footer Bar ("КЛИК: ВЫХОД" on Dark Gray)
-        ftr_h = 16 * SCALE_FACTOR
-        ftr_y = disp_y + disp_h - ftr_h
-        p.fillRect(disp_x, ftr_y, disp_w, ftr_h, QColor(25, 25, 30))
+        # Separator line at y = 17 px
+        p.setPen(QPen(QColor(70, 70, 80), 1))
+        p.drawLine(disp_x + 2 * SCALE_FACTOR, disp_y + int(17.5 * SCALE_FACTOR),
+                   disp_x + disp_w - 2 * SCALE_FACTOR, disp_y + int(17.5 * SCALE_FACTOR))
+
+        # 4. Footer Bar ("КЛИК: ВЫХОД" with separator, matching firmware)
+        ftr_y = disp_y + int(144 * SCALE_FACTOR)
+        ftr_h = disp_h - int(144 * SCALE_FACTOR)
+        p.setPen(QPen(QColor(70, 70, 80), 1))
+        p.drawLine(disp_x + 2 * SCALE_FACTOR, ftr_y,
+                   disp_x + disp_w - 2 * SCALE_FACTOR, ftr_y)
         
-        p.setPen(QColor(160, 160, 160))
-        f_ftr = QFont("Consolas", int(6 * SCALE_FACTOR * 0.8))
+        p.setPen(QColor(0, 240, 255))  # Cyan, matching firmware COLOR_CYAN
+        f_ftr = QFont("Consolas", -1)
+        f_ftr.setPixelSize(int(6.5 * SCALE_FACTOR))
         p.setFont(f_ftr)
         p.drawText(disp_x, ftr_y, disp_w, ftr_h, Qt.AlignmentFlag.AlignCenter, "КЛИК: ВЫХОД")
 
-        # 5. Message Body
+        # 5. Message Body (Pixel-accurate emulation of ST7735S 5x7 font)
+        char_cell_w = 6 * SCALE_FACTOR if self.scale == 1 else 12 * SCALE_FACTOR
+        margin_x = 4 * SCALE_FACTOR  # Matches gfx_draw_string_utf8(4, 22, ...)
         line_height = 10 * SCALE_FACTOR if self.scale == 1 else 19 * SCALE_FACTOR
-        font_size = int((6 if self.scale == 1 else 13) * SCALE_FACTOR * 0.82)
+        font_pixel_size = int(8 * SCALE_FACTOR) if self.scale == 1 else int(16 * SCALE_FACTOR)
         
-        f_body = QFont("Consolas", font_size, QFont.Weight.Bold if self.scale == 2 else QFont.Weight.Normal)
+        f_body = QFont("Consolas", -1)
+        f_body.setPixelSize(font_pixel_size)
+        f_body.setBold(self.scale == 2)
         p.setFont(f_body)
         p.setPen(self.text_color)
 
-        start_y = disp_y + hdr_h + int(5 * SCALE_FACTOR)
+        start_y = disp_y + int(22 * SCALE_FACTOR)
 
         for i, line in enumerate(self.visible_lines):
             y_pos = start_y + (i * line_height)
-            p.drawText(disp_x + 8, y_pos + font_size + 2, line)
+            for col_idx, ch in enumerate(line):
+                x_pos = disp_x + margin_x + (col_idx * char_cell_w)
+                p.drawText(x_pos, y_pos, char_cell_w, line_height, Qt.AlignmentFlag.AlignCenter, ch)
 
         # 6. Overflow badge if text exceeded screen height
         if self.overflow:
