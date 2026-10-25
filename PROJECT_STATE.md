@@ -715,3 +715,32 @@
   - Git-коммит и уникальный тег `firmware-v2026-10-25_15-35-53` отправлены в `origin/master`.
 
 
+## 33. Этап 36: Синхронизация времени по BLE (GATT 0xFFF1), интеграция BLEConsole и прошивка v1.5.19-BLE
+- **Диагностика BLE-характеристик и интеграция с BLEConsole / WinRT**:
+  - Проанализирована ошибка `Protocol error: 0x0D: Invalid Attribute Value Length` при попытке ручной записи в `BLEConsole`:
+    - Характеристика `#00` (`0xFFF1`) в SimpleProfile (`0xFFF0`) является UUID полем фиксированной длины ровно **16 байт** (`IBEACON_UUID_LEN = 16`).
+    - Попытка записи коротких строк (например `write #00 42`) отклоняется стеком BLE PHY6222 с ошибкой несоответствия длины.
+  - Разработан и протестирован прямой скрипт чтения/записи через Windows Runtime BLE API (`scripts/tools/sync_time.ps1` и `scripts/tools/ble_sync_time.py`), подтвердивший мгновенную и бесконфликтную запись 16-байтового пакета (`TIME:HH:MM:SS\0\0\0`) на живое устройство без сторонних зависимостей.
+- **Внедрение обработчика синхронизации часов в прошивку**:
+  - В `firmware/src/ble_manager.c` реализован коллбэк `watch_SimpleProfileChangeCB(paramID)`:
+    - Поддерживает парсинг ASCII `"TIME:HH:MM:SS"`, `"T:HH:MM:SS"`, `"HH:MM:SS"` и бинарный формат `[H, M, S]`.
+    - Вызывает `app_os_set_time(h, m, s)` для обновления программных часов ОС.
+    - Включает тактильный импульс подтверждения `vibrator_pulse(60)`.
+  - Зарегистрирован коллбэк `SimpleProfile_RegisterAppCBs(&s_simpleProfileCBs)` в `WatchBLE_Init()`.
+  - Версия обновлена до `v1.5.19-BLE` в `config.h` и на экране часов.
+- **100% Успешная сборка и прошивка v1.5.19-BLE по In-App BLE OTA**:
+  - Payload: 120 952 байта (запас в staging-области: **+38 792 байта**).
+  - Аудит `scripts/tools/verify_audit.py` пройден `[PASS]`.
+  - Все 4 раздела переданы с подтверждением Write with Response:
+    - Part 0 (65 280 байт) — ACK 0x85
+    - Part 1 (29 360 байт) — ACK 0x85
+    - Part 2 (1 024 байта) — ACK 0x85
+    - Part 3 (25 288 байт) — ACK 0x83 (OTA COMPLETE)
+  - Часы штатно перезагрузились в `v1.5.19-BLE`.
+  - Выполнена боевая синхронизация времени через `scripts/tools/sync_time.ps1` — время установлено, прочитано и подтверждено по UART и BLE.
+- **Несгораемый релизный архив и Git**:
+  - Создана постоянная резервная копия `.backups/firmware_success_2026-10-25_21-29-57/`.
+  - Git-коммит `0bcda1e` и уникальный тег `firmware-v2026-10-25_21-29-57` отправлены в `origin/master`.
+
+
+
