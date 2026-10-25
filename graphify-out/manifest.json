@@ -6,10 +6,10 @@
     "semantic_hash": "a84a598d8e3ebb36938c78a481ad1c6d"
   },
   "firmware/src/app_os.c": {
-    "mtime": 1792917097.6704867,
-    "seen": 1792919858.3976343,
-    "ast_hash": "8369d3e1985578553a34e8c6b2cc4fa7",
-    "semantic_hash": "8369d3e1985578553a34e8c6b2cc4fa7"
+    "mtime": 1792923735.353763,
+    "seen": 1792924615.39655,
+    "ast_hash": "fcee33f80608a10a3f8dbd1f8dd5c8cb",
+    "semantic_hash": "fcee33f80608a10a3f8dbd1f8dd5c8cb"
   },
   "firmware/src/app_os.h": {
     "mtime": 1792364249.69934,
@@ -42,10 +42,10 @@
     "semantic_hash": "353876afb95a79d86ffadc7280714cc7"
   },
   "firmware/src/config.h": {
-    "mtime": 1792917148.862967,
-    "seen": 1792919858.398926,
-    "ast_hash": "34487d9b9420de6970cb7913a64be9ca",
-    "semantic_hash": "34487d9b9420de6970cb7913a64be9ca"
+    "mtime": 1792923579.8570547,
+    "seen": 1792924615.3981626,
+    "ast_hash": "2d44f5148b8495095f4fc64bd1dfa634",
+    "semantic_hash": "2d44f5148b8495095f4fc64bd1dfa634"
   },
   "firmware/src/display.c": {
     "mtime": 1792128892.9407415,
@@ -7456,5 +7456,11 @@
     "seen": 1792919858.4084585,
     "ast_hash": "6b0956cfb2d478e236625bb6acdf3621",
     "semantic_hash": "6b0956cfb2d478e236625bb6acdf3621"
+  },
+  "scripts/tools/patch_app_os_diff.py": {
+    "mtime": 1792923728.0751834,
+    "seen": 1792924615.410369,
+    "ast_hash": "8705ff1e769c80a76d4852433ac59d2c",
+    "semantic_hash": "8705ff1e769c80a76d4852433ac59d2c"
   }
 }
