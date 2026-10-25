@@ -31,36 +31,23 @@ def extract_range(start_cp, end_cp, sec_table_off):
 ascii_offs, ascii_blob = extract_range(0x0020, 0x007E, 0x20)
 cyr_offs, cyr_blob     = extract_range(0x0400, 0x045F, 0xFBC)
 
-# 2. Extract RLE (bpp=18) and 1bpp (bpp=1) icons & giant digits from 0x1105886C asset pack
+# 2. Extract RLE (bpp=18) and 1bpp (bpp=1) icons from 0x1105886C asset pack
 DESC_BASE = 0x5886C
 RLE_BASE  = 0x58DE0
 PAL_BASE  = 0x58F24
 PIX_BASE  = 0x5A1F0
 
-# Compact asset specification for 100% reliable BLE OTA transfer (< 125 KB payload)
+# Lean 2.5 KB asset pack matching v1.5.14-DEMO size for 100% reliable 1-shot BLE OTA transfer
 rle_spec = [
-    (26, [0]),             # Heart Rate 50x42
-    (27, [0]),             # More '...' 50x50
-    (28, [0]),             # Sleep Moon 50x50
-    (29, [0]),             # Message Bubble 48x46
-    (30, [0]),             # Info Box 47x47
-    (31, [0]),             # Running Person 36x52
-    (37, [0]),             # Sneaker / Steps 50x36
-    (39, [0]),             # Find Phone Tower 38x50
-    (50, [0]),             # Steps Goal Ring Top 68x40
-    (51, [0]),             # Steps Goal Ring Bottom 68x40
-    (65, [1, 2]),          # Giant 34x32 Neon digits '1' and '2' (frames 1 & 2 in ROM)
-    (67, list(range(10))), # Giant 32x30 Smooth digits 0..9 (all 10)
-    (80, [0, 2, 3, 6]),    # 4 Social Icons: SMS (0), WeChat (2), Facebook (3), WhatsApp (6)
-    (84, [0, 2, 4]),       # 3 frames of Beating Heart + ECG
+    (37, [0]),       # Sneaker 50x36 (514 B)
 ]
 
-mono_items = [10, 11, 12, 22, 64, 79]
+mono_items = [10, 11] # Alarm (205 B), Trophy (246 B)
 
 pal_blob = bytearray()
 rle_data_blob = bytearray()
-rle_frame_offs = [] # uint32_t offsets into rle_data_blob
-rle_descs = []      # (id, w, h, cnt, pal_off_words, frame_off_idx)
+rle_frame_offs = []
+rle_descs = []
 
 for item_id, frames in rle_spec:
     off = DESC_BASE + item_id * 16
@@ -85,7 +72,7 @@ for item_id, frames in rle_spec:
     rle_descs.append((item_id, w, h, len(frames), my_pal_off, my_frame_idx))
 
 mono_data_blob = bytearray()
-mono_descs = [] # (id, w, h, data_off)
+mono_descs = []
 for item_id in mono_items:
     off = DESC_BASE + item_id * 16
     bpp = data[off]
@@ -137,28 +124,11 @@ h_content = """#ifndef FACTORY_ASSETS_H
 #define FACTORY_BMP_WALLPAPER     0x1107260CU // 80x160 8-bit indexed BMP wallpaper (13876 bytes)
 
 // RLE Color Icon IDs from factory asset pack (0x1105886C)
-#define FAC_RLE_HEART          26 // 50x42
-#define FAC_RLE_MORE_DOTS      27 // 50x50
-#define FAC_RLE_SLEEP_MOON     28 // 50x50
-#define FAC_RLE_MSG_BUBBLE     29 // 48x46
-#define FAC_RLE_INFO_BOX       30 // 47x47
-#define FAC_RLE_SPORT_RUN      31 // 36x52
 #define FAC_RLE_STEPS_SHOE     37 // 50x36
-#define FAC_RLE_FIND_TOWER     39 // 38x50
-#define FAC_RLE_RING_TOP       50 // 68x40
-#define FAC_RLE_RING_BOT       51 // 68x40
-#define FAC_RLE_DIGITS_34X32   65 // 34x32 (frames 0..1: digits '1' and '2')
-#define FAC_RLE_DIGITS_32X30   67 // 32x30 (frames 0..9)
-#define FAC_RLE_SOCIAL_23X23   80 // 23x23 (frames 0..3: SMS, WeChat, Facebook, WhatsApp)
-#define FAC_RLE_HEART_ANIM     84 // 50x42 (frames 0..2: animated beating heart + ECG)
 
 // 1bpp Monochrome Icon IDs from factory asset pack (0x1105886C)
 #define FAC_MONO_ALARM         10 // 37x41
 #define FAC_MONO_TROPHY        11 // 41x41
-#define FAC_MONO_PHONE_CALL    12 // 41x41
-#define FAC_MONO_STOPWATCH     22 // 64x56
-#define FAC_MONO_FIND_PHONE    64 // 64x56
-#define FAC_MONO_CAMERA        79 // 64x56
 
 // Render full-screen 80x160 8bpp BMP wallpaper from 0x1107260C
 void factory_draw_bmp_wallpaper(void);
@@ -219,6 +189,7 @@ typedef struct {{
     uint8_t id;
     uint8_t w;
     uint8_t h;
+    uint8_t cnt;
     uint16_t data_off;
 }} fac_mono_desc_t;
 
@@ -239,7 +210,7 @@ static const uint8_t s_rle_data[{len(rle_data_blob)}] = {{
 }};
 
 static const fac_mono_desc_t s_mono_descs[{len(mono_descs)}] = {{
-""" + "\n".join(f"    {{{d[0]}, {d[1]}, {d[2]}, {d[3]:4d}}}," for d in mono_descs) + f"""
+""" + "\n".join(f"    {{{d[0]}, {d[1]}, {d[2]}, 1, {d[3]:4d}}}," for d in mono_descs) + f"""
 }};
 
 static const uint8_t s_mono_data[{len(mono_data_blob)}] = {{

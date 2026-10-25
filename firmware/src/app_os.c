@@ -17,7 +17,7 @@
 #include <string.h>
 
 #define COLOR_NAVY 0x000F
-#define WF_PAGE_COUNT 8
+#define WF_PAGE_COUNT 6
 
 static os_mode_t s_current_mode = MODE_WATCHFACE;
 static uint8_t s_wf_page = 0;
@@ -136,73 +136,32 @@ static void render_watchface_page1(void) {
     factory_draw_small_num(20, 144, buf, COLOR_CYAN, COLOR_BLACK, true);
 }
 
-// Page 2: Factory Watchface #2 (Giant 34x32 3D Neon Digits [65] + Smooth 32x30 Digits [67] + Sneaker [37])
+// Page 2: Sport Watchface (Giant 16x29 Time + Color Sneaker [37] + Live Steps)
 static void render_watchface_page2(void) {
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
         display_fill_screen(COLOR_BLACK);
-        // Hours '12' using Giant 34x32 3D Neon digits [65] (frames 0='1', 1='2')
-        factory_draw_rle_icon(FAC_RLE_DIGITS_34X32, 0, 4, 6);
-        factory_draw_rle_icon(FAC_RLE_DIGITS_34X32, 1, 42, 6);
-        // Draw color Sneaker icon (50x36) at bottom-left
-        factory_draw_rle_icon(FAC_RLE_STEPS_SHOE, 0, 15, 98);
+        gfx_fill_rect(0, 0, 80, 18, COLOR_NAVY);
+        factory_draw_utf8(12, 1, "АКТИВНОСТЬ", COLOR_YELLOW, COLOR_NAVY);
+        // Draw color Sneaker icon (50x36) at center
+        factory_draw_rle_icon(FAC_RLE_STEPS_SHOE, 0, 15, 68);
     }
 
-    // Seconds/Minutes using Giant 32x30 Smooth digits [67] (all 0..9)
-    factory_draw_rle_icon(FAC_RLE_DIGITS_32X30, (s_seconds / 10) % 10, 6, 48);
-    factory_draw_rle_icon(FAC_RLE_DIGITS_32X30, s_seconds % 10, 42, 48);
+    // Time HH:MM using Giant 16x29 factory digits
+    factory_draw_big_time(s_hours, s_minutes, 26, COLOR_CYAN, false);
 
     char buf[24];
-    snprintf(buf, sizeof(buf), "Шаги: %-5lu", (unsigned long)accel_get_steps());
-    factory_draw_utf8(4, 140, buf, COLOR_GREEN, COLOR_BLACK);
+    snprintf(buf, sizeof(buf), "%05lu шаг", (unsigned long)accel_get_steps());
+    factory_draw_utf8(4, 114, buf, COLOR_GREEN, COLOR_BLACK);
+
+    snprintf(buf, sizeof(buf), "%02d:%02d:%02d", s_hours, s_minutes, s_seconds);
+    factory_draw_utf8(10, 140, buf, COLOR_LIGHTGREY, COLOR_BLACK);
 }
 
-// Page 3: Animated Heart Rate [84] (3-frame live beating heart + ECG) + Running [31] + Find Phone [39]
+// Page 3: Factory Menu Icons Showcase (Color RLE + Monochrome 1bpp Icons cycling every 2 seconds)
 static void render_watchface_page3(void) {
-    if (s_diag_first_draw) {
-        s_diag_first_draw = false;
-        display_fill_screen(COLOR_BLACK);
-        gfx_fill_rect(0, 0, 80, 18, COLOR_NAVY);
-        factory_draw_utf8(4, 1, "АНИМАЦИЯ", COLOR_YELLOW, COLOR_NAVY);
-
-        // Static color icons on bottom half: Running (36x52) + Find Tower (38x50)
-        factory_draw_rle_icon(FAC_RLE_SPORT_RUN, 0, 2, 86);
-        factory_draw_rle_icon(FAC_RLE_FIND_TOWER, 0, 40, 88);
-        factory_draw_utf8(4, 142, "Спорт / Поиск", COLOR_CYAN, COLOR_BLACK);
-    }
-
-    // Live 3-frame animated beating Heart + ECG (50x42) at top center
-    factory_draw_rle_icon(FAC_RLE_HEART_ANIM, s_anim_frame % 3, 15, 22);
-    char buf[20];
-    snprintf(buf, sizeof(buf), "Пульс к%d/3", (s_anim_frame % 3) + 1);
-    factory_draw_utf8(4, 66, buf, COLOR_RED, COLOR_BLACK);
-}
-
-// Page 4: Steps Goal Ring (68x80 [50]+[51]) + 4 Social App Color Icons (23x23 [80])
-static void render_watchface_page4(void) {
-    if (s_diag_first_draw) {
-        s_diag_first_draw = false;
-        display_fill_screen(COLOR_BLACK);
-        // Full 68x80 color Steps Goal Ring (top 68x40 + bottom 68x40)
-        factory_draw_rle_icon(FAC_RLE_RING_TOP, 0, 6, 2);
-        factory_draw_rle_icon(FAC_RLE_RING_BOT, 0, 6, 42);
-
-        // 4 of the 23x23 color Social App icons in 2 rows of 2 (SMS, WeChat, FB, WhatsApp)
-        factory_draw_rle_icon(FAC_RLE_SOCIAL_23X23, 0, 10, 86);  // SMS
-        factory_draw_rle_icon(FAC_RLE_SOCIAL_23X23, 1, 46, 86);  // WeChat
-        factory_draw_rle_icon(FAC_RLE_SOCIAL_23X23, 2, 10, 113); // Facebook
-        factory_draw_rle_icon(FAC_RLE_SOCIAL_23X23, 3, 46, 113); // WhatsApp
-    }
-
-    char buf[16];
-    snprintf(buf, sizeof(buf), "%05lu", (unsigned long)accel_get_steps());
-    factory_draw_small_num(20, 144, buf, COLOR_YELLOW, COLOR_BLACK, false);
-}
-
-// Page 5: Factory Menu Icons Showcase (Color + Monochrome 1bpp Icons cycling every 2 seconds)
-static void render_watchface_page5(void) {
     static uint8_t s_last_pair = 0xFF;
-    uint8_t pair_idx = (uint8_t)((s_uptime_seconds / 2U) % 4U);
+    uint8_t pair_idx = (uint8_t)((s_uptime_seconds / 2U) % 2U);
 
     if (s_diag_first_draw || pair_idx != s_last_pair) {
         s_diag_first_draw = false;
@@ -211,32 +170,27 @@ static void render_watchface_page5(void) {
         gfx_fill_rect(0, 0, 80, 18, COLOR_NAVY);
         factory_draw_utf8(4, 1, "ЗНАЧКИ ПЗУ", COLOR_CYAN, COLOR_NAVY);
 
-        static const uint8_t s_color_ids[4] = {
-            FAC_RLE_SLEEP_MOON, FAC_RLE_MORE_DOTS, FAC_RLE_MSG_BUBBLE, FAC_RLE_INFO_BOX
+        static const uint8_t s_mono_ids[2] = {
+            FAC_MONO_TROPHY, FAC_MONO_ALARM
         };
-        static const uint8_t s_mono_ids[4] = {
-            FAC_MONO_TROPHY, FAC_MONO_ALARM, FAC_MONO_FIND_PHONE, FAC_MONO_STOPWATCH
-        };
-        static const uint16_t s_mono_cols[4] = {
-            COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE, COLOR_GREEN
+        static const uint16_t s_mono_cols[2] = {
+            COLOR_YELLOW, COLOR_CYAN
         };
 
-        // Top: Color RLE icon (~50x50)
-        factory_draw_rle_icon(s_color_ids[pair_idx], 0, 15, 22);
+        // Top: Color RLE icon (Sneaker 50x36)
+        factory_draw_rle_icon(FAC_RLE_STEPS_SHOE, 0, 15, 24);
 
-        // Bottom: 1bpp Monochrome icon (up to 64x56)
-        uint8_t mid = s_mono_ids[pair_idx];
-        uint8_t mx = (mid >= 19) ? 8 : 20;
-        factory_draw_mono_icon(mid, mx, 80, s_mono_cols[pair_idx], COLOR_BLACK);
+        // Bottom: 1bpp Monochrome icon (Trophy / Alarm 41x41)
+        factory_draw_mono_icon(s_mono_ids[pair_idx], 20, 80, s_mono_cols[pair_idx], COLOR_BLACK);
 
         char buf[20];
-        snprintf(buf, sizeof(buf), "Пара %d из 4", pair_idx + 1);
+        snprintf(buf, sizeof(buf), "Пара %d из 2", pair_idx + 1);
         factory_draw_utf8(6, 142, buf, COLOR_LIGHTGREY, COLOR_BLACK);
     }
 }
 
-// Page 6: Factory 16px Russian Cyrillic Font Demo (PHY_FONTV1.01.03)
-static void render_watchface_page6(void) {
+// Page 4: Factory 16px Russian Cyrillic Font Demo (PHY_FONTV1.01.03)
+static void render_watchface_page4(void) {
     uint8_t bat_pct = battery_get_percent();
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
@@ -264,8 +218,8 @@ static void render_watchface_page6(void) {
     factory_draw_utf8(2, 85, buf, (bat_pct < 20) ? COLOR_RED : COLOR_YELLOW, COLOR_BLACK);
 }
 
-// Page 7: Factory ROM Sprites Gallery (0x11072000)
-static void render_watchface_page7(void) {
+// Page 5: Factory ROM Sprites Gallery (0x11072000)
+static void render_watchface_page5(void) {
     if (s_diag_first_draw) {
         s_diag_first_draw = false;
         display_fill_screen(COLOR_BLACK);
@@ -296,7 +250,7 @@ static void render_watchface_page7(void) {
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + (uint32_t)d0 * 68U, 48, 100, COLOR_CYAN, COLOR_BLACK, false);
     factory_draw_sprite_1bpp(FACTORY_SPRITE_BGDIG_BASE + (uint32_t)d1 * 68U, 64, 100, COLOR_CYAN, COLOR_BLACK, false);
 
-    factory_draw_utf8(4, 140, "Стр 8 из 8", COLOR_LIGHTGREY, COLOR_BLACK);
+    factory_draw_utf8(4, 140, "Стр 6 из 6", COLOR_LIGHTGREY, COLOR_BLACK);
 }
 
 static void render_watchface(void) {
@@ -319,12 +273,6 @@ static void render_watchface(void) {
             break;
         case 5:
             render_watchface_page5();
-            break;
-        case 6:
-            render_watchface_page6();
-            break;
-        case 7:
-            render_watchface_page7();
             break;
     }
 }

@@ -14,28 +14,11 @@
 #define FACTORY_BMP_WALLPAPER     0x1107260CU // 80x160 8-bit indexed BMP wallpaper (13876 bytes)
 
 // RLE Color Icon IDs from factory asset pack (0x1105886C)
-#define FAC_RLE_HEART          26 // 50x42
-#define FAC_RLE_MORE_DOTS      27 // 50x50
-#define FAC_RLE_SLEEP_MOON     28 // 50x50
-#define FAC_RLE_MSG_BUBBLE     29 // 48x46
-#define FAC_RLE_INFO_BOX       30 // 47x47
-#define FAC_RLE_SPORT_RUN      31 // 36x52
 #define FAC_RLE_STEPS_SHOE     37 // 50x36
-#define FAC_RLE_FIND_TOWER     39 // 38x50
-#define FAC_RLE_RING_TOP       50 // 68x40
-#define FAC_RLE_RING_BOT       51 // 68x40
-#define FAC_RLE_DIGITS_34X32   65 // 34x32 (frames 0..1: digits '1' and '2')
-#define FAC_RLE_DIGITS_32X30   67 // 32x30 (frames 0..9)
-#define FAC_RLE_SOCIAL_23X23   80 // 23x23 (frames 0..3: SMS, WeChat, Facebook, WhatsApp)
-#define FAC_RLE_HEART_ANIM     84 // 50x42 (frames 0..2: animated beating heart + ECG)
 
 // 1bpp Monochrome Icon IDs from factory asset pack (0x1105886C)
 #define FAC_MONO_ALARM         10 // 37x41
 #define FAC_MONO_TROPHY        11 // 41x41
-#define FAC_MONO_PHONE_CALL    12 // 41x41
-#define FAC_MONO_STOPWATCH     22 // 64x56
-#define FAC_MONO_FIND_PHONE    64 // 64x56
-#define FAC_MONO_CAMERA        79 // 64x56
 
 // Render full-screen 80x160 8bpp BMP wallpaper from 0x1107260C
 void factory_draw_bmp_wallpaper(void);

@@ -61,6 +61,17 @@ def parse_ota_bin(filepath):
     return partitions
 
 async def find_and_connect(target_addr='62:62:15:07:07:15', timeout=120.0):
+    # 1. Fast direct connect without scanner overhead
+    print(f"[*] Attempting direct connection to {target_addr}...", flush=True)
+    try:
+        client = BleakClient(target_addr, timeout=12.0)
+        await client.connect()
+        if client.is_connected:
+            print(f"[+] Direct connection established to {target_addr}!", flush=True)
+            return client
+    except Exception as e:
+        print(f"  [i] Direct connect bypassed ({e}), falling back to BLE scanner...", flush=True)
+
     found_event = asyncio.Event()
     target_device = [None]
 
@@ -137,7 +148,9 @@ async def main():
             status = raw[0] if len(raw) > 0 else -1
             cmd = raw[1] if len(raw) > 1 else -1
             print(f"  << [BLE NOTIF] status=0x{status:02X}, cmd=0x{cmd:02X}", flush=True)
-            rsp_queue.append(raw)
+            # Filter out intermediate burst ticks (0x87) so they don't pollute command queue
+            if cmd != 0x87:
+                rsp_queue.append(raw)
 
         await client.start_notify(OTA_RSP_UUID, on_notification)
         await asyncio.sleep(0.5)
@@ -234,12 +247,12 @@ async def main():
             await asyncio.sleep(0.2)
 
             # End of partition check:
-            # - Last partition (Part 3): 0x83
-            # - Non-final partitions: 0x85 (or 0x87 if boundary burst occurred)
+            # - Last partition (Part 3): 0x83 (OTA_RSP_OTA_COMPLETE)
+            # - Non-final partitions: 0x85 (OTA_RSP_PARTITION_COMPLETE)
             if idx + 1 == len(partitions):
                 exp_cmds = [0x83]
             else:
-                exp_cmds = [0x85, 0x87]
+                exp_cmds = [0x85]
 
             print(f"[*] Waiting for partition {idx} completion ACK ({[f'0x{c:02X}' for c in exp_cmds]})...", flush=True)
             rsp = await wait_for_cmd(exp_cmds, timeout=15.0)
@@ -249,7 +262,7 @@ async def main():
 
             print(f"[+] Part {idx} verified & written successfully! (ACK: 0x{rsp[1]:02X})", flush=True)
             rsp_queue.clear()
-            await asyncio.sleep(0.15)
+            await asyncio.sleep(0.2)
 
         # 3. Finalize: send REBOOT command and IMMEDIATELY disconnect to terminate BLE connection events
         print("\n[+] All partitions transmitted! Sending REBOOT and disconnecting immediately...", flush=True)
