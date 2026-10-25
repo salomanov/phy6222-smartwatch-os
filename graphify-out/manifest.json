@@ -7516,5 +7516,11 @@
     "seen": 1792955538.4603796,
     "ast_hash": "49bcbed3062aa6f73c646005b073ec38",
     "semantic_hash": "49bcbed3062aa6f73c646005b073ec38"
+  },
+  "watch_pager.py": {
+    "mtime": 1792955759.9390574,
+    "seen": 1792955856.857461,
+    "ast_hash": "367899f3f9fd047800a01e7eb46446f5",
+    "semantic_hash": "367899f3f9fd047800a01e7eb46446f5"
   }
 }
